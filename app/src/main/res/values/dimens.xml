@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fab_margin">4dp</dimen>
+    <dimen name="_0dp">0dp</dimen>
+    <dimen name="margin_15_dp">15dp</dimen>
+    <dimen name="_10dp">10dp</dimen>
+    <dimen name="recycler_item_line_margin_end">20dp</dimen>
+    <dimen name="_20sp">20sp</dimen>
+    <dimen name="_30sp">30sp</dimen>
+</resources>

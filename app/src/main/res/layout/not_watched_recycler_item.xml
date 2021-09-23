@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/not_watched_fragment_recycler_item_image_view"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/anig"
+        android:layout_margin="4dp"
+        android:visibility="visible"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/wanted_btn"
+        app:layout_constraintEnd_toStartOf="@+id/notWatchedFragmentRecyclerItemTextView" />
+
+    <TextView
+        android:id="@+id/notWatchedFragmentRecyclerItemTextView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Anime"
+        android:visibility="visible"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/wanted_btn"
+        app:layout_constraintStart_toEndOf="@+id/not_watched_fragment_recycler_item_image_view" />
+    <Button
+        android:id="@+id/unwanted_btn"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:text="Unwanted"
+        android:visibility="visible"
+        android:backgroundTint="#dd5555"
+        app:layout_constraintEnd_toStartOf="@id/wanted_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notWatchedFragmentRecyclerItemTextView"/>
+    <Button
+        android:id="@+id/wanted_btn"
+        android:layout_width="@dimen/_0dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:text="Wanted"
+        android:visibility="visible"
+        android:backgroundTint="#55dd55"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/unwanted_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notWatchedFragmentRecyclerItemTextView"/>
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginEnd="@dimen/recycler_item_line_margin_end"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wanted_btn"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
