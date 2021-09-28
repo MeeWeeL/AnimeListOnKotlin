@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.meeweel.anilist.model.AppState
+import com.meeweel.anilist.model.data.Anime
 import com.meeweel.anilist.model.repository.Repository
 import com.meeweel.anilist.model.repository.RepositoryImpl
 import java.lang.Thread.sleep
@@ -16,7 +17,6 @@ class MainViewModel(private val repository: Repository = RepositoryImpl()) :
     fun getData(): LiveData<AppState> {
         return liveDataToObserve
     }
-
     fun getAnimeFromLocalSource() = getDataFromLocalSource()
     fun getWatchedAnimeFromLocalSource() = getWatchedDataFromLocalSource()
     fun getNotWatchedAnimeFromLocalSource() = getNotWatchedDataFromLocalSource()

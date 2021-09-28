@@ -43,9 +43,7 @@ class WantedFragmentAdapter :
                 }
                 watchedBtn.setOnClickListener {
                     wantedToWatched(anime)
-                    wantedFragmentRecyclerItemTextView.visibility = View.GONE
-                    wantedFragmentRecyclerItemImageView.visibility = View.GONE
-                    watchedBtn.visibility = View.GONE
+                    notifyDataSetChanged()
                 }
             }
         }

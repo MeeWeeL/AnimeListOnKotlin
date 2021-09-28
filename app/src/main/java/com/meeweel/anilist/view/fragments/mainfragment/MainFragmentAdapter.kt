@@ -44,13 +44,11 @@ class MainFragmentAdapter :
                 }
                 watchedBtn.setOnClickListener {
                     mainToWatched(anime)
-                    notWatchedBtn.visibility = View.GONE
-                    watchedBtn.visibility = View.GONE
+                    notifyDataSetChanged()
                 }
                 notWatchedBtn.setOnClickListener {
                     mainToNotWatched(anime)
-                    notWatchedBtn.visibility = View.GONE
-                    watchedBtn.visibility = View.GONE
+                    notifyDataSetChanged()
                 }
             }
         }

@@ -47,13 +47,11 @@ class NotWatchedFragmentAdapter :
                 }
                 wantedBtn.setOnClickListener {
                     notWatchedToWanted(anime)
-                    wantedBtn.visibility = View.GONE
-                    unwantedBtn.visibility = View.GONE
+                    notifyDataSetChanged()
                 }
                 unwantedBtn.setOnClickListener {
                     notWatchedToUnwanted(anime)
-                    wantedBtn.visibility = View.GONE
-                    unwantedBtn.visibility = View.GONE
+                    notifyDataSetChanged()
                 }
             }
         }
