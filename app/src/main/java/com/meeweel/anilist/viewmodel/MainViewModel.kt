@@ -5,15 +5,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.meeweel.anilist.model.AppState
 import com.meeweel.anilist.model.data.Anime
+import com.meeweel.anilist.model.repository.LocalRepository
+import com.meeweel.anilist.model.repository.LocalRepositoryImpl
 import com.meeweel.anilist.model.repository.Repository
 import com.meeweel.anilist.model.repository.RepositoryImpl
+import com.meeweel.anilist.model.room.App.Companion.getNotWatchedDao
+import com.meeweel.anilist.model.room.App.Companion.getUnwantedDao
+import com.meeweel.anilist.model.room.App.Companion.getWantedDao
+import com.meeweel.anilist.model.room.App.Companion.getWatchedDao
 import java.lang.Thread.sleep
 
 class MainViewModel(private val repository: Repository = RepositoryImpl()) :
     ViewModel() {
-
+    private var repo: List<Anime> = repository.getAnimeFromLocalStorage()
     private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
-
+    var lr: LocalRepository = LocalRepositoryImpl(getWatchedDao(), getNotWatchedDao(), getWantedDao(), getUnwantedDao(), )
     fun getData(): LiveData<AppState> {
         return liveDataToObserve
     }
@@ -77,5 +83,9 @@ class MainViewModel(private val repository: Repository = RepositoryImpl()) :
                 )
             )
         }.start()
+    }
+
+    fun saving() {
+
     }
 }

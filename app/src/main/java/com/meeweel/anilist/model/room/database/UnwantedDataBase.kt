@@ -1,0 +1,12 @@
+package com.meeweel.anilist.model.room.database
+
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import com.meeweel.anilist.model.room.dao.UnwantedDao
+import com.meeweel.anilist.model.room.entityes.UnwantedEntity
+
+@Database(entities = arrayOf(UnwantedEntity::class), version = 1, exportSchema = false)
+abstract class UnwantedDataBase : RoomDatabase() {
+
+    abstract fun unwantedDao(): UnwantedDao
+}

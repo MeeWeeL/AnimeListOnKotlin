@@ -12,6 +12,7 @@ import com.meeweel.anilist.view.fragments.notwatched.NotWatchedFragment
 import com.meeweel.anilist.view.fragments.unwantedfragment.UnwantedFragment
 import com.meeweel.anilist.view.fragments.wantedfragment.WantedFragment
 import com.meeweel.anilist.view.fragments.watchedfragment.WatchedFragment
+import org.w3c.dom.NodeList
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         savedInstanceState?.let {} ?: refresh()
+        binding.navBar.background = null
         binding.navBar.menu.findItem(R.id.main_fragment_nav).setChecked(true)
         binding.navBar.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -38,5 +40,4 @@ class MainActivity : AppCompatActivity() {
             .replace(binding.container.id, fragment)
             .commitNow()
     }
-
 }

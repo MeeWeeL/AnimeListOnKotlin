@@ -32,6 +32,26 @@ private var repositoryOfWantedAnime: MutableList<Anime> = mutableListOf(
 private var repositoryOfUnwantedAnime: MutableList<Anime> = mutableListOf(
 )
 
+fun syncRepo(list1: List<Anime>, list2: List<Anime>, list3: List<Anime>, list4: List<Anime>) {
+    for (item in list1) {
+        repositoryOfNotWatchedAnime.add(item)
+        repositoryOfAnime.remove(item)
+    }
+    for (item in list2) {
+        repositoryOfNotWatchedAnime.add(item)
+        repositoryOfAnime.remove(item)
+    }
+    for (item in list3) {
+        repositoryOfWantedAnime.add(item)
+        repositoryOfAnime.remove(item)
+    }
+    for (item in list4) {
+        repositoryOfUnwantedAnime.add(item)
+        repositoryOfAnime.remove(item)
+    }
+}
+
+
 fun addAnime(title: String = "Anime", description: String = "Description", image: Int = R.drawable.anig,
              author: String = "Shikamaru Usman", genre: String = "Isekai", data: String = "21.01.23") {
     val newAnime = Anime(title, description, image, author, genre, data)

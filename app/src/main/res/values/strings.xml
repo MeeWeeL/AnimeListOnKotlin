@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">AniList</string>
     <string name="todo">todo</string>
+    <string name="anime">Anime</string>
+    <string name="not_watched">Not watched</string>
+    <string name="watched">Watched</string>
+    <string name="wanted">Wanted</string>
+    <string name="main">Main</string>
+    <string name="unwanted">Unwanted</string>
     <dimen name="recycler_item_text_size">25sp</dimen>
     <dimen name="recycler_item_line_height">1dp</dimen>
 </resources>
