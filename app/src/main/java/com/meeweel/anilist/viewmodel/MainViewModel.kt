@@ -1,91 +1,46 @@
 package com.meeweel.anilist.viewmodel
 
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.meeweel.anilist.model.AppState
-import com.meeweel.anilist.model.data.Anime
 import com.meeweel.anilist.model.repository.LocalRepository
 import com.meeweel.anilist.model.repository.LocalRepositoryImpl
-import com.meeweel.anilist.model.repository.Repository
-import com.meeweel.anilist.model.repository.RepositoryImpl
-import com.meeweel.anilist.model.room.App.Companion.getNotWatchedDao
-import com.meeweel.anilist.model.room.App.Companion.getUnwantedDao
-import com.meeweel.anilist.model.room.App.Companion.getWantedDao
-import com.meeweel.anilist.model.room.App.Companion.getWatchedDao
+import com.meeweel.anilist.model.room.App.Companion.getEntityDao
 import java.lang.Thread.sleep
 
-class MainViewModel(private val repository: Repository = RepositoryImpl()) :
+class MainViewModel(private val repository: LocalRepository = LocalRepositoryImpl(getEntityDao())) :
     ViewModel() {
-    private var repo: List<Anime> = repository.getAnimeFromLocalStorage()
+
     private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
-    var lr: LocalRepository = LocalRepositoryImpl(getWatchedDao(), getNotWatchedDao(), getWantedDao(), getUnwantedDao(), )
     fun getData(): LiveData<AppState> {
         return liveDataToObserve
     }
-    fun getAnimeFromLocalSource() = getDataFromLocalSource()
-    fun getWatchedAnimeFromLocalSource() = getWatchedDataFromLocalSource()
-    fun getNotWatchedAnimeFromLocalSource() = getNotWatchedDataFromLocalSource()
-    fun getWantedAnimeFromLocalSource() = getWantedDataFromLocalSource()
-    fun getUnwantedAnimeFromLocalSource() = getUnwantedDataFromLocalSource()
+    fun getAnimeFromLocalSource() = getDataFromLocalSource(1)
+    fun getWatchedAnimeFromLocalSource() = getDataFromLocalSource(2)
+    fun getNotWatchedAnimeFromLocalSource() = getDataFromLocalSource(3)
+    fun getWantedAnimeFromLocalSource() = getDataFromLocalSource(4)
+    fun getUnwantedAnimeFromLocalSource() = getDataFromLocalSource(5)
 
-    private fun getDataFromLocalSource() {
+    private fun getDataFromLocalSource(i: Int) {
         liveDataToObserve.value = AppState.Loading
         Thread {
-            sleep(500)
+            sleep(100)
             liveDataToObserve.postValue(
                 AppState.Success(
-                    repository.getAnimeFromLocalStorage()
+                    repository.let {
+                        when (i) {
+                            1 -> it.getLocalMainAnimeList()
+                            2 -> it.getLocalWatchedAnimeList()
+                            3 -> it.getLocalNotWatchedAnimeList()
+                            4 -> it.getLocalWantedAnimeList()
+                            5 -> it.getLocalUnwantedAnimeList()
+                            else -> it.getLocalMainAnimeList()
+                        }
+                    }
                 )
             )
         }.start()
-    }
-    private fun getWatchedDataFromLocalSource() {
-        liveDataToObserve.value = AppState.Loading
-        Thread {
-            sleep(500)
-            liveDataToObserve.postValue(
-                AppState.Success(
-                    repository.getWatchedAnimeFromLocalStorage()
-                )
-            )
-        }.start()
-    }
-    private fun getNotWatchedDataFromLocalSource() {
-        liveDataToObserve.value = AppState.Loading
-        Thread {
-            sleep(500)
-            liveDataToObserve.postValue(
-                AppState.Success(
-                    repository.getNotWatchedAnimeFromLocalStorage()
-                )
-            )
-        }.start()
-    }
-    private fun getWantedDataFromLocalSource() {
-        liveDataToObserve.value = AppState.Loading
-        Thread {
-            sleep(500)
-            liveDataToObserve.postValue(
-                AppState.Success(
-                    repository.getWantedAnimeFromLocalStorage()
-                )
-            )
-        }.start()
-    }
-    private fun getUnwantedDataFromLocalSource() {
-        liveDataToObserve.value = AppState.Loading
-        Thread {
-            sleep(500)
-            liveDataToObserve.postValue(
-                AppState.Success(
-                    repository.getUnwantedAnimeFromLocalStorage()
-                )
-            )
-        }.start()
-    }
-
-    fun saving() {
-
     }
 }

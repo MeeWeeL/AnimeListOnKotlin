@@ -1,17 +1,22 @@
 package com.meeweel.anilist.view.fragments.wantedfragment
 
+import android.content.Context
+import android.content.ContextWrapper
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.meeweel.anilist.databinding.WantedRecyclerItemBinding
 import com.meeweel.anilist.model.data.Anime
-import com.meeweel.anilist.model.data.wantedToWatched
+import com.meeweel.anilist.viewmodel.Changing
+import com.meeweel.anilist.viewmodel.ImageMaker
+import java.io.File
+import java.io.FileInputStream
 
 class WantedFragmentAdapter :
     RecyclerView.Adapter<WantedFragmentAdapter.MainViewHolder>() {
-
-    private var animeData: List<Anime> = listOf()
+    val imageMaker: ImageMaker = ImageMaker()
+    private var animeData: MutableList<Anime> = mutableListOf()
     private var onItemViewClickListener: WantedFragment.OnItemViewClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -36,13 +41,21 @@ class WantedFragmentAdapter :
 
         fun bind(anime: Anime) {
             binding.apply {
-                wantedFragmentRecyclerItemTextView.text = anime.title
-                wantedFragmentRecyclerItemImageView.setImageResource(anime.image)
+                wantedFragmentRecyclerItemTextView.text = anime.enTitle
+                wantedFragmentRecyclerItemImageView.setImageBitmap(BitmapFactory.decodeStream(
+                    FileInputStream(
+                        File(
+                            ContextWrapper(
+                                Changing.getContext()
+                            ).getDir("imageDir", Context.MODE_PRIVATE).absolutePath, "${anime.image}.jpeg")
+                    )
+                ))
                 root.setOnClickListener {
                     onItemViewClickListener?.onItemViewClick(anime)
                 }
                 watchedBtn.setOnClickListener {
-                    wantedToWatched(anime)
+                    Changing.saveTo(anime,2)
+                    animeData.remove(anime)
                     notifyDataSetChanged()
                 }
             }
@@ -58,7 +71,7 @@ class WantedFragmentAdapter :
     }
 
     fun setAnime(data: List<Anime>) {
-        animeData = data
+        animeData = data.toMutableList()
         notifyDataSetChanged()
     }
 

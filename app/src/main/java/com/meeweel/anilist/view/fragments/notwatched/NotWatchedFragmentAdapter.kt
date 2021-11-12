@@ -1,21 +1,22 @@
 package com.meeweel.anilist.view.fragments.notwatched
 
+import android.content.Context
+import android.content.ContextWrapper
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.meeweel.anilist.databinding.MainRecyclerItemBinding
 import com.meeweel.anilist.databinding.NotWatchedRecyclerItemBinding
 import com.meeweel.anilist.model.data.Anime
-import com.meeweel.anilist.model.data.notWatchedToUnwanted
-import com.meeweel.anilist.model.data.notWatchedToWanted
-import com.meeweel.anilist.view.fragments.mainfragment.MainFragment
-import com.meeweel.anilist.view.fragments.mainfragment.MainFragmentAdapter
+import com.meeweel.anilist.viewmodel.Changing
+import com.meeweel.anilist.viewmodel.ImageMaker
+import java.io.File
+import java.io.FileInputStream
 
 class NotWatchedFragmentAdapter :
     RecyclerView.Adapter<NotWatchedFragmentAdapter.MainViewHolder>() {
-
-    private var animeData: List<Anime> = listOf()
+    val imageMaker: ImageMaker = ImageMaker()
+    private var animeData: MutableList<Anime> = mutableListOf()
     private var onItemViewClickListener: NotWatchedFragment.OnItemViewClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -40,17 +41,26 @@ class NotWatchedFragmentAdapter :
 
         fun bind(anime: Anime) {
             binding.apply {
-                notWatchedFragmentRecyclerItemTextView.text = anime.title
-                notWatchedFragmentRecyclerItemImageView.setImageResource(anime.image)
+                notWatchedFragmentRecyclerItemTextView.text = anime.enTitle
+                notWatchedFragmentRecyclerItemImageView.setImageBitmap(BitmapFactory.decodeStream(
+                    FileInputStream(
+                        File(
+                            ContextWrapper(
+                                Changing.getContext()
+                            ).getDir("imageDir", Context.MODE_PRIVATE).absolutePath, "${anime.image}.jpeg")
+                    )
+                ))
                 root.setOnClickListener {
                     onItemViewClickListener?.onItemViewClick(anime)
                 }
                 wantedBtn.setOnClickListener {
-                    notWatchedToWanted(anime)
+                    Changing.saveTo(anime,4)
+                    animeData.remove(anime)
                     notifyDataSetChanged()
                 }
                 unwantedBtn.setOnClickListener {
-                    notWatchedToUnwanted(anime)
+                    Changing.saveTo(anime,5)
+                    animeData.remove(anime)
                     notifyDataSetChanged()
                 }
             }
@@ -66,7 +76,7 @@ class NotWatchedFragmentAdapter :
     }
 
     fun setAnime(data: List<Anime>) {
-        animeData = data
+        animeData = data.toMutableList()
         notifyDataSetChanged()
     }
 

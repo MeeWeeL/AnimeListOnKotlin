@@ -1,44 +1,61 @@
 package com.meeweel.anilist.model.room
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Room
-import com.meeweel.anilist.model.data.syncRepo
-import com.meeweel.anilist.model.room.dao.NotWatchedDao
-import com.meeweel.anilist.model.room.dao.UnwantedDao
-import com.meeweel.anilist.model.room.dao.WantedDao
-import com.meeweel.anilist.model.room.dao.WatchedDao
-import com.meeweel.anilist.model.room.database.NotWatchedDataBase
-import com.meeweel.anilist.model.room.database.UnwantedDataBase
-import com.meeweel.anilist.model.room.database.WantedDataBase
-import com.meeweel.anilist.model.room.database.WatchedDataBase
+import com.meeweel.anilist.api.AnimeApi
+import com.meeweel.anilist.model.room.dao.EntityDao
+import com.meeweel.anilist.model.room.database.EntityDataBase
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 class App : Application() {
-
+    lateinit var myContext: Context
+    lateinit var animeApi: AnimeApi
     override fun onCreate() {
         super.onCreate()
         appInstance = this
+        configureRetrofit()
+        myContext = applicationContext
     }
 
+    private fun configureRetrofit() {
+        val httpLoggingInterceptor = HttpLoggingInterceptor()
+        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor(httpLoggingInterceptor)
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://anilist.pserver.ru")
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
+        animeApi = retrofit.create(AnimeApi::class.java)
+    }
+
+    open fun getContext() : Context {
+        return myContext
+    }
     companion object {
 
         private var appInstance: App? = null
-        private var dbWatched: WatchedDataBase? = null
+        private var dbEntity: EntityDataBase? = null
         private const val DB_WATCHED = "Repository.db"
-        private var dbNotWatched: NotWatchedDataBase? = null
-        private const val DB_TON_WATCHED = "NotWatched.db"
-        private var dbWanted: WantedDataBase? = null
-        private const val DB_WANTED = "Wanted.db"
-        private var dbUnwanted: UnwantedDataBase? = null
-        private const val DB_UNWANTED = "Unwanted.db"
 
-        fun getWatchedDao(): WatchedDao {
-            if (dbWatched == null) {
-                synchronized(WatchedDataBase::class.java) {
-                    if (dbWatched == null) {
+        fun getEntityDao(): EntityDao {
+            if (dbEntity == null) {
+                synchronized(EntityDataBase::class.java) {
+                    if (dbEntity == null) {
                         if (appInstance == null) throw IllegalStateException("Application is null while creating DataBase")
-                        dbWatched = Room.databaseBuilder(
+                        dbEntity = Room.databaseBuilder(
                             appInstance!!.applicationContext,
-                            WatchedDataBase::class.java,
+                            EntityDataBase::class.java,
                             DB_WATCHED)
                             .allowMainThreadQueries()
                             .build()
@@ -46,61 +63,7 @@ class App : Application() {
                 }
             }
 
-            return dbWatched!!.watchedDao()
-        }
-
-        fun getNotWatchedDao(): NotWatchedDao {
-            if (dbNotWatched == null) {
-                synchronized(NotWatchedDataBase::class.java) {
-                    if (dbNotWatched == null) {
-                        if (appInstance == null) throw IllegalStateException("Application is null while creating DataBase")
-                        dbNotWatched = Room.databaseBuilder(
-                            appInstance!!.applicationContext,
-                            NotWatchedDataBase::class.java,
-                            DB_TON_WATCHED)
-                            .allowMainThreadQueries()
-                            .build()
-                    }
-                }
-            }
-
-            return dbNotWatched!!.notWatchedDao()
-        }
-
-        fun getWantedDao(): WantedDao {
-            if (dbWanted == null) {
-                synchronized(WantedDataBase::class.java) {
-                    if (dbWanted == null) {
-                        if (appInstance == null) throw IllegalStateException("Application is null while creating DataBase")
-                        dbWanted = Room.databaseBuilder(
-                            appInstance!!.applicationContext,
-                            WantedDataBase::class.java,
-                            DB_WANTED)
-                            .allowMainThreadQueries()
-                            .build()
-                    }
-                }
-            }
-
-            return dbWanted!!.wantedDao()
-        }
-
-        fun getUnwantedDao(): UnwantedDao {
-            if (dbUnwanted == null) {
-                synchronized(UnwantedDataBase::class.java) {
-                    if (dbUnwanted == null) {
-                        if (appInstance == null) throw IllegalStateException("Application is null while creating DataBase")
-                        dbUnwanted = Room.databaseBuilder(
-                            appInstance!!.applicationContext,
-                            UnwantedDataBase::class.java,
-                            DB_UNWANTED)
-                            .allowMainThreadQueries()
-                            .build()
-                    }
-                }
-            }
-
-            return dbUnwanted!!.unwantedDao()
+            return dbEntity!!.entityDao()
         }
     }
 }

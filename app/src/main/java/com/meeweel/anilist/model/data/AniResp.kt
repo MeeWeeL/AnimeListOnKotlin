@@ -2,19 +2,20 @@ package com.meeweel.anilist.model.data
 
 import android.graphics.Bitmap
 import android.os.Parcelable
-import androidx.room.Embedded
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Anime (
+data class AniResp (
     val id: Int,
     val ruTitle: String,
     val enTitle: String,
     val originalTitle: String,
-    val description: String,
+    val ruDescription: String,
+    val enDescription: String,
     val image: String,
     val data: String,
-    val genre: String,
+    val ruGenre: String,
+    val enGenre: String,
     val author: String,
     val ageRating: Int,
     val rating: Int,

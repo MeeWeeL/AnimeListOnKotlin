@@ -1,15 +1,22 @@
 package com.meeweel.anilist.view.fragments.watchedfragment
 
+import android.content.Context
+import android.content.ContextWrapper
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.meeweel.anilist.databinding.WatchedRecyclerItemBinding
 import com.meeweel.anilist.model.data.Anime
+import com.meeweel.anilist.viewmodel.Changing
+import com.meeweel.anilist.viewmodel.ImageMaker
+import java.io.File
+import java.io.FileInputStream
 
 class  WatchedFragmentAdapter :
     RecyclerView.Adapter<WatchedFragmentAdapter.MainViewHolder>() {
-
-    private var animeData: List<Anime> = listOf()
+    val imageMaker: ImageMaker = ImageMaker()
+    private var animeData: MutableList<Anime> = mutableListOf()
     private var onItemViewClickListener: WatchedFragment.OnItemViewClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -34,8 +41,15 @@ class  WatchedFragmentAdapter :
 
         fun bind(anime: Anime) {
             binding.apply {
-                watchedFragmentRecyclerItemTextView.text = anime.title
-                watchedFragmentRecyclerItemImageView.setImageResource(anime.image)
+                watchedFragmentRecyclerItemTextView.text = anime.enTitle
+                watchedFragmentRecyclerItemImageView.setImageBitmap(BitmapFactory.decodeStream(
+                    FileInputStream(
+                        File(
+                    ContextWrapper(
+                        Changing.getContext()
+                    ).getDir("imageDir", Context.MODE_PRIVATE).absolutePath, "${anime.image}.jpeg")
+                    )
+                ))
                 root.setOnClickListener {
                     onItemViewClickListener?.onItemViewClick(anime)
                 }
@@ -52,7 +66,7 @@ class  WatchedFragmentAdapter :
     }
 
     fun setAnime(data: List<Anime>) {
-        animeData = data
+        animeData = data.toMutableList()
         notifyDataSetChanged()
     }
 

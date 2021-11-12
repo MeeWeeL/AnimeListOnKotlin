@@ -1,18 +1,22 @@
 package com.meeweel.anilist.view.fragments.unwantedfragment
 
+import android.content.Context
+import android.content.ContextWrapper
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.meeweel.anilist.databinding.MainRecyclerItemBinding
 import com.meeweel.anilist.databinding.UnwantedRecyclerItemBinding
 import com.meeweel.anilist.model.data.Anime
-import com.meeweel.anilist.view.fragments.mainfragment.MainFragment
+import com.meeweel.anilist.viewmodel.Changing
+import com.meeweel.anilist.viewmodel.ImageMaker
+import java.io.File
+import java.io.FileInputStream
 
 class UnwantedFragmentAdapter :
     RecyclerView.Adapter<UnwantedFragmentAdapter.MainViewHolder>() {
-
-    private var animeData: List<Anime> = listOf()
+    val imageMaker: ImageMaker = ImageMaker()
+    private var animeData: MutableList<Anime> = mutableListOf()
     private var onItemViewClickListener: UnwantedFragment.OnItemViewClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -37,8 +41,15 @@ class UnwantedFragmentAdapter :
 
         fun bind(anime: Anime) {
             binding.apply {
-                unwantedFragmentRecyclerItemTextView.text = anime.title
-                unwantedFragmentRecyclerItemImageView.setImageResource(anime.image)
+                unwantedFragmentRecyclerItemTextView.text = anime.enTitle
+                unwantedFragmentRecyclerItemImageView.setImageBitmap(BitmapFactory.decodeStream(
+                    FileInputStream(
+                        File(
+                            ContextWrapper(
+                                Changing.getContext()
+                            ).getDir("imageDir", Context.MODE_PRIVATE).absolutePath, "${anime.image}.jpeg")
+                    )
+                ))
                 root.setOnClickListener {
                     onItemViewClickListener?.onItemViewClick(anime)
                 }
@@ -55,7 +66,7 @@ class UnwantedFragmentAdapter :
     }
 
     fun setAnime(data: List<Anime>) {
-        animeData = data
+        animeData = data.toMutableList()
         notifyDataSetChanged()
     }
 
