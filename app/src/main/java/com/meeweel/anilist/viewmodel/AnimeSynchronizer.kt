@@ -1,5 +1,6 @@
 package com.meeweel.anilist.viewmodel
 
+import android.os.Handler
 import android.widget.Toast
 import com.meeweel.anilist.api.AnimeApi
 import com.meeweel.anilist.api.AnimeResponse
@@ -11,24 +12,24 @@ import com.meeweel.anilist.viewmodel.Changing.getContext
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.lang.Exception
 
 class AnimeSynchronizer(
     private val aniApi: AnimeApi,
     private val repository: LocalRepository = LocalRepositoryImpl(App.getEntityDao()),
     private val picMaker: ImageMaker = ImageMaker()
 ) {
+    val handler: Handler = Handler(getContext().mainLooper)
+    var actualQuantity = 0
+    var localQuantity = repository.getQuantity()
     private val compositeDisposable = CompositeDisposable()
     private val list: MutableList<AnimeResponse> = mutableListOf()
 
     fun synchronize() {
-        var actualQuantity = 0
-        val localQuantity = repository.getQuantity()
         compositeDisposable.add(aniApi.getQuantity()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                Toast.makeText(getContext(), "Hi", Toast.LENGTH_SHORT).show()
+                Toast.makeText(getContext(), "Начало синхронизации", Toast.LENGTH_SHORT).show()
                 actualQuantity = it.id
                 ifIf(actualQuantity, localQuantity)
             }, {
@@ -37,26 +38,55 @@ class AnimeSynchronizer(
     }
 
     private fun ifIf(actualQuantity: Int, localQuantity: Int) {
-        Toast.makeText(getContext(), "ifIf()", Toast.LENGTH_SHORT).show()
+        Toast.makeText(getContext(), "Проверка актуальности данных", Toast.LENGTH_SHORT).show()
         if (actualQuantity > localQuantity) {
+            Toast.makeText(getContext(), "Найдены новые аниме", Toast.LENGTH_SHORT).show()
+            controller()
             for (i in (localQuantity + 1)..actualQuantity) {
                 compositeDisposable.add(aniApi.getAnime(i)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         picMaker.savePictureToDirectory(it.image, getImageName(it.image))
-                        Toast.makeText(getContext(), "Hi", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(getContext(), "Новое аниме id=${it.id}", Toast.LENGTH_SHORT).show()
                         list.add(it)
-                        if (i == actualQuantity) insert()
                     }, {
-
+                        reLoad(i)
                     }))
             }
+        } else {
+            Toast.makeText(getContext(), "Данные актуальны", Toast.LENGTH_SHORT).show()
         }
     }
+    fun controller() {
+        Thread {
+            while (!(list.size == actualQuantity - localQuantity)) {
+                Thread.sleep(500)
+            }
+            runOnUiThread {
+                insert()
+            }
+        }.start()
+    }
 
+    private fun runOnUiThread(r: Runnable) {
+        handler.post(r)
+    }
+
+    fun reLoad(i: Int) {
+        compositeDisposable.add(aniApi.getAnime(i)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                picMaker.savePictureToDirectory(it.image, getImageName(it.image))
+                Toast.makeText(getContext(), "Новое аниме id=${it.id}", Toast.LENGTH_SHORT).show()
+                list.add(it)
+            }, {
+                reLoad(i)
+            }))
+    }
     fun insert() {
-        Toast.makeText(getContext(), "insert()", Toast.LENGTH_SHORT).show()
+        Toast.makeText(getContext(), "Сохранение новых аниме", Toast.LENGTH_SHORT).show()
         for (item in list) {
                 Thread.sleep(1000)
                 repository.insertLocalEntity(
@@ -67,8 +97,7 @@ class AnimeSynchronizer(
                     )
                 )
         }
-
-
+        Toast.makeText(getContext(), "Сохранение завершено", Toast.LENGTH_SHORT).show()
     }
     private fun getRating(anime: AnimeResponse): Int {
         return try {

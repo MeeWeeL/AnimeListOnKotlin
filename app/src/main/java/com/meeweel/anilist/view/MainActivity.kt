@@ -14,6 +14,7 @@ import com.meeweel.anilist.view.fragments.unwantedfragment.UnwantedFragment
 import com.meeweel.anilist.view.fragments.wantedfragment.WantedFragment
 import com.meeweel.anilist.view.fragments.watchedfragment.WatchedFragment
 import com.meeweel.anilist.viewmodel.AnimeSynchronizer
+import com.meeweel.anilist.viewmodel.Changing.setActivity
 import com.meeweel.anilist.viewmodel.Changing.setContext
 import com.meeweel.anilist.viewmodel.MainViewModel
 
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setContext(this)
+        setActivity(this)
         syncer = AnimeSynchronizer((application as App).animeApi)
         savedInstanceState?.let {} ?: refresh()
         binding.navBar.background = null
@@ -47,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        Toast.makeText(this,"sync", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this,"Запуск синхронизации", Toast.LENGTH_SHORT).show()
         syncer.synchronize()
     }
     private fun refresh(fragment: Fragment = MainFragment()) {
