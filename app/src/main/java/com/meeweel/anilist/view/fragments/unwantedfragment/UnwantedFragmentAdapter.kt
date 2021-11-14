@@ -1,17 +1,13 @@
 package com.meeweel.anilist.view.fragments.unwantedfragment
 
-import android.content.Context
-import android.content.ContextWrapper
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.UnwantedRecyclerItemBinding
 import com.meeweel.anilist.model.data.Anime
 import com.meeweel.anilist.viewmodel.Changing
 import com.meeweel.anilist.viewmodel.ImageMaker
-import java.io.File
-import java.io.FileInputStream
 
 class UnwantedFragmentAdapter :
     RecyclerView.Adapter<UnwantedFragmentAdapter.MainViewHolder>() {
@@ -41,15 +37,9 @@ class UnwantedFragmentAdapter :
 
         fun bind(anime: Anime) {
             binding.apply {
-                unwantedFragmentRecyclerItemTextView.text = anime.enTitle
-                unwantedFragmentRecyclerItemImageView.setImageBitmap(BitmapFactory.decodeStream(
-                    FileInputStream(
-                        File(
-                            ContextWrapper(
-                                Changing.getContext()
-                            ).getDir("imageDir", Context.MODE_PRIVATE).absolutePath, "${anime.image}.jpeg")
-                    )
-                ))
+                unwantedFragmentRecyclerItemTextView.text = if (Changing.getContext().getResources().getBoolean(
+                        R.bool.isRussian)) anime.ruTitle else anime.enTitle
+                unwantedFragmentRecyclerItemImageView.setImageBitmap(imageMaker.getPictureFromDirectory(anime.image))
                 root.setOnClickListener {
                     onItemViewClickListener?.onItemViewClick(anime)
                 }

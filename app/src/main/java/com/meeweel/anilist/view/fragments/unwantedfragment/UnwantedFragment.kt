@@ -8,13 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.meeweel.anilist.R
-import com.meeweel.anilist.databinding.MainFragmentBinding
 import com.meeweel.anilist.databinding.UnwantedFragmentBinding
 import com.meeweel.anilist.model.AppState
 import com.meeweel.anilist.model.data.Anime
 import com.meeweel.anilist.view.DetailsFragment
 import com.meeweel.anilist.view.fragments.mainfragment.MainFragment
-import com.meeweel.anilist.view.fragments.mainfragment.MainFragmentAdapter
 import com.meeweel.anilist.viewmodel.MainViewModel
 
 class UnwantedFragment : Fragment() {

@@ -1,21 +1,14 @@
 package com.meeweel.anilist.view
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.ContextWrapper
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.DetailsFragmentBinding
 import com.meeweel.anilist.model.data.Anime
-import com.meeweel.anilist.viewmodel.Changing
 import com.meeweel.anilist.viewmodel.ImageMaker
-import java.io.File
-import java.io.FileInputStream
 
 class DetailsFragment : Fragment() {
     val imageMaker: ImageMaker = ImageMaker()
@@ -40,10 +33,7 @@ class DetailsFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun populateData(animeData: Anime) {
         with(binding) {
-            animeImage.setImageBitmap(BitmapFactory.decodeStream(FileInputStream(File(
-                ContextWrapper(
-                    Changing.getContext()
-                ).getDir("imageDir", Context.MODE_PRIVATE).absolutePath, "${animeData.image}.jpeg"))))
+            animeImage.setImageBitmap(imageMaker.getPictureFromDirectory(animeData.image))
             originalTitle.text = animeData.originalTitle
             englishTitle.text = animeData.enTitle
             russianTitle.text = animeData.ruTitle

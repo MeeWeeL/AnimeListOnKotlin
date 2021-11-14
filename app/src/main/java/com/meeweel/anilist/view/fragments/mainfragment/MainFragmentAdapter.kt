@@ -1,19 +1,14 @@
 package com.meeweel.anilist.view.fragments.mainfragment
 
-import android.content.Context
-import android.content.ContextWrapper
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.MainRecyclerItemBinding
 import com.meeweel.anilist.model.data.Anime
-import com.meeweel.anilist.viewmodel.Changing
+import com.meeweel.anilist.viewmodel.Changing.getContext
 import com.meeweel.anilist.viewmodel.Changing.saveTo
 import com.meeweel.anilist.viewmodel.ImageMaker
-import java.io.File
-import java.io.FileInputStream
 
 class MainFragmentAdapter :
     RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {
@@ -42,17 +37,9 @@ class MainFragmentAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(anime: Anime) {
-            val b: Bitmap = BitmapFactory.decodeStream(
-                FileInputStream(
-                    File(
-                        ContextWrapper(
-                            Changing.getContext()
-                        ).getDir("imageDir", Context.MODE_PRIVATE).absolutePath, "${anime.image}.jpeg")
-                )
-            )
             binding.apply {
-                mainFragmentRecyclerItemTextView.text = anime.enTitle
-                mainFragmentRecyclerItemImageView.setImageBitmap(Bitmap.createScaledBitmap(b, b.width/20, b.height/20, false))
+                mainFragmentRecyclerItemTextView.text = if (getContext().getResources().getBoolean(R.bool.isRussian)) anime.ruTitle else anime.enTitle
+                mainFragmentRecyclerItemImageView.setImageBitmap(imageMaker.getPictureFromDirectory(anime.image))
                 root.setOnClickListener {
                     onItemViewClickListener?.onItemViewClick(anime)
                 }

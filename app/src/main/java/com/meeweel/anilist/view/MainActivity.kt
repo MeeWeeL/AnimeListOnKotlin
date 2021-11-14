@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.ActivityMainBinding
 import com.meeweel.anilist.model.room.App
@@ -16,25 +15,25 @@ import com.meeweel.anilist.view.fragments.watchedfragment.WatchedFragment
 import com.meeweel.anilist.viewmodel.AnimeSynchronizer
 import com.meeweel.anilist.viewmodel.Changing.setActivity
 import com.meeweel.anilist.viewmodel.Changing.setContext
-import com.meeweel.anilist.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var syncer: AnimeSynchronizer
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
-    }
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setContext(this)
         setActivity(this)
         syncer = AnimeSynchronizer((application as App).animeApi)
-        savedInstanceState?.let {} ?: refresh()
+        if (savedInstanceState == null) {
+            refresh()
+            Toast.makeText(this,"Запуск синхронизации", Toast.LENGTH_SHORT).show()
+            syncer.synchronize()
+        }
         binding.navBar.background = null
-        binding.navBar.menu.findItem(R.id.main_fragment_nav).setChecked(true)
+        binding.navBar.menu.findItem(R.id.main_fragment_nav).isChecked = true
         binding.navBar.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.main_fragment_nav -> refresh(MainFragment())
@@ -45,12 +44,7 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Toast.makeText(this,"Запуск синхронизации", Toast.LENGTH_SHORT).show()
-        syncer.synchronize()
+        Toast.makeText(this, resources.getBoolean(R.bool.isRussian).toString(),Toast.LENGTH_SHORT).show()
     }
     private fun refresh(fragment: Fragment = MainFragment()) {
         supportFragmentManager.beginTransaction()

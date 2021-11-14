@@ -23,9 +23,13 @@ class ImageMaker() {
             try {
                 val url = URL(pictureLink)
                 val bitMapPic = BitmapFactory.decodeStream(url.openStream())
+                val sizer = bitMapPic.width/400
+                val w = bitMapPic.width/sizer
+                val h = bitMapPic.height/sizer
+                val bitmap = Bitmap.createScaledBitmap(bitMapPic, w, h, false)
                 try {
                     fos = FileOutputStream(mypath)
-                    bitMapPic.compress(Bitmap.CompressFormat.JPEG, 10, fos)
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 10, fos)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 } finally {

@@ -38,10 +38,6 @@ class App : Application() {
             .build()
         animeApi = retrofit.create(AnimeApi::class.java)
     }
-
-    open fun getContext() : Context {
-        return myContext
-    }
     companion object {
 
         private var appInstance: App? = null

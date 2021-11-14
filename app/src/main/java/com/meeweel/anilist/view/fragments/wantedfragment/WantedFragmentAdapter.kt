@@ -1,17 +1,13 @@
 package com.meeweel.anilist.view.fragments.wantedfragment
 
-import android.content.Context
-import android.content.ContextWrapper
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.WantedRecyclerItemBinding
 import com.meeweel.anilist.model.data.Anime
 import com.meeweel.anilist.viewmodel.Changing
 import com.meeweel.anilist.viewmodel.ImageMaker
-import java.io.File
-import java.io.FileInputStream
 
 class WantedFragmentAdapter :
     RecyclerView.Adapter<WantedFragmentAdapter.MainViewHolder>() {
@@ -41,15 +37,9 @@ class WantedFragmentAdapter :
 
         fun bind(anime: Anime) {
             binding.apply {
-                wantedFragmentRecyclerItemTextView.text = anime.enTitle
-                wantedFragmentRecyclerItemImageView.setImageBitmap(BitmapFactory.decodeStream(
-                    FileInputStream(
-                        File(
-                            ContextWrapper(
-                                Changing.getContext()
-                            ).getDir("imageDir", Context.MODE_PRIVATE).absolutePath, "${anime.image}.jpeg")
-                    )
-                ))
+                wantedFragmentRecyclerItemTextView.text = if (Changing.getContext()
+                        .getResources().getBoolean(R.bool.isRussian)) anime.ruTitle else anime.enTitle
+                wantedFragmentRecyclerItemImageView.setImageBitmap(imageMaker.getPictureFromDirectory(anime.image))
                 root.setOnClickListener {
                     onItemViewClickListener?.onItemViewClick(anime)
                 }

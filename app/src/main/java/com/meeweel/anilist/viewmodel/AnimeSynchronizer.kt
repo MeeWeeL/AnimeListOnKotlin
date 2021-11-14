@@ -18,18 +18,18 @@ class AnimeSynchronizer(
     private val repository: LocalRepository = LocalRepositoryImpl(App.getEntityDao()),
     private val picMaker: ImageMaker = ImageMaker()
 ) {
-    val handler: Handler = Handler(getContext().mainLooper)
+    val handler: Handler = Handler(getContext().mainLooper) // Нужен для запуска главного потока
     var actualQuantity = 0
     var localQuantity = repository.getQuantity()
     private val compositeDisposable = CompositeDisposable()
     private val list: MutableList<AnimeResponse> = mutableListOf()
 
     fun synchronize() {
-        compositeDisposable.add(aniApi.getQuantity()
+        compositeDisposable.add(aniApi.getQuantity()  // Получение количества аниме на сервере
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                Toast.makeText(getContext(), "Начало синхронизации", Toast.LENGTH_SHORT).show()
+                toast("Начало синхронизации")
                 actualQuantity = it.id
                 ifIf(actualQuantity, localQuantity)
             }, {
@@ -38,9 +38,9 @@ class AnimeSynchronizer(
     }
 
     private fun ifIf(actualQuantity: Int, localQuantity: Int) {
-        Toast.makeText(getContext(), "Проверка актуальности данных", Toast.LENGTH_SHORT).show()
+        toast("Проверка актуальности данных")
         if (actualQuantity > localQuantity) {
-            Toast.makeText(getContext(), "Найдены новые аниме", Toast.LENGTH_SHORT).show()
+            toast("Найдены новые аниме")
             controller()
             for (i in (localQuantity + 1)..actualQuantity) {
                 compositeDisposable.add(aniApi.getAnime(i)
@@ -48,17 +48,17 @@ class AnimeSynchronizer(
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         picMaker.savePictureToDirectory(it.image, getImageName(it.image))
-                        Toast.makeText(getContext(), "Новое аниме id=${it.id}", Toast.LENGTH_SHORT).show()
+                        toast("Новое аниме id=${it.id}")
                         list.add(it)
                     }, {
                         reLoad(i)
                     }))
             }
         } else {
-            Toast.makeText(getContext(), "Данные актуальны", Toast.LENGTH_SHORT).show()
+            toast("Данные актуальны")
         }
     }
-    fun controller() {
+    private fun controller() {
         Thread {
             while (!(list.size == actualQuantity - localQuantity)) {
                 Thread.sleep(500)
@@ -70,7 +70,7 @@ class AnimeSynchronizer(
     }
 
     private fun runOnUiThread(r: Runnable) {
-        handler.post(r)
+        handler.post(r) // Запуск в главном потоке
     }
 
     fun reLoad(i: Int) {
@@ -79,14 +79,14 @@ class AnimeSynchronizer(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 picMaker.savePictureToDirectory(it.image, getImageName(it.image))
-                Toast.makeText(getContext(), "Новое аниме id=${it.id}", Toast.LENGTH_SHORT).show()
+                toast("Новое аниме id=${it.id}")
                 list.add(it)
             }, {
                 reLoad(i)
             }))
     }
     fun insert() {
-        Toast.makeText(getContext(), "Сохранение новых аниме", Toast.LENGTH_SHORT).show()
+        toast("Сохранение новых аниме")
         for (item in list) {
                 Thread.sleep(1000)
                 repository.insertLocalEntity(
@@ -97,7 +97,7 @@ class AnimeSynchronizer(
                     )
                 )
         }
-        Toast.makeText(getContext(), "Сохранение завершено", Toast.LENGTH_SHORT).show()
+        toast("Сохранение завершено")
     }
     private fun getRating(anime: AnimeResponse): Int {
         return try {
@@ -122,5 +122,9 @@ class AnimeSynchronizer(
         //    .replace(",", "").replace("'", "")
         //    .replace("\"", "").replace("?", "")
         //    .replace("!", "").replace("&", "").lowercase()
+    }
+
+    fun toast(text: String) {
+        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show()
     }
 }
