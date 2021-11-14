@@ -37,19 +37,26 @@ class NotWatchedFragmentAdapter :
 
         fun bind(anime: Anime) {
             binding.apply {
-                notWatchedFragmentRecyclerItemTextView.text = if (Changing.getContext().getResources().getBoolean(
-                        R.bool.isRussian)) anime.ruTitle else anime.enTitle
-                notWatchedFragmentRecyclerItemImageView.setImageBitmap(imageMaker.getPictureFromDirectory(anime.image))
+                notWatchedFragmentRecyclerItemTextView.text =
+                    if (Changing.getContext().resources.getBoolean(
+                            R.bool.isRussian
+                        )
+                    ) anime.ruTitle else anime.enTitle
+                notWatchedFragmentRecyclerItemImageView.setImageBitmap(
+                    imageMaker.getPictureFromDirectory(
+                        anime.image
+                    )
+                )
                 root.setOnClickListener {
                     onItemViewClickListener?.onItemViewClick(anime)
                 }
                 wantedBtn.setOnClickListener {
-                    Changing.saveTo(anime,4)
+                    Changing.saveTo(anime, 4)
                     animeData.remove(anime)
                     notifyDataSetChanged()
                 }
                 unwantedBtn.setOnClickListener {
-                    Changing.saveTo(anime,5)
+                    Changing.saveTo(anime, 5)
                     animeData.remove(anime)
                     notifyDataSetChanged()
                 }
@@ -57,11 +64,11 @@ class NotWatchedFragmentAdapter :
         }
     }
 
-    fun setOnItemViewClickListener(onItemViewClickListener: NotWatchedFragment.OnItemViewClickListener){
+    fun setOnItemViewClickListener(onItemViewClickListener: NotWatchedFragment.OnItemViewClickListener) {
         this.onItemViewClickListener = onItemViewClickListener
     }
 
-    fun removeOnItemViewClickListener(){
+    fun removeOnItemViewClickListener() {
         onItemViewClickListener = null
     }
 

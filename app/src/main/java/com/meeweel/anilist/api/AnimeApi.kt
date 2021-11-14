@@ -7,7 +7,6 @@ import retrofit2.http.Query
 
 interface AnimeApi {
 
-
     @GET("./api.php?q=post")
     @Headers("Content-type: application/json")
     fun getAnime(@Query("id") id: Int): Single<AnimeResponse> // @Query добавляет в запрос &id=$id

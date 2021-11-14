@@ -43,7 +43,7 @@ class NotWatchedFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        adapter.setOnItemViewClickListener(object: OnItemViewClickListener {
+        adapter.setOnItemViewClickListener(object : OnItemViewClickListener {
             override fun onItemViewClick(anime: Anime) {
                 activity?.supportFragmentManager?.apply {
                     beginTransaction()
@@ -80,6 +80,7 @@ class NotWatchedFragment : Fragment() {
 
         }
     }
+
     interface OnItemViewClickListener {
         fun onItemViewClick(anime: Anime)
     }

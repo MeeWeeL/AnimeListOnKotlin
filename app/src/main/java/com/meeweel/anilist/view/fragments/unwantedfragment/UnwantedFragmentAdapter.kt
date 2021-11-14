@@ -37,9 +37,16 @@ class UnwantedFragmentAdapter :
 
         fun bind(anime: Anime) {
             binding.apply {
-                unwantedFragmentRecyclerItemTextView.text = if (Changing.getContext().getResources().getBoolean(
-                        R.bool.isRussian)) anime.ruTitle else anime.enTitle
-                unwantedFragmentRecyclerItemImageView.setImageBitmap(imageMaker.getPictureFromDirectory(anime.image))
+                unwantedFragmentRecyclerItemTextView.text =
+                    if (Changing.getContext().resources.getBoolean(
+                            R.bool.isRussian
+                        )
+                    ) anime.ruTitle else anime.enTitle
+                unwantedFragmentRecyclerItemImageView.setImageBitmap(
+                    imageMaker.getPictureFromDirectory(
+                        anime.image
+                    )
+                )
                 root.setOnClickListener {
                     onItemViewClickListener?.onItemViewClick(anime)
                 }
@@ -47,11 +54,11 @@ class UnwantedFragmentAdapter :
         }
     }
 
-    fun setOnItemViewClickListener(onItemViewClickListener: UnwantedFragment.OnItemViewClickListener){
+    fun setOnItemViewClickListener(onItemViewClickListener: UnwantedFragment.OnItemViewClickListener) {
         this.onItemViewClickListener = onItemViewClickListener
     }
 
-    fun removeOnItemViewClickListener(){
+    fun removeOnItemViewClickListener() {
         onItemViewClickListener = null
     }
 

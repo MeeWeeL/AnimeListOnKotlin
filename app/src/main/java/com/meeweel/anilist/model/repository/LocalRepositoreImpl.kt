@@ -7,7 +7,7 @@ import com.meeweel.anilist.model.room.entityes.Entity
 
 class LocalRepositoryImpl(
     private val localEntityDataSource: EntityDao
-  ) : LocalRepository {
+) : LocalRepository {
 
     override fun getQuantity(): Int {
         return localEntityDataSource.getQuantity()

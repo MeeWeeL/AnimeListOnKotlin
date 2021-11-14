@@ -6,7 +6,7 @@ import androidx.room.Embedded
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Anime (
+data class Anime(
     val id: Int,
     val ruTitle: String,
     val enTitle: String,

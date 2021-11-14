@@ -9,7 +9,7 @@ import com.meeweel.anilist.model.data.Anime
 import com.meeweel.anilist.viewmodel.Changing
 import com.meeweel.anilist.viewmodel.ImageMaker
 
-class  WatchedFragmentAdapter :
+class WatchedFragmentAdapter :
     RecyclerView.Adapter<WatchedFragmentAdapter.MainViewHolder>() {
     val imageMaker: ImageMaker = ImageMaker()
     private var animeData: MutableList<Anime> = mutableListOf()
@@ -38,8 +38,13 @@ class  WatchedFragmentAdapter :
         fun bind(anime: Anime) {
             binding.apply {
                 watchedFragmentRecyclerItemTextView.text = if (Changing.getContext()
-                        .resources.getBoolean(R.bool.isRussian)) anime.ruTitle else anime.enTitle
-                watchedFragmentRecyclerItemImageView.setImageBitmap(imageMaker.getPictureFromDirectory(anime.image))
+                        .resources.getBoolean(R.bool.isRussian)
+                ) anime.ruTitle else anime.enTitle
+                watchedFragmentRecyclerItemImageView.setImageBitmap(
+                    imageMaker.getPictureFromDirectory(
+                        anime.image
+                    )
+                )
                 root.setOnClickListener {
                     onItemViewClickListener?.onItemViewClick(anime)
                 }

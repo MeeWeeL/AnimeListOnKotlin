@@ -17,6 +17,7 @@ class MainViewModel(private val repository: LocalRepository = LocalRepositoryImp
     fun getData(): LiveData<AppState> {
         return liveDataToObserve
     }
+
     fun getAnimeFromLocalSource() = getDataFromLocalSource(1)
     fun getWatchedAnimeFromLocalSource() = getDataFromLocalSource(2)
     fun getNotWatchedAnimeFromLocalSource() = getDataFromLocalSource(3)

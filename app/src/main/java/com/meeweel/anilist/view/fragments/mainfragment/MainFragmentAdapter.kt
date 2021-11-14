@@ -38,18 +38,23 @@ class MainFragmentAdapter :
 
         fun bind(anime: Anime) {
             binding.apply {
-                mainFragmentRecyclerItemTextView.text = if (getContext().getResources().getBoolean(R.bool.isRussian)) anime.ruTitle else anime.enTitle
-                mainFragmentRecyclerItemImageView.setImageBitmap(imageMaker.getPictureFromDirectory(anime.image))
+                mainFragmentRecyclerItemTextView.text =
+                    if (getContext().resources.getBoolean(R.bool.isRussian)) anime.ruTitle else anime.enTitle
+                mainFragmentRecyclerItemImageView.setImageBitmap(
+                    imageMaker.getPictureFromDirectory(
+                        anime.image
+                    )
+                )
                 root.setOnClickListener {
                     onItemViewClickListener?.onItemViewClick(anime)
                 }
                 watchedBtn.setOnClickListener {
-                    saveTo(anime,2)
+                    saveTo(anime, 2)
                     animeData.remove(anime)
                     notifyItemRemoved(layoutPosition)
                 }
                 notWatchedBtn.setOnClickListener {
-                    saveTo(anime,3)
+                    saveTo(anime, 3)
                     animeData.remove(anime)
                     notifyItemRemoved(layoutPosition)
                 }
@@ -57,11 +62,11 @@ class MainFragmentAdapter :
         }
     }
 
-    fun setOnItemViewClickListener(onItemViewClickListener: MainFragment.OnItemViewClickListener){
+    fun setOnItemViewClickListener(onItemViewClickListener: MainFragment.OnItemViewClickListener) {
         this.onItemViewClickListener = onItemViewClickListener
     }
 
-    fun removeOnItemViewClickListener(){
+    fun removeOnItemViewClickListener() {
         onItemViewClickListener = null
     }
 

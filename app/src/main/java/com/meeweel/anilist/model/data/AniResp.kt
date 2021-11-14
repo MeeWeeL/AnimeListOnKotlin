@@ -5,7 +5,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class AniResp (
+data class AniResp(
     val id: Int,
     val ruTitle: String,
     val enTitle: String,

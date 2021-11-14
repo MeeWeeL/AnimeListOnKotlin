@@ -23,10 +23,11 @@ class DetailsFragment : Fragment() {
         _binding = DetailsFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.getParcelable<Anime>(BUNDLE_EXTRA)?.let {
-                anime -> populateData(anime)
+        arguments?.getParcelable<Anime>(BUNDLE_EXTRA)?.let { anime ->
+            populateData(anime)
         }
     }
 
@@ -41,8 +42,8 @@ class DetailsFragment : Fragment() {
             releaseAuthor.text = animeData.author
             releaseGenre.text = animeData.genre
             releaseData.text = animeData.data
-            releaseAgeRate.text = animeData.ageRating.toString()+"+"
-            releaseRating.text = animeData.rating.toString()+"%"
+            releaseAgeRate.text = animeData.ageRating.toString() + "+"
+            releaseRating.text = animeData.rating.toString() + "%"
         }
     }
 

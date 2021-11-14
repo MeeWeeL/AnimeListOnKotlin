@@ -16,16 +16,20 @@ object Changing {
     fun saveTo(anime: Anime, list: Int) {
         roomDataBase.updateLocalEntity(anime, list)
     }
+
     fun setContext(context: Context) {
         theContext = context
     }
+
     fun setActivity(activity: Activity) {
         theActivity = activity
     }
-    fun getActivity() : Activity {
+
+    fun getActivity(): Activity {
         return theActivity
     }
-    fun getContext() : Context {
+
+    fun getContext(): Context {
         return theContext
     }
 }

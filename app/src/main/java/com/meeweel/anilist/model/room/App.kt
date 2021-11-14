@@ -38,6 +38,7 @@ class App : Application() {
             .build()
         animeApi = retrofit.create(AnimeApi::class.java)
     }
+
     companion object {
 
         private var appInstance: App? = null
@@ -52,7 +53,8 @@ class App : Application() {
                         dbEntity = Room.databaseBuilder(
                             appInstance!!.applicationContext,
                             EntityDataBase::class.java,
-                            DB_WATCHED)
+                            DB_WATCHED
+                        )
                             .allowMainThreadQueries()
                             .build()
                     }

@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         syncer = AnimeSynchronizer((application as App).animeApi)
         if (savedInstanceState == null) {
             refresh()
-            Toast.makeText(this,"Запуск синхронизации", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Запуск синхронизации", Toast.LENGTH_SHORT).show()
             syncer.synchronize()
         }
         binding.navBar.background = null
@@ -44,8 +44,10 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-        Toast.makeText(this, resources.getBoolean(R.bool.isRussian).toString(),Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, resources.getBoolean(R.bool.isRussian).toString(), Toast.LENGTH_SHORT)
+            .show()
     }
+
     private fun refresh(fragment: Fragment = MainFragment()) {
         supportFragmentManager.beginTransaction()
             .replace(binding.container.id, fragment)

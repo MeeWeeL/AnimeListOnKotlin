@@ -43,7 +43,7 @@ class WantedFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        adapter.setOnItemViewClickListener(object: OnItemViewClickListener {
+        adapter.setOnItemViewClickListener(object : OnItemViewClickListener {
             override fun onItemViewClick(anime: Anime) {
                 activity?.supportFragmentManager?.apply {
                     beginTransaction()
@@ -66,7 +66,7 @@ class WantedFragment : Fragment() {
     }
 
 
-    private fun renderData(data: AppState) = when(data) {
+    private fun renderData(data: AppState) = when (data) {
         is AppState.Success -> {
             val animeData = data.animeData
             binding.loadingLayout.visibility = View.GONE
@@ -80,6 +80,7 @@ class WantedFragment : Fragment() {
 
         }
     }
+
     interface OnItemViewClickListener {
         fun onItemViewClick(anime: Anime)
     }
