@@ -11,7 +11,7 @@ import com.meeweel.anilist.model.data.Anime
 import com.meeweel.anilist.viewmodel.ImageMaker
 
 class DetailsFragment : Fragment() {
-    val imageMaker: ImageMaker = ImageMaker()
+    private val imageMaker: ImageMaker = ImageMaker()
     private var _binding: DetailsFragmentBinding? = null
     private val binding get() = _binding!!
 

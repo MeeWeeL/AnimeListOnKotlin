@@ -2,8 +2,10 @@ package com.meeweel.anilist.viewmodel
 
 import android.os.Handler
 import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 import com.meeweel.anilist.api.AnimeApi
 import com.meeweel.anilist.api.AnimeResponse
+import com.meeweel.anilist.databinding.ActivityMainBinding
 import com.meeweel.anilist.model.repository.LocalRepository
 import com.meeweel.anilist.model.repository.LocalRepositoryImpl
 import com.meeweel.anilist.model.room.App
@@ -15,6 +17,7 @@ import io.reactivex.schedulers.Schedulers
 
 class AnimeSynchronizer(
     private val aniApi: AnimeApi,
+    private val bind: ActivityMainBinding,
     private val repository: LocalRepository = LocalRepositoryImpl(App.getEntityDao()),
     private val picMaker: ImageMaker = ImageMaker()
 ) {
@@ -23,7 +26,6 @@ class AnimeSynchronizer(
     private var actualQuantity = 0
     private var localQuantity = repository.getQuantity()
     private val compositeDisposable = CompositeDisposable()
-    private val list: MutableList<AnimeResponse> = mutableListOf()
 
     fun synchronize() {
         compositeDisposable.add(
@@ -31,20 +33,17 @@ class AnimeSynchronizer(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    toast("Начало синхронизации")
                     actualQuantity = it.id
                     ifIf(actualQuantity, localQuantity)
                 }, {
-
+                    toast("Network exception")
                 })
         )
     }
 
     private fun ifIf(actualQuantity: Int, localQuantity: Int) {
-        toast("Проверка актуальности данных")
         if (actualQuantity > localQuantity) {
-            toast("Найдены новые аниме")
-            controller()
+            toast("Found new anime")
             for (i in (localQuantity + 1)..actualQuantity) {
                 compositeDisposable.add(
                     aniApi.getAnime(i)
@@ -52,74 +51,61 @@ class AnimeSynchronizer(
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({
                             picMaker.savePictureToDirectory(it.image, getImageName(it.image))
-                            toast("Новое аниме id=${it.id}")
-                            list.add(it)
+                            insert(it)
                         }, {
                             reLoad(i)
                         })
                 )
             }
         } else {
-            toast("Данные актуальны")
+            toast("You have actual data")
         }
-    }
-
-    private fun controller() {
-        Thread {
-            while (!(list.size == actualQuantity - localQuantity)) {
-                Thread.sleep(500)
-            }
-            runOnUiThread {
-                insert()
-            }
-        }.start()
     }
 
     private fun runOnUiThread(r: Runnable) {
         handler.post(r) // Запуск в главном потоке
     }
 
-    fun reLoad(i: Int) {
+    private fun reLoad(i: Int) {
         compositeDisposable.add(
             aniApi.getAnime(i)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     picMaker.savePictureToDirectory(it.image, getImageName(it.image))
-                    toast("Новое аниме id=${it.id}")
-                    list.add(it)
+                    try {
+                        insert(it)
+                    } catch (e: Exception) {
+
+                    }
                 }, {
                     reLoad(i)
                 })
         )
     }
 
-    fun insert() {
-        toast("Сохранение новых аниме")
-        for (item in list) {
-            Thread.sleep(1000)
-            repository.insertLocalEntity(
-                Entity(
-                    item.id,
-                    item.ruTitle,
-                    item.enTitle,
-                    item.originalTitle,
-                    item.ruDescription,
-                    item.enDescription,
-                    getImageName(item.image),
-                    item.data,
-                    item.ruGenre,
-                    item.enGenre,
-                    item.author,
-                    item.ageRating,
-                    getRating(item),
-                    item.seriesQuantity,
-                    0,
-                    1
-                )
+    fun insert(item: AnimeResponse) {
+        Thread.sleep(100)
+        repository.insertLocalEntity(
+            Entity(
+                item.id,
+                item.ruTitle,
+                item.enTitle,
+                item.originalTitle,
+                item.ruDescription,
+                item.enDescription,
+                getImageName(item.image),
+                item.data,
+                item.ruGenre,
+                item.enGenre,
+                item.author,
+                item.ageRating,
+                getRating(item),
+                item.seriesQuantity,
+                0,
+                1
             )
-        }
-        toast("Сохранение завершено")
+        )
     }
 
     private fun getRating(anime: AnimeResponse): Int {
@@ -148,7 +134,12 @@ class AnimeSynchronizer(
         //    .replace("!", "").replace("&", "").lowercase()
     }
 
-    fun toast(text: String) {
-        Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show()
+
+    private fun toast(text: String) {
+        val snackBar = Snackbar.make(bind.container, text, Snackbar.LENGTH_SHORT)
+        snackBar.setAction("SKIP") {
+            Toast.makeText(getContext(), "Ok...", Toast.LENGTH_SHORT).show()
+        }
+        snackBar.show()
     }
 }

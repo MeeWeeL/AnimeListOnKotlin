@@ -1,7 +1,7 @@
 package com.meeweel.anilist.model.room
 
+import android.annotation.SuppressLint
 import android.app.Application
-import android.content.Context
 import androidx.room.Room
 import com.meeweel.anilist.api.AnimeApi
 import com.meeweel.anilist.model.room.dao.EntityDao
@@ -13,13 +13,11 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class App : Application() {
-    lateinit var myContext: Context
     lateinit var animeApi: AnimeApi
     override fun onCreate() {
         super.onCreate()
         appInstance = this
         configureRetrofit()
-        myContext = applicationContext
     }
 
     private fun configureRetrofit() {
@@ -40,7 +38,7 @@ class App : Application() {
     }
 
     companion object {
-
+        @SuppressLint("StaticFieldLeak")
         private var appInstance: App? = null
         private var dbEntity: EntityDataBase? = null
         private const val DB_WATCHED = "Repository.db"

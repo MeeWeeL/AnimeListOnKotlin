@@ -11,14 +11,14 @@ import java.net.URL
 
 class ImageMaker {
 
-    var cw: ContextWrapper = ContextWrapper(getContext())
-    var directory: File = cw.getDir("imageDir", Context.MODE_PRIVATE)
+    private var cw: ContextWrapper = ContextWrapper(getContext())
+    private var directory: File = cw.getDir("imageDir", Context.MODE_PRIVATE)
 
     fun savePictureToDirectory(pictureLink: String, pictureName: String) {
         lateinit var fos: FileOutputStream
-        lateinit var mypath: File
+        lateinit var myPath: File
         val jpg = "$pictureName.jpeg"
-        mypath = File(directory, jpg)
+        myPath = File(directory, jpg)
         Thread {
             try {
                 val url = URL(pictureLink)
@@ -28,7 +28,7 @@ class ImageMaker {
                 val h = bitMapPic.height / sizer
                 val bitmap = Bitmap.createScaledBitmap(bitMapPic, w, h, false)
                 try {
-                    fos = FileOutputStream(mypath)
+                    fos = FileOutputStream(myPath)
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 10, fos)
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -48,7 +48,7 @@ class ImageMaker {
     fun getPictureFromDirectory(pictureName: String): Bitmap {
         lateinit var bitMapPic: Bitmap
         try {
-            val f: File = File(directory.absolutePath, "$pictureName.jpeg")
+            val f = File(directory.absolutePath, "$pictureName.jpeg")
             bitMapPic = BitmapFactory.decodeStream(FileInputStream(f))
         } catch (e: FileNotFoundException) {
             e.printStackTrace()

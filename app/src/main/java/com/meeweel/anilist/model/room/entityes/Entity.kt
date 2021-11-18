@@ -1,7 +1,5 @@
 package com.meeweel.anilist.model.room.entityes
 
-import android.graphics.Bitmap
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 

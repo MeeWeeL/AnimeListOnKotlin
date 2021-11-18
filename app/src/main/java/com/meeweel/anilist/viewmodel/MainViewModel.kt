@@ -1,9 +1,9 @@
 package com.meeweel.anilist.viewmodel
 
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.meeweel.anilist.R
 import com.meeweel.anilist.model.AppState
 import com.meeweel.anilist.model.repository.LocalRepository
 import com.meeweel.anilist.model.repository.LocalRepositoryImpl
@@ -13,6 +13,7 @@ import java.lang.Thread.sleep
 class MainViewModel(private val repository: LocalRepository = LocalRepositoryImpl(getEntityDao())) :
     ViewModel() {
 
+    private val isRu: Boolean = Changing.getContext().resources.getBoolean(R.bool.isRussian)
     private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
     fun getData(): LiveData<AppState> {
         return liveDataToObserve
@@ -30,14 +31,14 @@ class MainViewModel(private val repository: LocalRepository = LocalRepositoryImp
             sleep(100)
             liveDataToObserve.postValue(
                 AppState.Success(
-                    repository.let {
+                    repository.let { a ->
                         when (i) {
-                            1 -> it.getLocalMainAnimeList()
-                            2 -> it.getLocalWatchedAnimeList()
-                            3 -> it.getLocalNotWatchedAnimeList()
-                            4 -> it.getLocalWantedAnimeList()
-                            5 -> it.getLocalUnwantedAnimeList()
-                            else -> it.getLocalMainAnimeList()
+                            1 -> a.getLocalMainAnimeList().sortedBy { if (isRu) it.ruTitle else it.enTitle }
+                            2 -> a.getLocalWatchedAnimeList().sortedBy { if (isRu) it.ruTitle else it.enTitle }
+                            3 -> a.getLocalNotWatchedAnimeList().sortedBy { if (isRu) it.ruTitle else it.enTitle }
+                            4 -> a.getLocalWantedAnimeList().sortedBy { if (isRu) it.ruTitle else it.enTitle }
+                            5 -> a.getLocalUnwantedAnimeList().sortedBy { if (isRu) it.ruTitle else it.enTitle }
+                            else -> a.getLocalMainAnimeList().sortedBy { if (isRu) it.ruTitle else it.enTitle }
                         }
                     }
                 )

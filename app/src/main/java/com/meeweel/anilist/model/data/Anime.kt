@@ -1,8 +1,6 @@
 package com.meeweel.anilist.model.data
 
-import android.graphics.Bitmap
 import android.os.Parcelable
-import androidx.room.Embedded
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

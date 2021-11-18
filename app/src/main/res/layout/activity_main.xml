@@ -17,6 +17,7 @@
         android:backgroundTint="@color/lazy_green"
         app:maxImageSize="@dimen/_50dp"
         app:tint="@color/white"
+        android:visibility="gone"
         android:focusable="true"
         tools:ignore="RtlHardcoded" />
     <FrameLayout
