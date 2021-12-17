@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,6 +16,35 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/watched_recycler_item"/>
 
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottom_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:backgroundTint="@color/lazy_blue"
+        app:fabAlignmentMode="center"
+        app:hideOnScroll="true"
+        app:fabCradleRoundedCornerRadius="@dimen/_40dp"
+        app:fabCradleMargin="@dimen/_20dp"
+        app:fabCradleVerticalOffset="@dimen/_40dp"
+        app:layout_scrollFlags="scroll"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/nav_bar"
+            app:menu="@menu/button_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:visibility="visible"
+            android:layout_gravity="bottom"
+            app:labelVisibilityMode="labeled"
+            app:layout_anchor="@id/bottom_app_bar"
+            android:layout_marginEnd="@dimen/margin_15_dp"
+            android:layout_marginBottom="@dimen/_5dp"
+            android:layout_marginTop="@dimen/_5dp"
+            app:itemIconTint="@drawable/navigation_selector"/>
+    </com.google.android.material.bottomappbar.BottomAppBar>
 
     <FrameLayout
         android:id="@+id/loadingLayout"
@@ -29,4 +59,4 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
     </FrameLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -12,6 +12,10 @@ import com.meeweel.anilist.databinding.WantedFragmentBinding
 import com.meeweel.anilist.model.AppState
 import com.meeweel.anilist.model.data.Anime
 import com.meeweel.anilist.view.DetailsFragment
+import com.meeweel.anilist.view.fragments.mainfragment.MainFragment
+import com.meeweel.anilist.view.fragments.notwatched.NotWatchedFragment
+import com.meeweel.anilist.view.fragments.unwantedfragment.UnwantedFragment
+import com.meeweel.anilist.view.fragments.watchedfragment.WatchedFragment
 import com.meeweel.anilist.viewmodel.MainViewModel
 
 class WantedFragment : Fragment() {
@@ -56,6 +60,19 @@ class WantedFragment : Fragment() {
             }
         })
 
+        binding.navBar.background = null
+        binding.navBar.menu.findItem(R.id.wanted_fragment_nav).isChecked = true
+        binding.navBar.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.main_fragment_nav -> refresh(MainFragment())
+                R.id.watched_fragment_nav -> refresh(WatchedFragment())
+                R.id.not_watched_fragment_nav -> refresh(NotWatchedFragment())
+                R.id.wanted_fragment_nav -> refresh(WantedFragment())
+                R.id.unwanted_fragment_nav -> refresh(UnwantedFragment())
+            }
+            true
+        }
+
         binding.wantedFragmentRecyclerView.adapter = adapter
 
         val observer = Observer<AppState> { a ->
@@ -79,6 +96,12 @@ class WantedFragment : Fragment() {
             binding.loadingLayout.visibility = View.GONE
 
         }
+    }
+
+    private fun refresh(fragment: Fragment = MainFragment()) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.container, fragment)
+            .commitNow()
     }
 
     interface OnItemViewClickListener {

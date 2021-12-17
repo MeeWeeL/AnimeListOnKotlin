@@ -32,18 +32,6 @@ class MainActivity : AppCompatActivity() {
             toast("Start synchronization")
             syncer.synchronize()
         }
-        binding.navBar.background = null
-        binding.navBar.menu.findItem(R.id.main_fragment_nav).isChecked = true
-        binding.navBar.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.main_fragment_nav -> refresh(MainFragment())
-                R.id.watched_fragment_nav -> refresh(WatchedFragment())
-                R.id.not_watched_fragment_nav -> refresh(NotWatchedFragment())
-                R.id.wanted_fragment_nav -> refresh(WantedFragment())
-                R.id.unwanted_fragment_nav -> refresh(UnwantedFragment())
-            }
-            true
-        }
     }
 
     private fun refresh(fragment: Fragment = MainFragment()) {
