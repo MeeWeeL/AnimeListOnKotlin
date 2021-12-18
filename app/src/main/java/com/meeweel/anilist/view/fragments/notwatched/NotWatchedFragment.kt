@@ -16,7 +16,6 @@ import com.meeweel.anilist.view.fragments.mainfragment.MainFragment
 import com.meeweel.anilist.view.fragments.unwantedfragment.UnwantedFragment
 import com.meeweel.anilist.view.fragments.wantedfragment.WantedFragment
 import com.meeweel.anilist.view.fragments.watchedfragment.WatchedFragment
-import com.meeweel.anilist.viewmodel.MainViewModel
 
 class NotWatchedFragment : Fragment() {
 
@@ -24,8 +23,8 @@ class NotWatchedFragment : Fragment() {
         fun newInstance() = NotWatchedFragment()
     }
 
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
+    private val viewModel: NotWatchedViewModel by lazy {
+        ViewModelProvider(this).get(NotWatchedViewModel::class.java)
     }
     private var _binding: NotWatchedFragmentBinding? = null
     private val binding

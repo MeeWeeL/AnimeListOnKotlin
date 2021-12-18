@@ -16,7 +16,6 @@ import com.meeweel.anilist.view.fragments.notwatched.NotWatchedFragment
 import com.meeweel.anilist.view.fragments.unwantedfragment.UnwantedFragment
 import com.meeweel.anilist.view.fragments.wantedfragment.WantedFragment
 import com.meeweel.anilist.view.fragments.watchedfragment.WatchedFragment
-import com.meeweel.anilist.viewmodel.MainViewModel
 
 class MainFragment : Fragment() {
 
