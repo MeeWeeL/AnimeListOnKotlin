@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AniList</string>
+    <string name="todo">todo</string>
+    <string name="anime">Anime</string>
+    <string name="not_watched">Не смотрел(а)</string>
+    <string name="watched">Смотрел(а)</string>
+    <string name="wanted">Хочу</string>
+    <string name="main">База</string>
+    <string name="unwanted">Не хочу</string>
+    <string name="default_description">Default description</string>
+    <string name="description">описание</string>
+    <string name="rating">Рейтинг</string>
+    <string name="author">Автор</string>
+    <string name="genre">Жанр</string>
+    <string name="data">Дата релиза</string>
+    <string name="age_rating">Возрастной рейтинг</string>
+    <dimen name="recycler_item_text_size">25sp</dimen>
+    <dimen name="recycler_item_line_height">1dp</dimen>
+</resources>

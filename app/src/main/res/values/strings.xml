@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">AniList</string>
     <string name="todo">todo</string>
@@ -7,6 +8,13 @@
     <string name="wanted">Wanted</string>
     <string name="main">Main</string>
     <string name="unwanted">Unwanted</string>
+    <string name="default_description">Default description</string>
+    <string name="description">description</string>
+    <string name="rating">Rating</string>
+    <string name="author">Author</string>
+    <string name="genre">Genre</string>
+    <string name="data">Date</string>
+    <string name="age_rating">Age rating</string>
     <dimen name="recycler_item_text_size">25sp</dimen>
     <dimen name="recycler_item_line_height">1dp</dimen>
 </resources>
