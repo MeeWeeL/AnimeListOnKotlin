@@ -199,7 +199,7 @@
                 android:id="@+id/description_value"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_0dp"
-                android:layout_margin="@dimen/_10dp"
+                android:padding="@dimen/_10dp"
                 android:paddingBottom="@dimen/_10dp"
                 android:text="@string/default_description"
                 android:textSize="@dimen/_20sp"

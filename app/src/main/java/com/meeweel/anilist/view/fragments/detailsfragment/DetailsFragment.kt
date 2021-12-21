@@ -1,4 +1,4 @@
-package com.meeweel.anilist.view
+package com.meeweel.anilist.view.fragments.detailsfragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -47,17 +47,19 @@ class DetailsFragment : Fragment() {
             releaseAuthor.text = "${getText(R.string.author)}: ${animeData.author}"
             releaseGenre.text = "${getText(R.string.genre)}: ${animeData.genre}"
             releaseData.text = "${getText(R.string.data)}: ${animeData.data}"
-            releaseAgeRate.text = "${getText(R.string.age_rating)}: ${animeData.ageRating} +"
-            releaseRating.text = "${getText(R.string.rating)}: ${animeData.rating} %"
+            releaseAgeRate.text = "${getText(R.string.age_rating)}: ${animeData.ageRating}+"
+            releaseRating.text = "${getText(R.string.rating)}: ${animeData.rating}%"
         }
     }
 
     companion object {
         const val BUNDLE_EXTRA = "anime"
 
-        fun newInstance(bundle: Bundle): DetailsFragment {
+        fun newInstance(animeData: Anime): DetailsFragment {
             val fragment = DetailsFragment()
-            fragment.arguments = bundle
+            fragment.arguments = Bundle().apply {
+                putParcelable(BUNDLE_EXTRA, animeData)
+            }
             return fragment
         }
     }

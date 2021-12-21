@@ -7,21 +7,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.github.terrakok.cicerone.Screen
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.MainFragmentBinding
 import com.meeweel.anilist.model.AppState
 import com.meeweel.anilist.model.data.Anime
-import com.meeweel.anilist.view.DetailsFragment
-import com.meeweel.anilist.view.fragments.notwatched.NotWatchedFragment
-import com.meeweel.anilist.view.fragments.unwantedfragment.UnwantedFragment
-import com.meeweel.anilist.view.fragments.wantedfragment.WantedFragment
-import com.meeweel.anilist.view.fragments.watchedfragment.WatchedFragment
+import com.meeweel.anilist.model.room.App.Companion.appRouter
+import com.meeweel.anilist.navigation.CustomRouter
+import com.meeweel.anilist.view.fragments.notwatched.NotWatchedScreen
+import com.meeweel.anilist.view.fragments.unwantedfragment.UnwantedScreen
+import com.meeweel.anilist.view.fragments.wantedfragment.WantedScreen
+import com.meeweel.anilist.view.fragments.watchedfragment.WatchedScreen
 
-class MainFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = MainFragment()
-    }
+class MainFragment(private val router: CustomRouter = appRouter) : Fragment() {
 
     private val viewModel: MainViewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
@@ -48,14 +46,15 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         adapter.setOnItemViewClickListener(object : OnItemViewClickListener {
             override fun onItemViewClick(anime: Anime) {
-                activity?.supportFragmentManager?.apply {
-                    beginTransaction()
-                        .replace(R.id.container, DetailsFragment.newInstance(Bundle().apply {
-                            putParcelable(DetailsFragment.BUNDLE_EXTRA, anime)
-                        }))
-                        .addToBackStack("")
-                        .commitAllowingStateLoss()
-                }
+                router.openDeepLink(anime)
+//                activity?.supportFragmentManager?.apply {
+//                    beginTransaction()
+//                        .replace(R.id.container, DetailsFragment.newInstance(Bundle().apply {
+//                            putParcelable(DetailsFragment.BUNDLE_EXTRA, anime)
+//                        }))
+//                        .addToBackStack("")
+//                        .commitAllowingStateLoss()
+//                }
             }
         })
 
@@ -63,11 +62,11 @@ class MainFragment : Fragment() {
         binding.navBar.menu.findItem(R.id.main_fragment_nav).isChecked = true
         binding.navBar.setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.main_fragment_nav -> refresh(MainFragment())
-                R.id.watched_fragment_nav -> refresh(WatchedFragment())
-                R.id.not_watched_fragment_nav -> refresh(NotWatchedFragment())
-                R.id.wanted_fragment_nav -> refresh(WantedFragment())
-                R.id.unwanted_fragment_nav -> refresh(UnwantedFragment())
+                R.id.main_fragment_nav -> refresh(MainScreen())
+                R.id.watched_fragment_nav -> refresh(WatchedScreen())
+                R.id.not_watched_fragment_nav -> refresh(NotWatchedScreen())
+                R.id.wanted_fragment_nav -> refresh(WantedScreen())
+                R.id.unwanted_fragment_nav -> refresh(UnwantedScreen())
             }
             true
         }
@@ -97,13 +96,15 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun refresh(fragment: Fragment = MainFragment()) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.container, fragment)
-            .commitNow()
+    private fun refresh(fragment: Screen = MainScreen()) {
+        appRouter.navigateTo(fragment)
     }
 
     interface OnItemViewClickListener {
         fun onItemViewClick(anime: Anime)
+    }
+
+    companion object {
+        fun newInstance(): Fragment = MainFragment()
     }
 }

@@ -3,9 +3,11 @@ package com.meeweel.anilist.model.room
 import android.annotation.SuppressLint
 import android.app.Application
 import androidx.room.Room
+import com.github.terrakok.cicerone.Cicerone
 import com.meeweel.anilist.api.AnimeApi
 import com.meeweel.anilist.model.room.dao.EntityDao
 import com.meeweel.anilist.model.room.database.EntityDataBase
+import com.meeweel.anilist.navigation.CustomRouter
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -42,6 +44,11 @@ class App : Application() {
         private var appInstance: App? = null
         private var dbEntity: EntityDataBase? = null
         private const val DB_WATCHED = "Repository.db"
+        private val cicerone: Cicerone<CustomRouter> by lazy {
+            Cicerone.create(CustomRouter())
+        }
+        val navigatorHolder = cicerone.getNavigatorHolder()
+        val appRouter = cicerone.router
 
         fun getEntityDao(): EntityDao {
             if (dbEntity == null) {
