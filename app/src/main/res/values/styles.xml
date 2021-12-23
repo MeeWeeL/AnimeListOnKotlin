@@ -8,4 +8,18 @@
         <item name="android:layout_marginTop">@dimen/_3dp</item>
         <item name="android:layout_marginBottom">@dimen/_3dp</item>
     </style>
+    <style name="redButton">
+        <item name="android:layout_width">@dimen/_0dp</item>
+        <item name="android:layout_height">@dimen/_40dp</item>
+        <item name="android:layout_marginEnd">@dimen/_5dp</item>
+        <item name="android:layout_marginStart">@dimen/_5dp</item>
+        <item name="android:backgroundTint">@color/lazy_red</item>
+    </style>
+    <style name="grennButton">
+        <item name="android:layout_width">@dimen/_0dp</item>
+        <item name="android:layout_height">@dimen/_40dp</item>
+        <item name="android:layout_marginEnd">@dimen/_5dp</item>
+        <item name="android:layout_marginStart">@dimen/_5dp</item>
+        <item name="android:backgroundTint">@color/lazy_green</item>
+    </style>
 </resources>

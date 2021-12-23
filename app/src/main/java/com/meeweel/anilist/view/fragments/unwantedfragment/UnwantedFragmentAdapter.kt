@@ -1,16 +1,19 @@
 package com.meeweel.anilist.view.fragments.unwantedfragment
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.UnwantedRecyclerItemBinding
 import com.meeweel.anilist.model.data.Anime
+import com.meeweel.anilist.view.fragments.ItemTouchHelperAdapter
+import com.meeweel.anilist.view.fragments.ItemTouchHelperViewHolder
 import com.meeweel.anilist.viewmodel.Changing
 import com.meeweel.anilist.viewmodel.ImageMaker
 
 class UnwantedFragmentAdapter :
-    RecyclerView.Adapter<UnwantedFragmentAdapter.MainViewHolder>() {
+    RecyclerView.Adapter<UnwantedFragmentAdapter.MainViewHolder>(), ItemTouchHelperAdapter {
     val imageMaker: ImageMaker = ImageMaker()
     private var animeData: MutableList<Anime> = mutableListOf()
     private var onItemViewClickListener: UnwantedFragment.OnItemViewClickListener? = null
@@ -33,7 +36,7 @@ class UnwantedFragmentAdapter :
     }
 
     inner class MainViewHolder(private val binding: UnwantedRecyclerItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root), ItemTouchHelperViewHolder {
 
         fun bind(anime: Anime) {
             binding.apply {
@@ -52,6 +55,15 @@ class UnwantedFragmentAdapter :
                 }
             }
         }
+
+
+        override fun onItemSelected() {
+            itemView.setBackgroundColor(0)
+        }
+
+        override fun onItemClear() {
+            itemView.setBackgroundColor(Color.WHITE)
+        }
     }
 
     fun setOnItemViewClickListener(onItemViewClickListener: UnwantedFragment.OnItemViewClickListener) {
@@ -65,6 +77,16 @@ class UnwantedFragmentAdapter :
     fun setAnime(data: List<Anime>) {
         animeData = data.toMutableList()
         notifyDataSetChanged()
+    }
+
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        animeData.removeAt(fromPosition).apply {
+            animeData.add(if (toPosition > fromPosition) toPosition - 1 else toPosition, this)
+        }
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
+    override fun onItemDismiss(position: Int, i: Int) {
     }
 
 }

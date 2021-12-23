@@ -1,17 +1,21 @@
 package com.meeweel.anilist.view.fragments.mainfragment
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.MainRecyclerItemBinding
 import com.meeweel.anilist.model.data.Anime
+import com.meeweel.anilist.view.fragments.ItemTouchHelperAdapter
+import com.meeweel.anilist.view.fragments.ItemTouchHelperViewHolder
 import com.meeweel.anilist.viewmodel.Changing.getContext
 import com.meeweel.anilist.viewmodel.Changing.saveTo
 import com.meeweel.anilist.viewmodel.ImageMaker
 
 class MainFragmentAdapter :
-    RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {
+    RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>(), ItemTouchHelperAdapter {
 
     private var animeData: MutableList<Anime> = mutableListOf()
     private var onItemViewClickListener: MainFragment.OnItemViewClickListener? = null
@@ -34,7 +38,7 @@ class MainFragmentAdapter :
     }
 
     inner class MainViewHolder(private val binding: MainRecyclerItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root), ItemTouchHelperViewHolder {
 
         fun bind(anime: Anime) {
             binding.apply {
@@ -60,6 +64,15 @@ class MainFragmentAdapter :
                 }
             }
         }
+
+
+        override fun onItemSelected() {
+            itemView.setBackgroundColor(0)
+        }
+
+        override fun onItemClear() {
+            itemView.setBackgroundColor(Color.WHITE)
+        }
     }
 
     fun setOnItemViewClickListener(onItemViewClickListener: MainFragment.OnItemViewClickListener) {
@@ -75,4 +88,23 @@ class MainFragmentAdapter :
         notifyDataSetChanged()
     }
 
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        animeData.removeAt(fromPosition).apply {
+            animeData.add(if (toPosition > fromPosition) toPosition - 1 else toPosition, this)
+        }
+        notifyItemMoved(fromPosition, toPosition)
+    }
+
+    override fun onItemDismiss(position: Int, i: Int) {
+        if (i == ItemTouchHelper.START) {
+            saveTo(animeData[position], 3)
+            animeData.removeAt(position)
+            notifyItemRemoved(position)
+        }
+        if (i == ItemTouchHelper.END) {
+            saveTo(animeData[position], 2)
+            animeData.removeAt(position)
+            notifyItemRemoved(position)
+        }
+    }
 }

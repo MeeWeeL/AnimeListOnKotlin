@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.github.terrakok.cicerone.Screen
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.MainFragmentBinding
@@ -44,6 +45,7 @@ class MainFragment(private val router: CustomRouter = appRouter) : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        ItemTouchHelper(MainItemTouchHelperCallback(adapter)).attachToRecyclerView(binding.mainFragmentRecyclerView)
         adapter.setOnItemViewClickListener(object : OnItemViewClickListener {
             override fun onItemViewClick(anime: Anime) {
                 router.openDeepLink(anime)

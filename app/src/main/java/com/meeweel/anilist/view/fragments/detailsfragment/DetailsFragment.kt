@@ -2,20 +2,24 @@ package com.meeweel.anilist.view.fragments.detailsfragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.DetailsFragmentBinding
 import com.meeweel.anilist.model.data.Anime
+import com.meeweel.anilist.model.room.App
 import com.meeweel.anilist.model.room.isRussian
+import com.meeweel.anilist.navigation.CustomRouter
+import com.meeweel.anilist.view.fragments.mainfragment.MainScreen
 import com.meeweel.anilist.viewmodel.ImageMaker
 
+
 class DetailsFragment : Fragment() {
+
     private val imageMaker: ImageMaker = ImageMaker()
     private var _binding: DetailsFragmentBinding? = null
     private val binding get() = _binding!!
+    private val router: CustomRouter = App.appRouter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,13 +30,21 @@ class DetailsFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.getParcelable<Anime>(BUNDLE_EXTRA)?.let { anime ->
             populateData(anime)
         }
-    }
+        binding.detailsScrollView.setOnTouchListener(object: OnSwipeTouchListener(requireContext()) {
+            override fun onSwipeLeft() {
 
+            }
+            override fun onSwipeRight() {
+                router.exit()
+            }
+        })
+    }
     @SuppressLint("SetTextI18n")
     private fun populateData(animeData: Anime) {
         with(binding) {

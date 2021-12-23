@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.github.terrakok.cicerone.Screen
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.WatchedFragmentBinding
@@ -14,13 +15,10 @@ import com.meeweel.anilist.model.AppState
 import com.meeweel.anilist.model.data.Anime
 import com.meeweel.anilist.model.room.App.Companion.appRouter
 import com.meeweel.anilist.navigation.CustomRouter
-import com.meeweel.anilist.view.fragments.mainfragment.MainFragment
+import com.meeweel.anilist.view.fragments.mainfragment.MainItemTouchHelperCallback
 import com.meeweel.anilist.view.fragments.mainfragment.MainScreen
-import com.meeweel.anilist.view.fragments.notwatched.NotWatchedFragment
 import com.meeweel.anilist.view.fragments.notwatched.NotWatchedScreen
-import com.meeweel.anilist.view.fragments.unwantedfragment.UnwantedFragment
 import com.meeweel.anilist.view.fragments.unwantedfragment.UnwantedScreen
-import com.meeweel.anilist.view.fragments.wantedfragment.WantedFragment
 import com.meeweel.anilist.view.fragments.wantedfragment.WantedScreen
 
 class WatchedFragment(private val router: CustomRouter = appRouter) : Fragment() {
@@ -52,6 +50,7 @@ class WatchedFragment(private val router: CustomRouter = appRouter) : Fragment()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        ItemTouchHelper(WatchedItemTouchHelperCallback(adapter)).attachToRecyclerView(binding.watchedFragmentRecyclerView)
         adapter.setOnItemViewClickListener(object : OnItemViewClickListener {
             override fun onItemViewClick(anime: Anime) {
                 router.openDeepLink(anime)
