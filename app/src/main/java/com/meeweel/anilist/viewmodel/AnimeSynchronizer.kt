@@ -1,7 +1,10 @@
 package com.meeweel.anilist.viewmodel
 
+import android.annotation.SuppressLint
 import android.os.Handler
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.snackbar.Snackbar
 import com.meeweel.anilist.api.AnimeApi
 import com.meeweel.anilist.api.AnimeResponse
@@ -19,7 +22,7 @@ class AnimeSynchronizer(
     private val aniApi: AnimeApi,
     private val bind: ActivityMainBinding,
     private val repository: LocalRepository = LocalRepositoryImpl(App.getEntityDao()),
-    private val picMaker: ImageMaker = ImageMaker()
+//    private val picMaker: ImageMaker = ImageMaker()
 ) {
     private val handler: Handler =
         Handler(getContext().mainLooper) // Нужен для запуска главного потока
@@ -48,9 +51,9 @@ class AnimeSynchronizer(
                 compositeDisposable.add(
                     aniApi.getAnime(i)
                         .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
+                        .observeOn(Schedulers.computation())
                         .subscribe({
-                            picMaker.savePictureToDirectory(it.image, getImageName(it.image))
+//                            picMaker.savePictureToDirectory(it.image, getImageName(it.image))
                             insert(it)
                         }, {
                             reLoad(i)
@@ -70,9 +73,9 @@ class AnimeSynchronizer(
         compositeDisposable.add(
             aniApi.getAnime(i)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.computation())
                 .subscribe({
-                    picMaker.savePictureToDirectory(it.image, getImageName(it.image))
+//                    picMaker.savePictureToDirectory(it.image, getImageName(it.image))
                     try {
                         insert(it)
                     } catch (e: Exception) {
@@ -85,7 +88,6 @@ class AnimeSynchronizer(
     }
 
     fun insert(item: AnimeResponse) {
-        Thread.sleep(100)
         repository.insertLocalEntity(
             Entity(
                 item.id,
@@ -94,7 +96,8 @@ class AnimeSynchronizer(
                 item.originalTitle,
                 item.ruDescription,
                 item.enDescription,
-                getImageName(item.image),
+//                getImageName(item.image),
+                item.image,
                 item.data,
                 item.ruGenre,
                 item.enGenre,
@@ -106,6 +109,8 @@ class AnimeSynchronizer(
                 1
             )
         )
+        Glide.with(getContext()).load(item.image).diskCacheStrategy(DiskCacheStrategy.DATA).preload()
+        if (actualQuantity == item.id) toast("Anime was uploaded")
     }
 
     private fun getRating(anime: AnimeResponse): Int {

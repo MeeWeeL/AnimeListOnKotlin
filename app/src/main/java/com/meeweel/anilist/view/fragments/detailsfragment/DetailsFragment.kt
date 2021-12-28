@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.DetailsFragmentBinding
 import com.meeweel.anilist.model.data.Anime
@@ -16,7 +17,7 @@ import com.meeweel.anilist.viewmodel.ImageMaker
 
 class DetailsFragment : Fragment() {
 
-    private val imageMaker: ImageMaker = ImageMaker()
+//    private val imageMaker: ImageMaker = ImageMaker()
     private var _binding: DetailsFragmentBinding? = null
     private val binding get() = _binding!!
     private val router: CustomRouter = App.appRouter
@@ -48,9 +49,21 @@ class DetailsFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun populateData(animeData: Anime) {
         with(binding) {
-            binding.detailsBarImage.setImageBitmap(imageMaker.getPictureFromDirectory(animeData.image))
-            binding.detailsDescriptionImage.setImageBitmap(imageMaker.getPictureFromDirectory(animeData.image))
-            animeImage.setImageBitmap(imageMaker.getPictureFromDirectory(animeData.image))
+
+            Glide.with(this.detailsDescriptionImage.context)
+                .load(animeData.image)
+                .into(this.detailsDescriptionImage)
+            Glide.with(this.detailsBarImage.context)
+                .load(animeData.image)
+                .into(this.detailsBarImage)
+            Glide.with(this.animeImage.context)
+                .load(animeData.image)
+                .into(this.animeImage)
+
+//            binding.detailsBarImage.setImageBitmap(imageMaker.getPictureFromDirectory(animeData.image))
+//            binding.detailsDescriptionImage.setImageBitmap(imageMaker.getPictureFromDirectory(animeData.image))
+//            animeImage.setImageBitmap(imageMaker.getPictureFromDirectory(animeData.image))
+
             originalTitle.text = animeData.originalTitle
             englishTitle.text = animeData.enTitle
             russianTitle.text = animeData.ruTitle

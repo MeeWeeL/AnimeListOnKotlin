@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.WantedRecyclerItemBinding
 import com.meeweel.anilist.model.data.Anime
@@ -15,7 +16,7 @@ import com.meeweel.anilist.viewmodel.ImageMaker
 
 class WantedFragmentAdapter :
     RecyclerView.Adapter<WantedFragmentAdapter.MainViewHolder>(), ItemTouchHelperAdapter {
-    val imageMaker: ImageMaker = ImageMaker()
+//    val imageMaker: ImageMaker = ImageMaker()
     private var animeData: MutableList<Anime> = mutableListOf()
     private var onItemViewClickListener: WantedFragment.OnItemViewClickListener? = null
 
@@ -44,11 +45,17 @@ class WantedFragmentAdapter :
                 wantedFragmentRecyclerItemTextView.text = if (Changing.getContext()
                         .resources.getBoolean(R.bool.isRussian)
                 ) anime.ruTitle else anime.enTitle
-                wantedFragmentRecyclerItemImageView.setImageBitmap(
-                    imageMaker.getPictureFromDirectory(
-                        anime.image
-                    )
-                )
+
+                Glide.with(this.wantedFragmentRecyclerItemImageView.context)
+                    .load(anime.image)
+                    .into(this.wantedFragmentRecyclerItemImageView)
+
+//                wantedFragmentRecyclerItemImageView.setImageBitmap(
+//                    imageMaker.getPictureFromDirectory(
+//                        anime.image
+//                    )
+//                )
+
                 root.setOnClickListener {
                     onItemViewClickListener?.onItemViewClick(anime)
                 }

@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.MainRecyclerItemBinding
 import com.meeweel.anilist.model.data.Anime
@@ -19,7 +21,7 @@ class MainFragmentAdapter :
 
     private var animeData: MutableList<Anime> = mutableListOf()
     private var onItemViewClickListener: MainFragment.OnItemViewClickListener? = null
-    val imageMaker: ImageMaker = ImageMaker()
+//    val imageMaker: ImageMaker = ImageMaker()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val binding = MainRecyclerItemBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -44,11 +46,18 @@ class MainFragmentAdapter :
             binding.apply {
                 mainFragmentRecyclerItemTextView.text =
                     if (getContext().resources.getBoolean(R.bool.isRussian)) anime.ruTitle else anime.enTitle
-                mainFragmentRecyclerItemImageView.setImageBitmap(
-                    imageMaker.getPictureFromDirectory(
-                        anime.image
-                    )
-                )
+                Glide.with(this.mainFragmentRecyclerItemImageView.context)
+                    .load(anime.image)
+                    .diskCacheStrategy(DiskCacheStrategy.DATA)
+                    .placeholder(R.drawable.anig)
+                    .into(this.mainFragmentRecyclerItemImageView)
+
+//                mainFragmentRecyclerItemImageView.setImageBitmap(
+//                    imageMaker.getPictureFromDirectory(
+//                        anime.image
+//                    )
+//                )
+
                 root.setOnClickListener {
                     onItemViewClickListener?.onItemViewClick(anime)
                 }
