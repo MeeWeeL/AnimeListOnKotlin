@@ -2,64 +2,67 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/cardViewStyle">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/not_watched_fragment_recycler_item_image_view"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@drawable/anig"
-        android:layout_margin="4dp"
-        android:visibility="visible"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/wanted_btn"
-        app:layout_constraintEnd_toStartOf="@+id/notWatchedFragmentRecyclerItemTextView" />
+        <ImageView
+            android:id="@+id/not_watched_fragment_recycler_item_image_view"
+            android:layout_width="160dp"
+            android:layout_height="200dp"
+            android:layout_margin="@dimen/_4dp"
+            android:src="@drawable/anig"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/unwanted_btn"
+            app:layout_constraintEnd_toStartOf="@+id/notWatchedFragmentRecyclerItemTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/notWatchedFragmentRecyclerItemTextView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="Anime"
-        android:visibility="visible"
-        android:gravity="center"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/wanted_btn"
-        app:layout_constraintStart_toEndOf="@+id/not_watched_fragment_recycler_item_image_view" />
-    <Button
-        android:id="@+id/unwanted_btn"
-        style="@style/redButton"
-        android:text="@string/unwanted"
-        android:visibility="visible"
-        app:layout_constraintEnd_toStartOf="@id/wanted_btn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notWatchedFragmentRecyclerItemTextView"/>
-    <Button
-        android:id="@+id/wanted_btn"
-        style="@style/grennButton"
-        android:text="@string/wanted"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/unwanted_btn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notWatchedFragmentRecyclerItemTextView"/>
-    <View
-        android:id="@+id/line"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginEnd="@dimen/recycler_item_line_margin_end"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wanted_btn"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        <TextView
+            android:id="@+id/notWatchedFragmentRecyclerItemTextView"
+            android:layout_width="@dimen/_0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/anime"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/item_data"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/not_watched_fragment_recycler_item_image_view"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/item_data"
+            android:text="@string/data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_20dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginBottom="@dimen/_3dp"
+            app:layout_constraintBottom_toTopOf="@id/wanted_btn"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <Button
+            android:id="@+id/unwanted_btn"
+            style="@style/redButton"
+            android:text="@string/unwanted"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/wanted_btn"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/wanted_btn"
+            style="@style/greenButton"
+            android:text="@string/wanted"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/unwanted_btn" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

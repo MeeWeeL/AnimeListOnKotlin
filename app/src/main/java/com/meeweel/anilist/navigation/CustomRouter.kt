@@ -2,6 +2,7 @@ package com.meeweel.anilist.navigation
 
 import com.github.terrakok.cicerone.Router
 import com.meeweel.anilist.model.data.Anime
+import com.meeweel.anilist.model.data.ShortAnime
 
 class CustomRouter : Router() {
 
@@ -9,7 +10,7 @@ class CustomRouter : Router() {
         fun execute(navigator: CustomNavigator)
     }
     
-    fun openDeepLink(aniData: Anime) {
+    fun openDeepLink(aniData: ShortAnime) {
         executeCommands(OpenDeepLink(aniData))
     }
 }

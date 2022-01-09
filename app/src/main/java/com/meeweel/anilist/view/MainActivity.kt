@@ -5,7 +5,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.meeweel.anilist.R
+import com.meeweel.anilist.api.AnimeApi
 import com.meeweel.anilist.databinding.ActivityMainBinding
+import com.meeweel.anilist.model.repository.LocalRepository
 import com.meeweel.anilist.model.room.App
 import com.meeweel.anilist.model.room.App.Companion.appRouter
 import com.meeweel.anilist.model.room.App.Companion.navigatorHolder
@@ -13,12 +15,14 @@ import com.meeweel.anilist.navigation.CustomNavigator
 import com.meeweel.anilist.view.fragments.mainfragment.MainScreen
 import com.meeweel.anilist.viewmodel.AnimeSynchronizer
 import com.meeweel.anilist.viewmodel.Changing.setContext
+import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var syncer: AnimeSynchronizer
+
     private val navigator = CustomNavigator(activity = this, R.id.container)
-    private lateinit var syncer: AnimeSynchronizer
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

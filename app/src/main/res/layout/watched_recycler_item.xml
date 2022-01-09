@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/cardViewStyle">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -10,37 +11,27 @@
 
         <ImageView
             android:id="@+id/watched_fragment_recycler_item_image_view"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_margin="4dp"
+            android:layout_width="@dimen/_80dp"
+            android:layout_height="@dimen/_80dp"
+            android:layout_margin="@dimen/_4dp"
             android:src="@drawable/anig"
-            app:layout_constraintBottom_toTopOf="@+id/line"
-            app:layout_constraintEnd_toStartOf="@+id/watchedFragmentRecyclerItemTextView"
+            app:layout_constraintTop_toTopOf="@+id/watchedFragmentRecyclerItemTextView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toStartOf="@+id/watchedFragmentRecyclerItemTextView"
+            app:layout_constraintBottom_toBottomOf="@id/watchedFragmentRecyclerItemTextView"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/watchedFragmentRecyclerItemTextView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="@dimen/_0dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Anime"
-            android:textSize="30dp"
+            android:text="@string/anime"
+            android:textSize="@dimen/_30sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/line"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@+id/watched_fragment_recycler_item_image_view"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <View
-            android:id="@+id/line"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginEnd="@dimen/recycler_item_line_margin_end"
-            android:background="@android:color/darker_gray"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/watched_fragment_recycler_item_image_view" />
+            app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

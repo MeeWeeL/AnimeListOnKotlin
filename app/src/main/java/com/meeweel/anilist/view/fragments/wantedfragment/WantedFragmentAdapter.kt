@@ -9,15 +9,17 @@ import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.WantedRecyclerItemBinding
 import com.meeweel.anilist.model.data.Anime
+import com.meeweel.anilist.model.data.ShortAnime
 import com.meeweel.anilist.view.fragments.ItemTouchHelperAdapter
 import com.meeweel.anilist.view.fragments.ItemTouchHelperViewHolder
 import com.meeweel.anilist.viewmodel.Changing
+import com.meeweel.anilist.viewmodel.Changing.WATCHED
 import com.meeweel.anilist.viewmodel.ImageMaker
 
 class WantedFragmentAdapter :
     RecyclerView.Adapter<WantedFragmentAdapter.MainViewHolder>(), ItemTouchHelperAdapter {
 //    val imageMaker: ImageMaker = ImageMaker()
-    private var animeData: MutableList<Anime> = mutableListOf()
+    private var animeData: MutableList<ShortAnime> = mutableListOf()
     private var onItemViewClickListener: WantedFragment.OnItemViewClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -40,7 +42,7 @@ class WantedFragmentAdapter :
     inner class MainViewHolder(private val binding: WantedRecyclerItemBinding) :
         RecyclerView.ViewHolder(binding.root), ItemTouchHelperViewHolder {
 
-        fun bind(anime: Anime) {
+        fun bind(anime: ShortAnime) {
             binding.apply {
                 wantedFragmentRecyclerItemTextView.text = if (Changing.getContext()
                         .resources.getBoolean(R.bool.isRussian)
@@ -48,6 +50,7 @@ class WantedFragmentAdapter :
 
                 Glide.with(this.wantedFragmentRecyclerItemImageView.context)
                     .load(anime.image)
+                    .error(R.drawable.anig)
                     .into(this.wantedFragmentRecyclerItemImageView)
 
 //                wantedFragmentRecyclerItemImageView.setImageBitmap(
@@ -60,9 +63,9 @@ class WantedFragmentAdapter :
                     onItemViewClickListener?.onItemViewClick(anime)
                 }
                 watchedBtn.setOnClickListener {
-                    Changing.saveTo(anime, 2)
+                    Changing.saveTo(anime.id, WATCHED)
                     animeData.remove(anime)
-                    notifyDataSetChanged()
+                    notifyItemRemoved(layoutPosition)
                 }
             }
         }
@@ -85,7 +88,7 @@ class WantedFragmentAdapter :
         onItemViewClickListener = null
     }
 
-    fun setAnime(data: List<Anime>) {
+    fun setAnime(data: List<ShortAnime>) {
         animeData = data.toMutableList()
         notifyDataSetChanged()
     }
@@ -99,7 +102,7 @@ class WantedFragmentAdapter :
 
     override fun onItemDismiss(position: Int, i: Int) {
         if (i == ItemTouchHelper.END) {
-            Changing.saveTo(animeData[position], 2)
+            Changing.saveTo(animeData[position].id, WATCHED)
             animeData.removeAt(position)
             notifyItemRemoved(position)
         }

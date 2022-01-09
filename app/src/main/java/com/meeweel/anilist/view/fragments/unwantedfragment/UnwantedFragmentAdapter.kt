@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.UnwantedRecyclerItemBinding
 import com.meeweel.anilist.model.data.Anime
+import com.meeweel.anilist.model.data.ShortAnime
 import com.meeweel.anilist.view.fragments.ItemTouchHelperAdapter
 import com.meeweel.anilist.view.fragments.ItemTouchHelperViewHolder
 import com.meeweel.anilist.viewmodel.Changing
@@ -16,7 +17,7 @@ import com.meeweel.anilist.viewmodel.ImageMaker
 class UnwantedFragmentAdapter :
     RecyclerView.Adapter<UnwantedFragmentAdapter.MainViewHolder>(), ItemTouchHelperAdapter {
 //    val imageMaker: ImageMaker = ImageMaker()
-    private var animeData: MutableList<Anime> = mutableListOf()
+    private var animeData: MutableList<ShortAnime> = mutableListOf()
     private var onItemViewClickListener: UnwantedFragment.OnItemViewClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -39,7 +40,7 @@ class UnwantedFragmentAdapter :
     inner class MainViewHolder(private val binding: UnwantedRecyclerItemBinding) :
         RecyclerView.ViewHolder(binding.root), ItemTouchHelperViewHolder {
 
-        fun bind(anime: Anime) {
+        fun bind(anime: ShortAnime) {
             binding.apply {
                 unwantedFragmentRecyclerItemTextView.text =
                     if (Changing.getContext().resources.getBoolean(
@@ -49,6 +50,7 @@ class UnwantedFragmentAdapter :
 
                 Glide.with(this.unwantedFragmentRecyclerItemImageView.context)
                     .load(anime.image)
+                    .error(R.drawable.anig)
                     .into(this.unwantedFragmentRecyclerItemImageView)
 
 //                unwantedFragmentRecyclerItemImageView.setImageBitmap(
@@ -81,7 +83,7 @@ class UnwantedFragmentAdapter :
         onItemViewClickListener = null
     }
 
-    fun setAnime(data: List<Anime>) {
+    fun setAnime(data: List<ShortAnime>) {
         animeData = data.toMutableList()
         notifyDataSetChanged()
     }

@@ -9,15 +9,18 @@ import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.NotWatchedRecyclerItemBinding
 import com.meeweel.anilist.model.data.Anime
+import com.meeweel.anilist.model.data.ShortAnime
 import com.meeweel.anilist.view.fragments.ItemTouchHelperAdapter
 import com.meeweel.anilist.view.fragments.ItemTouchHelperViewHolder
 import com.meeweel.anilist.viewmodel.Changing
+import com.meeweel.anilist.viewmodel.Changing.UNWANTED
+import com.meeweel.anilist.viewmodel.Changing.WANTED
 import com.meeweel.anilist.viewmodel.ImageMaker
 
 class NotWatchedFragmentAdapter :
     RecyclerView.Adapter<NotWatchedFragmentAdapter.MainViewHolder>(), ItemTouchHelperAdapter {
 //    val imageMaker: ImageMaker = ImageMaker()
-    private var animeData: MutableList<Anime> = mutableListOf()
+    private var animeData: MutableList<ShortAnime> = mutableListOf()
     private var onItemViewClickListener: NotWatchedFragment.OnItemViewClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -40,7 +43,7 @@ class NotWatchedFragmentAdapter :
     inner class MainViewHolder(private val binding: NotWatchedRecyclerItemBinding) :
         RecyclerView.ViewHolder(binding.root), ItemTouchHelperViewHolder {
 
-        fun bind(anime: Anime) {
+        fun bind(anime: ShortAnime) {
             binding.apply {
                 notWatchedFragmentRecyclerItemTextView.text =
                     if (Changing.getContext().resources.getBoolean(
@@ -50,6 +53,7 @@ class NotWatchedFragmentAdapter :
 
                 Glide.with(this.notWatchedFragmentRecyclerItemImageView.context)
                     .load(anime.image)
+                    .error(R.drawable.anig)
                     .into(this.notWatchedFragmentRecyclerItemImageView)
 
 //                notWatchedFragmentRecyclerItemImageView.setImageBitmap(
@@ -57,19 +61,19 @@ class NotWatchedFragmentAdapter :
 //                        anime.image
 //                    )
 //                )
-
+                itemData.text = anime.data
                 root.setOnClickListener {
                     onItemViewClickListener?.onItemViewClick(anime)
                 }
                 wantedBtn.setOnClickListener {
-                    Changing.saveTo(anime, 4)
+                    Changing.saveTo(anime.id, WANTED)
                     animeData.remove(anime)
-                    notifyDataSetChanged()
+                    notifyItemRemoved(layoutPosition)
                 }
                 unwantedBtn.setOnClickListener {
-                    Changing.saveTo(anime, 5)
+                    Changing.saveTo(anime.id, UNWANTED)
                     animeData.remove(anime)
-                    notifyDataSetChanged()
+                    notifyItemRemoved(layoutPosition)
                 }
             }
         }
@@ -91,7 +95,7 @@ class NotWatchedFragmentAdapter :
         onItemViewClickListener = null
     }
 
-    fun setAnime(data: List<Anime>) {
+    fun setAnime(data: List<ShortAnime>) {
         animeData = data.toMutableList()
         notifyDataSetChanged()
     }
@@ -105,12 +109,12 @@ class NotWatchedFragmentAdapter :
 
     override fun onItemDismiss(position: Int, i: Int) {
         if (i == ItemTouchHelper.START) {
-            Changing.saveTo(animeData[position], 5)
+            Changing.saveTo(animeData[position].id, UNWANTED)
             animeData.removeAt(position)
             notifyItemRemoved(position)
         }
         if (i == ItemTouchHelper.END) {
-            Changing.saveTo(animeData[position], 4)
+            Changing.saveTo(animeData[position].id, WANTED)
             animeData.removeAt(position)
             notifyItemRemoved(position)
         }

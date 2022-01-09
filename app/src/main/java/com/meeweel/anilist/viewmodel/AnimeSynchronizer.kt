@@ -1,10 +1,6 @@
 package com.meeweel.anilist.viewmodel
 
-import android.annotation.SuppressLint
 import android.os.Handler
-import android.widget.Toast
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.snackbar.Snackbar
 import com.meeweel.anilist.api.AnimeApi
 import com.meeweel.anilist.api.AnimeResponse
@@ -109,8 +105,9 @@ class AnimeSynchronizer(
                 1
             )
         )
-        Glide.with(getContext()).load(item.image).diskCacheStrategy(DiskCacheStrategy.DATA).preload()
+//        Glide.with(getContext()).load(item.image).diskCacheStrategy(DiskCacheStrategy.DATA).preload()
         if (actualQuantity == item.id) toast("Anime was uploaded")
+        compositeDisposable.dispose()
     }
 
     private fun getRating(anime: AnimeResponse): Int {
@@ -143,7 +140,7 @@ class AnimeSynchronizer(
     private fun toast(text: String) {
         val snackBar = Snackbar.make(bind.container, text, Snackbar.LENGTH_SHORT)
         snackBar.setAction("SKIP") {
-            Toast.makeText(getContext(), "Ok...", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(getContext(), "Ok...", Toast.LENGTH_SHORT).show()
         }
         snackBar.show()
     }

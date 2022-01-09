@@ -10,8 +10,12 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.MainRecyclerItemBinding
 import com.meeweel.anilist.model.data.Anime
+import com.meeweel.anilist.model.data.ShortAnime
 import com.meeweel.anilist.view.fragments.ItemTouchHelperAdapter
 import com.meeweel.anilist.view.fragments.ItemTouchHelperViewHolder
+import com.meeweel.anilist.viewmodel.Changing
+import com.meeweel.anilist.viewmodel.Changing.NOT_WATCHED
+import com.meeweel.anilist.viewmodel.Changing.WATCHED
 import com.meeweel.anilist.viewmodel.Changing.getContext
 import com.meeweel.anilist.viewmodel.Changing.saveTo
 import com.meeweel.anilist.viewmodel.ImageMaker
@@ -19,7 +23,7 @@ import com.meeweel.anilist.viewmodel.ImageMaker
 class MainFragmentAdapter :
     RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>(), ItemTouchHelperAdapter {
 
-    private var animeData: MutableList<Anime> = mutableListOf()
+    private var animeData: MutableList<ShortAnime> = mutableListOf()
     private var onItemViewClickListener: MainFragment.OnItemViewClickListener? = null
 //    val imageMaker: ImageMaker = ImageMaker()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -42,32 +46,33 @@ class MainFragmentAdapter :
     inner class MainViewHolder(private val binding: MainRecyclerItemBinding) :
         RecyclerView.ViewHolder(binding.root), ItemTouchHelperViewHolder {
 
-        fun bind(anime: Anime) {
+        fun bind(anime: ShortAnime) {
             binding.apply {
                 mainFragmentRecyclerItemTextView.text =
                     if (getContext().resources.getBoolean(R.bool.isRussian)) anime.ruTitle else anime.enTitle
                 Glide.with(this.mainFragmentRecyclerItemImageView.context)
                     .load(anime.image)
-                    .diskCacheStrategy(DiskCacheStrategy.DATA)
+                    .error(R.drawable.anig)
                     .placeholder(R.drawable.anig)
                     .into(this.mainFragmentRecyclerItemImageView)
+
 
 //                mainFragmentRecyclerItemImageView.setImageBitmap(
 //                    imageMaker.getPictureFromDirectory(
 //                        anime.image
 //                    )
 //                )
-
+                itemData.text = anime.data
                 root.setOnClickListener {
                     onItemViewClickListener?.onItemViewClick(anime)
                 }
                 watchedBtn.setOnClickListener {
-                    saveTo(anime, 2)
+                    saveTo(anime.id, WATCHED)
                     animeData.remove(anime)
                     notifyItemRemoved(layoutPosition)
                 }
                 notWatchedBtn.setOnClickListener {
-                    saveTo(anime, 3)
+                    saveTo(anime.id, NOT_WATCHED)
                     animeData.remove(anime)
                     notifyItemRemoved(layoutPosition)
                 }
@@ -92,7 +97,7 @@ class MainFragmentAdapter :
         onItemViewClickListener = null
     }
 
-    fun setAnime(data: List<Anime>) {
+    fun setAnime(data: List<ShortAnime>) {
         animeData = data.toMutableList()
         notifyDataSetChanged()
     }
@@ -106,12 +111,12 @@ class MainFragmentAdapter :
 
     override fun onItemDismiss(position: Int, i: Int) {
         if (i == ItemTouchHelper.START) {
-            saveTo(animeData[position], 3)
+            saveTo(animeData[position].id, NOT_WATCHED)
             animeData.removeAt(position)
             notifyItemRemoved(position)
         }
         if (i == ItemTouchHelper.END) {
-            saveTo(animeData[position], 2)
+            saveTo(animeData[position].id, WATCHED)
             animeData.removeAt(position)
             notifyItemRemoved(position)
         }

@@ -15,11 +15,21 @@
         <item name="android:layout_marginStart">@dimen/_5dp</item>
         <item name="android:backgroundTint">@color/lazy_red</item>
     </style>
-    <style name="grennButton">
+    <style name="greenButton">
         <item name="android:layout_width">@dimen/_0dp</item>
         <item name="android:layout_height">@dimen/_40dp</item>
         <item name="android:layout_marginEnd">@dimen/_5dp</item>
         <item name="android:layout_marginStart">@dimen/_5dp</item>
         <item name="android:backgroundTint">@color/lazy_green</item>
+    </style>
+    <style name="parameters">
+        <item name="android:layout_marginTop">@dimen/_20dp</item>
+        <item name="android:layout_marginStart">@dimen/_0dp</item>
+        <item name="android:layout_marginEnd">@dimen/_0dp</item>
+        <item name="android:layout_marginBottom">@dimen/_10dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="CustomDayStyle" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+
     </style>
 </resources>

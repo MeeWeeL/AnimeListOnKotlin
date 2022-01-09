@@ -4,7 +4,7 @@
     <Transition
         motion:constraintSetEnd="@layout/details_fragment_zoom"
         motion:constraintSetStart="@layout/details_fragment"
-        motion:duration="1000"
+        motion:duration="700"
         motion:motionInterpolator="easeInOut">
 
         <OnClick motion:targetId="@id/anime_image" />

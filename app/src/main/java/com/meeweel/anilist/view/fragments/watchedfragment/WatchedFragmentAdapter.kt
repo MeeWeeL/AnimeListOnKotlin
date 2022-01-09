@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.WatchedRecyclerItemBinding
 import com.meeweel.anilist.model.data.Anime
+import com.meeweel.anilist.model.data.ShortAnime
 import com.meeweel.anilist.view.fragments.ItemTouchHelperAdapter
 import com.meeweel.anilist.view.fragments.ItemTouchHelperViewHolder
 import com.meeweel.anilist.viewmodel.Changing
@@ -16,7 +17,7 @@ import com.meeweel.anilist.viewmodel.ImageMaker
 class WatchedFragmentAdapter :
     RecyclerView.Adapter<WatchedFragmentAdapter.MainViewHolder>(), ItemTouchHelperAdapter {
 //    val imageMaker: ImageMaker = ImageMaker()
-    private var animeData: MutableList<Anime> = mutableListOf()
+    private var animeData: MutableList<ShortAnime> = mutableListOf()
     private var onItemViewClickListener: WatchedFragment.OnItemViewClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -39,7 +40,7 @@ class WatchedFragmentAdapter :
     inner class MainViewHolder(private val binding: WatchedRecyclerItemBinding) :
         RecyclerView.ViewHolder(binding.root), ItemTouchHelperViewHolder {
 
-        fun bind(anime: Anime) {
+        fun bind(anime: ShortAnime) {
             binding.apply {
                 watchedFragmentRecyclerItemTextView.text = if (Changing.getContext()
                         .resources.getBoolean(R.bool.isRussian)
@@ -47,6 +48,7 @@ class WatchedFragmentAdapter :
 
                 Glide.with(this.watchedFragmentRecyclerItemImageView.context)
                     .load(anime.image)
+                    .error(R.drawable.anig)
                     .into(this.watchedFragmentRecyclerItemImageView)
 
 //                watchedFragmentRecyclerItemImageView.setImageBitmap(
@@ -78,7 +80,7 @@ class WatchedFragmentAdapter :
         onItemViewClickListener = null
     }
 
-    fun setAnime(data: List<Anime>) {
+    fun setAnime(data: List<ShortAnime>) {
         animeData = data.toMutableList()
         notifyDataSetChanged()
     }

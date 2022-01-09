@@ -40,6 +40,13 @@ android {
 dependencies {
 
 
+    //Dagger 2
+    implementation "com.google.dagger:dagger:2.38"
+    implementation "com.google.dagger:dagger-android:2.38"
+    implementation "com.google.dagger:dagger-android-support:2.38"
+    kapt "com.google.dagger:dagger-compiler:2.38"
+    kapt "com.google.dagger:dagger-android-processor:2.38"
+
     // Glide
     kapt "com.github.bumptech.glide:compiler:4.12.0"
     implementation "com.github.bumptech.glide:glide:4.12.0"
@@ -55,6 +62,7 @@ dependencies {
 
     //Room
     implementation 'androidx.room:room-runtime:2.4.0'
+    implementation 'androidx.room:room-rxjava3:2.4.0'
     kapt 'androidx.room:room-compiler:2.4.0'
 
     // Retrofit
@@ -64,9 +72,12 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.9.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
 
+    // RxJava 3
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
     // RxJava
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.6'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
 
     // Cicerone
     implementation 'com.github.terrakok:cicerone:7.0'

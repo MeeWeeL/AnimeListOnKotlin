@@ -13,6 +13,7 @@ import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.WatchedFragmentBinding
 import com.meeweel.anilist.model.AppState
 import com.meeweel.anilist.model.data.Anime
+import com.meeweel.anilist.model.data.ShortAnime
 import com.meeweel.anilist.model.room.App.Companion.appRouter
 import com.meeweel.anilist.navigation.CustomRouter
 import com.meeweel.anilist.view.fragments.mainfragment.MainItemTouchHelperCallback
@@ -52,7 +53,7 @@ class WatchedFragment(private val router: CustomRouter = appRouter) : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         ItemTouchHelper(WatchedItemTouchHelperCallback(adapter)).attachToRecyclerView(binding.watchedFragmentRecyclerView)
         adapter.setOnItemViewClickListener(object : OnItemViewClickListener {
-            override fun onItemViewClick(anime: Anime) {
+            override fun onItemViewClick(anime: ShortAnime) {
                 router.openDeepLink(anime)
 //                activity?.supportFragmentManager?.apply {
 //                    beginTransaction()
@@ -104,10 +105,10 @@ class WatchedFragment(private val router: CustomRouter = appRouter) : Fragment()
     }
 
     private fun refresh(fragment: Screen = MainScreen()) {
-        appRouter.navigateTo(fragment)
+        appRouter.replaceScreen(fragment)
     }
 
     interface OnItemViewClickListener {
-        fun onItemViewClick(anime: Anime)
+        fun onItemViewClick(anime: ShortAnime)
     }
 }
