@@ -8,6 +8,8 @@ import com.meeweel.anilist.databinding.ActivityMainBinding
 import com.meeweel.anilist.model.repository.LocalRepository
 import com.meeweel.anilist.model.repository.LocalRepositoryImpl
 import com.meeweel.anilist.model.room.App
+import com.meeweel.anilist.model.room.convertResponseListToEntityList
+import com.meeweel.anilist.model.room.convertResponseToEntity
 import com.meeweel.anilist.model.room.entityes.Entity
 import com.meeweel.anilist.viewmodel.Changing.getContext
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -35,7 +37,7 @@ class AnimeSynchronizer(
                     actualQuantity = it.id
                     ifIf(actualQuantity, localQuantity)
                 }, {
-                    toast("Network exception")
+                    toast("No internet")
                 })
         )
     }
@@ -43,19 +45,17 @@ class AnimeSynchronizer(
     private fun ifIf(actualQuantity: Int, localQuantity: Int) {
         if (actualQuantity > localQuantity) {
             toast("Found new anime")
-            for (i in (localQuantity + 1)..actualQuantity) {
-                compositeDisposable.add(
-                    aniApi.getAnime(i)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(Schedulers.computation())
-                        .subscribe({
+            compositeDisposable.add(
+                aniApi.getAnimes(localQuantity)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.computation())
+                    .subscribe({
 //                            picMaker.savePictureToDirectory(it.image, getImageName(it.image))
-                            insert(it)
-                        }, {
-                            reLoad(i)
-                        })
-                )
-            }
+                        insert(it)
+                    }, {
+                        toast("Server error")
+                    })
+            )
         } else {
             toast("You have actual data")
         }
@@ -65,66 +65,37 @@ class AnimeSynchronizer(
         handler.post(r) // Запуск в главном потоке
     }
 
-    private fun reLoad(i: Int) {
-        compositeDisposable.add(
-            aniApi.getAnime(i)
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.computation())
-                .subscribe({
-//                    picMaker.savePictureToDirectory(it.image, getImageName(it.image))
-                    try {
-                        insert(it)
-                    } catch (e: Exception) {
+//    private fun reLoad(i: Int) {
+//        compositeDisposable.add(
+//            aniApi.getAnimes(i)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(Schedulers.computation())
+//                .subscribe({
+////                    picMaker.savePictureToDirectory(it.image, getImageName(it.image))
+//                    try {
+//                        insert(it)
+//                    } catch (e: Exception) {
+//
+//                    }
+//                }, {
+//                    reLoad(i)
+//                })
+//        )
+//    }
 
-                    }
-                }, {
-                    reLoad(i)
-                })
-        )
-    }
-
-    fun insert(item: AnimeResponse) {
-        repository.insertLocalEntity(
-            Entity(
-                item.id,
-                item.ruTitle,
-                item.enTitle,
-                item.originalTitle,
-                item.ruDescription,
-                item.enDescription,
-//                getImageName(item.image),
-                item.image,
-                item.data,
-                item.ruGenre,
-                item.enGenre,
-                item.author,
-                item.ageRating,
-                getRating(item),
-                item.seriesQuantity,
-                0,
-                1
-            )
-        )
+    fun insert(list: List<AnimeResponse>) {
+        repository.insertLocalEntity(convertResponseListToEntityList(list))
 //        Glide.with(getContext()).load(item.image).diskCacheStrategy(DiskCacheStrategy.DATA).preload()
-        if (actualQuantity == item.id) toast("Anime was uploaded")
+        toast("Anime was uploaded")
         compositeDisposable.dispose()
     }
 
-    private fun getRating(anime: AnimeResponse): Int {
-        return try {
-            (anime.rating2 * 25 + anime.rating3 * 50 + anime.rating4 * 75 +
-                    anime.rating5 * 100) / (anime.rating1 + anime.rating2 +
-                    anime.rating3 + anime.rating4 + anime.rating5)
-        } catch (e: Exception) {
-            0
-        }
-    }
 
-    private fun getImageName(title: String): String {
-        return title
-            .replace("https://anilist.pserver.ru/pictures/", "")
-            .replace(".jpg", "")
-            .replace(".png", "")
+//    private fun getImageName(title: String): String {
+//        return title
+//            .replace("https://anilist.pserver.ru/pictures/", "")
+//            .replace(".jpg", "")
+//            .replace(".png", "")
 
         // return title
         //    .replace(" ", "")
@@ -134,7 +105,7 @@ class AnimeSynchronizer(
         //    .replace(",", "").replace("'", "")
         //    .replace("\"", "").replace("?", "")
         //    .replace("!", "").replace("&", "").lowercase()
-    }
+//    }
 
 
     private fun toast(text: String) {

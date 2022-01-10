@@ -11,7 +11,14 @@ interface AnimeApi {
     @Headers("Content-type: application/json")
     fun getAnime(@Query("id") id: Int): Single<AnimeResponse> // @Query добавляет в запрос &id=$id
 
+    @GET("./api.php?q=posts")
+    @Headers("Content-type: application/json")
+    fun getAnimes(@Query("id") id: Int): Single<List<AnimeResponse>>
+
     @GET("./api.php?q=maxId")
     @Headers("Content-type: application/json")
     fun getQuantity(): Single<MaxIdResponse>
+
+    @GET("./api.php?q=score")
+    fun reteScore(@Query("score") score: Int, @Query("id") id: Int) : Single<String>
 }

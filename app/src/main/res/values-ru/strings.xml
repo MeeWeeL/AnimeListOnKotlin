@@ -15,6 +15,8 @@
     <string name="genre">Жанр</string>
     <string name="data">Дата релиза</string>
     <string name="age_rating">Возрастной рейтинг</string>
+    <string name="rate_this_title">Поставить оценку этому тайтлу</string>
+    <string name="move_to">Переместить в</string>
     <dimen name="recycler_item_text_size">25sp</dimen>
     <dimen name="recycler_item_line_height">1dp</dimen>
 </resources>

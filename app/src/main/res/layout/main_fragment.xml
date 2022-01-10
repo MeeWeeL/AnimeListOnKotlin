@@ -43,7 +43,7 @@
             android:layout_marginEnd="@dimen/margin_15_dp"
             android:layout_marginBottom="@dimen/_5dp"
             android:layout_marginTop="@dimen/_5dp"
-            app:itemIconTint="@drawable/navigation_selector"/>
+            app:itemIconTint="@drawable/navigation_selector" />
     </com.google.android.material.bottomappbar.BottomAppBar>
 
     <FrameLayout

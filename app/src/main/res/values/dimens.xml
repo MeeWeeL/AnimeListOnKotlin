@@ -19,4 +19,5 @@
     <dimen name="_720dp">720dp</dimen>
     <dimen name="_4dp">4dp</dimen>
     <dimen name="_15sp">15sp</dimen>
+    <dimen name="_60dp">60dp</dimen>
 </resources>

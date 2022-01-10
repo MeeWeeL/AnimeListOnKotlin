@@ -1,8 +1,14 @@
 package com.meeweel.anilist.view
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.snackbar.Snackbar
 import com.meeweel.anilist.R
 import com.meeweel.anilist.api.AnimeApi
@@ -21,13 +27,13 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     lateinit var syncer: AnimeSynchronizer
-
     private val navigator = CustomNavigator(activity = this, R.id.container)
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        MobileAds.initialize(this)
         setContext(this)
         syncer = AnimeSynchronizer((application as App).animeApi, binding)
         if (savedInstanceState == null) {
@@ -60,5 +66,9 @@ class MainActivity : AppCompatActivity() {
     override fun onPause() {
         navigatorHolder.removeNavigator()
         super.onPause()
+    }
+    companion object {
+        var time = System.currentTimeMillis()
+        const val adsDelay = 300000L
     }
 }

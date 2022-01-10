@@ -16,4 +16,6 @@ interface LocalRepository {
     fun updateLocalEntity(aniId: Int, list: Int)
     fun updateFromNetwork(anime: AnimeResponse, id: Int)
     fun getAnimeById(id: Int) : Anime
+    fun updateRate(id: Int, score: Int)
+    fun insertLocalEntity(entityList: List<Entity>)
 }

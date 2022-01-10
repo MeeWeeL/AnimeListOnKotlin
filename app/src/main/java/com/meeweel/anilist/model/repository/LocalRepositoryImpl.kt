@@ -40,6 +40,10 @@ class LocalRepositoryImpl(
         localEntityDataSource.insert(entity)
     }
 
+    override fun insertLocalEntity(entityList: List<Entity>) {
+        localEntityDataSource.insertList(entityList)
+    }
+
     override fun updateLocalEntity(aniId: Int, list: Int) {
         localEntityDataSource.update(aniId, list)
     }
@@ -72,5 +76,9 @@ class LocalRepositoryImpl(
 
     override fun getAnimeById(id: Int): Anime {
         return convertEntityToAnime(localEntityDataSource.getEntityById(id))
+    }
+
+    override fun updateRate(id: Int, score: Int) {
+        localEntityDataSource.updateRate(id, score)
     }
 }

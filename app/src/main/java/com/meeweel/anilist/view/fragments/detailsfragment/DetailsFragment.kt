@@ -2,13 +2,15 @@ package com.meeweel.anilist.view.fragments.detailsfragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.target.Target
-import com.bumptech.glide.signature.ObjectKey
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.snackbar.Snackbar
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.DetailsFragmentBinding
@@ -18,6 +20,7 @@ import com.meeweel.anilist.model.repository.LocalRepository
 import com.meeweel.anilist.model.repository.LocalRepositoryImpl
 import com.meeweel.anilist.model.room.App
 import com.meeweel.anilist.navigation.CustomRouter
+import com.meeweel.anilist.viewmodel.Changing.WATCHED
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -26,7 +29,6 @@ class DetailsFragment(
     private val repository: LocalRepository = LocalRepositoryImpl(App.getEntityDao())
 ) : Fragment() {
 
-    lateinit var ruView: TextView
     lateinit var anime: ShortAnime
 //    private val imageMaker: ImageMaker = ImageMaker()
     private var _binding: DetailsFragmentBinding? = null
@@ -45,7 +47,6 @@ class DetailsFragment(
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        ruView = binding.russianTitle
         arguments?.getParcelable<ShortAnime>(BUNDLE_EXTRA)?.let { anime ->
             this.anime = anime
             populateData(repository.getAnimeById(anime.id))
@@ -59,35 +60,7 @@ class DetailsFragment(
             }
         })
         binding.detailsToolbar.menu.findItem(R.id.upload).setOnMenuItemClickListener {
-            val api = (requireActivity().application as App).animeApi
-            api.getAnime(anime.id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    repository.updateFromNetwork(it, anime.id)
-//                    Thread {
-//                        Glide.get(binding.animeImage.context).clearDiskCache()
-//                    }.start()
-//                    Glide.get(binding.animeImage.context).clearMemory()
-//                    Glide.with(this).load(it.image).diskCacheStrategy(DiskCacheStrategy.NONE)
-//                        .skipMemoryCache(true)
-//                        .into(binding.animeImage)
-//                        .load(it.image)
-//                        .diskCacheStrategy(DiskCacheStrategy.NONE )
-//                        .skipMemoryCache(true)
-//                        .into(binding.animeImage)
-//                    Glide.with(requireContext())
-//                        .load(it.image)
-//                        .signature(ObjectKey(System.currentTimeMillis().toString()))
-//                        .into(binding.animeImage)
-                    populateData(repository.getAnimeById(anime.id))
-                    toast("Uploaded")
-
-                }, {
-                    toast("No internet")
-                })
-
-            toast("Upload")
+            upload(true)
             true
         }
         binding.detailsToolbar.menu.findItem(R.id.share_to).setOnMenuItemClickListener {
@@ -125,6 +98,7 @@ class DetailsFragment(
 
             originalTitle.text = animeData.originalTitle
             englishTitle.text = animeData.enTitle
+            englishTitle.visibility = View.GONE
             russianTitle.text = animeData.ruTitle
             russianTitle.visibility = View.VISIBLE // if (isRussian) View.VISIBLE else View.GONE
             descriptionValue.text = animeData.description
@@ -133,9 +107,87 @@ class DetailsFragment(
             releaseData.text = "${getText(R.string.data)}: ${animeData.data}"
             releaseAgeRate.text = "${getText(R.string.age_rating)}: ${animeData.ageRating}+"
             releaseRating.text = "${getText(R.string.rating)}: ${animeData.rating}%"
+
+            if (animeData.ratingCheck == 0 && animeData.list == WATCHED) {
+                binding.rateScore.apply {
+                    rateCard.visibility = View.VISIBLE
+                    cancelBtn.setOnClickListener {
+                        rateCard.visibility = View.GONE
+                    }
+                    star1.setOnClickListener {
+                        makeRateScore(animeData.id, 1)
+                        repository.updateRate(animeData.id, 1)
+                        rateCard.visibility = View.GONE
+                    }
+                    star2.setOnClickListener {
+                        makeRateScore(animeData.id, 2)
+                        repository.updateRate(animeData.id, 2)
+                        rateCard.visibility = View.GONE
+                    }
+                    star3.setOnClickListener {
+                        makeRateScore(animeData.id, 3)
+                        repository.updateRate(animeData.id, 3)
+                        rateCard.visibility = View.GONE
+                    }
+                    star4.setOnClickListener {
+                        makeRateScore(animeData.id, 4)
+                        repository.updateRate(animeData.id, 4)
+                        rateCard.visibility = View.GONE
+                    }
+                    star5.setOnClickListener {
+                        makeRateScore(animeData.id, 5)
+                        repository.updateRate(animeData.id, 5)
+                        rateCard.visibility = View.GONE
+                    }
+                }
+
+            }
         }
     }
 
+    @SuppressLint("CheckResult")
+    private fun makeRateScore(id: Int, score: Int) {
+        val api = (requireActivity().application as App).animeApi
+        api.reteScore(score, id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                toast("Rated")
+            }, {
+                toast("No internet")
+            })
+        upload(false)
+    }
+
+    @SuppressLint("CheckResult")
+    private fun upload(isRate: Boolean) {
+        val api = (requireActivity().application as App).animeApi
+        api.getAnime(anime.id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                repository.updateFromNetwork(it, anime.id)
+//      Glides              Thread {
+//                        Glide.get(binding.animeImage.context).clearDiskCache()
+//                    }.start()
+//                    Glide.get(binding.animeImage.context).clearMemory()
+//                    Glide.with(this).load(it.image).diskCacheStrategy(DiskCacheStrategy.NONE)
+//                        .skipMemoryCache(true)
+//                        .into(binding.animeImage)
+//                        .load(it.image)
+//                        .diskCacheStrategy(DiskCacheStrategy.NONE )
+//                        .skipMemoryCache(true)
+//                        .into(binding.animeImage)
+//                    Glide.with(requireContext())
+//                        .load(it.image)
+//                        .signature(ObjectKey(System.currentTimeMillis().toString()))
+//                        .into(binding.animeImage)
+                populateData(repository.getAnimeById(anime.id))
+                if (isRate) toast("Updated")
+            }, {
+                toast("No internet")
+            })
+    }
     companion object {
         const val BUNDLE_EXTRA = "anime"
 
