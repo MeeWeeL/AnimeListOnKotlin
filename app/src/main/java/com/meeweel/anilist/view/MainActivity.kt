@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
     }
     companion object {
-        var time = System.currentTimeMillis()
-        const val adsDelay = 300000L
+        var time = System.currentTimeMillis() - 20000L
+        const val adsDelay = 3000000L
     }
 }

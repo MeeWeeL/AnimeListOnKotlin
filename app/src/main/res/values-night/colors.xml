@@ -14,14 +14,14 @@
     <color name="selected">#7FFFD4</color>
     <color name="simple_transparent">#00000000</color>
 
-    <color name="main_gray">#F9F9F9</color>
-    <color name="main_color">#FFFFFF</color>
-    <color name="main_reverse_color">#000000</color>
-    <color name="main_transparent_color">#DDFFFFFF</color>
-    <color name="main_transparent_reverse_color">#DD000000</color>
-    <color name="main_transparent_color_50">#80FFFFFF</color>
-    <color name="main_transparent_reverse_color_50">#80000000</color>
-    <color name="main_transparent_color_10">#10FFFFFF</color>
-    <color name="main_transparent_reverse_color_10">#10000000</color>
-    <color name="main_transparent_reverse_color_20">#10000000</color>
+    <color name="main_gray">#0А0А0А</color>
+    <color name="main_color">#000000</color>
+    <color name="main_reverse_color">#FFFFFF</color>
+    <color name="main_transparent_color">#DD000000</color>
+    <color name="main_transparent_reverse_color">#DDFFFFFF</color>
+    <color name="main_transparent_color_50">#80000000</color>
+    <color name="main_transparent_reverse_color_50">#80FFFFFF</color>
+    <color name="main_transparent_color_10">#10000000</color>
+    <color name="main_transparent_reverse_color_10">#10FFFFFF</color>
+    <color name="main_transparent_reverse_color_20">#20FFFFFF</color>
 </resources>

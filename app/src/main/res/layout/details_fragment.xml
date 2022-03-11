@@ -6,8 +6,8 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/details_bar"
+        android:backgroundTint="@color/main_color"
         android:layout_width="match_parent"
-        android:backgroundTint="@color/white"
         android:layout_height="@dimen/_50dp">
 
         <RelativeLayout
@@ -59,28 +59,11 @@
 
             <ImageView
                 android:id="@+id/anime_image"
-                android:layout_width="@dimen/_0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/_20dp"
-                android:contentDescription="@string/todo"
-                android:src="@drawable/anig"
-                android:layout_marginBottom="@dimen/_10dp"
-                app:layout_constraintTop_toBottomOf="@id/original_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/release_Data"
-                app:layout_constraintBottom_toTopOf="@id/release_Genre"
-                app:layout_constraintHorizontal_weight="2" />
+                style="@style/detailsEnImage"/>
 
             <TextView
                 android:id="@+id/release_Data"
-                android:layout_width="@dimen/_0dp"
-                android:layout_height="wrap_content"
-                style="@style/parameters"
-                app:layout_constraintBottom_toTopOf="@+id/release_Author"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="2"
-                app:layout_constraintStart_toEndOf="@id/anime_image"
-                app:layout_constraintTop_toTopOf="@id/anime_image"
+                style="@style/detailsEnData"
                 tools:text="data" />
 
             <TextView
@@ -131,13 +114,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/release_age_rate"
                 tools:text="genre" />
-
-            <androidx.constraintlayout.widget.Barrier
-                android:id="@+id/barrier"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:barrierDirection="bottom"
-                app:constraint_referenced_ids="release_rating,anime_image" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"

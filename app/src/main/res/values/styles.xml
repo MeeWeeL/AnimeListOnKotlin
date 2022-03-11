@@ -1,27 +1,319 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="cardViewStyle">
+
+    <!--******************************************************-->
+    <!--******************  Main Activity  *******************-->
+    <!--******************************************************-->
+
+                    <!--  Frame Layout  -->
+    <style name="mainActivityFrameLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/main_gray</item>
+    </style>
+    <!--******************************************************-->
+
+    <!--******************************************************-->
+    <!--*******************  Bottom Bar  *********************-->
+    <!--******************************************************-->
+
+                    <!--   Bottom App Bar   -->
+    <style name="bottomAppBarBackStyle">
+        <item name="backgroundTint">@color/main_transparent_color</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="cardCornerRadius">@dimen/_14dp</item>
-        <item name="android:backgroundTint">@color/white</item>
-        <item name="android:layout_marginTop">@dimen/_3dp</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="fabAlignmentMode">center</item>
+        <item name="hideOnScroll">true</item>
+        <item name="fabCradleRoundedCornerRadius">@dimen/_40dp</item>
+        <item name="fabCradleMargin">@dimen/_20dp</item>
+        <item name="fabCradleVerticalOffset">@dimen/_40dp</item>
+        <item name="layout_scrollFlags">scroll</item>
+    </style>
+                    <!--  Bottom Nav Bar  -->
+    <style name="bottomNavBar">
+        <item name="menu">@menu/button_menu</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:visibility">visible</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="labelVisibilityMode">labeled</item>
+        <item name="layout_anchor">@id/bottom_app_bar</item>
+        <item name="android:layout_marginEnd">@dimen/margin_15_dp</item>
+        <item name="android:layout_marginBottom">@dimen/_5dp</item>
+        <item name="android:layout_marginTop">@dimen/_5dp</item>
+        <item name="itemIconTint">@drawable/navigation_selector</item>
+    </style>
+    <!--******************************************************-->
+
+    <!--******************************************************-->
+    <!--*******************  Card View  **********************-->
+    <!--******************************************************-->
+
+                    <!--  Constraint of Card View  -->
+    <style name="constraintOfCardViewStyle">
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingStart">5dp</item>
+        <item name="android:paddingEnd">5dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/main_transparent_reverse_color_20</item>
+    </style>
+
+                    <!--  Base Card View  -->
+    <style name="cardViewBaseStyle" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cardBackgroundColor">@color/main_color</item>
+        <item name="android:focusable">true</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">4dp</item>
+    </style>
+    <!--  Main Card View  -->
+    <style name="cardViewMainStyle" parent="cardViewBaseStyle">
+
+    </style>
+    <!--  Not Watched Card View  -->
+    <style name="cardViewNotWatchedStyle" parent="cardViewBaseStyle">
+
+    </style>
+    <!--  Watched Card View  -->
+    <style name="cardViewWatchedStyle" parent="cardViewBaseStyle">
+
+    </style>
+    <!--  Wanted Card View  -->
+    <style name="cardViewWantedStyle" parent="cardViewBaseStyle">
+
+    </style>
+    <!--  Unwanted Card View  -->
+    <style name="cardViewUnwantedStyle" parent="cardViewBaseStyle">
+
+    </style>
+
+    <!--  On Main Card View  -->
+    <!--  CardView  -->
+    <style name="imageCardViewCardViewMainStyle" parent="imageCardViewCardViewBaseStyle">
+        <item name="layout_constraintEnd_toStartOf">@+id/mainFragmentRecyclerItemTextView</item>
+        <item name="layout_constraintBottom_toTopOf">@id/not_watched_btn</item>
+    </style>
+    <!--  Image  -->
+    <style name="imageCardViewMainStyle" parent="imageCardViewBaseStyle">
+
+    </style>
+    <!--  Title  -->
+    <style name="titleCardViewMainStyle" parent="titleCardViewBaseStyle">
+        <item name="layout_constraintStart_toEndOf">@+id/main_fragment_recycler_item_image_view_card_view</item>
+        <item name="layout_constraintBottom_toTopOf">@id/item_data</item>
+    </style>
+    <!--  Data  -->
+    <style name="dataCardViewMainStyle" parent="dataCardViewBaseStyle">
+        <item name="layout_constraintBottom_toTopOf">@id/watched_btn</item>
+    </style>
+
+    <!--  On Not Watched Card View  -->
+    <!--  CardView  -->
+    <style name="imageCardViewCardViewNotWatchedStyle" parent="imageCardViewCardViewBaseStyle">
+        <item name="layout_constraintBottom_toTopOf">@+id/unwanted_btn</item>
+        <item name="layout_constraintEnd_toStartOf">@+id/notWatchedFragmentRecyclerItemTextView</item>
+    </style>
+    <!--  Image  -->
+    <style name="imageCardViewNotWatchedStyle" parent="imageCardViewBaseStyle">
+
+    </style>
+    <!--  Title  -->
+    <style name="titleCardViewNotWatchedStyle" parent="titleCardViewBaseStyle">
+        <item name="layout_constraintStart_toEndOf">@+id/not_watched_fragment_recycler_item_image_view_card_view</item>
+    </style>
+    <!--  Data  -->
+    <style name="dataCardViewNotWatchedStyle" parent="dataCardViewBaseStyle">
+        <item name="layout_constraintBottom_toTopOf">@id/wanted_btn</item>
+    </style>
+
+    <!--  On Watched Card View  -->
+    <!--  CardView  -->
+    <style name="imageCardViewCardViewWatchedStyle" parent="imageCardViewCardViewBaseStyle">
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+    </style>
+    <!--  Image  -->
+    <style name="imageCardViewWatchedStyle" parent="imageCardViewBaseStyle">
+    </style>
+    <!--  Title  -->
+    <style name="titleCardViewWatchedStyle" parent="titleCardViewBaseStyle">
+        <item name="layout_constraintStart_toEndOf">@id/watched_fragment_recycler_item_image_view_card_view</item>
+    </style>
+    <!--  Data  -->
+    <style name="dataCardViewWatchedStyle" parent="dataCardViewBaseStyle">
+    </style>
+
+    <!--  On Wanted Card View  -->
+    <!--  CardView  -->
+    <style name="imageCardViewCardViewWantedStyle" parent="imageCardViewCardViewBaseStyle">
+        <item name="layout_constraintBottom_toTopOf">@id/watched_btn_on_wanted</item>
+    </style>
+    <!--  Image  -->
+    <style name="imageCardViewWantedStyle" parent="imageCardViewBaseStyle">
+    </style>
+    <!--  Title  -->
+    <style name="titleCardViewWantedStyle" parent="titleCardViewBaseStyle">
+        <item name="layout_constraintStart_toEndOf">@id/wanted_fragment_recycler_item_image_view_card_view</item>
+        <item name="layout_constraintBottom_toTopOf">@id/item_data</item>
+    </style>
+    <!--  Data  -->
+    <style name="dataCardViewWantedStyle" parent="dataCardViewBaseStyle">
+        <item name="layout_constraintBottom_toTopOf">@id/watched_btn_on_wanted</item>
+    </style>
+
+    <!--  On Unwanted Card View  -->
+    <!--  CardView  -->
+    <style name="imageCardViewCardViewUnwantedStyle" parent="imageCardViewCardViewBaseStyle">
+        <item name="layout_constraintEnd_toStartOf">@+id/unwantedFragmentRecyclerItemTextView</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+    <!--  Image  -->
+    <style name="imageCardViewUnwantedStyle" parent="imageCardViewBaseStyle">
+    </style>
+    <!--  Title  -->
+    <style name="titleCardViewUnwantedStyle" parent="titleCardViewBaseStyle">
+        <item name="layout_constraintStart_toEndOf">@id/unwanted_fragment_recycler_item_image_view_card_view</item>
+
+    </style>
+    <!--  Data  -->
+    <style name="dataCardViewUnwantedStyle" parent="dataCardViewBaseStyle">
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+    </style>
+
+                    <!--  On Base Card View  -->
+    <!--  CardView  -->
+    <style name="imageCardViewCardViewBaseStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cardCornerRadius">@dimen/_20dp</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
+    <!--  Image  -->
+    <style name="imageCardViewBaseStyle">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">160dp</item>
+        <item name="android:src">@drawable/anig</item>
+        <item name="android:visibility">visible</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+    </style>
+    <!--  Title  -->
+    <style name="titleCardViewBaseStyle">
+        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:layout_width">@dimen/_0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">@string/anime</item>
+        <item name="android:visibility">visible</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintBottom_toTopOf">@id/item_data</item>
+    </style>
+    <!--  Data  -->
+    <style name="dataCardViewBaseStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">@string/data</item>
+        <item name="android:layout_marginEnd">@dimen/_20dp</item>
+        <item name="android:layout_marginTop">@dimen/_10dp</item>
         <item name="android:layout_marginBottom">@dimen/_3dp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
     </style>
-    <style name="redButton">
+    <!--******************************************************-->
+                    <!--  Buttons  -->
+    <!--  Watched Button  -->
+    <style name="watchedButton" parent="@style/greenButton">
+        <item name="android:text">@string/watched</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toEndOf">@id/not_watched_btn</item>
+    </style>
+    <!--  Watched Button on Wanted list  -->
+    <style name="watchedButtonOnWantedList" parent="watchedButton">
+        <item name="layout_constraintStart_toStartOf">parent</item>
+    </style>
+    <!--  Not Watched Button  -->
+    <style name="notWatchedButton" parent="@style/redButton">
+        <item name="android:text">@string/not_watched</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintEnd_toStartOf">@id/watched_btn</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+    </style>
+    <!--  Wanted Button  -->
+    <style name="wantedButton" parent="@style/greenButton">
+        <item name="android:text">@string/wanted</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toEndOf">@id/unwanted_btn</item>
+    </style>
+    <!--  Unwanted Button  -->
+    <style name="unwantedButton" parent="@style/redButton">
+        <item name="android:text">@string/unwanted</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="layout_constraintEnd_toStartOf">@id/wanted_btn</item>
+    <item name="layout_constraintStart_toStartOf">parent</item>
+    </style>
+    <!--******************************************************-->
+    <!--******************************************************-->
+                    <!--  Red Button  -->
+    <style name="redButton" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:layout_width">@dimen/_0dp</item>
         <item name="android:layout_height">@dimen/_40dp</item>
         <item name="android:layout_marginEnd">@dimen/_5dp</item>
         <item name="android:layout_marginStart">@dimen/_5dp</item>
-        <item name="android:backgroundTint">@color/lazy_red</item>
+        <item name="android:textColor">@color/lazy_red</item>
     </style>
-    <style name="greenButton">
+
+                    <!--  Green Button  -->
+    <style name="greenButton" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:layout_width">@dimen/_0dp</item>
         <item name="android:layout_height">@dimen/_40dp</item>
         <item name="android:layout_marginEnd">@dimen/_5dp</item>
         <item name="android:layout_marginStart">@dimen/_5dp</item>
-        <item name="android:backgroundTint">@color/lazy_green</item>
+        <item name="android:textColor">@color/lazy_green</item>
     </style>
+
+    <!--******************************************************-->
+    <!--*****************  Progress Bar  *********************-->
+    <!--******************************************************-->
+
+    <!--  Loading Layout  -->
+    <style name="loadingLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/main_transparent_reverse_color_10</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <!--  Progress Bar  -->
+    <style name="progressBarStyle" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminateTintMode">src_in</item>
+        <item name="android:indeterminateTint">@color/main_transparent_reverse_color_50</item>
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">200dp</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+    <!--******************************************************-->
+    <!--******************************************************-->
+
+
+    <!--******************************************************-->
+    <!--****************  Details Fragment  ******************-->
+    <!--******************************************************-->
+
     <style name="parameters">
         <item name="android:layout_marginTop">@dimen/_20dp</item>
         <item name="android:layout_marginStart">@dimen/_0dp</item>
@@ -29,7 +321,105 @@
         <item name="android:layout_marginBottom">@dimen/_10dp</item>
         <item name="android:gravity">center</item>
     </style>
-    <style name="ActionBar">
-        <item name="colorPrimary">@color/black</item>
+
+                    <!--  Base Details Fragment  -->
+    <!--  Image  -->
+    <style name="detailsBaseImage">
+        <item name="android:layout_width">@dimen/_0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_marginStart">@dimen/_20dp</item>
+        <item name="android:contentDescription">@string/todo</item>
+        <item name="android:src">@drawable/anig</item>
+        <item name="android:alpha">0.8</item>
+        <item name="android:layout_marginBottom">@dimen/_10dp</item>
+        <item name="layout_constraintTop_toBottomOf">@id/original_title</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toStartOf">@id/release_Data</item>
+        <item name="layout_constraintBottom_toTopOf">@id/release_Genre</item>
+        <item name="layout_constraintHorizontal_weight">2</item>
     </style>
+    <!--  Toolbar  -->
+    <!--  AppBar  -->
+    <!--  Original Title  -->
+    <!--  Russian Title  -->
+    <!--  English Title  -->
+    <!--  Data  -->
+    <style name="detailsBaseData" parent="parameters">
+        <item name="android:layout_width">@dimen/_0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="layout_constraintBottom_toTopOf">@+id/release_Author</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintHorizontal_weight">2</item>
+        <item name="layout_constraintStart_toEndOf">@id/anime_image</item>
+        <item name="layout_constraintTop_toTopOf">@id/anime_image</item>
+    </style>
+    <!--  Author  -->
+    <!--  Rating  -->
+    <!--  Age Rate  -->
+    <!--  Genre  -->
+    <!--  Description Background Image  -->
+
+                    <!--  Zoom  -->
+    <!--  Image  -->
+    <style name="detailsZoomImage" parent="detailsBaseImage">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">500dp</item>
+        <item name="android:layout_marginStart">@dimen/_0dp</item>
+        <item name="android:alpha">1</item>
+    </style>
+    <!--  Toolbar  -->
+    <!--  AppBar  -->
+    <!--  Original Title  -->
+    <!--  Russian Title  -->
+    <!--  English Title  -->
+    <!--  Data  -->
+    <style name="detailsZoomData" parent="detailsBaseData">
+
+    </style>
+    <!--  Author  -->
+    <!--  Rating  -->
+    <!--  Age Rate  -->
+    <!--  Genre  -->
+    <!--  Description Background Image  -->
+
+                    <!--  Ru  -->
+    <!--  Image  -->
+    <style name="detailsRuImage" parent="detailsBaseImage">
+
+    </style>
+    <!--  Toolbar  -->
+    <!--  AppBar  -->
+    <!--  Original Title  -->
+    <!--  Russian Title  -->
+    <!--  English Title  -->
+    <!--  Data  -->
+    <style name="detailsRuData" parent="detailsBaseData">
+
+    </style>
+    <!--  Author  -->
+    <!--  Rating  -->
+    <!--  Age Rate  -->
+    <!--  Genre  -->
+    <!--  Description Background Image  -->
+
+                    <!--  En  -->
+    <!--  Image  -->
+    <style name="detailsEnImage" parent="detailsBaseImage">
+
+    </style>
+    <!--  Toolbar  -->
+    <!--  AppBar  -->
+    <!--  Original Title  -->
+    <!--  Russian Title  -->
+    <!--  English Title  -->
+    <!--  Data  -->
+    <style name="detailsEnData" parent="detailsBaseData">
+
+    </style>
+    <!--  Author  -->
+    <!--  Rating  -->
+    <!--  Age Rate  -->
+    <!--  Genre  -->
+    <!--  Description Background Image  -->
+    <!--******************************************************-->
 </resources>

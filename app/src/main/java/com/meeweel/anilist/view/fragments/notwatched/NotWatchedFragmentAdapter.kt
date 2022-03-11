@@ -1,5 +1,6 @@
 package com.meeweel.anilist.view.fragments.notwatched
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -15,11 +16,13 @@ import com.meeweel.anilist.view.fragments.ItemTouchHelperViewHolder
 import com.meeweel.anilist.viewmodel.Changing
 import com.meeweel.anilist.viewmodel.Changing.UNWANTED
 import com.meeweel.anilist.viewmodel.Changing.WANTED
+import com.meeweel.anilist.viewmodel.Changing.getContext
 import com.meeweel.anilist.viewmodel.ImageMaker
 
 class NotWatchedFragmentAdapter :
     RecyclerView.Adapter<NotWatchedFragmentAdapter.MainViewHolder>(), ItemTouchHelperAdapter {
 //    val imageMaker: ImageMaker = ImageMaker()
+
     private var animeData: MutableList<ShortAnime> = mutableListOf()
     private var onItemViewClickListener: NotWatchedFragment.OnItemViewClickListener? = null
 
@@ -83,7 +86,7 @@ class NotWatchedFragmentAdapter :
         }
 
         override fun onItemClear() {
-            itemView.setBackgroundColor(Color.WHITE)
+            itemView.setBackgroundColor(getContext().getColor(R.color.main_color))
         }
     }
 

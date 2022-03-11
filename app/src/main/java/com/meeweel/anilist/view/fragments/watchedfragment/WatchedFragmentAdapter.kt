@@ -46,6 +46,7 @@ class WatchedFragmentAdapter :
                         .resources.getBoolean(R.bool.isRussian)
                 ) anime.ruTitle else anime.enTitle
 
+                itemData.text = anime.data
                 Glide.with(this.watchedFragmentRecyclerItemImageView.context)
                     .load(anime.image)
                     .error(R.drawable.anig)
@@ -68,7 +69,7 @@ class WatchedFragmentAdapter :
         }
 
         override fun onItemClear() {
-            itemView.setBackgroundColor(Color.WHITE)
+            itemView.setBackgroundColor(Changing.getContext().getColor(R.color.main_color))
         }
     }
 

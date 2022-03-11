@@ -48,6 +48,7 @@ class WantedFragmentAdapter :
                         .resources.getBoolean(R.bool.isRussian)
                 ) anime.ruTitle else anime.enTitle
 
+                itemData.text = anime.data
                 Glide.with(this.wantedFragmentRecyclerItemImageView.context)
                     .load(anime.image)
                     .error(R.drawable.anig)
@@ -62,7 +63,7 @@ class WantedFragmentAdapter :
                 root.setOnClickListener {
                     onItemViewClickListener?.onItemViewClick(anime)
                 }
-                watchedBtn.setOnClickListener {
+                watchedBtnOnWanted.setOnClickListener {
                     Changing.saveTo(anime.id, WATCHED)
                     animeData.remove(anime)
                     notifyItemRemoved(layoutPosition)
@@ -76,7 +77,7 @@ class WantedFragmentAdapter :
         }
 
         override fun onItemClear() {
-            itemView.setBackgroundColor(Color.WHITE)
+            itemView.setBackgroundColor(Changing.getContext().getColor(R.color.main_color))
         }
     }
 

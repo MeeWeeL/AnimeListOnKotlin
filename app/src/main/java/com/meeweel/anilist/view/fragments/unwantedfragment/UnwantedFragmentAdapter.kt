@@ -48,6 +48,7 @@ class UnwantedFragmentAdapter :
                         )
                     ) anime.ruTitle else anime.enTitle
 
+                itemData.text = anime.data
                 Glide.with(this.unwantedFragmentRecyclerItemImageView.context)
                     .load(anime.image)
                     .error(R.drawable.anig)
@@ -71,7 +72,7 @@ class UnwantedFragmentAdapter :
         }
 
         override fun onItemClear() {
-            itemView.setBackgroundColor(Color.WHITE)
+            itemView.setBackgroundColor(Changing.getContext().getColor(R.color.main_color))
         }
     }
 

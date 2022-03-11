@@ -1,4 +1,5 @@
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,8 +7,8 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/details_bar"
+        android:backgroundTint="@color/main_color"
         android:layout_width="match_parent"
-        android:backgroundTint="@color/white"
         android:layout_height="@dimen/_50dp">
 
         <RelativeLayout
@@ -21,7 +22,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/anibackground"
-                android:alpha="0.4"
+                android:alpha="0.1"
                 tools:ignore="ContentDescription" />
 
             <androidx.appcompat.widget.Toolbar
@@ -124,16 +125,7 @@
 
             <ImageView
                 android:id="@+id/anime_image"
-                android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:layout_marginStart="@dimen/_0dp"
-                android:contentDescription="@string/todo"
-                android:src="@drawable/anig"
-                app:layout_constraintTop_toBottomOf="@id/original_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/release_Data"
-                app:layout_constraintBottom_toTopOf="@id/release_Genre"
-                app:layout_constraintHorizontal_weight="2" />
+                style="@style/detailsZoomImage"/>
 
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/barrier"
@@ -141,13 +133,6 @@
                 android:layout_height="wrap_content"
                 app:barrierDirection="bottom"
                 app:constraint_referenced_ids="release_rating,anime_image" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_begin="@dimen/_250dp" />
 
             <ImageView
                 android:id="@+id/details_description_image"

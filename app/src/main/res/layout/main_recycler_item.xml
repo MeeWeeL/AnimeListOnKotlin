@@ -1,67 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/cardViewStyle">
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/cardViewMainStyle">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        style="@style/constraintOfCardViewStyle">
 
-        <ImageView
-            android:id="@+id/main_fragment_recycler_item_image_view"
-            android:layout_width="120dp"
-            android:layout_height="160dp"
-            android:src="@drawable/anig"
-            android:layout_margin="@dimen/_3dp"
-            android:visibility="visible"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/mainFragmentRecyclerItemTextView"
-            app:layout_constraintBottom_toTopOf="@id/not_watched_btn"
-            android:contentDescription="@string/todo" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/main_fragment_recycler_item_image_view_card_view"
+            style="@style/imageCardViewCardViewMainStyle"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:id="@+id/main_fragment_recycler_item_image_view"
+                style="@style/imageCardViewMainStyle"
+                tools:ignore="ContentDescription" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/mainFragmentRecyclerItemTextView"
-            android:layout_width="@dimen/_0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/anime"
-            android:visibility="visible"
-            android:gravity="center"
-            android:textSize="26sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/main_fragment_recycler_item_image_view"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/item_data" />
+            style="@style/titleCardViewMainStyle"
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/item_data"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/data"
-            android:layout_marginEnd="@dimen/_20dp"
-            android:layout_marginTop="@dimen/_10dp"
-            android:layout_marginBottom="@dimen/_3dp"
-            app:layout_constraintBottom_toTopOf="@id/watched_btn"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            style="@style/dataCardViewMainStyle"
+            tools:ignore="MissingConstraints" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/not_watched_btn"
-            style="@style/redButton"
-            android:text="@string/not_watched"
-            android:visibility="visible"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/watched_btn"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            style="@style/notWatchedButton"
+            tools:ignore="MissingConstraints" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/watched_btn"
-            style="@style/greenButton"
-            android:text="@string/watched"
-            android:visibility="visible"
-            app:layout_constraintStart_toEndOf="@id/not_watched_btn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+            style="@style/watchedButton"
+            tools:ignore="MissingConstraints" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -18,45 +18,18 @@
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:backgroundTint="@color/lazy_blue"
-        app:fabAlignmentMode="center"
-        app:hideOnScroll="true"
-        app:fabCradleRoundedCornerRadius="@dimen/_40dp"
-        app:fabCradleMargin="@dimen/_20dp"
-        app:fabCradleVerticalOffset="@dimen/_40dp"
-        app:layout_scrollFlags="scroll"
-        app:layout_constraintBottom_toBottomOf="parent">
+        style="@style/bottomAppBarBackStyle">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_bar"
-            app:menu="@menu/button_menu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:visibility="visible"
-            android:layout_gravity="bottom"
-            app:labelVisibilityMode="labeled"
-            app:layout_anchor="@id/bottom_app_bar"
-            android:layout_marginEnd="@dimen/margin_15_dp"
-            android:layout_marginBottom="@dimen/_5dp"
-            android:layout_marginTop="@dimen/_5dp"
-            app:itemIconTint="@drawable/navigation_selector"/>
+            style="@style/bottomNavBar"/>
     </com.google.android.material.bottomappbar.BottomAppBar>
 
     <FrameLayout
         android:id="@+id/loadingLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        tools:visibility="visible">
+        style="@style/loadingLayoutStyle">
 
         <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            style="@style/progressBarStyle" />
     </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

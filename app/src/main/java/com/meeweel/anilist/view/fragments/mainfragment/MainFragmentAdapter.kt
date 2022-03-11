@@ -85,7 +85,7 @@ class MainFragmentAdapter :
         }
 
         override fun onItemClear() {
-            itemView.setBackgroundColor(Color.WHITE)
+            itemView.setBackgroundColor(getContext().getColor(R.color.main_color))
         }
     }
 
