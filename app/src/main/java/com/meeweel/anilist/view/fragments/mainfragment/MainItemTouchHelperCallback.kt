@@ -8,7 +8,7 @@ class MainItemTouchHelperCallback(private val adapter: MainFragmentAdapter) :
     ItemTouchHelper.Callback() {
 
     override fun isLongPressDragEnabled(): Boolean {
-        return true
+        return false
     }
 
     override fun isItemViewSwipeEnabled(): Boolean {

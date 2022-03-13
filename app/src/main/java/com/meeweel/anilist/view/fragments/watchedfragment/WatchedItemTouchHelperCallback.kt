@@ -8,7 +8,7 @@ class WatchedItemTouchHelperCallback(private val adapter: WatchedFragmentAdapter
     ItemTouchHelper.Callback() {
 
     override fun isLongPressDragEnabled(): Boolean {
-        return true
+        return false
     }
 
     override fun isItemViewSwipeEnabled(): Boolean {

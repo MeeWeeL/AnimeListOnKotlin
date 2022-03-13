@@ -20,6 +20,12 @@
         <entry key="..\:/Users/Me/AndroidStudioProjects/AnimeList/app/src/main/res/layout/wanted_recycler_item.xml" value="0.25" />
         <entry key="..\:/Users/Me/AndroidStudioProjects/AnimeList/app/src/main/res/layout/watched_fragment.xml" value="0.2712962962962963" />
         <entry key="..\:/Users/Me/AndroidStudioProjects/AnimeList/app/src/main/res/layout/watched_recycler_item.xml" value="0.2601851851851852" />
+        <entry key="..\:/Users/Me/AndroidStudioProjects/AnimeList/app/src/main/res/menu/main_popup_menu.xml" value="0.20208333333333334" />
+        <entry key="..\:/Users/Me/AndroidStudioProjects/AnimeList/app/src/main/res/menu/menu_bottom_share_drawer.xml" value="0.458252427184466" />
+        <entry key="..\:/Users/Me/AndroidStudioProjects/AnimeList/app/src/main/res/menu/not_watched_popup_menu.xml" value="0.20208333333333334" />
+        <entry key="..\:/Users/Me/AndroidStudioProjects/AnimeList/app/src/main/res/menu/unwanted_popup_menu.xml" value="0.20208333333333334" />
+        <entry key="..\:/Users/Me/AndroidStudioProjects/AnimeList/app/src/main/res/menu/wanted_popup_menu.xml" value="0.20208333333333334" />
+        <entry key="..\:/Users/Me/AndroidStudioProjects/AnimeList/app/src/main/res/menu/watched_popup_menu.xml" value="0.20208333333333334" />
       </map>
     </option>
   </component>

@@ -2,9 +2,11 @@ package com.meeweel.anilist.view.fragments.notwatched
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,17 +21,16 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.NotWatchedFragmentBinding
 import com.meeweel.anilist.model.AppState
-import com.meeweel.anilist.model.data.Anime
 import com.meeweel.anilist.model.data.ShortAnime
 import com.meeweel.anilist.model.room.App.Companion.appRouter
 import com.meeweel.anilist.navigation.CustomRouter
 import com.meeweel.anilist.view.MainActivity
 import com.meeweel.anilist.view.MainActivity.Companion.adsDelay
-import com.meeweel.anilist.view.fragments.mainfragment.MainItemTouchHelperCallback
 import com.meeweel.anilist.view.fragments.mainfragment.MainScreen
 import com.meeweel.anilist.view.fragments.unwantedfragment.UnwantedScreen
 import com.meeweel.anilist.view.fragments.wantedfragment.WantedScreen
 import com.meeweel.anilist.view.fragments.watchedfragment.WatchedScreen
+import com.meeweel.anilist.viewmodel.Changing
 
 class NotWatchedFragment(private val router: CustomRouter = appRouter) : Fragment() {
 
@@ -62,6 +63,7 @@ class NotWatchedFragment(private val router: CustomRouter = appRouter) : Fragmen
         super.onDestroyView()
         _binding = null
         adapter.removeOnItemViewClickListener()
+        adapter.removeOnLongItemViewClickListener()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -69,14 +71,11 @@ class NotWatchedFragment(private val router: CustomRouter = appRouter) : Fragmen
         adapter.setOnItemViewClickListener(object : OnItemViewClickListener {
             override fun onItemViewClick(anime: ShortAnime) {
                 router.openDeepLink(anime)
-//                activity?.supportFragmentManager?.apply {
-//                    beginTransaction()
-//                        .replace(R.id.container, DetailsFragment.newInstance(Bundle().apply {
-//                            putParcelable(DetailsFragment.BUNDLE_EXTRA, anime)
-//                        }))
-//                        .addToBackStack("")
-//                        .commitAllowingStateLoss()
-//                }
+            }
+        })
+        adapter.setOnLongItemViewClickListener(object : NotWatchedFragment.OnLongItemViewClickListener {
+            override fun onLongItemViewClick(anime: ShortAnime, view: View, position: Int) {
+                showPopupMenu(anime, view, position)
             }
         })
 
@@ -163,6 +162,47 @@ class NotWatchedFragment(private val router: CustomRouter = appRouter) : Fragmen
         } else {
             Log.d("TAG", "The interstitial ad wasn't ready yet.")
         }
+    }
+
+    private fun showPopupMenu(anime: ShortAnime, view: View, position: Int) {
+        val popupMenu = PopupMenu(requireContext(), view, Gravity.END)
+        popupMenu.inflate(R.menu.not_watched_popup_menu)
+        popupMenu.setForceShowIcon(true)
+        popupMenu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.to_main -> {
+                    Changing.saveTo(anime.id, Changing.MAIN)
+                    adapter.notifyRemove(anime, position)
+                    return@setOnMenuItemClickListener true
+                }
+                R.id.to_watched -> {
+                    Changing.saveTo(anime.id, Changing.WATCHED)
+                    adapter.notifyRemove(anime, position)
+                    return@setOnMenuItemClickListener true
+                }
+                R.id.to_not_watched -> {
+                    Changing.saveTo(anime.id, Changing.NOT_WATCHED)
+                    adapter.notifyRemove(anime, position)
+                    return@setOnMenuItemClickListener true
+                }
+                R.id.to_wanted -> {
+                    Changing.saveTo(anime.id, Changing.WANTED)
+                    adapter.notifyRemove(anime, position)
+                    return@setOnMenuItemClickListener true
+                }
+                R.id.to_unwanted -> {
+                    Changing.saveTo(anime.id, Changing.UNWANTED)
+                    adapter.notifyRemove(anime, position)
+                    return@setOnMenuItemClickListener true
+                }
+                else -> return@setOnMenuItemClickListener false
+            }
+        }
+        popupMenu.show()
+    }
+
+    interface OnLongItemViewClickListener {
+        fun onLongItemViewClick(anime: ShortAnime, view: View, position: Int)
     }
 
     interface OnItemViewClickListener {

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/to_watched"
+            android:icon="@drawable/ic_share_to"
+            android:title="@string/watched" />
+        <item
+            android:id="@+id/to_not_watched"
+            android:icon="@drawable/ic_share_to"
+            android:title="@string/not_watched" />
+        <item
+            android:id="@+id/to_unwanted"
+            android:icon="@drawable/ic_share_to"
+            android:title="@string/unwanted" />
+        <item
+            android:id="@+id/to_main"
+            android:icon="@drawable/ic_share_to"
+            android:title="@string/main" />
+    </group>
+</menu>

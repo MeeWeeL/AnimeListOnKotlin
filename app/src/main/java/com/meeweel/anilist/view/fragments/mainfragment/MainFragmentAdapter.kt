@@ -1,31 +1,27 @@
 package com.meeweel.anilist.view.fragments.mainfragment
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.MainRecyclerItemBinding
-import com.meeweel.anilist.model.data.Anime
 import com.meeweel.anilist.model.data.ShortAnime
 import com.meeweel.anilist.view.fragments.ItemTouchHelperAdapter
 import com.meeweel.anilist.view.fragments.ItemTouchHelperViewHolder
-import com.meeweel.anilist.viewmodel.Changing
 import com.meeweel.anilist.viewmodel.Changing.NOT_WATCHED
 import com.meeweel.anilist.viewmodel.Changing.WATCHED
 import com.meeweel.anilist.viewmodel.Changing.getContext
 import com.meeweel.anilist.viewmodel.Changing.saveTo
-import com.meeweel.anilist.viewmodel.ImageMaker
 
-class MainFragmentAdapter :
+class MainFragmentAdapter() :
     RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>(), ItemTouchHelperAdapter {
 
     private var animeData: MutableList<ShortAnime> = mutableListOf()
     private var onItemViewClickListener: MainFragment.OnItemViewClickListener? = null
-//    val imageMaker: ImageMaker = ImageMaker()
+    private var onLongItemViewClickListener: MainFragment.OnLongItemViewClickListener? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val binding = MainRecyclerItemBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -56,36 +52,33 @@ class MainFragmentAdapter :
                     .placeholder(R.drawable.anig)
                     .into(this.mainFragmentRecyclerItemImageView)
 
-
-//                mainFragmentRecyclerItemImageView.setImageBitmap(
-//                    imageMaker.getPictureFromDirectory(
-//                        anime.image
-//                    )
-//                )
                 itemData.text = anime.data
+
                 root.setOnClickListener {
                     onItemViewClickListener?.onItemViewClick(anime)
                 }
+                root.setOnLongClickListener {
+                    onLongItemViewClickListener?.onLongItemViewClick(anime, root, layoutPosition)
+                    true
+                }
                 watchedBtn.setOnClickListener {
                     saveTo(anime.id, WATCHED)
-                    animeData.remove(anime)
-                    notifyItemRemoved(layoutPosition)
+                    notifyRemove(anime, layoutPosition)
                 }
                 notWatchedBtn.setOnClickListener {
                     saveTo(anime.id, NOT_WATCHED)
-                    animeData.remove(anime)
-                    notifyItemRemoved(layoutPosition)
+                    notifyRemove(anime, layoutPosition)
                 }
             }
         }
 
 
         override fun onItemSelected() {
-            itemView.setBackgroundColor(0)
+//            itemView.setBackgroundColor(0)
         }
 
         override fun onItemClear() {
-            itemView.setBackgroundColor(getContext().getColor(R.color.main_color))
+//            itemView.setBackgroundColor(getContext().getColor(R.color.main_color))
         }
     }
 
@@ -93,8 +86,16 @@ class MainFragmentAdapter :
         this.onItemViewClickListener = onItemViewClickListener
     }
 
+    fun setOnLongItemViewClickListener(onLongItemViewClickListener: MainFragment.OnLongItemViewClickListener) {
+        this.onLongItemViewClickListener = onLongItemViewClickListener
+    }
+
     fun removeOnItemViewClickListener() {
         onItemViewClickListener = null
+    }
+
+    fun removeOnLongItemViewClickListener() {
+        onLongItemViewClickListener = null
     }
 
     fun setAnime(data: List<ShortAnime>) {
@@ -107,6 +108,11 @@ class MainFragmentAdapter :
             animeData.add(if (toPosition > fromPosition) toPosition - 1 else toPosition, this)
         }
         notifyItemMoved(fromPosition, toPosition)
+    }
+
+    fun notifyRemove(anime: ShortAnime, position: Int) {
+        animeData.remove(anime)
+        notifyItemRemoved(position)
     }
 
     override fun onItemDismiss(position: Int, i: Int) {
