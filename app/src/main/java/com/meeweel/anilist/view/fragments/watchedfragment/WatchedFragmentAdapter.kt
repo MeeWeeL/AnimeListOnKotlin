@@ -2,21 +2,15 @@ package com.meeweel.anilist.view.fragments.watchedfragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.WatchedRecyclerItemBinding
 import com.meeweel.anilist.model.data.ShortAnime
-import com.meeweel.anilist.view.fragments.ItemTouchHelperAdapter
-import com.meeweel.anilist.view.fragments.ItemTouchHelperViewHolder
+import com.meeweel.anilist.view.fragments.baselistfragment.BaseFragmentAdapter
+import com.meeweel.anilist.view.fragments.baselistfragment.BaseViewHolder
 import com.meeweel.anilist.viewmodel.Changing
 
-class WatchedFragmentAdapter :
-    RecyclerView.Adapter<WatchedFragmentAdapter.MainViewHolder>(), ItemTouchHelperAdapter {
-
-    private var animeData: MutableList<ShortAnime> = mutableListOf()
-    private var onItemViewClickListener: WatchedFragment.OnItemViewClickListener? = null
-    private var onLongItemViewClickListener: WatchedFragment.OnLongItemViewClickListener? = null
+class WatchedFragmentAdapter : BaseFragmentAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val binding = WatchedRecyclerItemBinding.inflate(
@@ -27,7 +21,7 @@ class WatchedFragmentAdapter :
         return MainViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         holder.bind(animeData[position])
     }
 
@@ -36,9 +30,9 @@ class WatchedFragmentAdapter :
     }
 
     inner class MainViewHolder(private val binding: WatchedRecyclerItemBinding) :
-        RecyclerView.ViewHolder(binding.root), ItemTouchHelperViewHolder {
+        BaseViewHolder(binding.root) {
 
-        fun bind(anime: ShortAnime) {
+        override fun bind(anime: ShortAnime) {
             binding.apply {
                 watchedFragmentRecyclerItemTextView.text = if (Changing.getContext()
                         .resources.getBoolean(R.bool.isRussian)
@@ -68,42 +62,4 @@ class WatchedFragmentAdapter :
 //            itemView.setBackgroundColor(Changing.getContext().getColor(R.color.main_color))
         }
     }
-
-    fun setOnItemViewClickListener(onItemViewClickListener: WatchedFragment.OnItemViewClickListener) {
-        this.onItemViewClickListener = onItemViewClickListener
-    }
-
-    fun setOnLongItemViewClickListener(onLongItemViewClickListener: WatchedFragment.OnLongItemViewClickListener) {
-        this.onLongItemViewClickListener = onLongItemViewClickListener
-    }
-
-    fun removeOnItemViewClickListener() {
-        onItemViewClickListener = null
-    }
-
-    fun removeOnLongItemViewClickListener() {
-        onLongItemViewClickListener = null
-    }
-
-    fun setAnime(data: List<ShortAnime>) {
-        animeData = data.toMutableList()
-        notifyDataSetChanged()
-    }
-
-    override fun onItemMove(fromPosition: Int, toPosition: Int) {
-        animeData.removeAt(fromPosition).apply {
-            animeData.add(if (toPosition > fromPosition) toPosition - 1 else toPosition, this)
-        }
-        notifyItemMoved(fromPosition, toPosition)
-    }
-
-    fun notifyRemove(anime: ShortAnime, position: Int) {
-        animeData.remove(anime)
-        notifyItemRemoved(position)
-    }
-
-    override fun onItemDismiss(position: Int, i: Int) {
-
-    }
-
 }

@@ -2,15 +2,9 @@ package com.meeweel.anilist.view.fragments.detailsfragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.snackbar.Snackbar
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.DetailsFragmentBinding
@@ -30,7 +24,6 @@ class DetailsFragment(
 ) : Fragment() {
 
     lateinit var anime: ShortAnime
-//    private val imageMaker: ImageMaker = ImageMaker()
     private var _binding: DetailsFragmentBinding? = null
     private val binding get() = _binding!!
     private val router: CustomRouter = App.appRouter
@@ -91,10 +84,6 @@ class DetailsFragment(
                 .load(animeData.image)
                 .error(R.drawable.anig)
                 .into(this.animeImage)
-
-//            binding.detailsBarImage.setImageBitmap(imageMaker.getPictureFromDirectory(animeData.image))
-//            binding.detailsDescriptionImage.setImageBitmap(imageMaker.getPictureFromDirectory(animeData.image))
-//            animeImage.setImageBitmap(imageMaker.getPictureFromDirectory(animeData.image))
 
             originalTitle.text = animeData.originalTitle
             englishTitle.text = animeData.enTitle
@@ -167,21 +156,6 @@ class DetailsFragment(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 repository.updateFromNetwork(it, anime.id)
-//      Glides              Thread {
-//                        Glide.get(binding.animeImage.context).clearDiskCache()
-//                    }.start()
-//                    Glide.get(binding.animeImage.context).clearMemory()
-//                    Glide.with(this).load(it.image).diskCacheStrategy(DiskCacheStrategy.NONE)
-//                        .skipMemoryCache(true)
-//                        .into(binding.animeImage)
-//                        .load(it.image)
-//                        .diskCacheStrategy(DiskCacheStrategy.NONE )
-//                        .skipMemoryCache(true)
-//                        .into(binding.animeImage)
-//                    Glide.with(requireContext())
-//                        .load(it.image)
-//                        .signature(ObjectKey(System.currentTimeMillis().toString()))
-//                        .into(binding.animeImage)
                 populateData(repository.getAnimeById(anime.id))
                 if (isRate) toast("Updated")
             }, {
