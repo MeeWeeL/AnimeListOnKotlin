@@ -422,4 +422,50 @@
     <!--  Genre  -->
     <!--  Description Background Image  -->
     <!--******************************************************-->
+
+
+    <!--******************************************************-->
+    <!--*********************  AppBar  ***********************-->
+    <!--******************************************************-->
+
+                    <!--  AppBar  -->
+    <style name="appBarStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/main_color</item>
+    <item name="android:fitsSystemWindows">true</item>
+    </style>
+                    <!--  AppBar  -->
+    <style name="collapsingToolBarStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/main_transparent_reverse_color_20</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="layout_scrollFlags">scroll|snap|exitUntilCollapsed</item>
+    </style>
+                <!--  Input Layout  -->
+    <style name="inputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:scrollbars">none</item>
+        <item name="layout_collapseMode">pin</item>
+        <item name="android:hint">Search</item>
+        <item name="counterEnabled">false</item>
+        <item name="counterMaxLength">20</item>
+        <item name="endIconCheckable">true</item>
+        <item name="endIconDrawable">@drawable/ic_refresh</item>
+        <item name="endIconMode">clear_text</item>
+        <item name="boxCornerRadiusBottomEnd">20sp</item>
+        <item name="boxCornerRadiusBottomStart">20sp</item>
+        <item name="boxCornerRadiusTopEnd">20sp</item>
+        <item name="boxCornerRadiusTopStart">20sp</item>
+        <item name="android:visibility">visible</item>
+    </style>
+                    <!--  Input Layout  -->
+    <style name="inputEditTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:inputType">text</item>
+    </style>
+    <!--******************************************************-->
 </resources>

@@ -2,9 +2,12 @@ package com.meeweel.anilist.view.fragments.mainfragment
 
 
 import android.os.Bundle
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -62,6 +65,10 @@ class MainFragment : BaseListFragment() {
         binding.mainFragmentRecyclerView.adapter = adapter
 
         initObserver()
+
+        binding.inputEditText.addTextChangedListener {
+            viewModel.findByWord(it.toString())
+        }
     }
 
     override fun renderData(data: AppState) = when (data) {

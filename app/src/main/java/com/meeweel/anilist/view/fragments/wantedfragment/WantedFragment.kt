@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.meeweel.anilist.R
@@ -60,8 +62,11 @@ class WantedFragment : BaseListFragment() {
         binding.wantedFragmentRecyclerView.adapter = adapter
 
         initObserver()
-    }
 
+        binding.inputEditText.addTextChangedListener {
+            viewModel.findByWord(it.toString())
+        }
+    }
 
     override fun renderData(data: AppState) = when (data) {
         is AppState.Success -> {
