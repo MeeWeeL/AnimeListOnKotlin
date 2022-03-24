@@ -4,17 +4,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.meeweel.anilist.R
+import com.meeweel.anilist.model.App
 import com.meeweel.anilist.model.AppState
 import com.meeweel.anilist.model.data.ShortAnime
 import com.meeweel.anilist.model.repository.LocalRepository
-import com.meeweel.anilist.model.repository.LocalRepositoryImpl
-import com.meeweel.anilist.model.room.App
-import com.meeweel.anilist.viewmodel.Changing
+import javax.inject.Inject
 
 abstract class BaseViewModel : ViewModel() {
 
-    protected val repository: LocalRepository = LocalRepositoryImpl(App.getEntityDao())
-    protected val isRu: Boolean = Changing.getContext().resources.getBoolean(R.bool.isRussian)
+    @Inject
+    lateinit var repository: LocalRepository
+
+    init {
+        App.appInstance.component.inject(baseViewModel = this)
+    }
+
+    protected val isRu: Boolean = App.ContextHolder.context.resources.getBoolean(R.bool.isRussian)
     private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
     private var actualData: List<ShortAnime> = listOf()
 

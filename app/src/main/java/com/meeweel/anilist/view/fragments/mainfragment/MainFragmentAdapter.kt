@@ -6,15 +6,15 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.MainRecyclerItemBinding
+import com.meeweel.anilist.model.App
 import com.meeweel.anilist.model.data.ShortAnime
+import com.meeweel.anilist.model.repository.LocalRepository
+import com.meeweel.anilist.view.MainActivity.Companion.NOT_WATCHED
+import com.meeweel.anilist.view.MainActivity.Companion.WATCHED
 import com.meeweel.anilist.view.fragments.baselistfragment.BaseFragmentAdapter
 import com.meeweel.anilist.view.fragments.baselistfragment.BaseViewHolder
-import com.meeweel.anilist.viewmodel.Changing.NOT_WATCHED
-import com.meeweel.anilist.viewmodel.Changing.WATCHED
-import com.meeweel.anilist.viewmodel.Changing.getContext
-import com.meeweel.anilist.viewmodel.Changing.saveTo
 
-class MainFragmentAdapter : BaseFragmentAdapter() {
+class MainFragmentAdapter(private val repository: LocalRepository) : BaseFragmentAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val binding = MainRecyclerItemBinding.inflate(
@@ -39,7 +39,7 @@ class MainFragmentAdapter : BaseFragmentAdapter() {
         override fun bind(anime: ShortAnime) {
             binding.apply {
                 mainFragmentRecyclerItemTextView.text =
-                    if (getContext().resources.getBoolean(R.bool.isRussian)) anime.ruTitle else anime.enTitle
+                    if (App.ContextHolder.context.resources.getBoolean(R.bool.isRussian)) anime.ruTitle else anime.enTitle
                 Glide.with(this.mainFragmentRecyclerItemImageView.context)
                     .load(anime.image)
                     .error(R.drawable.anig)
@@ -56,11 +56,11 @@ class MainFragmentAdapter : BaseFragmentAdapter() {
                     true
                 }
                 watchedBtn.setOnClickListener {
-                    saveTo(anime.id, WATCHED)
+                    repository.updateLocalEntity(anime.id, WATCHED)
                     notifyRemove(anime, layoutPosition)
                 }
                 notWatchedBtn.setOnClickListener {
-                    saveTo(anime.id, NOT_WATCHED)
+                    repository.updateLocalEntity(anime.id, NOT_WATCHED)
                     notifyRemove(anime, layoutPosition)
                 }
             }
@@ -78,12 +78,12 @@ class MainFragmentAdapter : BaseFragmentAdapter() {
 
     override fun onItemDismiss(position: Int, i: Int) {
         if (i == ItemTouchHelper.START) {
-            saveTo(animeData[position].id, NOT_WATCHED)
+            repository.updateLocalEntity(animeData[position].id, NOT_WATCHED)
             animeData.removeAt(position)
             notifyItemRemoved(position)
         }
         if (i == ItemTouchHelper.END) {
-            saveTo(animeData[position].id, WATCHED)
+            repository.updateLocalEntity(animeData[position].id, WATCHED)
             animeData.removeAt(position)
             notifyItemRemoved(position)
         }

@@ -19,19 +19,19 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    flavorDimensions "default"
-    productFlavors {
-        fake {
-            applicationIdSuffix ".fake"
-            versionNameSuffix "-fake"
-            buildConfigField "String", "TYPE", '"FAKE"'
-        }
-        real {
-            applicationIdSuffix ".real"
-            versionNameSuffix "-real"
-            buildConfigField "String", "TYPE", '"REAL"'
-        }
-    }
+//    flavorDimensions "default"
+//    productFlavors {
+//        fake {
+//            applicationIdSuffix ".fake"
+//            versionNameSuffix "-fake"
+//            buildConfigField "String", "TYPE", '"FAKE"'
+//        }
+//        real {
+//            applicationIdSuffix ".real"
+//            versionNameSuffix "-real"
+//            buildConfigField "String", "TYPE", '"REAL"'
+//        }
+//    }
 
     buildTypes {
         release {
@@ -46,6 +46,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    kapt {
+        generateStubs = true
+    }
     buildFeatures {
         viewBinding = true
     }
@@ -54,7 +57,7 @@ android {
 dependencies {
 
     // ADS
-    implementation 'com.google.android.gms:play-services-ads:20.5.0'
+    implementation 'com.google.android.gms:play-services-ads:20.6.0'
 
     //Dagger 2
     implementation "com.google.dagger:dagger:2.38"
@@ -77,23 +80,20 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
 
     //Room
-    implementation 'androidx.room:room-runtime:2.4.1'
-    implementation 'androidx.room:room-rxjava3:2.4.1'
-    kapt 'androidx.room:room-compiler:2.4.1'
+    implementation 'androidx.room:room-runtime:2.4.2'
+    implementation 'androidx.room:room-rxjava3:2.4.2'
+    kapt 'androidx.room:room-compiler:2.4.2'
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
     implementation 'com.squareup.okhttp3:okhttp:4.9.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
 
     // RxJava 3
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
-    // RxJava
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
 
     // Cicerone
     implementation 'com.github.terrakok:cicerone:7.0'

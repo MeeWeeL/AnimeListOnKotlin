@@ -6,13 +6,14 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.WantedRecyclerItemBinding
+import com.meeweel.anilist.model.App
 import com.meeweel.anilist.model.data.ShortAnime
+import com.meeweel.anilist.model.repository.LocalRepository
+import com.meeweel.anilist.view.MainActivity.Companion.WATCHED
 import com.meeweel.anilist.view.fragments.baselistfragment.BaseFragmentAdapter
 import com.meeweel.anilist.view.fragments.baselistfragment.BaseViewHolder
-import com.meeweel.anilist.viewmodel.Changing
-import com.meeweel.anilist.viewmodel.Changing.WATCHED
 
-class WantedFragmentAdapter : BaseFragmentAdapter() {
+class WantedFragmentAdapter(private val repository: LocalRepository) : BaseFragmentAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val binding = WantedRecyclerItemBinding.inflate(
@@ -36,7 +37,7 @@ class WantedFragmentAdapter : BaseFragmentAdapter() {
 
         override fun bind(anime: ShortAnime) {
             binding.apply {
-                wantedFragmentRecyclerItemTextView.text = if (Changing.getContext()
+                wantedFragmentRecyclerItemTextView.text = if (App.ContextHolder.context
                         .resources.getBoolean(R.bool.isRussian)
                 ) anime.ruTitle else anime.enTitle
 
@@ -54,7 +55,7 @@ class WantedFragmentAdapter : BaseFragmentAdapter() {
                     true
                 }
                 watchedBtnOnWanted.setOnClickListener {
-                    Changing.saveTo(anime.id, WATCHED)
+                    repository.updateLocalEntity(anime.id, WATCHED)
                     notifyRemove(anime, layoutPosition)
                 }
             }
@@ -71,7 +72,7 @@ class WantedFragmentAdapter : BaseFragmentAdapter() {
 
     override fun onItemDismiss(position: Int, i: Int) {
         if (i == ItemTouchHelper.END) {
-            Changing.saveTo(animeData[position].id, WATCHED)
+            repository.updateLocalEntity(animeData[position].id, WATCHED)
             animeData.removeAt(position)
             notifyItemRemoved(position)
         }

@@ -6,14 +6,15 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.NotWatchedRecyclerItemBinding
+import com.meeweel.anilist.model.App
 import com.meeweel.anilist.model.data.ShortAnime
+import com.meeweel.anilist.model.repository.LocalRepository
+import com.meeweel.anilist.view.MainActivity.Companion.UNWANTED
+import com.meeweel.anilist.view.MainActivity.Companion.WANTED
 import com.meeweel.anilist.view.fragments.baselistfragment.BaseFragmentAdapter
 import com.meeweel.anilist.view.fragments.baselistfragment.BaseViewHolder
-import com.meeweel.anilist.viewmodel.Changing
-import com.meeweel.anilist.viewmodel.Changing.UNWANTED
-import com.meeweel.anilist.viewmodel.Changing.WANTED
 
-class NotWatchedFragmentAdapter : BaseFragmentAdapter() {
+class NotWatchedFragmentAdapter(private val repository: LocalRepository) : BaseFragmentAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val binding = NotWatchedRecyclerItemBinding.inflate(
@@ -38,7 +39,7 @@ class NotWatchedFragmentAdapter : BaseFragmentAdapter() {
         override fun bind(anime: ShortAnime) {
             binding.apply {
                 notWatchedFragmentRecyclerItemTextView.text =
-                    if (Changing.getContext().resources.getBoolean(
+                    if (App.ContextHolder.context.resources.getBoolean(
                             R.bool.isRussian
                         )
                     ) anime.ruTitle else anime.enTitle
@@ -58,11 +59,11 @@ class NotWatchedFragmentAdapter : BaseFragmentAdapter() {
                     true
                 }
                 wantedBtn.setOnClickListener {
-                    Changing.saveTo(anime.id, WANTED)
+                    repository.updateLocalEntity(anime.id, WANTED)
                     notifyRemove(anime, layoutPosition)
                 }
                 unwantedBtn.setOnClickListener {
-                    Changing.saveTo(anime.id, UNWANTED)
+                    repository.updateLocalEntity(anime.id, UNWANTED)
                     notifyRemove(anime, layoutPosition)
                 }
             }
@@ -79,12 +80,12 @@ class NotWatchedFragmentAdapter : BaseFragmentAdapter() {
 
     override fun onItemDismiss(position: Int, i: Int) {
         if (i == ItemTouchHelper.START) {
-            Changing.saveTo(animeData[position].id, UNWANTED)
+            repository.updateLocalEntity(animeData[position].id, UNWANTED)
             animeData.removeAt(position)
             notifyItemRemoved(position)
         }
         if (i == ItemTouchHelper.END) {
-            Changing.saveTo(animeData[position].id, WANTED)
+            repository.updateLocalEntity(animeData[position].id, WANTED)
             animeData.removeAt(position)
             notifyItemRemoved(position)
         }

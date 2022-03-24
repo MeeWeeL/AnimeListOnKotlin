@@ -1,6 +1,8 @@
-package com.meeweel.anilist.api
+package com.meeweel.anilist.model.retrofit
 
-import io.reactivex.Single
+import com.meeweel.anilist.model.data.AnimeResponse
+import com.meeweel.anilist.model.data.MaxIdResponse
+import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query

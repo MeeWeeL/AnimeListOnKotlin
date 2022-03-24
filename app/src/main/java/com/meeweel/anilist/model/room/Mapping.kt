@@ -1,13 +1,11 @@
 package com.meeweel.anilist.model.room
 
 import com.meeweel.anilist.R
-import com.meeweel.anilist.api.AnimeResponse
+import com.meeweel.anilist.model.App
+import com.meeweel.anilist.model.data.AnimeResponse
 import com.meeweel.anilist.model.data.Anime
-import com.meeweel.anilist.model.data.ShortAnime
-import com.meeweel.anilist.model.room.entityes.Entity
-import com.meeweel.anilist.viewmodel.Changing.getContext
 
-val isRussian: Boolean = getContext().resources.getBoolean(R.bool.isRussian)
+val isRussian: Boolean = App.ContextHolder.context.resources.getBoolean(R.bool.isRussian)
 fun convertResponseToEntity(response: AnimeResponse) : Entity {
     return Entity(
         response.id,

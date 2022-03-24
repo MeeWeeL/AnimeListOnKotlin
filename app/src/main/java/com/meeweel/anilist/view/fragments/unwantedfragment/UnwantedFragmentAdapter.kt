@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.UnwantedRecyclerItemBinding
+import com.meeweel.anilist.model.App
 import com.meeweel.anilist.model.data.ShortAnime
 import com.meeweel.anilist.view.fragments.baselistfragment.BaseFragmentAdapter
 import com.meeweel.anilist.view.fragments.baselistfragment.BaseViewHolder
-import com.meeweel.anilist.viewmodel.Changing
 
 class UnwantedFragmentAdapter : BaseFragmentAdapter() {
 
@@ -35,7 +35,7 @@ class UnwantedFragmentAdapter : BaseFragmentAdapter() {
         override fun bind(anime: ShortAnime) {
             binding.apply {
                 unwantedFragmentRecyclerItemTextView.text =
-                    if (Changing.getContext().resources.getBoolean(
+                    if (App.ContextHolder.context.resources.getBoolean(
                             R.bool.isRussian
                         )
                     ) anime.ruTitle else anime.enTitle

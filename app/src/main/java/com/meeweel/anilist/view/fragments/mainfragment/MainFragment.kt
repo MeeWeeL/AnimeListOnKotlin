@@ -2,11 +2,9 @@ package com.meeweel.anilist.view.fragments.mainfragment
 
 
 import android.os.Bundle
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -23,7 +21,7 @@ class MainFragment : BaseListFragment() {
     private val binding
         get() = _binding!!
 
-    override val adapter = MainFragmentAdapter()
+    override lateinit var adapter: MainFragmentAdapter
     override val viewModel: MainViewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
     }
@@ -33,6 +31,7 @@ class MainFragment : BaseListFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
+        adapter = MainFragmentAdapter(repository)
         return binding.root
     }
 
@@ -43,6 +42,7 @@ class MainFragment : BaseListFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         ItemTouchHelper(MainItemTouchHelperCallback(adapter)).attachToRecyclerView(binding.mainFragmentRecyclerView)
         adapter.setOnItemViewClickListener(object : OnItemViewClickListener {
             override fun onItemViewClick(anime: ShortAnime) {

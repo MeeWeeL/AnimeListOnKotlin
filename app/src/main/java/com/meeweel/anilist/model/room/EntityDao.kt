@@ -1,9 +1,7 @@
-package com.meeweel.anilist.model.room.dao
+package com.meeweel.anilist.model.room
 
 import androidx.room.*
-import com.meeweel.anilist.api.AnimeResponse
 import com.meeweel.anilist.model.data.ShortAnime
-import com.meeweel.anilist.model.room.entityes.Entity
 
 @Dao
 interface EntityDao {
