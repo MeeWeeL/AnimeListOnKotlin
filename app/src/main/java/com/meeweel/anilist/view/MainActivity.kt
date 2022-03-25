@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         MobileAds.initialize(this)
         if (savedInstanceState == null) {
             appRouter.navigateTo(MainScreen())
-            toast("Start synchronization")
+//            toast("Start synchronization")
             syncer.synchronize()
         }
     }
