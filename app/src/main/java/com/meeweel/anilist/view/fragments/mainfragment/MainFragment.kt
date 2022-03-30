@@ -2,10 +2,7 @@ package com.meeweel.anilist.view.fragments.mainfragment
 
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -14,6 +11,8 @@ import com.meeweel.anilist.databinding.MainFragmentBinding
 import com.meeweel.anilist.model.AppState
 import com.meeweel.anilist.model.data.ShortAnime
 import com.meeweel.anilist.view.fragments.baselistfragment.BaseListFragment
+import androidx.appcompat.widget.SearchView
+
 
 class MainFragment : BaseListFragment() {
 
@@ -65,10 +64,21 @@ class MainFragment : BaseListFragment() {
         binding.mainFragmentRecyclerView.adapter = adapter
 
         initObserver()
+        createSearchListener()
+    }
 
-        binding.inputEditText.addTextChangedListener {
-            viewModel.findByWord(it.toString())
-        }
+    private fun createSearchListener() {
+        val searchView: SearchView = binding.toolbar.menu.findItem(R.id.search_app_bar).actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                viewModel.findByWord(newText!!)
+                return false
+            }
+        })
     }
 
     override fun renderData(data: AppState) = when (data) {
