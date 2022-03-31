@@ -32,13 +32,6 @@ class ListFragmentEspressoTest {
         onView(withId(R.id.input_edit_text)).perform(replaceText("sister"),
             closeSoftKeyboard())
         onView(withId(R.id.input_edit_text)).perform(pressImeActionButton())
-//        if (BuildConfig.TYPE == "FAKE") {
-//            onView(isRoot()).perform(delay(5000))
-//            onView(withId(R.id.input_edit_text)).check(matches(withText("sister")))
-//        } else {
-//            onView(isRoot()).perform(delay(2000))
-//            onView(withId(R.id.input_edit_text)).check(matches(withText("sister")))
-//        }
     }
 
     @Test
