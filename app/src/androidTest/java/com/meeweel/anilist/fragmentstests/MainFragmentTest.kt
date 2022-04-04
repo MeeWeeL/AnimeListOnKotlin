@@ -1,7 +1,7 @@
 package com.meeweel.anilist.fragmentstests
 
-import androidx.fragment.app.testing.FragmentScenario
-import androidx.fragment.app.testing.launchFragmentInContainer
+//import androidx.fragment.app.testing.FragmentScenario
+//import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
@@ -18,11 +18,11 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class MainFragmentTest {
 
-    private lateinit var scenario: FragmentScenario<MainFragment>
+//    private lateinit var scenario: FragmentScenario<MainFragment>
 
     @Before
     fun setup() {
-        scenario = launchFragmentInContainer()
+//        scenario = launchFragmentInContainer()
 
     }
 
@@ -34,9 +34,9 @@ class MainFragmentTest {
 
     @Test
     fun activitySearcherInRecycler_IsWork() {
-        scenario.onFragment { fragment ->
-            fragment.viewModel.findByWord("sister")
-        }
+//        scenario.onFragment { fragment ->
+//            fragment.viewModel.findByWord("sister")
+//        }
         Thread.sleep(2000)
         onView(withId(R.id.mainFragmentRecyclerView))
             .perform(
