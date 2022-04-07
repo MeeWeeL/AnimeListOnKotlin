@@ -8,10 +8,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.MainFragmentBinding
-import com.meeweel.anilist.model.AppState
 import com.meeweel.anilist.model.data.ShortAnime
 import com.meeweel.anilist.view.fragments.baselistfragment.BaseListFragment
-import androidx.appcompat.widget.SearchView
 
 
 class MainFragment : BaseListFragment() {
@@ -19,6 +17,8 @@ class MainFragment : BaseListFragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding
         get() = _binding!!
+    override val loadingLayoutView: View
+        get() = binding.loadingLayout
 
     override lateinit var adapter: MainFragmentAdapter
     override val viewModel: MainViewModel by lazy {
@@ -64,36 +64,11 @@ class MainFragment : BaseListFragment() {
         binding.mainFragmentRecyclerView.adapter = adapter
 
         initObserver()
-        createSearchListener()
+        setAppBarListeners()
     }
 
-    private fun createSearchListener() {
-        val searchView: SearchView = binding.toolbar.menu.findItem(R.id.search_app_bar).actionView as SearchView
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                viewModel.findByWord(newText!!)
-                return false
-            }
-        })
-    }
-
-    override fun renderData(data: AppState) = when (data) {
-        is AppState.Success -> {
-            val animeData = data.animeData
-            binding.loadingLayout.visibility = View.GONE
-            adapter.setAnime(animeData)
-        }
-        is AppState.Loading -> {
-            binding.loadingLayout.visibility = View.VISIBLE
-        }
-        is AppState.Error -> {
-            binding.loadingLayout.visibility = View.GONE
-
-        }
+    override fun getMenuItem(id: Int): MenuItem {
+        return binding.toolbar.menu.findItem(id)
     }
 
     override fun getMenuId(): Int {

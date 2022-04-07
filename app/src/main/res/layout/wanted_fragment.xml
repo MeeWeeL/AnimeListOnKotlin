@@ -14,14 +14,20 @@
             android:id="@+id/collapsing_toolbar_layout"
             style="@style/collapsingToolBarStyle">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout"
-                style="@style/inputLayoutStyle">
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                app:menu="@menu/app_bar_menu"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_edit_text"
-                    style="@style/inputEditTextStyle" />
-            </com.google.android.material.textfield.TextInputLayout>
+            <!--            <com.google.android.material.textfield.TextInputLayout-->
+            <!--                android:id="@+id/input_layout"-->
+            <!--                style="@style/inputLayoutStyle">-->
+
+            <!--                <com.google.android.material.textfield.TextInputEditText-->
+            <!--                    android:id="@+id/input_edit_text"-->
+            <!--                    style="@style/inputEditTextStyle" />-->
+            <!--            </com.google.android.material.textfield.TextInputLayout>-->
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

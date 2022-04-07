@@ -3,9 +3,11 @@ package com.meeweel.anilist.view.fragments.baselistfragment
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.github.terrakok.cicerone.Screen
@@ -47,6 +49,7 @@ abstract class BaseListFragment : Fragment() {
         super.onCreate(savedInstanceState)
         App.appInstance.component.inject(this)
     }
+
     // ADS
     private var mInterstitialAd: InterstitialAd? = null
     private final var TAG = "MainActivity"
@@ -63,6 +66,7 @@ abstract class BaseListFragment : Fragment() {
         true
     }
 
+    abstract val loadingLayoutView: View
     abstract val viewModel: BaseViewModel
     abstract val adapter: BaseFragmentAdapter
 
@@ -75,20 +79,37 @@ abstract class BaseListFragment : Fragment() {
     }
 
     protected fun initAds() {
-        InterstitialAd.load(requireContext(),"ca-app-pub-1316488884400350/3455182241", adRequest, object : InterstitialAdLoadCallback() {
-            override fun onAdFailedToLoad(adError: LoadAdError) {
-                Log.d(TAG, adError?.message)
-                mInterstitialAd = null
-            }
+        InterstitialAd.load(
+            requireContext(),
+            "ca-app-pub-1316488884400350/3455182241",
+            adRequest,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    Log.d(TAG, adError?.message)
+                    mInterstitialAd = null
+                }
 
-            override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                Log.d(TAG, "Ad was loaded.")
-                mInterstitialAd = interstitialAd
-            }
-        })
+                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                    Log.d(TAG, "Ad was loaded.")
+                    mInterstitialAd = interstitialAd
+                }
+            })
     }
 
-    abstract fun renderData(data: AppState)
+    private fun renderData(data: AppState) = when (data) {
+        is AppState.Success -> {
+            val animeData = data.animeData
+            loadingLayoutView.visibility = View.GONE
+            adapter.setAnime(animeData)
+        }
+        is AppState.Loading -> {
+            loadingLayoutView.visibility = View.VISIBLE
+        }
+        is AppState.Error -> {
+            loadingLayoutView.visibility = View.GONE
+
+        }
+    }
 
     private fun refresh(fragment: Screen = MainScreen()) {
         val newTime = System.currentTimeMillis()
@@ -100,7 +121,7 @@ abstract class BaseListFragment : Fragment() {
     }
 
     private fun showAds() {
-        mInterstitialAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
+        mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdDismissedFullScreenContent() {
                 Log.d(TAG, "Ad was dismissed.")
             }
@@ -120,6 +141,34 @@ abstract class BaseListFragment : Fragment() {
             Log.d("TAG", "The interstitial ad wasn't ready yet.")
         }
     }
+
+    protected fun setAppBarListeners() {
+        val searchView: SearchView = getMenuItem(R.id.search_app_bar).actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                viewModel.findByWord(newText!!)
+                return false
+            }
+        })
+        getMenuItem(R.id.sort_app_bar).setOnMenuItemClickListener {
+            Toast.makeText(requireContext(), "Hi Zhiwen", Toast.LENGTH_SHORT).show()
+            return@setOnMenuItemClickListener true
+        }
+        getMenuItem(R.id.filter_app_bar).setOnMenuItemClickListener {
+            Toast.makeText(requireContext(), "filter", Toast.LENGTH_SHORT).show()
+            return@setOnMenuItemClickListener true
+        }
+        getMenuItem(R.id.me_app_bar).setOnMenuItemClickListener {
+            Toast.makeText(requireContext(), "Here will be profile page", Toast.LENGTH_SHORT).show()
+            return@setOnMenuItemClickListener true
+        }
+    }
+
+    abstract fun getMenuItem(id: Int): MenuItem
 
     protected fun showPopupMenu(anime: ShortAnime, view: View, position: Int) {
         val popupMenu = PopupMenu(requireContext(), view, Gravity.END)

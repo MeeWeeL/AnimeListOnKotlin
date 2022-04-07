@@ -20,8 +20,8 @@ class AnimeSynchronizer @Inject constructor(
     private val schedulerProvider: SchedulerProvider
 ) {
 
-//    private val handler: Handler =
-//        Handler(App.ContextHolder.context.mainLooper) // Нужен для запуска главного потока
+    private val handler: Handler =
+        Handler(App.ContextHolder.context.mainLooper) // Нужен для запуска главного потока
     private var actualQuantity = 0
     private var localQuantity = repository.getQuantity()
     private val compositeDisposable = CompositeDisposable()
@@ -46,7 +46,7 @@ class AnimeSynchronizer @Inject constructor(
                     actualQuantity = it.id
                     ifIf(actualQuantity, localQuantity)
                 }, {
-//                    toast("No internet")
+                    toast("No internet")
                 })
         )
     }
@@ -64,30 +64,30 @@ class AnimeSynchronizer @Inject constructor(
                     .subscribe({
                         insert(it)
                     }, {
-//                        toast("Server error")
+                        toast("Server error")
                     })
             )
         } else {
-//            toast("You have actual data")
+            toast("You have actual data")
         }
     }
 
-//    private fun runOnUiThread(r: Runnable) {
-//        handler.post(r) // Запуск в главном потоке
-//    }
+    private fun runOnUiThread(r: Runnable) {
+        handler.post(r) // Запуск в главном потоке
+    }
 
 
     private fun insert(list: List<AnimeResponse>) {
         repository.insertLocalEntity(convertResponseListToEntityList(list))
-//        toast("Anime was uploaded")
+        toast("Anime has been uploaded")
         compositeDisposable.dispose()
     }
 
-//    private fun toast(text: String) {
-//        runOnUiThread {
-//            Toast.makeText(App.ContextHolder.context, text, Toast.LENGTH_SHORT).show()
-//        }
-//    }
+    private fun toast(text: String) {
+        runOnUiThread {
+            Toast.makeText(App.ContextHolder.context, text, Toast.LENGTH_SHORT).show()
+        }
+    }
 
 
 //    private fun toast(text: String) {

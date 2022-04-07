@@ -2,15 +2,14 @@ package com.meeweel.anilist.view.fragments.watchedfragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.WatchedFragmentBinding
 import com.meeweel.anilist.model.App
-import com.meeweel.anilist.model.AppState
 import com.meeweel.anilist.model.data.ShortAnime
 import com.meeweel.anilist.view.fragments.baselistfragment.BaseListFragment
 
@@ -19,10 +18,13 @@ class WatchedFragment : BaseListFragment() {
     private var _binding: WatchedFragmentBinding? = null
     private val binding
         get() = _binding!!
+    override val loadingLayoutView: View
+        get() = binding.loadingLayout
 
     override lateinit var adapter: WatchedFragmentAdapter
     override val viewModel: WatchedViewModel by lazy {
-        ViewModelProvider(this).get(WatchedViewModel::class.java).apply { App.appInstance.component.inject(this) }
+        ViewModelProvider(this).get(WatchedViewModel::class.java)
+            .apply { App.appInstance.component.inject(this) }
     }
 
     override fun onCreateView(
@@ -63,25 +65,11 @@ class WatchedFragment : BaseListFragment() {
         binding.watchedFragmentRecyclerView.adapter = adapter
 
         initObserver()
-
-        binding.inputEditText.addTextChangedListener {
-            viewModel.findByWord(it.toString())
-        }
+        setAppBarListeners()
     }
 
-    override fun renderData(data: AppState) = when (data) {
-        is AppState.Success -> {
-            val animeData = data.animeData
-            binding.loadingLayout.visibility = View.GONE
-            adapter.setAnime(animeData)
-        }
-        is AppState.Loading -> {
-            binding.loadingLayout.visibility = View.VISIBLE
-        }
-        is AppState.Error -> {
-            binding.loadingLayout.visibility = View.GONE
-
-        }
+    override fun getMenuItem(id: Int): MenuItem {
+        return binding.toolbar.menu.findItem(id)
     }
 
     override fun getMenuId(): Int {
