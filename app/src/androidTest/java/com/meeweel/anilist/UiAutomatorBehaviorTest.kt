@@ -1,5 +1,7 @@
 package com.meeweel.anilist
 
+import DELAY
+import STEPS
 import android.content.Context
 import android.content.Intent
 import android.widget.TextView
@@ -40,7 +42,7 @@ class UiAutomatorBehaviorTest {
     fun test_Searcher() {
 
         uiDevice.pressHome()
-        uiDevice.swipe(500,600,500,100,10)
+        uiDevice.swipe(500,600,500,100, STEPS)
         val appViews = UiScrollable(UiSelector().scrollable(false))
         val className = UiSelector().className(TextView::class.java.name)
         val settingsApp = appViews.getChildByText(className, "Settings")
@@ -165,7 +167,7 @@ class UiAutomatorBehaviorTest {
     }
 
     companion object {
-        private const val TIMEOUT = 10000L
+        private const val TIMEOUT = DELAY
     }
 
     enum class List {
