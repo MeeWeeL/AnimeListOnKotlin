@@ -17,6 +17,10 @@
     <string name="age_rating">Age rating</string>
     <string name="rate_this_title">Rate this title</string>
     <string name="move_to">Move to</string>
+    <string name="search">Search</string>
+    <string name="sort">Sort by</string>
+    <string name="me">Me</string>
+    <string name="filters">Filters</string>
     <dimen name="recycler_item_text_size">25sp</dimen>
     <dimen name="recycler_item_line_height">1dp</dimen>
 </resources>
