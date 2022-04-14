@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.WatchedFragmentBinding
+import com.meeweel.anilist.model.App
 import com.meeweel.anilist.model.AppState
 import com.meeweel.anilist.model.data.ShortAnime
 import com.meeweel.anilist.view.fragments.baselistfragment.BaseListFragment
@@ -20,9 +20,9 @@ class WatchedFragment : BaseListFragment() {
     private val binding
         get() = _binding!!
 
-    override val adapter = WatchedFragmentAdapter()
+    override lateinit var adapter: WatchedFragmentAdapter
     override val viewModel: WatchedViewModel by lazy {
-        ViewModelProvider(this).get(WatchedViewModel::class.java)
+        ViewModelProvider(this).get(WatchedViewModel::class.java).apply { App.appInstance.component.inject(this) }
     }
 
     override fun onCreateView(
@@ -30,6 +30,7 @@ class WatchedFragment : BaseListFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = WatchedFragmentBinding.inflate(inflater, container, false)
+        adapter = WatchedFragmentAdapter()
         return binding.root
     }
 

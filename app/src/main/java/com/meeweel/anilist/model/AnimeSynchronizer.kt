@@ -1,29 +1,24 @@
-package com.meeweel.anilist.viewmodel
+package com.meeweel.anilist.model
 
 import android.os.Handler
-import com.google.android.material.snackbar.Snackbar
-import com.meeweel.anilist.api.AnimeApi
-import com.meeweel.anilist.api.AnimeResponse
-import com.meeweel.anilist.databinding.ActivityMainBinding
+import android.widget.Toast
+import com.meeweel.anilist.model.retrofit.AnimeApi
+import com.meeweel.anilist.model.data.AnimeResponse
 import com.meeweel.anilist.model.repository.LocalRepository
-import com.meeweel.anilist.model.repository.LocalRepositoryImpl
-import com.meeweel.anilist.model.room.App
+import com.meeweel.anilist.model.App
 import com.meeweel.anilist.model.room.convertResponseListToEntityList
-import com.meeweel.anilist.model.room.convertResponseToEntity
-import com.meeweel.anilist.model.room.entityes.Entity
-import com.meeweel.anilist.viewmodel.Changing.getContext
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
 
-class AnimeSynchronizer(
+class AnimeSynchronizer @Inject constructor(
     private val aniApi: AnimeApi,
-    private val bind: ActivityMainBinding,
-    private val repository: LocalRepository = LocalRepositoryImpl(App.getEntityDao()),
-//    private val picMaker: ImageMaker = ImageMaker()
+    private val repository: LocalRepository
 ) {
+
     private val handler: Handler =
-        Handler(getContext().mainLooper) // Нужен для запуска главного потока
+        Handler(App.ContextHolder.context.mainLooper) // Нужен для запуска главного потока
     private var actualQuantity = 0
     private var localQuantity = repository.getQuantity()
     private val compositeDisposable = CompositeDisposable()
@@ -83,36 +78,22 @@ class AnimeSynchronizer(
 //        )
 //    }
 
-    fun insert(list: List<AnimeResponse>) {
+    private fun insert(list: List<AnimeResponse>) {
         repository.insertLocalEntity(convertResponseListToEntityList(list))
-//        Glide.with(getContext()).load(item.image).diskCacheStrategy(DiskCacheStrategy.DATA).preload()
         toast("Anime was uploaded")
         compositeDisposable.dispose()
     }
 
-
-//    private fun getImageName(title: String): String {
-//        return title
-//            .replace("https://anilist.pserver.ru/pictures/", "")
-//            .replace(".jpg", "")
-//            .replace(".png", "")
-
-        // return title
-        //    .replace(" ", "")
-        //    .replace(":", "").replace(";", "")
-        //    .replace("(", "").replace(")", "")
-        //    .replace("/", "").replace(".", "")
-        //    .replace(",", "").replace("'", "")
-        //    .replace("\"", "").replace("?", "")
-        //    .replace("!", "").replace("&", "").lowercase()
-//    }
-
-
     private fun toast(text: String) {
-        val snackBar = Snackbar.make(bind.container, text, Snackbar.LENGTH_SHORT)
-        snackBar.setAction("SKIP") {
-//            Toast.makeText(getContext(), "Ok...", Toast.LENGTH_SHORT).show()
+        runOnUiThread {
+            Toast.makeText(App.ContextHolder.context, text, Toast.LENGTH_SHORT).show()
         }
-        snackBar.show()
     }
+//    private fun toast(text: String) {
+//        val snackBar = Snackbar.make(bind.container, text, Snackbar.LENGTH_SHORT)
+//        snackBar.setAction("SKIP") {
+////            Toast.makeText(getContext(), "Ok...", Toast.LENGTH_SHORT).show()
+//        }
+//        snackBar.show()
+//    }
 }

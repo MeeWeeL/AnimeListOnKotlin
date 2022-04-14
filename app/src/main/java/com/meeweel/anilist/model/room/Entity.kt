@@ -1,10 +1,12 @@
-package com.meeweel.anilist.model.data
+package com.meeweel.anilist.model.room
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-@Parcelize
-data class AniResp(
+@Entity
+data class Entity(
+
+    @PrimaryKey(autoGenerate = false)
     val id: Int,
     val ruTitle: String,
     val enTitle: String,
@@ -21,4 +23,4 @@ data class AniResp(
     val seriesQuantity: Int,
     val ratingCheck: Int,
     var list: Int
-) : Parcelable
+)

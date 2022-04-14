@@ -8,14 +8,14 @@ import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.BottomShareDrawerBinding
-import com.meeweel.anilist.viewmodel.Changing.MAIN
-import com.meeweel.anilist.viewmodel.Changing.NOT_WATCHED
-import com.meeweel.anilist.viewmodel.Changing.UNWANTED
-import com.meeweel.anilist.viewmodel.Changing.WANTED
-import com.meeweel.anilist.viewmodel.Changing.WATCHED
-import com.meeweel.anilist.viewmodel.Changing.saveTo
+import com.meeweel.anilist.model.repository.LocalRepository
+import com.meeweel.anilist.view.MainActivity.Companion.MAIN
+import com.meeweel.anilist.view.MainActivity.Companion.NOT_WATCHED
+import com.meeweel.anilist.view.MainActivity.Companion.UNWANTED
+import com.meeweel.anilist.view.MainActivity.Companion.WANTED
+import com.meeweel.anilist.view.MainActivity.Companion.WATCHED
 
-class BottomShareDrawer  : BottomSheetDialogFragment() {
+class BottomShareDrawer(private val repository: LocalRepository)  : BottomSheetDialogFragment() {
 
     private var aniId: Int? = null
     lateinit var bind: BottomShareDrawerBinding
@@ -34,19 +34,19 @@ class BottomShareDrawer  : BottomSheetDialogFragment() {
         bind.shareView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.to_watched -> {
-                    saveTo(aniId!!, WATCHED)
+                    repository.updateLocalEntity(aniId!!, WATCHED)
                 }
                 R.id.to_not_watched -> {
-                    saveTo(aniId!!, NOT_WATCHED)
+                    repository.updateLocalEntity(aniId!!, NOT_WATCHED)
                 }
                 R.id.to_wanted -> {
-                    saveTo(aniId!!, WANTED)
+                    repository.updateLocalEntity(aniId!!, WANTED)
                 }
                 R.id.to_unwanted -> {
-                    saveTo(aniId!!, UNWANTED)
+                    repository.updateLocalEntity(aniId!!, UNWANTED)
                 }
                 R.id.to_main -> {
-                    saveTo(aniId!!, MAIN)
+                    repository.updateLocalEntity(aniId!!, MAIN)
                 }
             }
             toast("Moved")

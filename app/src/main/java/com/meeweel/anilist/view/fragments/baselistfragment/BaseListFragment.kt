@@ -1,5 +1,6 @@
 package com.meeweel.anilist.view.fragments.baselistfragment
 
+import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -16,22 +17,36 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.meeweel.anilist.R
+import com.meeweel.anilist.model.App
 import com.meeweel.anilist.model.AppState
 import com.meeweel.anilist.model.data.ShortAnime
-import com.meeweel.anilist.model.room.App
+import com.meeweel.anilist.model.repository.LocalRepository
 import com.meeweel.anilist.navigation.CustomRouter
 import com.meeweel.anilist.view.MainActivity
+import com.meeweel.anilist.view.MainActivity.Companion.MAIN
+import com.meeweel.anilist.view.MainActivity.Companion.NOT_WATCHED
+import com.meeweel.anilist.view.MainActivity.Companion.UNWANTED
+import com.meeweel.anilist.view.MainActivity.Companion.WANTED
+import com.meeweel.anilist.view.MainActivity.Companion.WATCHED
 import com.meeweel.anilist.view.fragments.mainfragment.*
 import com.meeweel.anilist.view.fragments.notwatched.NotWatchedScreen
 import com.meeweel.anilist.view.fragments.unwantedfragment.UnwantedScreen
 import com.meeweel.anilist.view.fragments.wantedfragment.WantedScreen
 import com.meeweel.anilist.view.fragments.watchedfragment.WatchedScreen
-import com.meeweel.anilist.viewmodel.Changing
+import javax.inject.Inject
 
 abstract class BaseListFragment : Fragment() {
 
-    internal val router: CustomRouter = App.appRouter
+    @Inject
+    lateinit var router: CustomRouter
 
+    @Inject
+    lateinit var repository: LocalRepository
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        App.appInstance.component.inject(this)
+    }
     // ADS
     private var mInterstitialAd: InterstitialAd? = null
     private final var TAG = "MainActivity"
@@ -81,7 +96,7 @@ abstract class BaseListFragment : Fragment() {
             MainActivity.time = newTime
             showAds()
         }
-        App.appRouter.replaceScreen(fragment)
+        router.replaceScreen(fragment)
     }
 
     private fun showAds() {
@@ -113,23 +128,23 @@ abstract class BaseListFragment : Fragment() {
         popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.to_main -> {
-                    popupMenuClick(anime, Changing.MAIN, position)
+                    popupMenuClick(anime, MAIN, position)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.to_watched -> {
-                    popupMenuClick(anime, Changing.WATCHED, position)
+                    popupMenuClick(anime, WATCHED, position)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.to_not_watched -> {
-                    popupMenuClick(anime, Changing.NOT_WATCHED, position)
+                    popupMenuClick(anime, NOT_WATCHED, position)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.to_wanted -> {
-                    popupMenuClick(anime, Changing.WANTED, position)
+                    popupMenuClick(anime, WANTED, position)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.to_unwanted -> {
-                    popupMenuClick(anime, Changing.UNWANTED, position)
+                    popupMenuClick(anime, UNWANTED, position)
                     return@setOnMenuItemClickListener true
                 }
                 else -> return@setOnMenuItemClickListener false
@@ -139,7 +154,7 @@ abstract class BaseListFragment : Fragment() {
     }
 
     private fun popupMenuClick(anime: ShortAnime, list: Int, position: Int) {
-        Changing.saveTo(anime.id, list)
+        repository.updateLocalEntity(anime.id, list)
         adapter.notifyRemove(anime, position)
         toast(TOAST_MESSAGE)
     }

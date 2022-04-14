@@ -8,25 +8,32 @@ import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.DetailsFragmentBinding
+import com.meeweel.anilist.model.App
 import com.meeweel.anilist.model.data.Anime
 import com.meeweel.anilist.model.data.ShortAnime
 import com.meeweel.anilist.model.repository.LocalRepository
-import com.meeweel.anilist.model.repository.LocalRepositoryImpl
-import com.meeweel.anilist.model.room.App
+import com.meeweel.anilist.model.retrofit.AnimeApi
 import com.meeweel.anilist.navigation.CustomRouter
-import com.meeweel.anilist.viewmodel.Changing.WATCHED
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.meeweel.anilist.view.MainActivity.Companion.WATCHED
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
 
 
-class DetailsFragment(
-    private val repository: LocalRepository = LocalRepositoryImpl(App.getEntityDao())
-) : Fragment() {
+class DetailsFragment : Fragment() {
+
+    @Inject
+    lateinit var animeApi: AnimeApi
+
+    @Inject
+    lateinit var repository: LocalRepository
+
+    @Inject
+    lateinit var router: CustomRouter
 
     lateinit var anime: ShortAnime
     private var _binding: DetailsFragmentBinding? = null
     private val binding get() = _binding!!
-    private val router: CustomRouter = App.appRouter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +41,7 @@ class DetailsFragment(
         savedInstanceState: Bundle?
     ): View {
         _binding = DetailsFragmentBinding.inflate(inflater, container, false)
+        App.appInstance.component.inject(this)
         return binding.root
     }
 
@@ -58,7 +66,7 @@ class DetailsFragment(
         }
         binding.detailsToolbar.menu.findItem(R.id.share_to).setOnMenuItemClickListener {
             //Toast.makeText(requireContext(), "Share to", Toast.LENGTH_SHORT).show()
-            val drawer = BottomShareDrawer()
+            val drawer = BottomShareDrawer(repository)
             val bundle = Bundle()
             bundle.putInt("aniId", anime.id)
             drawer.arguments = bundle
@@ -136,8 +144,7 @@ class DetailsFragment(
 
     @SuppressLint("CheckResult")
     private fun makeRateScore(id: Int, score: Int) {
-        val api = (requireActivity().application as App).animeApi
-        api.reteScore(score, id)
+        animeApi.reteScore(score, id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -150,8 +157,7 @@ class DetailsFragment(
 
     @SuppressLint("CheckResult")
     private fun upload(isRate: Boolean) {
-        val api = (requireActivity().application as App).animeApi
-        api.getAnime(anime.id)
+        animeApi.getAnime(anime.id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -162,6 +168,15 @@ class DetailsFragment(
                 toast("No internet")
             })
     }
+
+    private fun toast(text: String) {
+        val snackBar = Snackbar.make(binding.detailsBar, text, Snackbar.LENGTH_SHORT)
+        snackBar.setAction("SKIP") {
+//            Toast.makeText(getContext(), "Ok...", Toast.LENGTH_SHORT).show()
+        }
+        snackBar.show()
+    }
+
     companion object {
         const val BUNDLE_EXTRA = "anime"
 
@@ -172,13 +187,5 @@ class DetailsFragment(
             }
             return fragment
         }
-    }
-
-    private fun toast(text: String) {
-        val snackBar = Snackbar.make(binding.detailsBar, text, Snackbar.LENGTH_SHORT)
-        snackBar.setAction("SKIP") {
-//            Toast.makeText(getContext(), "Ok...", Toast.LENGTH_SHORT).show()
-        }
-        snackBar.show()
     }
 }

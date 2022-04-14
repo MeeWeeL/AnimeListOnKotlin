@@ -1,9 +1,9 @@
 package com.meeweel.anilist.model.repository
 
-import com.meeweel.anilist.api.AnimeResponse
+import com.meeweel.anilist.model.data.AnimeResponse
 import com.meeweel.anilist.model.data.Anime
 import com.meeweel.anilist.model.data.ShortAnime
-import com.meeweel.anilist.model.room.entityes.Entity
+import com.meeweel.anilist.model.room.Entity
 
 interface LocalRepository {
     fun getQuantity(): Int
