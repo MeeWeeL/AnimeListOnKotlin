@@ -12,7 +12,7 @@ interface EntityDao {
     @Query("SELECT * FROM Entity WHERE list = :list")
     fun getAnimeList(list: Int): List<Entity>
 
-    @Query("SELECT id, ruTitle, enTitle, image, data, rating FROM Entity WHERE list = :list")
+    @Query("SELECT id, ruTitle, enTitle, image, data, rating, enGenre FROM Entity WHERE list = :list")
     fun getShortAnimeList(list: Int): List<ShortAnime>
 
     @Query("UPDATE Entity SET ruTitle = :ruTitle, enTitle = :enTitle, originalTitle = :origTitle, ruDescription = :ruDescription, enDescription = :enDescription, image = :image, data = :data , ruGenre = :ruGenre, enGenre = :enGenre, author = :author, ageRating = :age, rating = :rating, seriesQuantity = :series WHERE id = :id")

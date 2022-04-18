@@ -1,13 +1,17 @@
 package com.meeweel.anilist.view.fragments.baselistfragment
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.allViews
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.github.terrakok.cicerone.Screen
@@ -19,8 +23,11 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.meeweel.anilist.R
+import com.meeweel.anilist.databinding.FilterLayoutBinding
 import com.meeweel.anilist.model.App
 import com.meeweel.anilist.model.AppState
+import com.meeweel.anilist.model.data.ListFilterSet
+import com.meeweel.anilist.model.data.ListFilterSet.Genre
 import com.meeweel.anilist.model.data.ShortAnime
 import com.meeweel.anilist.model.repository.LocalRepository
 import com.meeweel.anilist.navigation.CustomRouter
@@ -150,20 +157,20 @@ abstract class BaseListFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                viewModel.findByWord(newText!!)
+                viewModel.setTitleText(newText!!)
                 return false
             }
         })
         getMenuItem(R.id.sort_app_bar).setOnMenuItemClickListener {
-            Toast.makeText(requireContext(), "Hi Zhiwen", Toast.LENGTH_SHORT).show()
+            TODO() // Sort
             return@setOnMenuItemClickListener true
         }
         getMenuItem(R.id.filter_app_bar).setOnMenuItemClickListener {
-            Toast.makeText(requireContext(), "filter", Toast.LENGTH_SHORT).show()
+            showFilterDialog()
             return@setOnMenuItemClickListener true
         }
         getMenuItem(R.id.me_app_bar).setOnMenuItemClickListener {
-            Toast.makeText(requireContext(), "Here will be profile page", Toast.LENGTH_SHORT).show()
+            TODO() // Profile Page
             return@setOnMenuItemClickListener true
         }
     }
@@ -206,6 +213,25 @@ abstract class BaseListFragment : Fragment() {
         repository.updateLocalEntity(anime.id, list)
         adapter.notifyRemove(anime, position)
         toast(TOAST_MESSAGE)
+    }
+//, R.style.FilterDialogStyle
+    private fun showFilterDialog() {
+        val dialog = Dialog(requireContext())
+        val filterBinding = FilterLayoutBinding.inflate(layoutInflater)
+        dialog.setContentView(filterBinding.root)
+        val genres = Genre.values()
+        filterBinding.genreSpinner.adapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, genres)
+        dialog.show()
+
+        filterBinding.okButton.setOnClickListener {
+            viewModel.setGenre(genres[filterBinding.genreSpinner.selectedItemPosition])
+            viewModel.setYears(
+                filterBinding.yearsRangeSlider.values[0].toInt(),
+                filterBinding.yearsRangeSlider.values[1].toInt()
+            )
+            dialog.cancel()
+        }
     }
 
     private fun toast(text: String) {

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.meeweel.anilist.R
 import com.meeweel.anilist.model.App
 import com.meeweel.anilist.model.AppState
+import com.meeweel.anilist.model.data.ListFilterSet
 import com.meeweel.anilist.model.data.ShortAnime
 import com.meeweel.anilist.model.repository.LocalRepository
 import javax.inject.Inject
@@ -14,6 +15,7 @@ abstract class BaseViewModel : ViewModel() {
 
     @Inject
     lateinit var repository: LocalRepository
+    private val filter = ListFilterSet()
 
     init {
         App.appInstance.component.inject(baseViewModel = this)
@@ -25,22 +27,6 @@ abstract class BaseViewModel : ViewModel() {
 
     fun getData(): LiveData<AppState> {
         return liveDataToObserve
-    }
-
-    fun findByWord(text: String) {
-        val list = listOf<ShortAnime>()
-        if (text == "") {
-            postList(actualData)
-        } else {
-            val newList = mutableListOf<ShortAnime>()
-            for (item in actualData) {
-                if (item.enTitle.lowercase().replaceAfter(text.lowercase(), "").replaceBefore(text.lowercase(), "") == text.lowercase()
-                    || item.ruTitle.lowercase().replaceAfter(text.lowercase(), "").replaceBefore(text.lowercase(), "") == text.lowercase()) {
-                    newList.add(item)
-                }
-            }
-            postList(newList)
-        }
     }
 
     fun getAnimeFromLocalSource() = getDataFromLocalSource()
@@ -65,6 +51,31 @@ abstract class BaseViewModel : ViewModel() {
                 )
             )
         }.start()
+    }
+
+    fun setTitleText(text: String) {
+        filter.setTitleText(text)
+        postList(filter.filter(actualData))
+    }
+
+    fun setSort(sort: ListFilterSet.Sort) {
+        filter.setSort(sort)
+        postList(filter.filter(actualData))
+    }
+
+    fun setGenre(genre: ListFilterSet.Genre) {
+        filter.setGenre(genre)
+        postList(filter.filter(actualData))
+    }
+
+    fun setYears(yearFrom: Int, yearTo: Int) {
+        filter.setYears(yearFrom, yearTo)
+        postList(filter.filter(actualData))
+    }
+
+    fun clearFilter() {
+        filter.clear()
+        postList(filter.filter(actualData))
     }
 
     abstract fun getAnimeList(): List<ShortAnime>
