@@ -9,7 +9,7 @@ import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.meeweel.anilist.view.MainActivity
+import com.meeweel.anilist.ui.MainActivity
 import org.hamcrest.Matcher
 import org.junit.After
 import org.junit.Before

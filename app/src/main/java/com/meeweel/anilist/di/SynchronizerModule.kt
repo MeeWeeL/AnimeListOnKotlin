@@ -1,9 +1,9 @@
 package com.meeweel.anilist.di
 
-import com.meeweel.anilist.model.repository.LocalRepository
-import com.meeweel.anilist.model.retrofit.AnimeApi
-import com.meeweel.anilist.model.AnimeSynchronizer
-import com.meeweel.anilist.model.rx.SearchSchedulerProvider
+import com.meeweel.anilist.domain.repository.LocalRepository
+import com.meeweel.anilist.data.retrofit.AnimeApi
+import com.meeweel.anilist.data.retrofit.AnimeSynchronizer
+import com.meeweel.anilist.data.rx.SearchSchedulerProvider
 import dagger.Module
 import dagger.Provides
 

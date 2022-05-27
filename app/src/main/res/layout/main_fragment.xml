@@ -20,15 +20,6 @@
                 app:menu="@menu/app_bar_menu"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize" />
-
-<!--            <com.google.android.material.textfield.TextInputLayout-->
-<!--                android:id="@+id/input_layout"-->
-<!--                style="@style/inputLayoutStyle">-->
-
-<!--                <com.google.android.material.textfield.TextInputEditText-->
-<!--                    android:id="@+id/input_edit_text"-->
-<!--                    style="@style/inputEditTextStyle" />-->
-<!--            </com.google.android.material.textfield.TextInputLayout>-->
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -48,6 +39,13 @@
             android:id="@+id/nav_bar"
             style="@style/bottomNavBar" />
     </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/ic_sort"
+        app:layout_anchor="@id/bottom_app_bar" />
 
     <FrameLayout
         android:id="@+id/loadingLayout"

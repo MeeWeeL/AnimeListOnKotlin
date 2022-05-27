@@ -2,7 +2,7 @@ package com.meeweel.anilist.di
 
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.NavigatorHolder
-import com.meeweel.anilist.navigation.CustomRouter
+import com.meeweel.anilist.ui.navigation.CustomRouter
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

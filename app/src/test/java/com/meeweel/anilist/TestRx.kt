@@ -1,10 +1,10 @@
 package com.meeweel.anilist
 
-import com.meeweel.anilist.model.AnimeSynchronizer
+import com.meeweel.anilist.data.retrofit.AnimeSynchronizer
 import com.meeweel.anilist.model.data.MaxIdResponse
-import com.meeweel.anilist.model.repository.LocalRepository
-import com.meeweel.anilist.model.retrofit.AnimeApi
-import com.meeweel.anilist.model.rx.ScheduleProviderStub
+import com.meeweel.anilist.domain.repository.LocalRepository
+import com.meeweel.anilist.data.retrofit.AnimeApi
+import com.meeweel.anilist.data.rx.ScheduleProviderStub
 import io.reactivex.rxjava3.core.Single
 import org.junit.Before
 import org.junit.Test
