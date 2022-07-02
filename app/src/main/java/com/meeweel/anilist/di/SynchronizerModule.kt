@@ -1,6 +1,6 @@
 package com.meeweel.anilist.di
 
-import com.meeweel.anilist.domain.repository.LocalRepository
+import com.meeweel.anilist.data.repository.LocalRepository
 import com.meeweel.anilist.data.retrofit.AnimeApi
 import com.meeweel.anilist.data.retrofit.AnimeSynchronizer
 import com.meeweel.anilist.data.rx.SearchSchedulerProvider

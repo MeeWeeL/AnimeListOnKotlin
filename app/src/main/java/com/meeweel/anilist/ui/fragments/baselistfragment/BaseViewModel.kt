@@ -8,7 +8,7 @@ import com.meeweel.anilist.app.App
 import com.meeweel.anilist.domain.AppState
 import com.meeweel.anilist.domain.ListFilterSet
 import com.meeweel.anilist.domain.models.ShortAnime
-import com.meeweel.anilist.domain.repository.LocalRepository
+import com.meeweel.anilist.data.repository.LocalRepository
 import javax.inject.Inject
 
 abstract class BaseViewModel : ViewModel() {

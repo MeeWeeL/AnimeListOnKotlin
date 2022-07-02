@@ -1,4 +1,4 @@
-package com.meeweel.anilist.domain.repository
+package com.meeweel.anilist.data.repository
 
 import com.meeweel.anilist.model.data.AnimeResponse
 import com.meeweel.anilist.domain.models.Anime

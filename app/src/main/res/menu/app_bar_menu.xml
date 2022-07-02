@@ -8,19 +8,9 @@
         android:orderInCategory="1"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:actionLayout="@layout/search_view_layout"/>
-    <item android:id="@+id/sort_app_bar"
+    <item android:id="@+id/filter_app_bar"
         android:icon="@drawable/ic_sort"
         app:showAsAction="ifRoom"
-        android:title="@string/sort"
-        android:orderInCategory="2"/>
-    <item android:id="@+id/me_app_bar"
-        android:icon="@drawable/ic_me"
-        app:showAsAction="collapseActionView"
-        android:title="@string/me"
-        android:orderInCategory="4"/>
-    <item android:id="@+id/filter_app_bar"
-        android:icon="@drawable/ic_filter"
-        app:showAsAction="collapseActionView"
         android:title="@string/filters"
         android:orderInCategory="3"/>
 </menu>

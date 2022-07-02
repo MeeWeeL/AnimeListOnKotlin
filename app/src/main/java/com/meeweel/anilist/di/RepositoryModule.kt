@@ -2,7 +2,7 @@ package com.meeweel.anilist.di
 
 import android.content.Context
 import androidx.room.Room
-import com.meeweel.anilist.domain.repository.LocalRepository
+import com.meeweel.anilist.data.repository.LocalRepository
 import com.meeweel.anilist.data.room.LocalRepositoryImpl
 import com.meeweel.anilist.data.retrofit.AnimeApi
 import com.meeweel.anilist.data.retrofit.RetrofitImpl

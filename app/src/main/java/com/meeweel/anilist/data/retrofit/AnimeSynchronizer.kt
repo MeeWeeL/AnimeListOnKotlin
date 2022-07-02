@@ -3,9 +3,8 @@ package com.meeweel.anilist.data.retrofit
 import android.os.Handler
 import android.widget.Toast
 import com.meeweel.anilist.app.App
-import com.meeweel.anilist.data.retrofit.AnimeApi
 import com.meeweel.anilist.model.data.AnimeResponse
-import com.meeweel.anilist.domain.repository.LocalRepository
+import com.meeweel.anilist.data.repository.LocalRepository
 import com.meeweel.anilist.model.data.MaxIdResponse
 import com.meeweel.anilist.data.room.convertResponseListToEntityList
 import com.meeweel.anilist.data.rx.SchedulerProvider

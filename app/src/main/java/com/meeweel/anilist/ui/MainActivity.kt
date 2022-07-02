@@ -15,8 +15,8 @@ import com.meeweel.anilist.app.App
 import com.meeweel.anilist.ui.navigation.CustomNavigator
 import com.meeweel.anilist.ui.navigation.CustomRouter
 import com.meeweel.anilist.ui.fragments.mainfragment.MainScreen
-import com.meeweel.anilist.workmanager.SynchronizeWorker
-import com.meeweel.anilist.workmanager.SynchronizeWorker.Companion.outPutKey
+//import com.meeweel.anilist.workmanager.SynchronizeWorker
+//import com.meeweel.anilist.workmanager.SynchronizeWorker.Companion.outPutKey
 import javax.inject.Inject
 
 
@@ -29,10 +29,10 @@ class MainActivity : AppCompatActivity() {
     var constraints: Constraints = Constraints.Builder() // Создаёт ограничение запуска
         .setRequiredNetworkType(NetworkType.CONNECTED) // Должно быть подключение сети
         .build()
-    private val syncRequest = OneTimeWorkRequest.Builder(SynchronizeWorker::class.java) // Создаём запрос
-        .setConstraints(constraints) // Указываем ограничения для запроса
-        .build()
-    private val workManager = WorkManager.getInstance(application) // Создаём менеджер запросов
+//    private val syncRequest = OneTimeWorkRequest.Builder(SynchronizeWorker::class.java) // Создаём запрос
+//        .setConstraints(constraints) // Указываем ограничения для запроса
+//        .build()
+//    private val workManager = WorkManager.getInstance(application) // Создаём менеджер запросов
 
     @Inject
     lateinit var syncer: AnimeSynchronizer
@@ -52,15 +52,15 @@ class MainActivity : AppCompatActivity() {
         appRouter.navigateTo(MainScreen())
         if (savedInstanceState == null) {
             // WorkManager run task
-            workManager.enqueue(syncRequest) // Отправляем запрос в менеджер запросов
-            workManager.getWorkInfoByIdLiveData(syncRequest.id) // Получаем статус запроса по айди запроса
-                .observe(this, Observer<WorkInfo>() {
-                when (it.state) {
-                    WorkInfo.State.RUNNING -> toast("Synchronizing...")
-                    WorkInfo.State.SUCCEEDED -> appRouter.navigateTo(MainScreen())
-                }
-                    toast(workManager.getWorkInfoByIdLiveData(syncRequest.id).value?.outputData?.getInt(outPutKey,0).toString()) // Вывод данных
-            })
+//            workManager.enqueue(syncRequest) // Отправляем запрос в менеджер запросов
+//            workManager.getWorkInfoByIdLiveData(syncRequest.id) // Получаем статус запроса по айди запроса
+//                .observe(this, Observer<WorkInfo>() {
+//                when (it.state) {
+//                    WorkInfo.State.RUNNING -> toast("Synchronizing...")
+//                    WorkInfo.State.SUCCEEDED -> appRouter.navigateTo(MainScreen())
+//                }
+//                    toast(workManager.getWorkInfoByIdLiveData(syncRequest.id).value?.outputData?.getInt(outPutKey,0).toString()) // Вывод данных
+//            })
         }
     }
 

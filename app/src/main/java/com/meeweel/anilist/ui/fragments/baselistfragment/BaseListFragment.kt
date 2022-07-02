@@ -1,6 +1,5 @@
 package com.meeweel.anilist.ui.fragments.baselistfragment
 
-import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -20,13 +19,15 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.FilterLayoutBinding
 import com.meeweel.anilist.app.App
 import com.meeweel.anilist.domain.AppState
 import com.meeweel.anilist.domain.ListFilterSet.Genre
+import com.meeweel.anilist.domain.ListFilterSet.Sort
 import com.meeweel.anilist.domain.models.ShortAnime
-import com.meeweel.anilist.domain.repository.LocalRepository
+import com.meeweel.anilist.data.repository.LocalRepository
 import com.meeweel.anilist.ui.navigation.CustomRouter
 import com.meeweel.anilist.ui.MainActivity
 import com.meeweel.anilist.ui.MainActivity.Companion.MAIN
@@ -158,16 +159,8 @@ abstract class BaseListFragment : Fragment() {
                 return false
             }
         })
-        getMenuItem(R.id.sort_app_bar).setOnMenuItemClickListener {
-            TODO() // Sort
-            return@setOnMenuItemClickListener true
-        }
         getMenuItem(R.id.filter_app_bar).setOnMenuItemClickListener {
             showFilterDialog()
-            return@setOnMenuItemClickListener true
-        }
-        getMenuItem(R.id.me_app_bar).setOnMenuItemClickListener {
-            TODO() // Profile Page
             return@setOnMenuItemClickListener true
         }
     }
@@ -211,14 +204,18 @@ abstract class BaseListFragment : Fragment() {
         adapter.notifyRemove(anime, position)
         toast(TOAST_MESSAGE)
     }
-//, R.style.FilterDialogStyle
+
+    //, R.style.FilterDialogStyle
     private fun showFilterDialog() {
-        val dialog = Dialog(requireContext())
+        val dialog = BottomSheetDialog(requireContext())
         val filterBinding = FilterLayoutBinding.inflate(layoutInflater)
         dialog.setContentView(filterBinding.root)
         val genres = Genre.values()
+        val sorts = Sort.values()
         filterBinding.genreSpinner.adapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, genres)
+        filterBinding.sortSpinner.adapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, sorts)
         dialog.show()
 
         filterBinding.okButton.setOnClickListener {
@@ -227,6 +224,7 @@ abstract class BaseListFragment : Fragment() {
                 filterBinding.yearsRangeSlider.values[0].toInt(),
                 filterBinding.yearsRangeSlider.values[1].toInt()
             )
+            viewModel.setSort(sorts[filterBinding.sortSpinner.selectedItemPosition])
             dialog.cancel()
         }
     }

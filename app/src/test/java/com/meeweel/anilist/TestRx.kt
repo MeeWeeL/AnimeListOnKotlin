@@ -2,7 +2,7 @@ package com.meeweel.anilist
 
 import com.meeweel.anilist.data.retrofit.AnimeSynchronizer
 import com.meeweel.anilist.model.data.MaxIdResponse
-import com.meeweel.anilist.domain.repository.LocalRepository
+import com.meeweel.anilist.data.repository.LocalRepository
 import com.meeweel.anilist.data.retrofit.AnimeApi
 import com.meeweel.anilist.data.rx.ScheduleProviderStub
 import io.reactivex.rxjava3.core.Single

@@ -11,7 +11,7 @@ import com.meeweel.anilist.databinding.DetailsFragmentBinding
 import com.meeweel.anilist.app.App
 import com.meeweel.anilist.domain.models.Anime
 import com.meeweel.anilist.domain.models.ShortAnime
-import com.meeweel.anilist.domain.repository.LocalRepository
+import com.meeweel.anilist.data.repository.LocalRepository
 import com.meeweel.anilist.data.retrofit.AnimeApi
 import com.meeweel.anilist.ui.navigation.CustomRouter
 import com.meeweel.anilist.ui.MainActivity.Companion.WATCHED

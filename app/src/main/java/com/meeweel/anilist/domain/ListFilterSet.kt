@@ -112,7 +112,7 @@ class ListFilterSet {
     }
 
     enum class Sort {
-        RATING, ALPHABET, NEW, OLD, ID
+        ALPHABET, RATING, NEW, OLD, ID
     }
 
     enum class Genre {
@@ -124,7 +124,7 @@ class ListFilterSet {
 
     companion object {
         const val DEFAULT_YEAR_FROM = 1900
-        const val DEFAULT_YEAR_TO = 2100
+        const val DEFAULT_YEAR_TO = 2022
         const val DEFAULT_TITLE_TEXT = ""
         const val DEFAULT_GENRE_TEXT = "All"
         val DEFAULT_SORT = Sort.ALPHABET

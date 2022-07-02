@@ -8,7 +8,7 @@ import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.NotWatchedRecyclerItemBinding
 import com.meeweel.anilist.app.App
 import com.meeweel.anilist.domain.models.ShortAnime
-import com.meeweel.anilist.domain.repository.LocalRepository
+import com.meeweel.anilist.data.repository.LocalRepository
 import com.meeweel.anilist.ui.MainActivity.Companion.UNWANTED
 import com.meeweel.anilist.ui.MainActivity.Companion.WANTED
 import com.meeweel.anilist.ui.fragments.baselistfragment.BaseFragmentAdapter

@@ -3,10 +3,7 @@ package com.meeweel.anilist.data.room
 import com.meeweel.anilist.model.data.AnimeResponse
 import com.meeweel.anilist.domain.models.Anime
 import com.meeweel.anilist.domain.models.ShortAnime
-import com.meeweel.anilist.data.room.EntityDao
-import com.meeweel.anilist.data.room.Entity
-import com.meeweel.anilist.data.room.convertEntityToAnime
-import com.meeweel.anilist.domain.repository.LocalRepository
+import com.meeweel.anilist.data.repository.LocalRepository
 import java.lang.Exception
 
 class LocalRepositoryImpl(

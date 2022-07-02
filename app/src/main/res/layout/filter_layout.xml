@@ -16,42 +16,85 @@
         android:textSize="@dimen/_20sp"
         android:text="Filter"/>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
-        android:layout_gravity="center"
-        android:textStyle="italic"
-        android:textSize="@dimen/_15sp"
-        android:text="Genre"/>
+        android:orientation="horizontal">
 
-    <Spinner
-        android:id="@+id/genre_spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
-        android:layout_gravity="center"
-        android:entries="@array/genre_array"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/_10dp"
+            android:layout_marginVertical="@dimen/_10dp"
+            android:textStyle="italic"
+            android:textSize="@dimen/_15sp"
+            android:text="Genre: "/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
-        android:layout_gravity="center"
-        android:textStyle="italic"
-        android:textSize="@dimen/_15sp"
-        android:text="Years"/>
+        <Spinner
+            android:id="@+id/genre_spinner"
+            android:gravity="end"
+            android:layout_marginHorizontal="@dimen/_10dp"
+            android:layout_marginVertical="@dimen/_10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:entries="@array/genre_array"/>
+    </LinearLayout>
 
-    <com.google.android.material.slider.RangeSlider
-        android:id="@+id/years_range_slider"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
-        android:valueFrom="1900.0"
-        android:valueTo="2100.0"
-        app:values="@array/years_slider_values"
-        app:labelBehavior="withinBounds"
-        android:stepSize="1.0"/>
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10dp"
+            android:layout_marginVertical="@dimen/_10dp"
+            android:layout_gravity="center"
+            android:textStyle="italic"
+            android:textSize="@dimen/_15sp"
+            android:text="Years"/>
+
+        <com.google.android.material.slider.RangeSlider
+            android:id="@+id/years_range_slider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10dp"
+            android:layout_marginVertical="@dimen/_10dp"
+            android:valueFrom="1900.0"
+            android:valueTo="2100.0"
+            app:values="@array/years_slider_values"
+            app:labelBehavior="withinBounds"
+            android:stepSize="1.0"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/_10dp"
+            android:layout_marginVertical="@dimen/_10dp"
+            android:textStyle="italic"
+            android:textSize="@dimen/_15sp"
+            android:text="Sort by: "/>
+
+        <Spinner
+            android:id="@+id/sort_spinner"
+            android:gravity="end"
+            android:layout_marginHorizontal="@dimen/_10dp"
+            android:layout_marginVertical="@dimen/_10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:entries="@array/sort_array"/>
+    </LinearLayout>
 
     <Button
         android:id="@+id/ok_button"
