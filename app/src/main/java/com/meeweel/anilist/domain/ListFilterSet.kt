@@ -123,7 +123,7 @@ class ListFilterSet {
     }
 
     companion object {
-        const val DEFAULT_YEAR_FROM = 1900
+        const val DEFAULT_YEAR_FROM = 1969
         const val DEFAULT_YEAR_TO = 2022
         const val DEFAULT_TITLE_TEXT = ""
         const val DEFAULT_GENRE_TEXT = "All"

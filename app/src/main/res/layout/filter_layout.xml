@@ -63,8 +63,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_10dp"
             android:layout_marginVertical="@dimen/_10dp"
-            android:valueFrom="1900.0"
-            android:valueTo="2100.0"
+            android:valueFrom="1969.0"
+            android:valueTo="2022.0"
             app:values="@array/years_slider_values"
             app:labelBehavior="withinBounds"
             android:stepSize="1.0"/>

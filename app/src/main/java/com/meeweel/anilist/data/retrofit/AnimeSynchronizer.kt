@@ -1,14 +1,10 @@
 package com.meeweel.anilist.data.retrofit
 
-import android.os.Handler
-import android.widget.Toast
-import com.meeweel.anilist.app.App
+import androidx.lifecycle.MutableLiveData
 import com.meeweel.anilist.model.data.AnimeResponse
 import com.meeweel.anilist.data.repository.LocalRepository
-import com.meeweel.anilist.model.data.MaxIdResponse
 import com.meeweel.anilist.data.room.convertResponseListToEntityList
 import com.meeweel.anilist.data.rx.SchedulerProvider
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
@@ -19,81 +15,57 @@ class AnimeSynchronizer @Inject constructor(
     private val schedulerProvider: SchedulerProvider
 ) {
 
-    private val handler: Handler =
-        Handler(App.ContextHolder.context.mainLooper) // Нужен для запуска главного потока
     private var actualQuantity = 0
     private var localQuantity = repository.getQuantity()
     private val compositeDisposable = CompositeDisposable()
+
+    private val response: MutableLiveData<Int> = MutableLiveData()
+    val syncLiveData get() = response
 
     fun synchronize() {
         compositeDisposable.add(
             aniApi.getQuantity()  // Получение количества аниме на сервере
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
-//                .subscribeWith(object : DisposableSingleObserver<MaxIdResponse>() {
-//
-//                    override fun onSuccess(t: MaxIdResponse) {
-//                        actualQuantity = t.id
-//                        ifIf(actualQuantity, localQuantity)
-//                    }
-//
-//                    override fun onError(e: Throwable) {
-//                        toast("No internet")
-//                    }
-//                })
                 .subscribe({
+                    response.postValue(RESPONSE_CONNECTED)
                     actualQuantity = it.id
                     ifIf(actualQuantity, localQuantity)
                 }, {
-                    toast("No internet")
+                    response.postValue(RESPONSE_NO_INTERNET)
                 })
         )
     }
 
-    fun getQuantity() : Single<MaxIdResponse> {
-        return aniApi.getQuantity()
-    }
     private fun ifIf(actualQuantity: Int, localQuantity: Int) {
         if (actualQuantity > localQuantity) {
-//            toast("Found new anime")
             compositeDisposable.add(
                 aniApi.getAnimes(localQuantity)
                     .subscribeOn(Schedulers.io())
                     .observeOn(Schedulers.computation())
                     .subscribe({
+                        response.postValue(RESPONSE_NEW_ANIME)
                         insert(it)
                     }, {
-                        toast("Server error")
+                        response.postValue(RESPONSE_SERVER_ERROR)
                     })
             )
         } else {
-            toast("You have actual data")
+            response.postValue(RESPONSE_ACTUAL_DATA)
         }
     }
-
-    private fun runOnUiThread(r: Runnable) {
-        handler.post(r) // Запуск в главном потоке
-    }
-
 
     private fun insert(list: List<AnimeResponse>) {
         repository.insertLocalEntity(convertResponseListToEntityList(list))
-        toast("Anime has been uploaded")
+        response.postValue(list.size)
         compositeDisposable.dispose()
     }
 
-    private fun toast(text: String) {
-        runOnUiThread {
-            Toast.makeText(App.ContextHolder.context, text, Toast.LENGTH_SHORT).show()
-        }
+    companion object {
+        const val RESPONSE_NO_INTERNET = -1
+        const val RESPONSE_CONNECTED = -2
+        const val RESPONSE_NEW_ANIME = -3
+        const val RESPONSE_SERVER_ERROR = -4
+        const val RESPONSE_ACTUAL_DATA = 0
     }
-
-
-//    private fun toast(text: String) {
-//        val snackBar = Snackbar.make(bind.container, text, Snackbar.LENGTH_SHORT)
-//        snackBar.setAction("SKIP") {
-////            Toast.makeText(getContext(), "Ok...", Toast.LENGTH_SHORT).show()
-//        }
-//        snackBar.show()
-//    }
 }

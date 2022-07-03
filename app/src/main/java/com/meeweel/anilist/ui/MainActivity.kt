@@ -12,6 +12,10 @@ import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.ActivityMainBinding
 import com.meeweel.anilist.data.retrofit.AnimeSynchronizer
 import com.meeweel.anilist.app.App
+import com.meeweel.anilist.data.retrofit.AnimeSynchronizer.Companion.RESPONSE_CONNECTED
+import com.meeweel.anilist.data.retrofit.AnimeSynchronizer.Companion.RESPONSE_NEW_ANIME
+import com.meeweel.anilist.data.retrofit.AnimeSynchronizer.Companion.RESPONSE_NO_INTERNET
+import com.meeweel.anilist.data.retrofit.AnimeSynchronizer.Companion.RESPONSE_SERVER_ERROR
 import com.meeweel.anilist.ui.navigation.CustomNavigator
 import com.meeweel.anilist.ui.navigation.CustomRouter
 import com.meeweel.anilist.ui.fragments.mainfragment.MainScreen
@@ -26,9 +30,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     // WorkManager
-    var constraints: Constraints = Constraints.Builder() // Создаёт ограничение запуска
-        .setRequiredNetworkType(NetworkType.CONNECTED) // Должно быть подключение сети
-        .build()
+//    var constraints: Constraints = Constraints.Builder() // Создаёт ограничение запуска
+//        .setRequiredNetworkType(NetworkType.CONNECTED) // Должно быть подключение сети
+//        .build()
 //    private val syncRequest = OneTimeWorkRequest.Builder(SynchronizeWorker::class.java) // Создаём запрос
 //        .setConstraints(constraints) // Указываем ограничения для запроса
 //        .build()
@@ -51,6 +55,9 @@ class MainActivity : AppCompatActivity() {
         MobileAds.initialize(this)
         appRouter.navigateTo(MainScreen())
         if (savedInstanceState == null) {
+            val syncObserver = Observer<Int> { a -> renderData(a) }
+            syncer.syncLiveData.observe(this, syncObserver)
+            syncer.synchronize()
             // WorkManager run task
 //            workManager.enqueue(syncRequest) // Отправляем запрос в менеджер запросов
 //            workManager.getWorkInfoByIdLiveData(syncRequest.id) // Получаем статус запроса по айди запроса
@@ -64,14 +71,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun toast(text: String) {
-        val snackbar =
-            Snackbar.make(binding.container, text, Snackbar.LENGTH_SHORT)
-        snackbar.setAction("UNDO") {
-            Toast.makeText(applicationContext, "Undo action", Toast.LENGTH_SHORT).show()
+    private fun renderData(responseState: Int) {
+        if (responseState > 0) {
+            "$responseState new anime uploaded".toast()
+            appRouter.navigateTo(MainScreen())
+        } else {
+            when (responseState) {
+                0 -> "You have actual data".toast()
+                RESPONSE_NO_INTERNET -> "No internet".toast()
+                RESPONSE_CONNECTED -> "Synchronization".toast()
+                RESPONSE_NEW_ANIME -> "Found new anime".toast()
+                RESPONSE_SERVER_ERROR -> "Server error".toast()
+            }
         }
-        snackbar.show()
     }
+
+    private fun String.toast() = Toast.makeText(this@MainActivity, this, Toast.LENGTH_SHORT).show()
 
     override fun onResumeFragments() {
         super.onResumeFragments()
@@ -82,6 +97,7 @@ class MainActivity : AppCompatActivity() {
         navigatorHolder.removeNavigator()
         super.onPause()
     }
+
     companion object {
         var time = System.currentTimeMillis() - 20000L
         const val adsDelay = 3000000L
