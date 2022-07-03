@@ -2,15 +2,15 @@ package com.meeweel.anilist.ui.fragments.baselistfragment
 
 import android.annotation.TargetApi
 import android.content.ClipData
-import android.text.ClipboardManager
-import android.text.SpannableStringBuilder
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.text.ClipboardManager
 import android.util.Log
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
@@ -27,15 +27,14 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.meeweel.anilist.R
-import com.meeweel.anilist.databinding.FilterLayoutBinding
 import com.meeweel.anilist.app.App
+import com.meeweel.anilist.data.repository.LocalRepository
+import com.meeweel.anilist.databinding.FilterLayoutBinding
+import com.meeweel.anilist.databinding.ProfileLayoutBinding
 import com.meeweel.anilist.domain.AppState
 import com.meeweel.anilist.domain.ListFilterSet.Genre
 import com.meeweel.anilist.domain.ListFilterSet.Sort
 import com.meeweel.anilist.domain.models.ShortAnime
-import com.meeweel.anilist.data.repository.LocalRepository
-import com.meeweel.anilist.databinding.ProfileLayoutBinding
-import com.meeweel.anilist.ui.navigation.CustomRouter
 import com.meeweel.anilist.ui.MainActivity
 import com.meeweel.anilist.ui.MainActivity.Companion.MAIN
 import com.meeweel.anilist.ui.MainActivity.Companion.NOT_WATCHED
@@ -47,7 +46,7 @@ import com.meeweel.anilist.ui.fragments.notwatched.NotWatchedScreen
 import com.meeweel.anilist.ui.fragments.unwantedfragment.UnwantedScreen
 import com.meeweel.anilist.ui.fragments.wantedfragment.WantedScreen
 import com.meeweel.anilist.ui.fragments.watchedfragment.WatchedScreen
-import java.lang.StringBuilder
+import com.meeweel.anilist.ui.navigation.CustomRouter
 import javax.inject.Inject
 
 abstract class BaseListFragment : Fragment() {
@@ -65,7 +64,7 @@ abstract class BaseListFragment : Fragment() {
 
     // ADS
     private var mInterstitialAd: InterstitialAd? = null
-    private final var TAG = "MainActivity"
+    private var TAG = "MainActivity"
     private var adRequest = AdRequest.Builder().build()
 
     internal val navBarListener = BottomNavigationView.OnNavigationItemSelectedListener {
@@ -98,7 +97,7 @@ abstract class BaseListFragment : Fragment() {
             adRequest,
             object : InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(adError: LoadAdError) {
-                    Log.d(TAG, adError?.message)
+                    Log.d(TAG, adError.message)
                     mInterstitialAd = null
                 }
 
@@ -219,13 +218,25 @@ abstract class BaseListFragment : Fragment() {
         val filterBinding = FilterLayoutBinding.inflate(layoutInflater)
         dialog.setContentView(filterBinding.root)
         val genres = Genre.values()
+        val genresList = mutableListOf<String>()
+        genresList.addAll(genres.map { it.textName })
         val sorts = Sort.values()
+        val sortsList = mutableListOf<String>()
+        sortsList.addAll(sorts.map { it.textName })
         filterBinding.genreSpinner.adapter =
-            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, genres)
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, genresList)
+        filterBinding.genreSpinner.setSelection(viewModel.getGenre().ordinal)
         filterBinding.sortSpinner.adapter =
-            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, sorts)
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, sortsList)
+        filterBinding.sortSpinner.setSelection(viewModel.getSort().ordinal)
+        filterBinding.yearsRangeSlider.values =
+            listOf(viewModel.getYearFrom().toFloat(), viewModel.getYearTo().toFloat())
         dialog.show()
 
+        filterBinding.clearButton.setOnClickListener {
+            viewModel.clearFilter()
+            dialog.cancel()
+        }
         filterBinding.okButton.setOnClickListener {
             viewModel.setGenre(genres[filterBinding.genreSpinner.selectedItemPosition])
             viewModel.setYears(
@@ -234,6 +245,22 @@ abstract class BaseListFragment : Fragment() {
             )
             viewModel.setSort(sorts[filterBinding.sortSpinner.selectedItemPosition])
             dialog.cancel()
+        }
+        filterBinding.genreSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View?,
+                                        position: Int, id: Long) { viewModel.setGenre(genres[filterBinding.genreSpinner.selectedItemPosition]) }
+
+            override fun onNothingSelected(parentView: AdapterView<*>?) {} }
+        filterBinding.sortSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View?,
+                                        position: Int, id: Long) { viewModel.setSort(sorts[filterBinding.sortSpinner.selectedItemPosition]) }
+
+            override fun onNothingSelected(parentView: AdapterView<*>?) {} }
+        filterBinding.yearsRangeSlider.addOnChangeListener { _, _, _ ->
+            viewModel.setYears(
+                filterBinding.yearsRangeSlider.values[0].toInt(),
+                filterBinding.yearsRangeSlider.values[1].toInt()
+            )
         }
     }
 

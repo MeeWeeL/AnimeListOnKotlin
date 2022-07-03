@@ -83,6 +83,22 @@ abstract class BaseViewModel : ViewModel() {
         postList(filter.filter(actualData))
     }
 
+    fun getGenre() : ListFilterSet.Genre {
+        return filter.getGenre()
+    }
+
+    fun getYearFrom() : Int {
+        return filter.getYearFrom()
+    }
+
+    fun getYearTo() : Int {
+        return filter.getYearTo()
+    }
+
+    fun getSort() : ListFilterSet.Sort {
+        return filter.getSort()
+    }
+
     fun getAll() {
         repository.getAllAnime()
             .subscribeOn(Schedulers.io())
