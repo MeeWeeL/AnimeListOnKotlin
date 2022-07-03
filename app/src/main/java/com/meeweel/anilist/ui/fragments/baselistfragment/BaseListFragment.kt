@@ -1,5 +1,11 @@
 package com.meeweel.anilist.ui.fragments.baselistfragment
 
+import android.annotation.TargetApi
+import android.content.ClipData
+import android.text.ClipboardManager
+import android.text.SpannableStringBuilder
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -28,6 +34,7 @@ import com.meeweel.anilist.domain.ListFilterSet.Genre
 import com.meeweel.anilist.domain.ListFilterSet.Sort
 import com.meeweel.anilist.domain.models.ShortAnime
 import com.meeweel.anilist.data.repository.LocalRepository
+import com.meeweel.anilist.databinding.ProfileLayoutBinding
 import com.meeweel.anilist.ui.navigation.CustomRouter
 import com.meeweel.anilist.ui.MainActivity
 import com.meeweel.anilist.ui.MainActivity.Companion.MAIN
@@ -40,6 +47,7 @@ import com.meeweel.anilist.ui.fragments.notwatched.NotWatchedScreen
 import com.meeweel.anilist.ui.fragments.unwantedfragment.UnwantedScreen
 import com.meeweel.anilist.ui.fragments.wantedfragment.WantedScreen
 import com.meeweel.anilist.ui.fragments.watchedfragment.WatchedScreen
+import java.lang.StringBuilder
 import javax.inject.Inject
 
 abstract class BaseListFragment : Fragment() {
@@ -202,7 +210,7 @@ abstract class BaseListFragment : Fragment() {
     private fun popupMenuClick(anime: ShortAnime, list: Int, position: Int) {
         repository.updateLocalEntity(anime.id, list)
         adapter.notifyRemove(anime, position)
-        toast(TOAST_MESSAGE)
+        TOAST_MESSAGE.toast()
     }
 
     //, R.style.FilterDialogStyle
@@ -229,8 +237,73 @@ abstract class BaseListFragment : Fragment() {
         }
     }
 
-    private fun toast(text: String) {
-        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
+    internal fun showProfileDialog() {
+        val dialog = BottomSheetDialog(requireContext())
+        val profileBinding = ProfileLayoutBinding.inflate(layoutInflater)
+        dialog.setContentView(profileBinding.root)
+        var main = 0
+        var watched = 0
+        var wanted = 0
+        var notWatched = 0
+        var unwanted = 0
+        var shortList: List<ShortAnime> = listOf()
+
+        profileBinding.mainCopy.setOnClickListener { copy(MAIN, shortList) }
+        profileBinding.watchedCopy.setOnClickListener { copy(WATCHED, shortList) }
+        profileBinding.notWatchedCopy.setOnClickListener { copy(NOT_WATCHED, shortList) }
+        profileBinding.wantedCopy.setOnClickListener { copy(WANTED, shortList) }
+        profileBinding.unwantedCopy.setOnClickListener { copy(UNWANTED, shortList) }
+
+        val profileObserver = Observer<List<ShortAnime>> { list ->
+            shortList = list
+            list.forEach { item ->
+                when (item.list) {
+                    MAIN -> main++
+                    WATCHED -> watched++
+                    NOT_WATCHED -> notWatched++
+                    WANTED -> wanted++
+                    UNWANTED -> unwanted++
+                }
+            }
+            profileBinding.mainCounter.text = main.toString()
+            profileBinding.watchedCounter.text = watched.toString()
+            profileBinding.notWatchedCounter.text = notWatched.toString()
+            profileBinding.wantedCounter.text = wanted.toString()
+            profileBinding.unwantedCounter.text = unwanted.toString()
+        }
+        viewModel.shortLiveData.observe(viewLifecycleOwner, profileObserver)
+        viewModel.getAll()
+        dialog.show()
+    }
+
+    private fun copy(listInt: Int, list: List<ShortAnime>) {
+        val copyList = StringBuilder()
+        var count = 0
+        list.forEach {
+            if (it.list == listInt) copyList.append("${++count}. ${if (requireActivity().resources.getBoolean(R.bool.isRussian)) it.ruTitle else it.enTitle} (${it.data})\n")
+        }
+        copyText(copyList.toString())
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    private fun copyText(copiedText: String) {
+        val sdk = Build.VERSION.SDK_INT
+        if (sdk < Build.VERSION_CODES.HONEYCOMB) {
+            val clipboard =
+                requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            clipboard.text = copiedText
+            COPIED.toast()
+        } else {
+            val clipboard =
+                requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+            val clip = ClipData.newPlainText("TAG", copiedText)
+            clipboard.setPrimaryClip(clip)
+            COPIED.toast()
+        }
+    }
+
+    private fun String.toast() {
+        Toast.makeText(requireContext(), this, Toast.LENGTH_SHORT).show()
     }
 
     interface OnItemViewClickListener {
@@ -245,5 +318,6 @@ abstract class BaseListFragment : Fragment() {
 
     companion object {
         private const val TOAST_MESSAGE = "Moved"
+        private const val COPIED = "Copied"
     }
 }

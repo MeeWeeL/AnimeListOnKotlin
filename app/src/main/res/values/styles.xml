@@ -425,6 +425,25 @@
 
 
     <!--******************************************************-->
+    <!--***********  Profile Dialog and Filter  **************-->
+    <!--******************************************************-->
+
+                    <!--  Profile Btn  -->
+    <style name="profileButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/_10dp</item>
+        <item name="android:text">Copy list</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+                    <!--  Filter Ranger  -->
+    <style name="rangerStyle" parent="Widget.MaterialComponents.Tooltip">
+        <item name="android:textColor">@color/main_color</item>
+    </style>
+
+
+    <!--******************************************************-->
     <!--*********************  AppBar  ***********************-->
     <!--******************************************************-->
 

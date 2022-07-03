@@ -4,6 +4,7 @@ import com.meeweel.anilist.model.data.AnimeResponse
 import com.meeweel.anilist.domain.models.Anime
 import com.meeweel.anilist.domain.models.ShortAnime
 import com.meeweel.anilist.data.repository.LocalRepository
+import io.reactivex.rxjava3.core.Single
 import java.lang.Exception
 
 class LocalRepositoryImpl(
@@ -12,6 +13,10 @@ class LocalRepositoryImpl(
 
     override fun getQuantity(): Int {
         return localEntityDataSource.getQuantity()
+    }
+
+    override fun getAllAnime(): Single<List<ShortAnime>> {
+        return localEntityDataSource.getAllAnime()
     }
 
     override fun getLocalMainAnimeList(): List<ShortAnime> {

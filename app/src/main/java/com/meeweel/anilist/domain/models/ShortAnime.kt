@@ -19,5 +19,6 @@ data class ShortAnime(
     @SerializedName("rating")
     val rating: Int,
     @SerializedName("enGenre")
-    val enGenre: String
+    val enGenre: String,
+    var list: Int
 ) : Parcelable

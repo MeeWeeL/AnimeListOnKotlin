@@ -61,6 +61,7 @@
             android:id="@+id/years_range_slider"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:labelStyle="@style/rangerStyle"
             android:layout_marginHorizontal="@dimen/_10dp"
             android:layout_marginVertical="@dimen/_10dp"
             android:valueFrom="1969.0"
@@ -98,10 +99,7 @@
 
     <Button
         android:id="@+id/ok_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10dp"
-        android:layout_marginEnd="@dimen/_10dp"
+        style="@style/profileButtonStyle"
         android:layout_gravity="end"
         android:text="OK"/>
 </LinearLayout>

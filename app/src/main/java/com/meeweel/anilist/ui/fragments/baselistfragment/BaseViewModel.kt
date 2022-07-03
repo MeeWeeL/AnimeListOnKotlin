@@ -9,6 +9,8 @@ import com.meeweel.anilist.domain.AppState
 import com.meeweel.anilist.domain.ListFilterSet
 import com.meeweel.anilist.domain.models.ShortAnime
 import com.meeweel.anilist.data.repository.LocalRepository
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 abstract class BaseViewModel : ViewModel() {
@@ -23,7 +25,10 @@ abstract class BaseViewModel : ViewModel() {
 
     protected val isRu: Boolean = App.ContextHolder.context.resources.getBoolean(R.bool.isRussian)
     private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
+    private val shortLiveDataToObserve: MutableLiveData<List<ShortAnime>> = MutableLiveData()
+    val shortLiveData: LiveData<List<ShortAnime>> get() = shortLiveDataToObserve
     private var actualData: List<ShortAnime> = listOf()
+
 
     fun getData(): LiveData<AppState> {
         return liveDataToObserve
@@ -76,6 +81,17 @@ abstract class BaseViewModel : ViewModel() {
     fun clearFilter() {
         filter.clear()
         postList(filter.filter(actualData))
+    }
+
+    fun getAll() {
+        repository.getAllAnime()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                shortLiveDataToObserve.postValue(it)
+            },{
+                shortLiveDataToObserve.postValue(listOf())
+            })
     }
 
     abstract fun getAnimeList(): List<ShortAnime>
