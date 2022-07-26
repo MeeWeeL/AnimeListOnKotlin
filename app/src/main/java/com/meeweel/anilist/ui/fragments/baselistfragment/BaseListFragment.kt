@@ -62,6 +62,8 @@ abstract class BaseListFragment : Fragment() {
         App.appInstance.component.inject(this)
     }
 
+    private val isRu get() = requireActivity().resources.getBoolean(R.bool.isRussian)
+
     // ADS
     private var mInterstitialAd: InterstitialAd? = null
     private var TAG = "MainActivity"
@@ -224,7 +226,11 @@ abstract class BaseListFragment : Fragment() {
         val sortsList = mutableListOf<String>()
         sortsList.addAll(sorts.map(Sort::textName))
         filterBinding.genreSpinner.adapter =
-            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, genresList)
+            ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                genresList
+            )
         filterBinding.genreSpinner.setSelection(viewModel.getGenre().ordinal)
         filterBinding.sortSpinner.adapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, sortsList)
@@ -246,16 +252,28 @@ abstract class BaseListFragment : Fragment() {
             viewModel.setSort(sorts[filterBinding.sortSpinner.selectedItemPosition])
             dialog.cancel()
         }
-        filterBinding.genreSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View?,
-                                        position: Int, id: Long) { viewModel.setGenre(genres[filterBinding.genreSpinner.selectedItemPosition]) }
+        filterBinding.genreSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parentView: AdapterView<*>?, selectedItemView: View?,
+                    position: Int, id: Long
+                ) {
+                    viewModel.setGenre(genres[filterBinding.genreSpinner.selectedItemPosition])
+                }
 
-            override fun onNothingSelected(parentView: AdapterView<*>?) {} }
-        filterBinding.sortSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View?,
-                                        position: Int, id: Long) { viewModel.setSort(sorts[filterBinding.sortSpinner.selectedItemPosition]) }
+                override fun onNothingSelected(parentView: AdapterView<*>?) {}
+            }
+        filterBinding.sortSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parentView: AdapterView<*>?, selectedItemView: View?,
+                    position: Int, id: Long
+                ) {
+                    viewModel.setSort(sorts[filterBinding.sortSpinner.selectedItemPosition])
+                }
 
-            override fun onNothingSelected(parentView: AdapterView<*>?) {} }
+                override fun onNothingSelected(parentView: AdapterView<*>?) {}
+            }
         filterBinding.yearsRangeSlider.addOnChangeListener { _, _, _ ->
             viewModel.setYears(
                 filterBinding.yearsRangeSlider.values[0].toInt(),
@@ -306,9 +324,9 @@ abstract class BaseListFragment : Fragment() {
     private fun copy(listInt: Int, list: List<ShortAnime>) {
         val copyList = StringBuilder()
         var count = 0
-        list.forEach {
-            if (it.list == listInt) copyList.append("${++count}. ${if (requireActivity().resources.getBoolean(R.bool.isRussian)) it.ruTitle else it.enTitle} (${it.data})\n")
-        }
+        list.sortedBy { item -> if (isRu) item.ruTitle else item.enTitle }.forEach {
+            if (it.list == listInt) copyList.append(
+                "${++count}. ${if (isRu) it.ruTitle else it.enTitle} (${it.data})\n") }
         copyText(copyList.toString())
     }
 
