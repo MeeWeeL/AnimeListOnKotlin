@@ -219,10 +219,10 @@ abstract class BaseListFragment : Fragment() {
         dialog.setContentView(filterBinding.root)
         val genres = Genre.values()
         val genresList = mutableListOf<String>()
-        genresList.addAll(genres.map { it.textName })
+        genresList.addAll(genres.map(Genre::textName))
         val sorts = Sort.values()
         val sortsList = mutableListOf<String>()
-        sortsList.addAll(sorts.map { it.textName })
+        sortsList.addAll(sorts.map(Sort::textName))
         filterBinding.genreSpinner.adapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, genresList)
         filterBinding.genreSpinner.setSelection(viewModel.getGenre().ordinal)

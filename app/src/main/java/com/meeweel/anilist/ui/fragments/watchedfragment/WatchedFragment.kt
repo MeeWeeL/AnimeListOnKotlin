@@ -66,6 +66,10 @@ class WatchedFragment : BaseListFragment() {
 
         initObserver()
         setAppBarListeners()
+
+        binding.toolbar.setNavigationOnClickListener {
+            showProfileDialog()
+        }
     }
 
     override fun getMenuItem(id: Int): MenuItem {

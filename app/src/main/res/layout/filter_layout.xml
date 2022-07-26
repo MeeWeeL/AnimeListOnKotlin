@@ -14,7 +14,7 @@
         android:layout_gravity="center"
         android:textStyle="bold"
         android:textSize="@dimen/_20sp"
-        android:text="Filter"/>
+        android:text="@string/filter"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             android:layout_marginVertical="@dimen/_10dp"
             android:textStyle="italic"
             android:textSize="@dimen/_15sp"
-            android:text="Genre: "/>
+            android:text="@string/genres"/>
 
         <Spinner
             android:id="@+id/genre_spinner"
@@ -55,7 +55,7 @@
             android:layout_gravity="center"
             android:textStyle="italic"
             android:textSize="@dimen/_15sp"
-            android:text="Years"/>
+            android:text="@string/years"/>
 
         <com.google.android.material.slider.RangeSlider
             android:id="@+id/years_range_slider"
@@ -64,7 +64,7 @@
             app:labelStyle="@style/rangerStyle"
             android:layout_marginHorizontal="@dimen/_10dp"
             android:layout_marginVertical="@dimen/_10dp"
-            android:valueFrom="1969.0"
+            android:valueFrom="1962.0"
             android:valueTo="2022.0"
             app:values="@array/years_slider_values"
             app:labelBehavior="withinBounds"
@@ -84,7 +84,7 @@
             android:layout_marginVertical="@dimen/_10dp"
             android:textStyle="italic"
             android:textSize="@dimen/_15sp"
-            android:text="Sort by: "/>
+            android:text="@string/sort_by"/>
 
         <Spinner
             android:id="@+id/sort_spinner"
@@ -105,7 +105,7 @@
         <Button
             android:id="@+id/clear_button"
             style="@style/profileButtonStyle"
-            android:text="Clear filter"/>
+            android:text="@string/clear_filter"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -115,7 +115,7 @@
             <Button
                 android:id="@+id/ok_button"
                 style="@style/profileButtonStyle"
-                android:text="OK"/>
+                android:text="@string/OK"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

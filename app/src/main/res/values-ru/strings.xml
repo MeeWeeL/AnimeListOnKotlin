@@ -24,6 +24,22 @@
     <dimen name="recycler_item_text_size">25sp</dimen>
     <dimen name="recycler_item_line_height">1dp</dimen>
 
+
+    <!--    Lists    -->
+    <string name="in_queue_list">В очереди:</string>
+    <string name="watched_list">Смотрел(а):</string>
+    <string name="not_watched_list">Не смотрел(а):</string>
+    <string name="unwanted_list">Не хочу:</string>
+    <string name="unsorted_list">Не проверил(а):</string>
+
+<!--    Filter    -->
+    <string name="filter">Фильтр</string>
+    <string name="genres">Жанр: </string>
+    <string name="years">Годы: </string>
+    <string name="clear_filter">Сбросить фильтры</string>
+    <string name="OK">OK</string>
+    <string name="sort_by">Сортировать по: </string>
+
     <string-array name="genre_array">
         <item>Moscow</item>
         <item>Petersburg</item>

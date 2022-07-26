@@ -1,9 +1,12 @@
 package com.meeweel.anilist.domain
 
+import com.meeweel.anilist.R
+import com.meeweel.anilist.app.App
 import com.meeweel.anilist.domain.models.ShortAnime
 
 class ListFilterSet {
 
+    private val isRu = App.ContextHolder.context.resources.getBoolean(R.bool.isRussian)
     private var titleText = DEFAULT_TITLE_TEXT
     private var genre = DEFAULT_GENRE_TEXT
     private var yearFrom = DEFAULT_YEAR_FROM
@@ -12,10 +15,7 @@ class ListFilterSet {
 
     fun filter(list: List<ShortAnime>) : List<ShortAnime> {
         var newList = mutableListOf<ShortAnime>()
-
-        for (item in list) {
-            if (item.data.toInt() in yearFrom..yearTo) newList.add(item)
-        }
+        newList.addAll(list.filter { it.data.toInt() in yearFrom..yearTo })
         if (genre != DEFAULT_GENRE_TEXT) {
             val alterList = mutableListOf<ShortAnime>()
             for (item in newList) {
@@ -43,11 +43,11 @@ class ListFilterSet {
 
     private fun sort(list: MutableList<ShortAnime>, sort: Sort) : List<ShortAnime> {
         return when(sort) {
-            Sort.ALPHABET -> list.sortedBy { it.enTitle }
-            Sort.ALPHABET_REVERS -> list.sortedByDescending { it.enTitle }
-            Sort.NEW -> list.sortedByDescending { it.data }
-            Sort.OLD -> list.sortedBy { it.data }
-            Sort.RATING -> list.sortedByDescending { it.rating }
+            Sort.ALPHABET -> list.sortedBy { if (isRu) it.ruTitle else it.enTitle }
+            Sort.ALPHABET_REVERS -> list.sortedByDescending { if (isRu) it.ruTitle else it.enTitle }
+            Sort.NEW -> list.sortedByDescending(ShortAnime::data)
+            Sort.OLD -> list.sortedBy(ShortAnime::data)
+            Sort.RATING -> list.sortedByDescending(ShortAnime::rating)
         }
     }
 
@@ -88,24 +88,13 @@ class ListFilterSet {
         SLICE_OF_LIFE("Slice of Life", 32), SUPERNATURAL("Supernatural", 33)
     }
 
-    fun getGenre() : Genre {
-        return genre
-    }
-
-    fun getYearFrom() : Int {
-        return yearFrom
-    }
-
-    fun getYearTo() : Int {
-        return yearTo
-    }
-
-    fun getSort() : Sort {
-        return sort
-    }
+    fun getGenre() = genre
+    fun getYearFrom() = yearFrom
+    fun getYearTo() = yearTo
+    fun getSort() = sort
 
     companion object {
-        const val DEFAULT_YEAR_FROM = 1969
+        const val DEFAULT_YEAR_FROM = 1962
         const val DEFAULT_YEAR_TO = 2022
         const val DEFAULT_TITLE_TEXT = ""
         val DEFAULT_GENRE_TEXT = Genre.ALL_GENRES
