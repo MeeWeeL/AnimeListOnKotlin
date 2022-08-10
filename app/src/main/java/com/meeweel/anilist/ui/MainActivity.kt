@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             when (responseState) {
                 0 -> "You have actual data".toast()
-                RESPONSE_NO_INTERNET -> "No connection".toast()
+                RESPONSE_NO_INTERNET -> "No con".toast()
                 RESPONSE_CONNECTED -> "Synchronization".toast()
                 RESPONSE_NEW_ANIME -> "Found new anime".toast()
                 RESPONSE_SERVER_ERROR -> "Server error".toast()
