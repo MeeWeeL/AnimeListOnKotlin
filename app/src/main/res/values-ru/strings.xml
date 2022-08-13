@@ -11,6 +11,7 @@
     <string name="default_description">Default description</string>
     <string name="description">описание</string>
     <string name="rating">Рейтинг</string>
+    <string name="yourRate">Твоя оценка</string>
     <string name="author">Автор</string>
     <string name="genre">Жанр</string>
     <string name="data">Дата релиза</string>
