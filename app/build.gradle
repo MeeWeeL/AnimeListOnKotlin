@@ -111,10 +111,14 @@ dependencies {
     // Json
     implementation 'com.google.code.gson:gson:2.8.6'
 
+    // RxJava 3
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+
     //Room
-    implementation 'androidx.room:room-runtime:2.4.2'
-    implementation 'androidx.room:room-rxjava3:2.4.2'
-    kapt 'androidx.room:room-compiler:2.4.2'
+    implementation 'androidx.room:room-runtime:2.4.3'
+    implementation 'androidx.room:room-rxjava3:2.4.3'
+    kapt 'androidx.room:room-compiler:2.4.3'
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -123,16 +127,12 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.9.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
 
-    // RxJava 3
-    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
-    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
-
     // AppCompat
     implementation 'androidx.appcompat:appcompat:1.4.2'
 
     // LifeCycle
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
 
     // UiAutomator
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'

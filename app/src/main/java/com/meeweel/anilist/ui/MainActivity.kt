@@ -4,16 +4,14 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import com.google.android.gms.ads.MobileAds
-import com.meeweel.anilist.R
-import com.meeweel.anilist.databinding.ActivityMainBinding
-import com.meeweel.anilist.data.retrofit.AnimeSynchronizer
 import com.meeweel.anilist.app.App
+import com.meeweel.anilist.data.retrofit.AnimeSynchronizer
 import com.meeweel.anilist.data.retrofit.AnimeSynchronizer.Companion.RESPONSE_CONNECTED
 import com.meeweel.anilist.data.retrofit.AnimeSynchronizer.Companion.RESPONSE_NEW_ANIME
 import com.meeweel.anilist.data.retrofit.AnimeSynchronizer.Companion.RESPONSE_NO_INTERNET
 import com.meeweel.anilist.data.retrofit.AnimeSynchronizer.Companion.RESPONSE_SERVER_ERROR
+import com.meeweel.anilist.databinding.ActivityMainBinding
 import javax.inject.Inject
 
 
@@ -31,7 +29,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         App.appInstance.component.inject(this)
         MobileAds.initialize(this)
-//        findNavController(R.id.nav_host_fragment).navigate(R.id.action_mainFragment_self)
         if (savedInstanceState == null) {
             val syncObserver = Observer<Int> { a -> renderData(a) }
             syncer.syncLiveData.observe(this, syncObserver)
@@ -42,11 +39,10 @@ class MainActivity : AppCompatActivity() {
     private fun renderData(responseState: Int) {
         if (responseState > 0) {
             "$responseState new anime uploaded".toast()
-//            findNavController(R.id.nav_host_fragment).navigate(R.id.action_mainFragment_self)
         } else {
             when (responseState) {
                 0 -> "You have actual data".toast()
-                RESPONSE_NO_INTERNET -> "No con".toast()
+                RESPONSE_NO_INTERNET -> "No connection".toast()
                 RESPONSE_CONNECTED -> "Synchronization".toast()
                 RESPONSE_NEW_ANIME -> "Found new anime".toast()
                 RESPONSE_SERVER_ERROR -> "Server error".toast()

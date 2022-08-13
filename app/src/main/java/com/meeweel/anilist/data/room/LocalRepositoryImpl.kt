@@ -1,11 +1,10 @@
 package com.meeweel.anilist.data.room
 
-import com.meeweel.anilist.model.data.AnimeResponse
+import com.meeweel.anilist.data.repository.LocalRepository
 import com.meeweel.anilist.domain.models.Anime
 import com.meeweel.anilist.domain.models.ShortAnime
-import com.meeweel.anilist.data.repository.LocalRepository
+import com.meeweel.anilist.model.data.AnimeResponse
 import io.reactivex.rxjava3.core.Single
-import java.lang.Exception
 
 class LocalRepositoryImpl(
     private val localEntityDataSource: EntityDao
@@ -19,23 +18,23 @@ class LocalRepositoryImpl(
         return localEntityDataSource.getAllAnime()
     }
 
-    override fun getLocalMainAnimeList(): List<ShortAnime> {
+    override fun getLocalMainAnimeList(): Single<List<ShortAnime>> {
         return localEntityDataSource.getShortAnimeList(1)
     }
 
-    override fun getLocalWatchedAnimeList(): List<ShortAnime> {
+    override fun getLocalWatchedAnimeList(): Single<List<ShortAnime>> {
         return localEntityDataSource.getShortAnimeList(2)
     }
 
-    override fun getLocalNotWatchedAnimeList(): List<ShortAnime> {
+    override fun getLocalNotWatchedAnimeList(): Single<List<ShortAnime>> {
         return localEntityDataSource.getShortAnimeList(3)
     }
 
-    override fun getLocalWantedAnimeList(): List<ShortAnime> {
+    override fun getLocalWantedAnimeList(): Single<List<ShortAnime>> {
         return localEntityDataSource.getShortAnimeList(4)
     }
 
-    override fun getLocalUnwantedAnimeList(): List<ShortAnime> {
+    override fun getLocalUnwantedAnimeList(): Single<List<ShortAnime>> {
         return localEntityDataSource.getShortAnimeList(5)
     }
 
@@ -77,8 +76,8 @@ class LocalRepositoryImpl(
         }
     }
 
-    override fun getAnimeById(id: Int): Anime {
-        return convertEntityToAnime(localEntityDataSource.getEntityById(id))
+    override fun getAnimeById(id: Int): Single<Anime> {
+        return localEntityDataSource.getEntityById(id).map { convertEntityToAnime(it) }
     }
 
     override fun updateRate(id: Int, score: Int) {
