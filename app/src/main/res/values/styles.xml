@@ -32,7 +32,7 @@
     </style>
                     <!--  Bottom Nav Bar  -->
     <style name="bottomNavBar">
-        <item name="menu">@menu/button_menu</item>
+        <item name="menu">@menu/navigation_bar_menu</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@android:color/transparent</item>
