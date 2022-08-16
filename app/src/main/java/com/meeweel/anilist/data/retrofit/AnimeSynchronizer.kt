@@ -3,7 +3,7 @@ package com.meeweel.anilist.data.retrofit
 import androidx.lifecycle.MutableLiveData
 import com.meeweel.anilist.model.data.AnimeResponse
 import com.meeweel.anilist.data.repository.LocalRepository
-import com.meeweel.anilist.data.room.convertResponseListToEntityList
+import com.meeweel.anilist.data.room.toEntity
 import com.meeweel.anilist.data.rx.SchedulerProvider
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -56,7 +56,7 @@ class AnimeSynchronizer @Inject constructor(
     }
 
     private fun insert(list: List<AnimeResponse>) {
-        repository.insertLocalEntity(convertResponseListToEntityList(list))
+        repository.insertLocalEntity(list.map { it.toEntity() })
         response.postValue(list.size)
         compositeDisposable.dispose()
     }
