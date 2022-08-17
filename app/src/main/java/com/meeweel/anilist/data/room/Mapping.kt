@@ -7,29 +7,6 @@ import com.meeweel.anilist.domain.models.Anime
 
 val isRussian: Boolean = App.ContextHolder.context.resources.getBoolean(R.bool.isRussian)
 
-/*fun convertResponseToEntity(response: AnimeResponse) : Entity {
-    return Entity(
-        response.id,
-        response.ruTitle,
-        response.enTitle,
-        response.originalTitle,
-        response.ruDescription,
-        response.enDescription,
-//                getImageName(item.image),
-        response.image,
-        response.data,
-        response.ruGenre,
-        response.enGenre,
-        response.author,
-        response.ageRating,
-        getRating(response),
-        response.seriesQuantity,
-        0,
-        1
-    )
-}*/
-/*fun convertResponseListToEntityList(list: List<AnimeResponse>) : List<Entity> {
-    return list.map {*/
 fun AnimeResponse.toEntity() = Entity(
     id = id,
     ruTitle = ruTitle,
@@ -50,6 +27,7 @@ fun AnimeResponse.toEntity() = Entity(
     1
 )
 
+fun List<AnimeResponse>.toEntityList() = this.map { it.toEntity() }
 
 private fun getRating(anime: AnimeResponse): Int {
     return try {
@@ -61,37 +39,19 @@ private fun getRating(anime: AnimeResponse): Int {
     }
 }
 
-/*fun convertEntityToAnilist(entityList: List<Entity>): List<Anime> {
-    return entityList.map {
-        Anime(
-            it.id, it.ruTitle, it.enTitle, it.originalTitle, if (isRussian) {
-                it.ruDescription
-            } else {
-                it.enDescription
-            },
-            it.image, it.data, if (isRussian) {
-                it.ruGenre
-            } else {
-                it.enGenre
-            }, it.author, it.ageRating, it.rating, it.seriesQuantity, it.ratingCheck, it.list
-        )
-    }
-}*/
-/*fun convertEntityToAnime(it: Entity) : Anime {
-    return Anime(*/
 fun Entity.toModel() = Anime(
     id = id,
     ruTitle = ruTitle,
     enTitle = enTitle,
     originalTitle = originalTitle,
-    if (isRussian) {
+    description = if (isRussian) {
         ruDescription
     } else {
         enDescription
     },
     image = image,
     data = data,
-    if (isRussian) {
+    genre = if (isRussian) {
         ruGenre
     } else {
         enGenre
@@ -103,9 +63,3 @@ fun Entity.toModel() = Anime(
     ratingCheck = ratingCheck,
     list = list
 )
-
-//fun convertResponseToAnime(anime: AnimeResponse) : Anime {
-//    return Anime(
-//
-//    )
-//}

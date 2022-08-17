@@ -84,10 +84,6 @@ class LocalRepositoryImpl(
         }
     }
 
-    /*override fun getAnimeById(id: Int): Anime {
-        return convertEntityToAnime(localEntityDataSource.getEntityById(id))
-    }*/
-
     override fun getAnimeById(id: Int): Anime {
         return localEntityDataSource.getEntityById(id).toModel()
     }
