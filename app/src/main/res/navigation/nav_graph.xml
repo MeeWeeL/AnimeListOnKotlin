@@ -9,7 +9,7 @@
         android:id="@+id/mainFragment"
         android:name="com.meeweel.anilist.ui.fragments.listFragments.lists.mainFragment.MainFragment"
         android:label="main_fragment"
-        tools:layout="@layout/main_fragment" >
+        tools:layout="@layout/main_fragment">
         <action
             android:id="@+id/action_mainFragment_self"
             app:destination="@id/mainFragment"
@@ -49,7 +49,7 @@
         android:id="@+id/watchedFragment"
         android:name="com.meeweel.anilist.ui.fragments.listFragments.lists.watchedFragment.WatchedFragment"
         android:label="watched_fragment"
-        tools:layout="@layout/watched_fragment" >
+        tools:layout="@layout/watched_fragment">
         <action
             android:id="@+id/action_watchedFragment_to_mainFragment"
             app:destination="@id/mainFragment"
@@ -89,7 +89,7 @@
         android:id="@+id/notWatchedFragment"
         android:name="com.meeweel.anilist.ui.fragments.listFragments.lists.notWatched.NotWatchedFragment"
         android:label="not_watched_fragment"
-        tools:layout="@layout/not_watched_fragment" >
+        tools:layout="@layout/not_watched_fragment">
         <action
             android:id="@+id/action_notWatchedFragment_to_mainFragment"
             app:destination="@id/mainFragment"
@@ -129,7 +129,7 @@
         android:id="@+id/wantedFragment"
         android:name="com.meeweel.anilist.ui.fragments.listFragments.lists.wantedFragment.WantedFragment"
         android:label="wanted_fragment"
-        tools:layout="@layout/wanted_fragment" >
+        tools:layout="@layout/wanted_fragment">
         <action
             android:id="@+id/action_wantedFragment_self"
             app:destination="@id/wantedFragment"
@@ -169,7 +169,7 @@
         android:id="@+id/unwantedFragment"
         android:name="com.meeweel.anilist.ui.fragments.listFragments.lists.unwantedFragment.UnwantedFragment"
         android:label="unwanted_fragment"
-        tools:layout="@layout/unwanted_fragment" >
+        tools:layout="@layout/unwanted_fragment">
         <action
             android:id="@+id/action_unwantedFragment_self"
             app:destination="@id/unwantedFragment"
@@ -209,10 +209,10 @@
         android:id="@+id/detailsFragment"
         android:name="com.meeweel.anilist.ui.fragments.detailsFragment.DetailsFragment"
         android:label="details_fragment"
-        tools:layout="@layout/details_fragment" >
+        tools:layout="@layout/details_fragment">
 
         <argument
             android:name="Anime ID"
-            app:argType="integer"/>
+            app:argType="integer" />
     </fragment>
 </navigation>

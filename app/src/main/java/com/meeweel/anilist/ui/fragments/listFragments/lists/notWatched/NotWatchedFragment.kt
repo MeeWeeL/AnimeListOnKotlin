@@ -11,8 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.meeweel.anilist.R
-import com.meeweel.anilist.databinding.NotWatchedFragmentBinding
 import com.meeweel.anilist.app.App
+import com.meeweel.anilist.databinding.NotWatchedFragmentBinding
 import com.meeweel.anilist.domain.models.ShortAnime
 import com.meeweel.anilist.ui.MainActivity
 import com.meeweel.anilist.ui.fragments.listFragments.BaseListFragment
@@ -61,8 +61,10 @@ class NotWatchedFragment : BaseListFragment() {
         ItemTouchHelper(NotWatchedItemTouchHelperCallback(adapter)).attachToRecyclerView(binding.notWatchedFragmentRecyclerView)
         adapter.setOnItemViewClickListener(object : OnItemViewClickListener {
             override fun onItemViewClick(anime: ShortAnime) {
-                findNavController().navigate(R.id.action_notWatchedFragment_to_detailsFragment, bundleOf(
-                    MainActivity.ARG_ANIME_ID to anime.id)
+                findNavController().navigate(
+                    R.id.action_notWatchedFragment_to_detailsFragment, bundleOf(
+                        MainActivity.ARG_ANIME_ID to anime.id
+                    )
                 )
             }
         })

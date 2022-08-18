@@ -1,6 +1,9 @@
 package com.meeweel.anilist.data.room
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.meeweel.anilist.domain.models.ShortAnime
 import io.reactivex.rxjava3.core.Single
 
@@ -20,7 +23,22 @@ interface EntityDao {
     fun getShortAnimeList(list: Int): List<ShortAnime>
 
     @Query("UPDATE Entity SET ruTitle = :ruTitle, enTitle = :enTitle, originalTitle = :origTitle, ruDescription = :ruDescription, enDescription = :enDescription, image = :image, data = :data , ruGenre = :ruGenre, enGenre = :enGenre, author = :author, ageRating = :age, rating = :rating, seriesQuantity = :series WHERE id = :id")
-    fun updateFromNetwork(ruTitle: String, enTitle: String, origTitle: String, age: Int, ruDescription: String, enDescription: String, series: Int, image: String, rating: Int, data: String, ruGenre: String, enGenre: String, author: String, id: Int)
+    fun updateFromNetwork(
+        ruTitle: String,
+        enTitle: String,
+        origTitle: String,
+        age: Int,
+        ruDescription: String,
+        enDescription: String,
+        series: Int,
+        image: String,
+        rating: Int,
+        data: String,
+        ruGenre: String,
+        enGenre: String,
+        author: String,
+        id: Int
+    )
 
     @Query("UPDATE Entity SET ratingCheck = :score WHERE id = :id")
     fun updateRate(id: Int, score: Int)

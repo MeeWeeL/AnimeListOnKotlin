@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
-import com.meeweel.anilist.databinding.WatchedRecyclerItemBinding
 import com.meeweel.anilist.app.App
+import com.meeweel.anilist.databinding.WatchedRecyclerItemBinding
 import com.meeweel.anilist.domain.models.ShortAnime
 import com.meeweel.anilist.ui.fragments.listFragments.BaseFragmentAdapter
 import com.meeweel.anilist.ui.fragments.listFragments.BaseViewHolder

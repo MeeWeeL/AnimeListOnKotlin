@@ -11,7 +11,7 @@
     <string name="default_description">Default description</string>
     <string name="description">description</string>
     <string name="rating">Rating</string>
-    <string name="your_rate">Your rate</string>
+    <string name="seriesQuantity">Episodes</string>
     <string name="author">Author</string>
     <string name="genre">Genre</string>
     <string name="data">Date</string>
@@ -26,7 +26,7 @@
     <dimen name="recycler_item_line_height">1dp</dimen>
 
 
-<!--    Lists    -->
+    <!--    Lists    -->
     <string name="in_queue_list">In-queue:</string>
     <string name="watched_list">Watched:</string>
     <string name="not_watched_list">Not-watched:</string>

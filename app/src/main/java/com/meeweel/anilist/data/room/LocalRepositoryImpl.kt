@@ -1,11 +1,10 @@
 package com.meeweel.anilist.data.room
 
-import com.meeweel.anilist.model.data.AnimeResponse
+import com.meeweel.anilist.data.repository.LocalRepository
 import com.meeweel.anilist.domain.models.Anime
 import com.meeweel.anilist.domain.models.ShortAnime
-import com.meeweel.anilist.data.repository.LocalRepository
+import com.meeweel.anilist.model.data.AnimeResponse
 import io.reactivex.rxjava3.core.Single
-import java.lang.Exception
 
 class LocalRepositoryImpl(
     private val localEntityDataSource: EntityDao

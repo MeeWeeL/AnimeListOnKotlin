@@ -1,10 +1,10 @@
 package com.meeweel.anilist.data.retrofit
 
 import androidx.lifecycle.MutableLiveData
-import com.meeweel.anilist.model.data.AnimeResponse
 import com.meeweel.anilist.data.repository.LocalRepository
 import com.meeweel.anilist.data.room.toEntityList
 import com.meeweel.anilist.data.rx.SchedulerProvider
+import com.meeweel.anilist.model.data.AnimeResponse
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject

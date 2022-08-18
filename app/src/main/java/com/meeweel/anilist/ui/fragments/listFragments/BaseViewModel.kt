@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.meeweel.anilist.R
 import com.meeweel.anilist.app.App
+import com.meeweel.anilist.data.repository.LocalRepository
 import com.meeweel.anilist.domain.AppState
 import com.meeweel.anilist.domain.ListFilterSet
 import com.meeweel.anilist.domain.models.ShortAnime
-import com.meeweel.anilist.data.repository.LocalRepository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
@@ -83,19 +83,19 @@ abstract class BaseViewModel : ViewModel() {
         postList(filter.filter(actualData))
     }
 
-    fun getGenre() : ListFilterSet.Genre {
+    fun getGenre(): ListFilterSet.Genre {
         return filter.getGenre()
     }
 
-    fun getYearFrom() : Int {
+    fun getYearFrom(): Int {
         return filter.getYearFrom()
     }
 
-    fun getYearTo() : Int {
+    fun getYearTo(): Int {
         return filter.getYearTo()
     }
 
-    fun getSort() : ListFilterSet.Sort {
+    fun getSort(): ListFilterSet.Sort {
         return filter.getSort()
     }
 
@@ -105,7 +105,7 @@ abstract class BaseViewModel : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 shortLiveDataToObserve.postValue(it)
-            },{
+            }, {
                 shortLiveDataToObserve.postValue(listOf())
             })
     }

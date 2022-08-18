@@ -345,7 +345,9 @@ abstract class BaseListFragment : Fragment() {
         var count = 0
         list.sortedBy { item -> if (isRu) item.ruTitle else item.enTitle }.forEach {
             if (it.list == listInt) copyList.append(
-                "${++count}. ${if (isRu) it.ruTitle else it.enTitle} (${it.data})\n") }
+                "${++count}. ${if (isRu) it.ruTitle else it.enTitle} (${it.data})\n"
+            )
+        }
         copyText(copyList.toString())
     }
 
