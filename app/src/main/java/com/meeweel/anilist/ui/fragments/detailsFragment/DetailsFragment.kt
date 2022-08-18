@@ -103,8 +103,8 @@ class DetailsFragment : Fragment() {
             releaseGenre.text = "${getText(R.string.genre)}: ${animeData.genre}"
             releaseData.text = "${getText(R.string.data)}: ${animeData.data}"
             releaseRating.text = "${getText(R.string.rating)}: ${animeData.rating}%"
-            seriesQuantity!!.text =
-                "${getText(R.string.seriesQuantity)}: ${animeData.seriesQuantity}"
+           seriesQuantity!!.text =
+               "${getText(R.string.seriesQuantity)}: ${animeData.seriesQuantity}"
             releaseAgeRate.text = "${getText(R.string.age_rating)}: ${animeData.ageRating}+"
 
             if (animeData.ratingCheck == 0 && animeData.list == MainActivity.WATCHED) {
