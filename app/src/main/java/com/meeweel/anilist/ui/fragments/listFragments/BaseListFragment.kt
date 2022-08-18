@@ -377,6 +377,8 @@ abstract class BaseListFragment : Fragment() {
     interface OnItemViewClickListener {
         fun onItemViewClick(anime: ShortAnime)
     }
+
+
     interface OnLongItemViewClickListener {
         fun onLongItemViewClick(anime: ShortAnime, view: View, position: Int)
     }
