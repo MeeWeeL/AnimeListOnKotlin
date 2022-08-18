@@ -8,7 +8,7 @@ import io.reactivex.rxjava3.core.Single
 
 interface LocalRepository {
     fun getQuantity(): Single<Int>
-    fun getAllAnime() : Single<List<ShortAnime>>
+    fun getAllAnime(): Single<List<ShortAnime>>
     fun getLocalMainAnimeList(): List<ShortAnime>
     fun getLocalWatchedAnimeList(): List<ShortAnime>
     fun getLocalNotWatchedAnimeList(): List<ShortAnime>
@@ -17,7 +17,7 @@ interface LocalRepository {
     fun insertLocalEntity(entity: Entity)
     fun updateLocalEntity(aniId: Int, list: Int)
     fun updateFromNetwork(anime: AnimeResponse, id: Int)
-    fun getAnimeById(id: Int) : Anime
+    fun getAnimeById(id: Int): Anime
     fun updateRate(id: Int, score: Int)
     fun insertLocalEntity(entityList: List<Entity>)
 }
