@@ -305,21 +305,22 @@ abstract class BaseListFragment : Fragment() {
         val dialog = BottomSheetDialog(requireContext())
         val profileBinding = ProfileLayoutBinding.inflate(layoutInflater)
         dialog.setContentView(profileBinding.root)
-        var main = 0
-        var watched = 0
-        var wanted = 0
-        var notWatched = 0
-        var unwanted = 0
-        var shortList: List<ShortAnime> = listOf()
+        val shortList: List<ShortAnime> = listOf()
 
-        profileBinding.mainCopy.setOnClickListener { copy(MAIN, shortList) }
-        profileBinding.watchedCopy.setOnClickListener { copy(WATCHED, shortList) }
-        profileBinding.notWatchedCopy.setOnClickListener { copy(NOT_WATCHED, shortList) }
-        profileBinding.wantedCopy.setOnClickListener { copy(WANTED, shortList) }
-        profileBinding.unwantedCopy.setOnClickListener { copy(UNWANTED, shortList) }
+        with(profileBinding) {
+            mainCopy.setOnClickListener { copy(MAIN, shortList) }
+            watchedCopy.setOnClickListener { copy(WATCHED, shortList) }
+            notWatchedCopy.setOnClickListener { copy(NOT_WATCHED, shortList) }
+            wantedCopy.setOnClickListener { copy(WANTED, shortList) }
+            unwantedCopy.setOnClickListener { copy(UNWANTED, shortList) }
+        }
 
         val profileObserver = Observer<List<ShortAnime>> { list ->
-            shortList = list
+            var main = 0
+            var watched = 0
+            var wanted = 0
+            var notWatched = 0
+            var unwanted = 0
             list.forEach { item ->
                 when (item.list) {
                     MAIN -> main++
@@ -328,12 +329,14 @@ abstract class BaseListFragment : Fragment() {
                     WANTED -> wanted++
                     UNWANTED -> unwanted++
                 }
+                with(profileBinding) {
+                    mainCounter.text = main.toString()
+                    watchedCounter.text = watched.toString()
+                    notWatchedCounter.text = notWatched.toString()
+                    wantedCounter.text = wanted.toString()
+                    unwantedCounter.text = unwanted.toString()
+                }
             }
-            profileBinding.mainCounter.text = main.toString()
-            profileBinding.watchedCounter.text = watched.toString()
-            profileBinding.notWatchedCounter.text = notWatched.toString()
-            profileBinding.wantedCounter.text = wanted.toString()
-            profileBinding.unwantedCounter.text = unwanted.toString()
         }
         viewModel.shortLiveData.observe(viewLifecycleOwner, profileObserver)
         viewModel.getAll()
@@ -375,6 +378,7 @@ abstract class BaseListFragment : Fragment() {
     interface OnItemViewClickListener {
         fun onItemViewClick(anime: ShortAnime)
     }
+
 
     interface OnLongItemViewClickListener {
         fun onLongItemViewClick(anime: ShortAnime, view: View, position: Int)
