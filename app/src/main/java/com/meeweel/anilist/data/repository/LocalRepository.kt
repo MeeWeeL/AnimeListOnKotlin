@@ -7,7 +7,7 @@ import com.meeweel.anilist.data.room.Entity
 import io.reactivex.rxjava3.core.Single
 
 interface LocalRepository {
-    fun getQuantity(): Int
+    fun getQuantity(): Single<Int>
     fun getAllAnime() : Single<List<ShortAnime>>
     fun getLocalMainAnimeList(): List<ShortAnime>
     fun getLocalWatchedAnimeList(): List<ShortAnime>

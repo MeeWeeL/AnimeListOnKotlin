@@ -11,7 +11,7 @@ class LocalRepositoryImpl(
     private val localEntityDataSource: EntityDao
 ) : LocalRepository {
 
-    override fun getQuantity(): Int {
+    override fun getQuantity(): Single<Int> {
         return localEntityDataSource.getQuantity()
     }
 
