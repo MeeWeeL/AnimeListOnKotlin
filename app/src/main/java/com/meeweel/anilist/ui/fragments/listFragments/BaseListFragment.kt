@@ -307,7 +307,7 @@ abstract class BaseListFragment : Fragment() {
         dialog.setContentView(profileBinding.root)
         val shortList: List<ShortAnime> = listOf()
 
-        with(profileBinding){
+        with(profileBinding) {
             mainCopy.setOnClickListener { copy(MAIN, shortList) }
             watchedCopy.setOnClickListener { copy(WATCHED, shortList) }
             notWatchedCopy.setOnClickListener { copy(NOT_WATCHED, shortList) }
@@ -348,7 +348,9 @@ abstract class BaseListFragment : Fragment() {
         var count = 0
         list.sortedBy { item -> if (isRu) item.ruTitle else item.enTitle }.forEach {
             if (it.list == listInt) copyList.append(
-                "${++count}. ${if (isRu) it.ruTitle else it.enTitle} (${it.data})\n") }
+                "${++count}. ${if (isRu) it.ruTitle else it.enTitle} (${it.data})\n"
+            )
+        }
         copyText(copyList.toString())
     }
 

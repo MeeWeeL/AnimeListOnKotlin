@@ -32,7 +32,7 @@
     <string name="unwanted_list">Не хочу:</string>
     <string name="unsorted_list">Не проверил(а):</string>
 
-<!--    Filter    -->
+    <!--    Filter    -->
     <string name="filter">Фильтр</string>
     <string name="genres">Жанр: </string>
     <string name="years">Годы: </string>

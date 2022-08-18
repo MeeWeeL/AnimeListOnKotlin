@@ -5,7 +5,7 @@
     <!--******************  Main Activity  *******************-->
     <!--******************************************************-->
 
-                    <!--  Frame Layout  -->
+    <!--  Frame Layout  -->
     <style name="mainActivityFrameLayoutStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -17,7 +17,7 @@
     <!--*******************  Bottom Bar  *********************-->
     <!--******************************************************-->
 
-                    <!--   Bottom App Bar   -->
+    <!--   Bottom App Bar   -->
     <style name="bottomAppBarBackStyle">
         <item name="backgroundTint">@color/main_transparent_color</item>
         <item name="android:layout_width">match_parent</item>
@@ -30,7 +30,7 @@
         <item name="fabCradleVerticalOffset">@dimen/_40dp</item>
         <item name="layout_scrollFlags">scroll</item>
     </style>
-                    <!--  Bottom Nav Bar  -->
+    <!--  Bottom Nav Bar  -->
     <style name="bottomNavBar">
         <item name="menu">@menu/button_menu</item>
         <item name="android:layout_width">match_parent</item>
@@ -51,7 +51,7 @@
     <!--*******************  Card View  **********************-->
     <!--******************************************************-->
 
-                    <!--  Constraint of Card View  -->
+    <!--  Constraint of Card View  -->
     <style name="constraintOfCardViewStyle">
         <item name="android:layout_margin">1dp</item>
         <item name="android:paddingTop">5dp</item>
@@ -62,7 +62,7 @@
         <item name="android:background">@color/main_transparent_reverse_color_20</item>
     </style>
 
-                    <!--  Base Card View  -->
+    <!--  Base Card View  -->
     <style name="cardViewBaseStyle" parent="@style/Widget.MaterialComponents.CardView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -106,7 +106,9 @@
     </style>
     <!--  Title  -->
     <style name="titleCardViewMainStyle" parent="titleCardViewBaseStyle">
-        <item name="layout_constraintStart_toEndOf">@+id/main_fragment_recycler_item_image_view_card_view</item>
+        <item name="layout_constraintStart_toEndOf">
+            @+id/main_fragment_recycler_item_image_view_card_view
+        </item>
         <item name="layout_constraintBottom_toTopOf">@id/item_data</item>
     </style>
     <!--  Data  -->
@@ -118,7 +120,8 @@
     <!--  CardView  -->
     <style name="imageCardViewCardViewNotWatchedStyle" parent="imageCardViewCardViewBaseStyle">
         <item name="layout_constraintBottom_toTopOf">@+id/unwanted_btn</item>
-        <item name="layout_constraintEnd_toStartOf">@+id/notWatchedFragmentRecyclerItemTextView</item>
+        <item name="layout_constraintEnd_toStartOf">@+id/notWatchedFragmentRecyclerItemTextView
+        </item>
     </style>
     <!--  Image  -->
     <style name="imageCardViewNotWatchedStyle" parent="imageCardViewBaseStyle">
@@ -126,7 +129,9 @@
     </style>
     <!--  Title  -->
     <style name="titleCardViewNotWatchedStyle" parent="titleCardViewBaseStyle">
-        <item name="layout_constraintStart_toEndOf">@+id/not_watched_fragment_recycler_item_image_view_card_view</item>
+        <item name="layout_constraintStart_toEndOf">
+            @+id/not_watched_fragment_recycler_item_image_view_card_view
+        </item>
     </style>
     <!--  Data  -->
     <style name="dataCardViewNotWatchedStyle" parent="dataCardViewBaseStyle">
@@ -140,15 +145,15 @@
         <item name="layout_constraintBottom_toBottomOf">parent</item>
     </style>
     <!--  Image  -->
-    <style name="imageCardViewWatchedStyle" parent="imageCardViewBaseStyle">
-    </style>
+    <style name="imageCardViewWatchedStyle" parent="imageCardViewBaseStyle"></style>
     <!--  Title  -->
     <style name="titleCardViewWatchedStyle" parent="titleCardViewBaseStyle">
-        <item name="layout_constraintStart_toEndOf">@id/watched_fragment_recycler_item_image_view_card_view</item>
+        <item name="layout_constraintStart_toEndOf">
+            @id/watched_fragment_recycler_item_image_view_card_view
+        </item>
     </style>
     <!--  Data  -->
-    <style name="dataCardViewWatchedStyle" parent="dataCardViewBaseStyle">
-    </style>
+    <style name="dataCardViewWatchedStyle" parent="dataCardViewBaseStyle"></style>
 
     <!--  On Wanted Card View  -->
     <!--  CardView  -->
@@ -156,11 +161,12 @@
         <item name="layout_constraintBottom_toTopOf">@id/watched_btn_on_wanted</item>
     </style>
     <!--  Image  -->
-    <style name="imageCardViewWantedStyle" parent="imageCardViewBaseStyle">
-    </style>
+    <style name="imageCardViewWantedStyle" parent="imageCardViewBaseStyle"></style>
     <!--  Title  -->
     <style name="titleCardViewWantedStyle" parent="titleCardViewBaseStyle">
-        <item name="layout_constraintStart_toEndOf">@id/wanted_fragment_recycler_item_image_view_card_view</item>
+        <item name="layout_constraintStart_toEndOf">
+            @id/wanted_fragment_recycler_item_image_view_card_view
+        </item>
         <item name="layout_constraintBottom_toTopOf">@id/item_data</item>
     </style>
     <!--  Data  -->
@@ -176,11 +182,12 @@
         <item name="android:layout_marginBottom">5dp</item>
     </style>
     <!--  Image  -->
-    <style name="imageCardViewUnwantedStyle" parent="imageCardViewBaseStyle">
-    </style>
+    <style name="imageCardViewUnwantedStyle" parent="imageCardViewBaseStyle"></style>
     <!--  Title  -->
     <style name="titleCardViewUnwantedStyle" parent="titleCardViewBaseStyle">
-        <item name="layout_constraintStart_toEndOf">@id/unwanted_fragment_recycler_item_image_view_card_view</item>
+        <item name="layout_constraintStart_toEndOf">
+            @id/unwanted_fragment_recycler_item_image_view_card_view
+        </item>
 
     </style>
     <!--  Data  -->
@@ -189,7 +196,7 @@
         <item name="layout_constraintEnd_toEndOf">parent</item>
     </style>
 
-                    <!--  On Base Card View  -->
+    <!--  On Base Card View  -->
     <!--  CardView  -->
     <style name="imageCardViewCardViewBaseStyle">
         <item name="android:layout_width">wrap_content</item>
@@ -233,7 +240,7 @@
         <item name="layout_constraintEnd_toEndOf">parent</item>
     </style>
     <!--******************************************************-->
-                    <!--  Buttons  -->
+    <!--  Buttons  -->
     <!--  Watched Button  -->
     <style name="watchedButton" parent="@style/greenButton">
         <item name="android:text">@string/watched</item>
@@ -264,11 +271,11 @@
         <item name="android:text">@string/unwanted</item>
         <item name="layout_constraintBottom_toBottomOf">parent</item>
         <item name="layout_constraintEnd_toStartOf">@id/wanted_btn</item>
-    <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
     </style>
     <!--******************************************************-->
     <!--******************************************************-->
-                    <!--  Red Button  -->
+    <!--  Red Button  -->
     <style name="redButton" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:layout_width">@dimen/_0dp</item>
         <item name="android:layout_height">@dimen/_40dp</item>
@@ -277,7 +284,7 @@
         <item name="android:textColor">@color/lazy_red</item>
     </style>
 
-                    <!--  Green Button  -->
+    <!--  Green Button  -->
     <style name="greenButton" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:layout_width">@dimen/_0dp</item>
         <item name="android:layout_height">@dimen/_40dp</item>
@@ -322,7 +329,7 @@
         <item name="android:gravity">center</item>
     </style>
 
-                    <!--  Base Details Fragment  -->
+    <!--  Base Details Fragment  -->
     <!--  Image  -->
     <style name="detailsBaseImage">
         <item name="android:layout_width">@dimen/_0dp</item>
@@ -359,7 +366,7 @@
     <!--  Genre  -->
     <!--  Description Background Image  -->
 
-                    <!--  Zoom  -->
+    <!--  Zoom  -->
     <!--  Image  -->
     <style name="detailsZoomImage" parent="detailsBaseImage">
         <item name="android:layout_width">match_parent</item>
@@ -382,7 +389,7 @@
     <!--  Genre  -->
     <!--  Description Background Image  -->
 
-                    <!--  Ru  -->
+    <!--  Ru  -->
     <!--  Image  -->
     <style name="detailsRuImage" parent="detailsBaseImage">
 
@@ -402,7 +409,7 @@
     <!--  Genre  -->
     <!--  Description Background Image  -->
 
-                    <!--  En  -->
+    <!--  En  -->
     <!--  Image  -->
     <style name="detailsEnImage" parent="detailsBaseImage">
 
@@ -428,7 +435,7 @@
     <!--***********  Profile Dialog and Filter  **************-->
     <!--******************************************************-->
 
-                    <!--  Profile Btn  -->
+    <!--  Profile Btn  -->
     <style name="profileButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -437,7 +444,7 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
-                    <!--  Filter Ranger  -->
+    <!--  Filter Ranger  -->
     <style name="rangerStyle" parent="Widget.MaterialComponents.Tooltip">
         <item name="android:textColor">@color/main_color</item>
     </style>
@@ -447,23 +454,23 @@
     <!--*********************  AppBar  ***********************-->
     <!--******************************************************-->
 
-                    <!--  AppBar  -->
+    <!--  AppBar  -->
     <style name="appBarStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/main_color</item>
         <item name="android:fitsSystemWindows">true</item>
     </style>
-                    <!--  AppBar  -->
+    <!--  AppBar  -->
     <style name="collapsingToolBarStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/main_transparent_reverse_color_10</item>
         <item name="android:fitsSystemWindows">true</item>
-<!--        <item name="liftOnScroll">true</item>-->
+        <!--        <item name="liftOnScroll">true</item>-->
         <item name="layout_scrollFlags">scroll|enterAlways</item>
     </style>
-                <!--  Input Layout  -->
+    <!--  Input Layout  -->
     <style name="inputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -481,7 +488,7 @@
         <item name="boxCornerRadiusTopStart">20sp</item>
         <item name="android:visibility">visible</item>
     </style>
-                    <!--  Input Layout  -->
+    <!--  Input Layout  -->
     <style name="inputEditTextStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

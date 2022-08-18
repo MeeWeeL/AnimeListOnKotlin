@@ -1,11 +1,11 @@
 package com.meeweel.anilist.di
 
+//import com.meeweel.anilist.workmanager.SynchronizeWorker
 import android.content.Context
 import com.meeweel.anilist.ui.MainActivity
+import com.meeweel.anilist.ui.fragments.detailsFragment.DetailsFragment
 import com.meeweel.anilist.ui.fragments.listFragments.BaseListFragment
 import com.meeweel.anilist.ui.fragments.listFragments.BaseViewModel
-import com.meeweel.anilist.ui.fragments.detailsFragment.DetailsFragment
-//import com.meeweel.anilist.workmanager.SynchronizeWorker
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton

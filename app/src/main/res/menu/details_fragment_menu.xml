@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/upload"
+    <item
+        android:id="@+id/upload"
         android:icon="@drawable/ic_refresh"
-        app:showAsAction="ifRoom"
+        android:orderInCategory="1"
         android:title="@string/watched"
-        android:orderInCategory="1"/>
-    <item android:id="@+id/share_to"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/share_to"
         android:icon="@drawable/ic_share_to"
-        app:showAsAction="ifRoom"
+        android:orderInCategory="2"
         android:title="@string/wanted"
-        android:orderInCategory="2"/>
+        app:showAsAction="ifRoom" />
 </menu>
