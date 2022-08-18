@@ -10,7 +10,7 @@ class LocalRepositoryImpl(
     private val localEntityDataSource: EntityDao
 ) : LocalRepository {
 
-    override fun getQuantity(): Int {
+    override fun getQuantity(): Single<Int> {
         return localEntityDataSource.getQuantity()
     }
 
@@ -84,7 +84,7 @@ class LocalRepositoryImpl(
     }
 
     override fun getAnimeById(id: Int): Anime {
-        return convertEntityToAnime(localEntityDataSource.getEntityById(id))
+        return localEntityDataSource.getEntityById(id).toModel()
     }
 
     override fun updateRate(id: Int, score: Int) {
