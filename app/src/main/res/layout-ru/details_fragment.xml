@@ -103,7 +103,7 @@
                 style="@style/parameters"
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@id/release_Genre"
+                app:layout_constraintBottom_toTopOf="@id/series_quantity"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_weight="2"
                 app:layout_constraintStart_toEndOf="@id/anime_image"
@@ -111,16 +111,29 @@
                 tools:text="age rate" />
 
             <TextView
+                android:id="@+id/series_quantity"
+                style="@style/parameters"
+                android:layout_width="@dimen/_0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/release_Genre"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="2"
+                app:layout_constraintStart_toEndOf="@id/anime_image"
+                app:layout_constraintTop_toBottomOf="@+id/release_age_rate"
+                tools:text="episodes" />
+
+            <TextView
                 android:id="@+id/release_Genre"
                 style="@style/parameters"
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@id/english_title"
+                app:layout_constraintBottom_toTopOf="@id/release_age_rate"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_weight="2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/release_age_rate"
+                app:layout_constraintTop_toBottomOf="@id/series_quantity"
                 tools:text="genre" />
+
 
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/barrier"
