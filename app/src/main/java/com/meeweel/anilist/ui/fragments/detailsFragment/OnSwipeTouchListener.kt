@@ -32,7 +32,12 @@ open class OnSwipeTouchListener(ctx: Context) : View.OnTouchListener {
             return true
         }
 
-        override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
+        override fun onFling(
+            e1: MotionEvent?,
+            e2: MotionEvent?,
+            velocityX: Float,
+            velocityY: Float
+        ): Boolean {
             var result = false
             if (e1 != null && e2 != null) {
                 try {

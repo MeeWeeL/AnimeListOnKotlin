@@ -3,24 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/StudiaProjects/AnimeListOnKotlin/app/src/main/res/layout-ru/details_fragment.xml" value="0.28125" />
-        <entry key="..\:/StudiaProjects/AnimeListOnKotlin/app/src/main/res/layout/activity_main.xml" value="0.2713541666666667" />
-        <entry key="..\:/StudiaProjects/AnimeListOnKotlin/app/src/main/res/layout/bottom_share_drawer.xml" value="0.2713541666666667" />
-        <entry key="..\:/StudiaProjects/AnimeListOnKotlin/app/src/main/res/layout/details_fragment.xml" value="0.3132780082987552" />
-        <entry key="..\:/StudiaProjects/AnimeListOnKotlin/app/src/main/res/layout/details_fragment_zoom.xml" value="0.2713541666666667" />
+        <entry key="..\:/StudiaProjects/AnimeListOnKotlin/app/src/main/res/layout-ru/details_fragment.xml" value="0.1859504132231405" />
+        <entry key="..\:/StudiaProjects/AnimeListOnKotlin/app/src/main/res/layout/details_fragment_zoom.xml" value="0.3333333333333333" />
         <entry key="..\:/StudiaProjects/AnimeListOnKotlin/app/src/main/res/layout/filter_layout.xml" value="0.2713541666666667" />
-        <entry key="..\:/StudiaProjects/AnimeListOnKotlin/app/src/main/res/layout/main_fragment.xml" value="0.2713541666666667" />
-        <entry key="..\:/StudiaProjects/AnimeListOnKotlin/app/src/main/res/layout/main_recycler_item.xml" value="0.2713541666666667" />
-        <entry key="..\:/StudiaProjects/AnimeListOnKotlin/app/src/main/res/layout/not_watched_fragment.xml" value="0.2713541666666667" />
-        <entry key="..\:/StudiaProjects/AnimeListOnKotlin/app/src/main/res/layout/not_watched_recycler_item.xml" value="0.2713541666666667" />
-        <entry key="..\:/StudiaProjects/AnimeListOnKotlin/app/src/main/res/layout/profile_layout.xml" value="0.2713541666666667" />
-        <entry key="..\:/StudiaProjects/AnimeListOnKotlin/app/src/main/res/layout/rate_layout.xml" value="0.2713541666666667" />
-        <entry key="..\:/StudiaProjects/AnimeListOnKotlin/app/src/main/res/layout/search_view_layout.xml" value="0.2713541666666667" />
-        <entry key="..\:/StudiaProjects/AnimeListOnKotlin/app/src/main/res/layout/unwanted_fragment.xml" value="0.2713541666666667" />
-        <entry key="..\:/StudiaProjects/AnimeListOnKotlin/app/src/main/res/menu/app_bar_menu.xml" value="0.2713541666666667" />
-        <entry key="..\:/StudiaProjects/AnimeListOnKotlin/app/src/main/res/menu/button_menu.xml" value="0.2713541666666667" />
-        <entry key="..\:/StudiaProjects/AnimeListOnKotlin/app/src/main/res/menu/details_fragment_menu.xml" value="0.2713541666666667" />
-        <entry key="..\:/StudiaProjects/AnimeListOnKotlin/app/src/main/res/menu/menu_bottom_share_drawer.xml" value="0.2713541666666667" />
         <entry key="..\:/Users/Me/AndroidStudioProjects/AnimeList/app/src/main/res/drawable/navigation_selector.xml" value="0.19444444444444445" />
         <entry key="..\:/Users/Me/AndroidStudioProjects/AnimeList/app/src/main/res/layout-ru/details_fragment.xml" value="0.20208333333333334" />
         <entry key="..\:/Users/Me/AndroidStudioProjects/AnimeList/app/src/main/res/layout/activity_main.xml" value="0.2712962962962963" />

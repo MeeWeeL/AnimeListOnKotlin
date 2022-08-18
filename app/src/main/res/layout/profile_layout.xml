@@ -13,23 +13,23 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_20sp"
-            android:textStyle="bold"
             android:layout_margin="@dimen/_10dp"
-            android:text="@string/in_queue_list"/>
+            android:text="@string/in_queue_list"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/wanted_counter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_20sp"
-            android:textStyle="bold"
             android:layout_margin="@dimen/_10dp"
-            android:text="13"/>
+            android:text="13"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/wanted_copy"
-            style="@style/profileButtonStyle"/>
+            style="@style/profileButtonStyle" />
     </LinearLayout>
 
     <LinearLayout
@@ -41,23 +41,23 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_20sp"
-            android:textStyle="bold"
             android:layout_margin="@dimen/_10dp"
-            android:text="@string/watched_list"/>
+            android:text="@string/watched_list"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/watched_counter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_20sp"
-            android:textStyle="bold"
             android:layout_margin="@dimen/_10dp"
-            android:text="13"/>
+            android:text="13"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/watched_copy"
-            style="@style/profileButtonStyle"/>
+            style="@style/profileButtonStyle" />
     </LinearLayout>
 
     <LinearLayout
@@ -69,23 +69,23 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_20sp"
-            android:textStyle="bold"
             android:layout_margin="@dimen/_10dp"
-            android:text="@string/not_watched_list"/>
+            android:text="@string/not_watched_list"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/not_watched_counter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_20sp"
-            android:textStyle="bold"
             android:layout_margin="@dimen/_10dp"
-            android:text="13"/>
+            android:text="13"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/not_watched_copy"
-            style="@style/profileButtonStyle"/>
+            style="@style/profileButtonStyle" />
     </LinearLayout>
 
     <LinearLayout
@@ -97,23 +97,23 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_20sp"
-            android:textStyle="bold"
             android:layout_margin="@dimen/_10dp"
-            android:text="@string/unwanted_list"/>
+            android:text="@string/unwanted_list"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/unwanted_counter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_20sp"
-            android:textStyle="bold"
             android:layout_margin="@dimen/_10dp"
-            android:text="13"/>
+            android:text="13"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/unwanted_copy"
-            style="@style/profileButtonStyle"/>
+            style="@style/profileButtonStyle" />
     </LinearLayout>
 
     <LinearLayout
@@ -125,22 +125,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_20sp"
-            android:textStyle="bold"
             android:layout_margin="@dimen/_10dp"
-            android:text="@string/unsorted_list"/>
+            android:text="@string/unsorted_list"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/main_counter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_20sp"
-            android:textStyle="bold"
             android:layout_margin="@dimen/_10dp"
-            android:text="13"/>
+            android:text="13"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/main_copy"
-            style="@style/profileButtonStyle"/>
+            style="@style/profileButtonStyle" />
     </LinearLayout>
 </LinearLayout>

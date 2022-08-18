@@ -2,17 +2,19 @@ package com.meeweel.anilist.ui.fragments.detailsFragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.meeweel.anilist.R
-import com.meeweel.anilist.databinding.DetailsFragmentBinding
 import com.meeweel.anilist.app.App
-import com.meeweel.anilist.domain.models.Anime
 import com.meeweel.anilist.data.repository.LocalRepository
 import com.meeweel.anilist.data.retrofit.AnimeApi
+import com.meeweel.anilist.databinding.DetailsFragmentBinding
+import com.meeweel.anilist.domain.models.Anime
 import com.meeweel.anilist.ui.MainActivity
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -48,10 +50,12 @@ class DetailsFragment : Fragment() {
         animeId?.let {
             populateData(repository.getAnimeById(it))
         }
-        binding.detailsScrollView.setOnTouchListener(object: OnSwipeTouchListener(requireContext()) {
+        binding.detailsScrollView.setOnTouchListener(object :
+            OnSwipeTouchListener(requireContext()) {
             override fun onSwipeLeft() {
 
             }
+
             override fun onSwipeRight() {
                 findNavController().popBackStack()
             }
@@ -99,7 +103,8 @@ class DetailsFragment : Fragment() {
             releaseGenre.text = "${getText(R.string.genre)}: ${animeData.genre}"
             releaseData.text = "${getText(R.string.data)}: ${animeData.data}"
             releaseRating.text = "${getText(R.string.rating)}: ${animeData.rating}%"
-            seriesQuantity!!.text = "${getText(R.string.seriesQuantity)}: ${animeData.seriesQuantity}"
+            seriesQuantity!!.text =
+                "${getText(R.string.seriesQuantity)}: ${animeData.seriesQuantity}"
             releaseAgeRate.text = "${getText(R.string.age_rating)}: ${animeData.ageRating}+"
 
             if (animeData.ratingCheck == 0 && animeData.list == MainActivity.WATCHED) {
