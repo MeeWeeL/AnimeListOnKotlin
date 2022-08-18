@@ -14,6 +14,7 @@
     <string name="your_rate">Твоя оценка</string>
     <string name="author">Автор</string>
     <string name="genre">Жанр</string>
+    <string name="seriesQuantity">Количество серий</string>
     <string name="data">Дата релиза</string>
     <string name="age_rating">Возрастной рейтинг</string>
     <string name="rate_this_title">Поставить оценку этому тайтлу</string>
