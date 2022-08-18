@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.meeweel.anilist.R
-import com.meeweel.anilist.databinding.BottomShareDrawerBinding
 import com.meeweel.anilist.data.repository.LocalRepository
+import com.meeweel.anilist.databinding.BottomShareDrawerBinding
 import com.meeweel.anilist.ui.MainActivity.Companion.MAIN
 import com.meeweel.anilist.ui.MainActivity.Companion.NOT_WATCHED
 import com.meeweel.anilist.ui.MainActivity.Companion.UNWANTED
 import com.meeweel.anilist.ui.MainActivity.Companion.WANTED
 import com.meeweel.anilist.ui.MainActivity.Companion.WATCHED
 
-class BottomShareDrawer(private val repository: LocalRepository)  : BottomSheetDialogFragment() {
+class BottomShareDrawer(private val repository: LocalRepository) : BottomSheetDialogFragment() {
 
     private var aniId: Int? = null
     lateinit var bind: BottomShareDrawerBinding
@@ -28,6 +28,7 @@ class BottomShareDrawer(private val repository: LocalRepository)  : BottomSheetD
         aniId = requireArguments().getInt("aniId")
         return bind.root
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -54,6 +55,7 @@ class BottomShareDrawer(private val repository: LocalRepository)  : BottomSheetD
             true
         }
     }
+
     private fun toast(text: String) {
         Toast.makeText(requireActivity().applicationContext, text, Toast.LENGTH_SHORT).show()
     }

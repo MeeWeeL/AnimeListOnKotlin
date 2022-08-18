@@ -2,11 +2,11 @@ package com.meeweel.anilist.data.room
 
 import com.meeweel.anilist.R
 import com.meeweel.anilist.app.App
-import com.meeweel.anilist.model.data.AnimeResponse
 import com.meeweel.anilist.domain.models.Anime
+import com.meeweel.anilist.model.data.AnimeResponse
 
 val isRussian: Boolean = App.ContextHolder.context.resources.getBoolean(R.bool.isRussian)
-fun convertResponseToEntity(response: AnimeResponse) : Entity {
+fun convertResponseToEntity(response: AnimeResponse): Entity {
     return Entity(
         response.id,
         response.ruTitle,
@@ -27,7 +27,8 @@ fun convertResponseToEntity(response: AnimeResponse) : Entity {
         1
     )
 }
-fun convertResponseListToEntityList(list: List<AnimeResponse>) : List<Entity> {
+
+fun convertResponseListToEntityList(list: List<AnimeResponse>): List<Entity> {
     return list.map {
         Entity(
             it.id,
@@ -77,7 +78,8 @@ fun convertEntityToAnilist(entityList: List<Entity>): List<Anime> {
         )
     }
 }
-fun convertEntityToAnime(it: Entity) : Anime {
+
+fun convertEntityToAnime(it: Entity): Anime {
     return Anime(
         it.id, it.ruTitle, it.enTitle, it.originalTitle, if (isRussian) {
             it.ruDescription
