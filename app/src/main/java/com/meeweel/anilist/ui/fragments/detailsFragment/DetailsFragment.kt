@@ -99,7 +99,10 @@ class DetailsFragment : Fragment() {
             releaseGenre.text = "${getText(R.string.genre)}: ${animeData.genre}"
             releaseData.text = "${getText(R.string.data)}: ${animeData.data}"
             releaseAgeRate.text = "${getText(R.string.age_rating)}: ${animeData.ageRating}+"
-            releaseRating.text = "${getText(R.string.rating)}: ${animeData.rating}%"
+
+            var ratingText = "${getText(R.string.rating)}: ${animeData.rating}%"
+            if (animeData.ratingCheck != 0) ratingText += "\n(${getText(R.string.your_rate)}: ${animeData.ratingCheck})"
+            releaseRating.text = ratingText
 
             if (animeData.ratingCheck == 0 && animeData.list == MainActivity.WATCHED) {
                 binding.rateScore.apply {
