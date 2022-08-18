@@ -2,7 +2,7 @@ package com.meeweel.anilist.data.retrofit
 
 import androidx.lifecycle.MutableLiveData
 import com.meeweel.anilist.data.repository.LocalRepository
-import com.meeweel.anilist.data.room.convertResponseListToEntityList
+import com.meeweel.anilist.data.room.toEntityList
 import com.meeweel.anilist.data.rx.SchedulerProvider
 import com.meeweel.anilist.model.data.AnimeResponse
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -16,7 +16,7 @@ class AnimeSynchronizer @Inject constructor(
 ) {
 
     private var actualQuantity = 0
-    private var localQuantity = repository.getQuantity()
+    private var localQuantity = 0
     private val compositeDisposable = CompositeDisposable()
 
     private val response: MutableLiveData<Int> = MutableLiveData()
@@ -30,14 +30,28 @@ class AnimeSynchronizer @Inject constructor(
                 .subscribe({
                     response.postValue(RESPONSE_CONNECTED)
                     actualQuantity = it.id
-                    ifIf(actualQuantity, localQuantity)
+                   localQuantity()
                 }, {
                     response.postValue(RESPONSE_NO_INTERNET)
                 })
         )
     }
 
-    private fun ifIf(actualQuantity: Int, localQuantity: Int) {
+    private fun localQuantity() {
+        compositeDisposable.add(
+            repository.getQuantity() // Получение количества аниме из репо
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .subscribe({
+                    localQuantity = it
+                    ifIf()
+                }, {
+                    response.postValue(RESPONSE_SERVER_ERROR)
+                })
+        )
+    }
+
+    private fun ifIf() {
         if (actualQuantity > localQuantity) {
             compositeDisposable.add(
                 aniApi.getAnimes(localQuantity)
@@ -56,7 +70,7 @@ class AnimeSynchronizer @Inject constructor(
     }
 
     private fun insert(list: List<AnimeResponse>) {
-        repository.insertLocalEntity(convertResponseListToEntityList(list))
+        repository.insertLocalEntity(list.toEntityList())
         response.postValue(list.size)
         compositeDisposable.dispose()
     }
