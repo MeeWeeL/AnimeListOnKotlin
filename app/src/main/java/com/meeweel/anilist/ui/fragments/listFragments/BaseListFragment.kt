@@ -374,6 +374,7 @@ abstract class BaseListFragment : Fragment() {
     private fun String.toast() {
         Toast.makeText(requireContext(), this, Toast.LENGTH_SHORT).show()
     }
+
     interface OnItemViewClickListener {
         fun onItemViewClick(anime: ShortAnime)
     }
