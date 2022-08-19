@@ -1,5 +1,4 @@
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,9 +6,9 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/details_bar"
-        android:backgroundTint="@color/main_color"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_50dp">
+        android:layout_height="@dimen/_50dp"
+        android:backgroundTint="@color/main_color">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -20,9 +19,9 @@
                 android:id="@+id/details_bar_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:alpha="0.1"
                 android:scaleType="centerCrop"
                 android:src="@drawable/anibackground"
-                android:alpha="0.1"
                 tools:ignore="ContentDescription" />
 
             <androidx.appcompat.widget.Toolbar
@@ -59,9 +58,9 @@
 
             <TextView
                 android:id="@+id/release_Data"
+                style="@style/parameters"
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="@dimen/_0dp"
-                style="@style/parameters"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/release_Author"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -72,9 +71,9 @@
 
             <TextView
                 android:id="@+id/release_Author"
+                style="@style/parameters"
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="@dimen/_0dp"
-                style="@style/parameters"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/release_rating"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -86,9 +85,9 @@
 
             <TextView
                 android:id="@+id/release_rating"
+                style="@style/parameters"
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="@dimen/_0dp"
-                style="@style/parameters"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/release_age_rate"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -99,9 +98,9 @@
 
             <TextView
                 android:id="@+id/release_age_rate"
+                style="@style/parameters"
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="@dimen/_0dp"
-                style="@style/parameters"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/release_Genre"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -112,9 +111,9 @@
 
             <TextView
                 android:id="@+id/release_Genre"
+                style="@style/parameters"
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="@dimen/_0dp"
-                style="@style/parameters"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/english_title"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -125,7 +124,7 @@
 
             <ImageView
                 android:id="@+id/anime_image"
-                style="@style/detailsZoomImage"/>
+                style="@style/detailsZoomImage" />
 
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/barrier"
@@ -139,13 +138,13 @@
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="@dimen/_0dp"
                 android:layout_marginTop="@dimen/_10dp"
+                android:alpha="0.1"
                 android:scaleType="centerCrop"
                 android:src="@drawable/anibackground"
-                android:alpha="0.1"
-                app:layout_constraintTop_toBottomOf="@id/release_Genre"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/release_Genre" />
 
             <TextView
                 android:id="@+id/english_title"
@@ -211,13 +210,4 @@
             android:layout_gravity="center" />
     </FrameLayout>
 
-    <include
-        android:id="@+id/rate_score"
-        layout="@layout/rate_layout"
-        android:layout_marginStart="@dimen/_10dp"
-        android:layout_marginEnd="@dimen/_10dp"
-        android:layout_marginBottom="@dimen/_40dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
