@@ -2,7 +2,10 @@ package com.meeweel.anilist.ui.fragments.listFragments.lists.mainFragment
 
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -59,8 +62,10 @@ class MainFragment : BaseListFragment() {
         ItemTouchHelper(MainItemTouchHelperCallback(adapter)).attachToRecyclerView(binding.mainFragmentRecyclerView)
         adapter.setOnItemViewClickListener(object : OnItemViewClickListener {
             override fun onItemViewClick(anime: ShortAnime) {
-                findNavController().navigate(R.id.action_mainFragment_to_detailsFragment, bundleOf(
-                    MainActivity.ARG_ANIME_ID to anime.id)
+                findNavController().navigate(
+                    R.id.action_mainFragment_to_detailsFragment, bundleOf(
+                        MainActivity.ARG_ANIME_ID to anime.id
+                    )
                 )
             }
         })

@@ -1,10 +1,10 @@
 package com.meeweel.anilist
 
-import com.meeweel.anilist.data.retrofit.AnimeSynchronizer
-import com.meeweel.anilist.model.data.MaxIdResponse
 import com.meeweel.anilist.data.repository.LocalRepository
 import com.meeweel.anilist.data.retrofit.AnimeApi
+import com.meeweel.anilist.data.retrofit.AnimeSynchronizer
 import com.meeweel.anilist.data.rx.ScheduleProviderStub
+import com.meeweel.anilist.model.data.MaxIdResponse
 import io.reactivex.rxjava3.core.Single
 import org.junit.Before
 import org.junit.Test
@@ -15,8 +15,10 @@ import org.mockito.MockitoAnnotations
 class TestRx {
 
     private lateinit var presenter: AnimeSynchronizer
+
     @Mock
     private lateinit var repository: LocalRepository
+
     @Mock
     private lateinit var animeApi: AnimeApi
 

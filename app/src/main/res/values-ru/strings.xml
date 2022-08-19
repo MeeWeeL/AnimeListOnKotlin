@@ -11,8 +11,10 @@
     <string name="default_description">Default description</string>
     <string name="description">описание</string>
     <string name="rating">Рейтинг</string>
+    <string name="your_rate">Твоя оценка</string>
     <string name="author">Автор</string>
     <string name="genre">Жанр</string>
+    <string name="seriesQuantity">Количество серий</string>
     <string name="data">Дата релиза</string>
     <string name="age_rating">Возрастной рейтинг</string>
     <string name="rate_this_title">Поставить оценку этому тайтлу</string>
@@ -32,7 +34,7 @@
     <string name="unwanted_list">Не хочу:</string>
     <string name="unsorted_list">Не проверил(а):</string>
 
-<!--    Filter    -->
+    <!--    Filter    -->
     <string name="filter">Фильтр</string>
     <string name="genres">Жанр: </string>
     <string name="years">Годы: </string>

@@ -4,16 +4,14 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import com.google.android.gms.ads.MobileAds
-import com.meeweel.anilist.R
-import com.meeweel.anilist.databinding.ActivityMainBinding
-import com.meeweel.anilist.data.retrofit.AnimeSynchronizer
 import com.meeweel.anilist.app.App
+import com.meeweel.anilist.data.retrofit.AnimeSynchronizer
 import com.meeweel.anilist.data.retrofit.AnimeSynchronizer.Companion.RESPONSE_CONNECTED
 import com.meeweel.anilist.data.retrofit.AnimeSynchronizer.Companion.RESPONSE_NEW_ANIME
 import com.meeweel.anilist.data.retrofit.AnimeSynchronizer.Companion.RESPONSE_NO_INTERNET
 import com.meeweel.anilist.data.retrofit.AnimeSynchronizer.Companion.RESPONSE_SERVER_ERROR
+import com.meeweel.anilist.databinding.ActivityMainBinding
 import javax.inject.Inject
 
 
