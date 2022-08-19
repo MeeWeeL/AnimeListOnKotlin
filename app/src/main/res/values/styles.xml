@@ -32,7 +32,7 @@
     </style>
                     <!--  Bottom Nav Bar  -->
     <style name="bottomNavBar">
-        <item name="menu">@menu/button_menu</item>
+        <item name="menu">@menu/navigation_bar_menu</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@android:color/transparent</item>
@@ -145,6 +145,7 @@
     <!--  Title  -->
     <style name="titleCardViewWatchedStyle" parent="titleCardViewBaseStyle">
         <item name="layout_constraintStart_toEndOf">@id/watched_fragment_recycler_item_image_view_card_view</item>
+        <item name="layout_constraintTop_toBottomOf">@id/attention</item>
     </style>
     <!--  Data  -->
     <style name="dataCardViewWatchedStyle" parent="dataCardViewBaseStyle">
@@ -166,6 +167,15 @@
     <!--  Data  -->
     <style name="dataCardViewWantedStyle" parent="dataCardViewBaseStyle">
         <item name="layout_constraintBottom_toTopOf">@id/watched_btn_on_wanted</item>
+    </style>
+    <!--  Attention icon  -->
+    <style name="attentionIconCardViewWantedStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/ic_attention</item>
+        <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="tint">@color/lazy_red</item>
     </style>
 
     <!--  On Unwanted Card View  -->

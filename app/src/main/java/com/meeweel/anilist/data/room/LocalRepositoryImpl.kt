@@ -1,17 +1,16 @@
 package com.meeweel.anilist.data.room
 
-import com.meeweel.anilist.model.data.AnimeResponse
+import com.meeweel.anilist.data.repository.LocalRepository
 import com.meeweel.anilist.domain.models.Anime
 import com.meeweel.anilist.domain.models.ShortAnime
-import com.meeweel.anilist.data.repository.LocalRepository
+import com.meeweel.anilist.model.data.AnimeResponse
 import io.reactivex.rxjava3.core.Single
-import java.lang.Exception
 
 class LocalRepositoryImpl(
     private val localEntityDataSource: EntityDao
 ) : LocalRepository {
 
-    override fun getQuantity(): Int {
+    override fun getQuantity(): Single<Int> {
         return localEntityDataSource.getQuantity()
     }
 
@@ -61,7 +60,13 @@ class LocalRepositoryImpl(
             anime.enDescription,
             anime.seriesQuantity,
             anime.image,
-            calculateRating(anime.rating1, anime.rating2, anime.rating3, anime.rating4, anime.rating5),
+            calculateRating(
+                anime.rating1,
+                anime.rating2,
+                anime.rating3,
+                anime.rating4,
+                anime.rating5
+            ),
             anime.data,
             anime.ruGenre,
             anime.enGenre,
@@ -69,7 +74,8 @@ class LocalRepositoryImpl(
             id
         )
     }
-    private fun calculateRating(r1: Int, r2: Int, r3: Int, r4: Int, r5: Int) : Int {
+
+    private fun calculateRating(r1: Int, r2: Int, r3: Int, r4: Int, r5: Int): Int {
         return try {
             (r2 * 25 + r3 * 50 + r4 * 75 + r5 * 100) / (r1 + r2 + r3 + r4 + r5)
         } catch (e: Exception) {
@@ -78,7 +84,7 @@ class LocalRepositoryImpl(
     }
 
     override fun getAnimeById(id: Int): Anime {
-        return convertEntityToAnime(localEntityDataSource.getEntityById(id))
+        return localEntityDataSource.getEntityById(id).toModel()
     }
 
     override fun updateRate(id: Int, score: Int) {

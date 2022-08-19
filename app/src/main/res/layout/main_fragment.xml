@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".ui.fragments.listFragments.lists.mainFragment.MainFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -18,10 +17,10 @@
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
-                app:navigationIcon="@drawable/ic_me"
-                app:menu="@menu/app_bar_menu"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
+                android:layout_height="?attr/actionBarSize"
+                app:menu="@menu/app_bar_menu"
+                app:navigationIcon="@drawable/ic_me" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -31,7 +30,7 @@
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        tools:listitem="@layout/main_recycler_item"/>
+        tools:listitem="@layout/main_recycler_item" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar"
@@ -42,19 +41,18 @@
             style="@style/bottomNavBar" />
     </com.google.android.material.bottomappbar.BottomAppBar>
 
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:fabSize="mini"-->
-<!--        app:srcCompat="@drawable/ic_sort"-->
-<!--        app:layout_anchor="@id/bottom_app_bar" />-->
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:fabSize="mini"-->
+    <!--        app:srcCompat="@drawable/ic_sort"-->
+    <!--        app:layout_anchor="@id/bottom_app_bar" />-->
 
     <FrameLayout
         android:id="@+id/loadingLayout"
         style="@style/loadingLayoutStyle"
         tools:visibility="visible">
 
-        <ProgressBar
-            style="@style/progressBarStyle" />
+        <ProgressBar style="@style/progressBarStyle" />
     </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

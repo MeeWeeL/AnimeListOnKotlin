@@ -6,50 +6,28 @@ import com.meeweel.anilist.model.data.AnimeResponse
 import com.meeweel.anilist.domain.models.Anime
 
 val isRussian: Boolean = App.ContextHolder.context.resources.getBoolean(R.bool.isRussian)
-fun convertResponseToEntity(response: AnimeResponse) : Entity {
-    return Entity(
-        response.id,
-        response.ruTitle,
-        response.enTitle,
-        response.originalTitle,
-        response.ruDescription,
-        response.enDescription,
+
+fun AnimeResponse.toEntity() = Entity(
+    id = id,
+    ruTitle = ruTitle,
+    enTitle = enTitle,
+    originalTitle = originalTitle,
+    ruDescription = ruDescription,
+    enDescription = enDescription,
 //                getImageName(item.image),
-        response.image,
-        response.data,
-        response.ruGenre,
-        response.enGenre,
-        response.author,
-        response.ageRating,
-        getRating(response),
-        response.seriesQuantity,
-        0,
-        1
-    )
-}
-fun convertResponseListToEntityList(list: List<AnimeResponse>) : List<Entity> {
-    return list.map {
-        Entity(
-            it.id,
-            it.ruTitle,
-            it.enTitle,
-            it.originalTitle,
-            it.ruDescription,
-            it.enDescription,
-//                getImageName(item.image),
-            it.image,
-            it.data,
-            it.ruGenre,
-            it.enGenre,
-            it.author,
-            it.ageRating,
-            getRating(it),
-            it.seriesQuantity,
-            0,
-            1
-        )
-    }
-}
+    image = image,
+    data = data,
+    ruGenre = ruGenre,
+    enGenre = enGenre,
+    author = author,
+    ageRating = ageRating,
+    getRating(this),
+    seriesQuantity = seriesQuantity,
+    0,
+    1
+)
+
+fun List<AnimeResponse>.toEntityList() = this.map { it.toEntity() }
 
 private fun getRating(anime: AnimeResponse): Int {
     return try {
@@ -61,38 +39,27 @@ private fun getRating(anime: AnimeResponse): Int {
     }
 }
 
-fun convertEntityToAnilist(entityList: List<Entity>): List<Anime> {
-    return entityList.map {
-        Anime(
-            it.id, it.ruTitle, it.enTitle, it.originalTitle, if (isRussian) {
-                it.ruDescription
-            } else {
-                it.enDescription
-            },
-            it.image, it.data, if (isRussian) {
-                it.ruGenre
-            } else {
-                it.enGenre
-            }, it.author, it.ageRating, it.rating, it.seriesQuantity, it.ratingCheck, it.list
-        )
-    }
-}
-fun convertEntityToAnime(it: Entity) : Anime {
-    return Anime(
-        it.id, it.ruTitle, it.enTitle, it.originalTitle, if (isRussian) {
-            it.ruDescription
-        } else {
-            it.enDescription
-        },
-        it.image, it.data, if (isRussian) {
-            it.ruGenre
-        } else {
-            it.enGenre
-        }, it.author, it.ageRating, it.rating, it.seriesQuantity, it.ratingCheck, it.list
-    )
-}
-//fun convertResponseToAnime(anime: AnimeResponse) : Anime {
-//    return Anime(
-//
-//    )
-//}
+fun Entity.toModel() = Anime(
+    id = id,
+    ruTitle = ruTitle,
+    enTitle = enTitle,
+    originalTitle = originalTitle,
+    description = if (isRussian) {
+        ruDescription
+    } else {
+        enDescription
+    },
+    image = image,
+    data = data,
+    genre = if (isRussian) {
+        ruGenre
+    } else {
+        enGenre
+    },
+    author = author,
+    ageRating = ageRating,
+    rating = rating,
+    seriesQuantity = seriesQuantity,
+    ratingCheck = ratingCheck,
+    list = list
+)
