@@ -23,7 +23,8 @@ class RepositoryModule {
     @Provides
     @Singleton
     internal fun provideDataSourceLocal(context: Context): EntityDao =
-        Room.databaseBuilder(context, EntityDataBase::class.java, DB_NAME).allowMainThreadQueries().build().entityDao()
+        Room.databaseBuilder(context, EntityDataBase::class.java, DB_NAME).allowMainThreadQueries()
+            .build().entityDao()
 
 
     @Provides

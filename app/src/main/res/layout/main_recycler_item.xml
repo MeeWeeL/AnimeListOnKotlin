@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/cardViewMainStyle">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        style="@style/constraintOfCardViewStyle">
+    <androidx.constraintlayout.widget.ConstraintLayout style="@style/constraintOfCardViewStyle">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/main_fragment_recycler_item_image_view_card_view"

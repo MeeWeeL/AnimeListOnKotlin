@@ -1,6 +1,7 @@
 package com.meeweel.anilist.ui.fragments.listFragments.lists.watchedFragment
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
@@ -34,6 +35,7 @@ class WatchedFragmentAdapter : BaseFragmentAdapter() {
 
         override fun bind(anime: ShortAnime) {
             binding.apply {
+                attention.visibility = if (anime.ratingCheck == 0) View.VISIBLE else View.GONE
                 watchedFragmentRecyclerItemTextView.text = if (App.ContextHolder.context
                         .resources.getBoolean(R.bool.isRussian)
                 ) anime.ruTitle else anime.enTitle

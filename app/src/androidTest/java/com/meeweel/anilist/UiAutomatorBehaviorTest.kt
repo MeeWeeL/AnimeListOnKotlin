@@ -42,12 +42,13 @@ class UiAutomatorBehaviorTest {
     fun test_Searcher() {
 
         uiDevice.pressHome()
-        uiDevice.swipe(500,600,500,100, STEPS)
+        uiDevice.swipe(500, 600, 500, 100, STEPS)
         val appViews = UiScrollable(UiSelector().scrollable(false))
         val className = UiSelector().className(TextView::class.java.name)
         val settingsApp = appViews.getChildByText(className, "Settings")
         settingsApp.clickAndWaitForNewWindow()
-        val settingsValidation = uiDevice.findObject(UiSelector().packageName("com.android.settings"))
+        val settingsValidation =
+            uiDevice.findObject(UiSelector().packageName("com.android.settings"))
         Assert.assertTrue(settingsValidation.exists())
     }
 
@@ -78,16 +79,26 @@ class UiAutomatorBehaviorTest {
 
         Espresso.onView(ViewMatchers.withId(R.id.mainFragmentRecyclerView))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Assert.assertTrue(uiDevice.findObject(By.res(packageName, "wanted_fragment_nav"))
-            .isClickable)
-        Assert.assertTrue(uiDevice.findObject(By.res(packageName, "unwanted_fragment_nav"))
-            .isClickable)
-        Assert.assertTrue(uiDevice.findObject(By.res(packageName, "watched_fragment_nav"))
-            .isClickable)
-        Assert.assertTrue(uiDevice.findObject(By.res(packageName, "not_watched_fragment_nav"))
-            .isClickable)
-        Assert.assertTrue(uiDevice.findObject(By.res(packageName, "main_fragment_nav"))
-            .isSelected)
+        Assert.assertTrue(
+            uiDevice.findObject(By.res(packageName, "wanted_fragment_nav"))
+                .isClickable
+        )
+        Assert.assertTrue(
+            uiDevice.findObject(By.res(packageName, "unwanted_fragment_nav"))
+                .isClickable
+        )
+        Assert.assertTrue(
+            uiDevice.findObject(By.res(packageName, "watched_fragment_nav"))
+                .isClickable
+        )
+        Assert.assertTrue(
+            uiDevice.findObject(By.res(packageName, "not_watched_fragment_nav"))
+                .isClickable
+        )
+        Assert.assertTrue(
+            uiDevice.findObject(By.res(packageName, "main_fragment_nav"))
+                .isSelected
+        )
     }
 
     @Test
@@ -96,9 +107,9 @@ class UiAutomatorBehaviorTest {
         Assert.assertTrue(checkNavMenu(List.MAIN))
         uiDevice.findObject(By.res(packageName, "wanted_fragment_nav")).click()
         val wantedRecycler = uiDevice.wait(
-                Until.findObject(By.res(packageName, "wantedFragmentRecyclerView")),
-                TIMEOUT
-            )
+            Until.findObject(By.res(packageName, "wantedFragmentRecyclerView")),
+            TIMEOUT
+        )
         Assert.assertTrue(wantedRecycler.isEnabled)
         Assert.assertTrue(checkNavMenu(List.WANTED))
         uiDevice.findObject(By.res(packageName, "main_fragment_nav")).click()
@@ -126,7 +137,7 @@ class UiAutomatorBehaviorTest {
         UiScrollable(text).getChildByText(text, ".Koni-chan")
     }
 
-    private fun checkNavMenu(list: List) : Boolean {
+    private fun checkNavMenu(list: List): Boolean {
 
         var main = true
         var watched = true
@@ -161,7 +172,7 @@ class UiAutomatorBehaviorTest {
         return wanted && watched && main && unwanted && notWatched && selected
     }
 
-    private fun assetSelected(list: String) : Boolean {
+    private fun assetSelected(list: String): Boolean {
         return uiDevice.findObject(By.res(packageName, list))
             .isSelected
     }

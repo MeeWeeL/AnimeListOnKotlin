@@ -61,7 +61,10 @@ class WatchedFragment : BaseListFragment() {
         ItemTouchHelper(WatchedItemTouchHelperCallback(adapter)).attachToRecyclerView(binding.watchedFragmentRecyclerView)
         adapter.setOnItemViewClickListener(object : OnItemViewClickListener {
             override fun onItemViewClick(anime: ShortAnime) {
-                findNavController().navigate(R.id.action_watchedFragment_to_detailsFragment, bundleOf(ARG_ANIME_ID to anime.id))
+                findNavController().navigate(
+                    R.id.action_watchedFragment_to_detailsFragment,
+                    bundleOf(ARG_ANIME_ID to anime.id)
+                )
             }
         })
         adapter.setOnLongItemViewClickListener(object : OnLongItemViewClickListener {

@@ -9,7 +9,9 @@ import com.meeweel.anilist.di.DaggerAppComponent
 class App : Application() {
 
     @SuppressLint("StaticFieldLeak")
-    object ContextHolder { lateinit var context: Context }
+    object ContextHolder {
+        lateinit var context: Context
+    }
 
     lateinit var component: AppComponent
 

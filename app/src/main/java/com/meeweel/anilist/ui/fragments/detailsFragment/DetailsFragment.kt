@@ -50,10 +50,12 @@ class DetailsFragment : Fragment() {
         animeId?.let {
             observeData(it)
         }
-        binding.detailsScrollView.setOnTouchListener(object: OnSwipeTouchListener(requireContext()) {
+        binding.detailsScrollView.setOnTouchListener(object :
+            OnSwipeTouchListener(requireContext()) {
             override fun onSwipeLeft() {
 
             }
+
             override fun onSwipeRight() {
                 findNavController().popBackStack()
             }
@@ -100,8 +102,10 @@ class DetailsFragment : Fragment() {
             releaseAuthor.text = "${getText(R.string.author)}: ${animeData.author}"
             releaseGenre.text = "${getText(R.string.genre)}: ${animeData.genre}"
             releaseData.text = "${getText(R.string.data)}: ${animeData.data}"
-            releaseAgeRate.text = "${getText(R.string.age_rating)}: ${animeData.ageRating}+"
             releaseRating.text = "${getText(R.string.rating)}: ${animeData.rating}%"
+           seriesQuantity!!.text =
+               "${getText(R.string.seriesQuantity)}: ${animeData.seriesQuantity}"
+            releaseAgeRate.text = "${getText(R.string.age_rating)}: ${animeData.ageRating}+"
 
             if (animeData.ratingCheck == 0 && animeData.list == MainActivity.WATCHED) {
                 binding.rateScore.apply {
