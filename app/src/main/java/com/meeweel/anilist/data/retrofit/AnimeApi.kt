@@ -21,6 +21,10 @@ interface AnimeApi {
     @Headers("Content-type: application/json")
     fun getQuantity(): Single<MaxIdResponse>
 
+    @GET("./api.php?q=actual_version")
+    @Headers("Content-type: application/json")
+    fun getActualVersion(): Single<String>
+
     @GET("./api.php?q=score")
     fun reteScore(@Query("score") score: Int, @Query("id") id: Int): Single<String>
 }
