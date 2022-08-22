@@ -1,21 +1,22 @@
 package com.meeweel.anilist.ui.fragments.detailsFragment
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.meeweel.anilist.R
-import com.meeweel.anilist.databinding.DetailsFragmentBinding
 import com.meeweel.anilist.app.App
-import com.meeweel.anilist.domain.models.Anime
 import com.meeweel.anilist.data.repository.LocalRepository
 import com.meeweel.anilist.data.retrofit.AnimeApi
+import com.meeweel.anilist.databinding.DetailsFragmentBinding
 import com.meeweel.anilist.databinding.RateBottomSheetLayoutBinding
+import com.meeweel.anilist.domain.models.Anime
 import com.meeweel.anilist.ui.MainActivity
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -107,7 +108,6 @@ class DetailsFragment : Fragment() {
             releaseRating.text = "${getText(R.string.rating)}: ${animeData.rating}%"
 
             showRateBottomDialog(animeData)
-
         }
     }
 
@@ -117,35 +117,31 @@ class DetailsFragment : Fragment() {
             RateBottomSheetLayoutBinding.inflate(layoutInflater)
         dialog.setContentView(dialogBinding.root)
 
+        fun showAnimeRateScore(id: Int, score: Int) {
+            makeRateScore(id, score)
+            repository.updateRate(id, score)
+            dialog.dismiss()
+        }
+
         if (animeData.ratingCheck == 0 && animeData.list == MainActivity.WATCHED) {
             dialogBinding.rateCard.apply {
                 dialogBinding.cancelBtn.setOnClickListener {
                     dialog.dismiss()
                 }
                 dialogBinding.star1.setOnClickListener {
-                    makeRateScore(animeData.id, 1)
-                    repository.updateRate(animeData.id, 1)
-                    dialog.dismiss()
+                    showAnimeRateScore(animeData.id, 1)
                 }
                 dialogBinding.star2.setOnClickListener {
-                    makeRateScore(animeData.id, 2)
-                    repository.updateRate(animeData.id, 2)
-                    dialog.dismiss()
+                    showAnimeRateScore(animeData.id, 2)
                 }
                 dialogBinding.star3.setOnClickListener {
-                    makeRateScore(animeData.id, 3)
-                    repository.updateRate(animeData.id, 3)
-                    dialog.dismiss()
+                    showAnimeRateScore(animeData.id, 3)
                 }
                 dialogBinding.star4.setOnClickListener {
-                    makeRateScore(animeData.id, 4)
-                    repository.updateRate(animeData.id, 4)
-                    dialog.dismiss()
+                    showAnimeRateScore(animeData.id, 4)
                 }
                 dialogBinding.star5.setOnClickListener {
-                    makeRateScore(animeData.id, 5)
-                    repository.updateRate(animeData.id, 5)
-                    dialog.dismiss()
+                    showAnimeRateScore(animeData.id, 5)
                 }
             }
             dialog.show()

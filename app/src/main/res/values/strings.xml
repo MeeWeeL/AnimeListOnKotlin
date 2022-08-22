@@ -41,6 +41,7 @@
     <string name="clear_filter">Clear filter</string>
     <string name="OK">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="later">Later</string>
     <string-array name="genre_array">
 
         <item>Genre</item>
