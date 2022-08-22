@@ -305,15 +305,6 @@ abstract class BaseListFragment : Fragment() {
         val dialog = BottomSheetDialog(requireContext())
         val profileBinding = ProfileLayoutBinding.inflate(layoutInflater)
         dialog.setContentView(profileBinding.root)
-        val shortList: List<ShortAnime> = listOf()
-
-        with(profileBinding) {
-            mainCopy.setOnClickListener { copy(MAIN, shortList) }
-            watchedCopy.setOnClickListener { copy(WATCHED, shortList) }
-            notWatchedCopy.setOnClickListener { copy(NOT_WATCHED, shortList) }
-            wantedCopy.setOnClickListener { copy(WANTED, shortList) }
-            unwantedCopy.setOnClickListener { copy(UNWANTED, shortList) }
-        }
 
         val profileObserver = Observer<List<ShortAnime>> { list ->
             var main = 0
@@ -321,6 +312,7 @@ abstract class BaseListFragment : Fragment() {
             var wanted = 0
             var notWatched = 0
             var unwanted = 0
+
             list.forEach { item ->
                 when (item.list) {
                     MAIN -> main++
@@ -329,13 +321,18 @@ abstract class BaseListFragment : Fragment() {
                     WANTED -> wanted++
                     UNWANTED -> unwanted++
                 }
-                with(profileBinding) {
-                    mainCounter.text = main.toString()
-                    watchedCounter.text = watched.toString()
-                    notWatchedCounter.text = notWatched.toString()
-                    wantedCounter.text = wanted.toString()
-                    unwantedCounter.text = unwanted.toString()
-                }
+            }
+            with(profileBinding) {
+                mainCounter.text = main.toString()
+                watchedCounter.text = watched.toString()
+                notWatchedCounter.text = notWatched.toString()
+                wantedCounter.text = wanted.toString()
+                unwantedCounter.text = unwanted.toString()
+                mainCopy.setOnClickListener { list.copy(MAIN) }
+                watchedCopy.setOnClickListener { list.copy(WATCHED) }
+                notWatchedCopy.setOnClickListener { list.copy(NOT_WATCHED) }
+                wantedCopy.setOnClickListener { list.copy(WANTED) }
+                unwantedCopy.setOnClickListener { list.copy(UNWANTED) }
             }
         }
         viewModel.shortLiveData.observe(viewLifecycleOwner, profileObserver)
@@ -343,29 +340,28 @@ abstract class BaseListFragment : Fragment() {
         dialog.show()
     }
 
-    private fun copy(listInt: Int, list: List<ShortAnime>) {
+    private fun List<ShortAnime>.copy(listInt: Int) {
         val copyList = StringBuilder()
         var count = 0
-        list.sortedBy { item -> if (isRu) item.ruTitle else item.enTitle }.forEach {
-            if (it.list == listInt) copyList.append(
-                "${++count}. ${if (isRu) it.ruTitle else it.enTitle} (${it.data})\n"
-            )
+        this.sortedBy { item -> if (isRu) item.ruTitle else item.enTitle }.forEach {
+            if (it.list == listInt)
+                copyList.append("${++count}. ${if (isRu) it.ruTitle else it.enTitle} (${it.data})\n")
         }
-        copyText(copyList.toString())
+        copyList.toString().copyText()
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private fun copyText(copiedText: String) {
+    private fun String.copyText() {
         val sdk = Build.VERSION.SDK_INT
         if (sdk < Build.VERSION_CODES.HONEYCOMB) {
             val clipboard =
                 requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            clipboard.text = copiedText
+            clipboard.text = this
             COPIED.toast()
         } else {
             val clipboard =
                 requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
-            val clip = ClipData.newPlainText("TAG", copiedText)
+            val clip = ClipData.newPlainText("TAG", this)
             clipboard.setPrimaryClip(clip)
             COPIED.toast()
         }
