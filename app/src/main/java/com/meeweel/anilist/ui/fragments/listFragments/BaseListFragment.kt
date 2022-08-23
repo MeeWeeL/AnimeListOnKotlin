@@ -42,6 +42,11 @@ import com.meeweel.anilist.ui.MainActivity.Companion.WATCHED
 import javax.inject.Inject
 
 abstract class BaseListFragment : Fragment() {
+    private lateinit var parentActivity: MainActivity
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        parentActivity = requireActivity() as MainActivity
+    }
 
     @Inject
     lateinit var repository: LocalRepository
@@ -335,12 +340,21 @@ abstract class BaseListFragment : Fragment() {
                 unwantedCopy.setOnClickListener { list.copy(UNWANTED) }
             }
         }
-        viewModel.shortLiveData.observe(viewLifecycleOwner, profileObserver)
-        viewModel.getAll()
-        dialog.show()
+
+        with(profileBinding) {
+            nightModeCheckbox.isChecked = parentActivity.getCurrentTheme()
+            nightModeCheckbox.setOnCheckedChangeListener { compoundButton, b ->
+                if (nightModeCheckbox.isChecked) {
+                    parentActivity.setNightMode(true)
+                } else {
+                    parentActivity.setNightMode(false)
+                }
+            }
+        }
     }
 
-    private fun List<ShortAnime>.copy(listInt: Int) {
+
+        private fun List<ShortAnime>.copy(listInt: Int) {
         val copyList = StringBuilder()
         var count = 0
         this.sortedBy { item -> if (isRu) item.ruTitle else item.enTitle }.forEach {

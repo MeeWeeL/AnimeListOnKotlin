@@ -60,4 +60,5 @@
         <item>Rostov</item>
         <item>Pacific Land</item>
     </string-array>
+    <string name="night_mode">Тёмная тема</string>
 </resources>

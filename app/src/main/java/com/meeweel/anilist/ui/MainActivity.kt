@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.google.android.gms.ads.MobileAds
@@ -17,6 +18,8 @@ import com.meeweel.anilist.data.retrofit.AnimeSynchronizer.Response.*
 import com.meeweel.anilist.databinding.ActivityMainBinding
 import javax.inject.Inject
 
+const val KEY_SP = "sp"
+const val KEY_CURRENT_THEME = "current_theme"
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,6 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setNightMode(getCurrentTheme())
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         App.appInstance.component.inject(this) // Иньекция зависимостей из даггера в текущий класс
@@ -95,4 +99,22 @@ class MainActivity : AppCompatActivity() {
 
         const val ARG_ANIME_ID = "Anime ID"
     }
+
+    fun setNightMode(isNightModeOn: Boolean) {
+        val shardPreferences = getSharedPreferences(KEY_SP, MODE_PRIVATE)
+        val editor = shardPreferences.edit()
+        editor.putBoolean(KEY_CURRENT_THEME, isNightModeOn)
+        editor.apply()
+        if (isNightModeOn) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+    }
+
+    fun getCurrentTheme(): Boolean {
+        val sharedPreferences = getSharedPreferences(KEY_SP, MODE_PRIVATE)
+        return sharedPreferences.getBoolean(KEY_CURRENT_THEME, false)
+    }
+
 }
