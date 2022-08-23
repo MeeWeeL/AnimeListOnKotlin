@@ -111,6 +111,10 @@ dependencies {
     // Json
     implementation 'com.google.code.gson:gson:2.8.6'
 
+    // RxJava 3
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+
     //Room
     implementation 'androidx.room:room-runtime:2.4.3'
     implementation 'androidx.room:room-rxjava3:2.4.3'
@@ -122,10 +126,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
     implementation 'com.squareup.okhttp3:okhttp:4.9.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
-
-    // RxJava 3
-    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
-    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
 
     // AppCompat
     implementation 'androidx.appcompat:appcompat:1.5.0'

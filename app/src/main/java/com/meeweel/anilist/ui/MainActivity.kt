@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             syncer.synchronize() // Запуск синхронизации с сервером
         }
     }
-
+    
     private fun renderData(responseState: AnimeSynchronizer.Response) {
         when (responseState) { // Действия в зависимости от состояния синхронизации
             ANIME_UPLOADED -> {

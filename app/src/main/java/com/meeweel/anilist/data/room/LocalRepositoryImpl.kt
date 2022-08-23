@@ -18,23 +18,23 @@ class LocalRepositoryImpl(
         return localEntityDataSource.getAllAnime()
     }
 
-    override fun getLocalMainAnimeList(): List<ShortAnime> {
+    override fun getLocalMainAnimeList(): Single<List<ShortAnime>> {
         return localEntityDataSource.getShortAnimeList(1)
     }
 
-    override fun getLocalWatchedAnimeList(): List<ShortAnime> {
+    override fun getLocalWatchedAnimeList(): Single<List<ShortAnime>> {
         return localEntityDataSource.getShortAnimeList(2)
     }
 
-    override fun getLocalNotWatchedAnimeList(): List<ShortAnime> {
+    override fun getLocalNotWatchedAnimeList(): Single<List<ShortAnime>> {
         return localEntityDataSource.getShortAnimeList(3)
     }
 
-    override fun getLocalWantedAnimeList(): List<ShortAnime> {
+    override fun getLocalWantedAnimeList(): Single<List<ShortAnime>> {
         return localEntityDataSource.getShortAnimeList(4)
     }
 
-    override fun getLocalUnwantedAnimeList(): List<ShortAnime> {
+    override fun getLocalUnwantedAnimeList(): Single<List<ShortAnime>> {
         return localEntityDataSource.getShortAnimeList(5)
     }
 
@@ -83,8 +83,8 @@ class LocalRepositoryImpl(
         }
     }
 
-    override fun getAnimeById(id: Int): Anime {
-        return localEntityDataSource.getEntityById(id).toModel()
+    override fun getAnimeById(id: Int): Single<Anime> {
+        return localEntityDataSource.getEntityById(id).map { it.toModel() }
     }
 
     override fun updateRate(id: Int, score: Int) {
