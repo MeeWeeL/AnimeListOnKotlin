@@ -55,6 +55,7 @@ class WantedFragmentAdapter(private val repository: LocalRepository) : BaseFragm
                     true
                 }
                 watchedBtnOnWanted.setOnClickListener {
+                    onItemRemove?.removeItem(anime)
                     repository.updateLocalEntity(anime.id, WATCHED)
                     notifyRemove(anime, layoutPosition)
                 }
@@ -72,6 +73,7 @@ class WantedFragmentAdapter(private val repository: LocalRepository) : BaseFragm
 
     override fun onItemDismiss(position: Int, i: Int) {
         if (i == ItemTouchHelper.END) {
+            onItemRemove?.removeItem(animeData[position])
             repository.updateLocalEntity(animeData[position].id, WATCHED)
             animeData.removeAt(position)
             notifyItemRemoved(position)

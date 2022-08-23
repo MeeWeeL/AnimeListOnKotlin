@@ -26,9 +26,7 @@ abstract class BaseViewModel : ViewModel() {
 
     private val isRu: Boolean = App.ContextHolder.context.resources.getBoolean(R.bool.isRussian)
     private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
-    private val shortLiveDataToObserve: MutableLiveData<List<ShortAnime>> = MutableLiveData()
-    val shortLiveData: LiveData<List<ShortAnime>> get() = shortLiveDataToObserve
-    private var actualData: List<ShortAnime> = listOf()
+    private var actualData: MutableList<ShortAnime> = mutableListOf()
 
 
     fun getData(): LiveData<AppState> {
@@ -41,7 +39,7 @@ abstract class BaseViewModel : ViewModel() {
         Thread {
             liveDataToObserve.postValue(
                 AppState.Success(
-                    list
+                   filter.filter(list)
                 )
             )
         }.start()
@@ -53,9 +51,21 @@ abstract class BaseViewModel : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { liveDataToObserve.value = AppState.Loading }
             .subscribe({ list ->
-                actualData = list.sortedBy { anime -> if (isRu) anime.ruTitle else anime.enTitle }
-                liveDataToObserve.postValue(AppState.Success(actualData))
-            }, { shortLiveDataToObserve.postValue(listOf()) })
+                actualData.clear()
+                actualData.addAll(filter.filter(list))
+                postList(actualData)
+            }, { liveDataToObserve.postValue(AppState.Success(actualData)) })
+    }
+
+    fun getAll() {
+        repository.getAllAnime()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                actualData.clear()
+                actualData.addAll(filter.filter(it))
+                postList(actualData)
+            }, { liveDataToObserve.postValue(AppState.Success(actualData)) })
     }
 
     fun setTitleText(text: String) {
@@ -88,15 +98,12 @@ abstract class BaseViewModel : ViewModel() {
     fun getYearTo(): Int = filter.getYearTo()
     fun getSort(): ListFilterSet.Sort = filter.getSort()
 
-    fun getAll() {
-        repository.getAllAnime()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                actualData = it
-                shortLiveDataToObserve.postValue(actualData)
-            }, { shortLiveDataToObserve.postValue(listOf()) })
+    fun removeAnime (anime:ShortAnime) {
+        actualData.remove(anime)
+        postList(actualData)
     }
 
+
     abstract fun getAnimeList(): Single<List<ShortAnime>>
+
 }
