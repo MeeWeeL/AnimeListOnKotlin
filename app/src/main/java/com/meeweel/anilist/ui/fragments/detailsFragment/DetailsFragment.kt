@@ -117,9 +117,9 @@ class DetailsFragment : Fragment() {
             RateBottomSheetLayoutBinding.inflate(layoutInflater)
         dialog.setContentView(dialogBinding.root)
 
-        fun showAnimeRateScore(id: Int, score: Int) {
-            makeRateScore(id, score)
-            repository.updateRate(id, score)
+        fun changeAnimeRateScore(score: Int) {
+            makeRateScore(animeData.id, score)
+            repository.updateRate(animeData.id, score)
             dialog.dismiss()
         }
 
@@ -129,19 +129,19 @@ class DetailsFragment : Fragment() {
                     dialog.dismiss()
                 }
                 dialogBinding.star1.setOnClickListener {
-                    showAnimeRateScore(animeData.id, 1)
+                    changeAnimeRateScore(1)
                 }
                 dialogBinding.star2.setOnClickListener {
-                    showAnimeRateScore(animeData.id, 2)
+                    changeAnimeRateScore(2)
                 }
                 dialogBinding.star3.setOnClickListener {
-                    showAnimeRateScore(animeData.id, 3)
+                    changeAnimeRateScore(3)
                 }
                 dialogBinding.star4.setOnClickListener {
-                    showAnimeRateScore(animeData.id, 4)
+                    changeAnimeRateScore(4)
                 }
                 dialogBinding.star5.setOnClickListener {
-                    showAnimeRateScore(animeData.id, 5)
+                    changeAnimeRateScore(5)
                 }
             }
             dialog.show()
