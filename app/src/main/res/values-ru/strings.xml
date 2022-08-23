@@ -12,9 +12,9 @@
     <string name="description">описание</string>
     <string name="rating">Рейтинг</string>
     <string name="your_rate">Твоя оценка</string>
+    <string name="seriesQuantity">Количество серий</string>
     <string name="author">Автор</string>
     <string name="genre">Жанр</string>
-    <string name="seriesQuantity">Количество серий</string>
     <string name="data">Дата релиза</string>
     <string name="age_rating">Возрастной рейтинг</string>
     <string name="rate_this_title">Поставить оценку этому тайтлу</string>
@@ -26,6 +26,11 @@
     <dimen name="recycler_item_text_size">25sp</dimen>
     <dimen name="recycler_item_line_height">1dp</dimen>
 
+    <!--  Dialog  -->
+    <string name="newVersionAvailable">Доступно обновление</string>
+    <string name="wannaUpdate">Перейти в Google play?</string>
+    <string name="later">Позже</string>
+    <string name="yes">Да</string>
 
     <!--    Lists    -->
     <string name="in_queue_list">В очереди:</string>

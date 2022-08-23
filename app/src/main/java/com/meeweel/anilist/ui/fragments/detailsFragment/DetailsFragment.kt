@@ -50,7 +50,7 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         animeId = requireArguments().getInt(MainActivity.ARG_ANIME_ID)
         animeId?.let {
-            populateData(repository.getAnimeById(it))
+            observeData(it)
         }
         binding.detailsScrollView.setOnTouchListener(object :
             OnSwipeTouchListener(requireContext()) {
@@ -169,12 +169,23 @@ class DetailsFragment : Fragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     repository.updateFromNetwork(it, id)
-                    populateData(repository.getAnimeById(id))
+                    observeData(id)
                     if (isRate) toast("Updated")
                 }, {
                     toast("No internet")
                 })
         }
+    }
+
+    private fun observeData(animeId: Int) {
+        repository.getAnimeById(animeId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                populateData(it)
+            }, {
+                toast("No internet")
+            })
     }
 
     private fun toast(text: String) {

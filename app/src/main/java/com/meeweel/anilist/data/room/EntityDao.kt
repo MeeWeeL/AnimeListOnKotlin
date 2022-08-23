@@ -20,7 +20,7 @@ interface EntityDao {
     fun getAnimeList(list: Int): List<Entity>
 
     @Query("SELECT id, ruTitle, enTitle, image, data, rating, enGenre, ruGenre, list, ratingCheck FROM Entity WHERE list = :list")
-    fun getShortAnimeList(list: Int): List<ShortAnime>
+    fun getShortAnimeList(list: Int): Single<List<ShortAnime>>
 
     @Query("UPDATE Entity SET ruTitle = :ruTitle, enTitle = :enTitle, originalTitle = :origTitle, ruDescription = :ruDescription, enDescription = :enDescription, image = :image, data = :data , ruGenre = :ruGenre, enGenre = :enGenre, author = :author, ageRating = :age, rating = :rating, seriesQuantity = :series WHERE id = :id")
     fun updateFromNetwork(
@@ -42,24 +42,9 @@ interface EntityDao {
 
     @Query("UPDATE Entity SET ratingCheck = :score WHERE id = :id")
     fun updateRate(id: Int, score: Int)
-//
-//    @Query("SELECT * FROM Entity WHERE list = 1")
-//    fun getMain(): List<Entity>
-//
-//    @Query("SELECT * FROM Entity WHERE list = 2")
-//    fun getWatched(): List<Entity>
-//
-//    @Query("SELECT * FROM Entity WHERE list = 3")
-//    fun getNotWatched(): List<Entity>
-//
-//    @Query("SELECT * FROM Entity WHERE list = 4")
-//    fun getWanted(): List<Entity>
-//
-//    @Query("SELECT * FROM Entity WHERE list = 5")
-//    fun getUnwanted(): List<Entity>
 
     @Query("SELECT * FROM Entity WHERE id LIKE :id")
-    fun getEntityById(id: Int): Entity
+    fun getEntityById(id: Int): Single<Entity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(entity: Entity)
