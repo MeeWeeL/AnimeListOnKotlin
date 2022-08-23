@@ -351,6 +351,9 @@ abstract class BaseListFragment : Fragment() {
                 }
             }
         }
+        viewModel.shortLiveData.observe(viewLifecycleOwner, profileObserver)
+        viewModel.getAll()
+        dialog.show()
     }
 
 
