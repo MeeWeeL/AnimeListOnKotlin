@@ -236,7 +236,7 @@ abstract class BaseListFragment : Fragment() {
 
     private fun popupMenuClick(anime: ShortAnime, list: Int, position: Int) {
         repository.updateLocalEntity(anime.id, list)
-       // adapter.notifyRemove(anime, position)
+        // adapter.notifyRemove(anime, position)
         TOAST_MESSAGE.toast()
         viewModel.removeAnime(anime)
     }
@@ -342,7 +342,7 @@ abstract class BaseListFragment : Fragment() {
                 unwantedCopy.setOnClickListener { list.copy(UNWANTED) }
             }
         }
-        
+
         with(profileBinding) {
             nightModeCheckbox.isChecked = parentActivity.getCurrentTheme()
             nightModeCheckbox.setOnCheckedChangeListener { compoundButton, b ->
@@ -357,11 +357,11 @@ abstract class BaseListFragment : Fragment() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 profileData(it)
-            }, {  })
+            }, { })
         dialog.show()
     }
 
-        private fun List<ShortAnime>.copy(listInt: Int) {
+    private fun List<ShortAnime>.copy(listInt: Int) {
         val copyList = StringBuilder()
         var count = 0
         this.sortedBy { item -> if (isRu) item.ruTitle else item.enTitle }.forEach {
@@ -401,7 +401,7 @@ abstract class BaseListFragment : Fragment() {
     }
 
     interface OnItemRemove {
-        fun removeItem (anime:ShortAnime)
+        fun removeItem(anime: ShortAnime)
     }
 
     abstract fun getMenuId(): Int

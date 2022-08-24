@@ -10,7 +10,6 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.MainFragmentBinding
@@ -75,7 +74,7 @@ class MainFragment : BaseListFragment() {
                 showPopupMenu(anime, view, position)
             }
         })
-        adapter.setOnItemRemove(object : OnItemRemove{
+        adapter.setOnItemRemove(object : OnItemRemove {
             override fun removeItem(anime: ShortAnime) {
                 viewModel.removeAnime(anime)
             }

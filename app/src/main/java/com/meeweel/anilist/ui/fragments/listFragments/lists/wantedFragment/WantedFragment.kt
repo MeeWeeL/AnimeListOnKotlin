@@ -73,7 +73,7 @@ class WantedFragment : BaseListFragment() {
                 showPopupMenu(anime, view, position)
             }
         })
-        adapter.setOnItemRemove(object : OnItemRemove{
+        adapter.setOnItemRemove(object : OnItemRemove {
             override fun removeItem(anime: ShortAnime) {
                 viewModel.removeAnime(anime)
             }

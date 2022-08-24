@@ -43,7 +43,8 @@ class AnimeSynchronizer @Inject constructor(
             localQuantity = it
             ifIf()
         }, {
-            localQuantity = 0 // Если произошла ошибка, при запросе в бд, значит в БД ещё ничего не было загружено
+            localQuantity =
+                0 // Если произошла ошибка, при запросе в бд, значит в БД ещё ничего не было загружено
             ifIf()
         }).setDisposable()
 
@@ -67,24 +68,29 @@ class AnimeSynchronizer @Inject constructor(
         response.postValue(Response.ANIME_UPLOADED)
     }
 
-    fun checkVersion() = aniApi.getActualVersion() // Получение с сервера номер актуальной версии приложения в Google play
-        .setSchedulers()
-        .subscribe({
-            // Если номер текущей версии отличается от актуальной, сообщаем это активити
-            response.postValue(if (appVersion.isNotEmpty() && appVersion != it) Response.HAS_NEWER_VERSION else Response.HAVE_ACTUAL_VERSION)
-        }, {
-            response.postValue(Response.SERVER_ERROR)
-        }).setDisposable()
+    fun checkVersion() =
+        aniApi.getActualVersion() // Получение с сервера номер актуальной версии приложения в Google play
+            .setSchedulers()
+            .subscribe({
+                // Если номер текущей версии отличается от актуальной, сообщаем это активити
+                response.postValue(if (appVersion.isNotEmpty() && appVersion != it) Response.HAS_NEWER_VERSION else Response.HAVE_ACTUAL_VERSION)
+            }, {
+                response.postValue(Response.SERVER_ERROR)
+            }).setDisposable()
 
-    fun getCounter(): Int = actualQuantity - localQuantity // Разница между количеством сериалов в БД и на сервере
+    fun getCounter(): Int =
+        actualQuantity - localQuantity // Разница между количеством сериалов в БД и на сервере
 
-    private fun <T : Any> Single<T>.setSchedulers(): Single<T> = this // Функция для сокращения повторяемого кода
-        .subscribeOn(schedulerProvider.io()) // Производить асинхронную работу на легковесном потоке
-        .observeOn(schedulerProvider.ui()) // Производить обработку асинхронно полученных данных в главном потоке
+    private fun <T : Any> Single<T>.setSchedulers(): Single<T> =
+        this // Функция для сокращения повторяемого кода
+            .subscribeOn(schedulerProvider.io()) // Производить асинхронную работу на легковесном потоке
+            .observeOn(schedulerProvider.ui()) // Производить обработку асинхронно полученных данных в главном потоке
 
-    private fun Disposable.setDisposable() = compositeDisposable.add(this) // Функция для помещения асинхронного запрова в композит
+    private fun Disposable.setDisposable() =
+        compositeDisposable.add(this) // Функция для помещения асинхронного запрова в композит
 
-    fun onDestroy() = compositeDisposable.dispose() // Остановка всех асинхронных запросов при уничтожении активити
+    fun onDestroy() =
+        compositeDisposable.dispose() // Остановка всех асинхронных запросов при уничтожении активити
 
     enum class Response {
         NO_INTERNET,

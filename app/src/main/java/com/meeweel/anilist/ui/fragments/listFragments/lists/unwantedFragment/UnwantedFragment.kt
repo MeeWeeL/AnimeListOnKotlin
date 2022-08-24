@@ -74,7 +74,7 @@ class UnwantedFragment : BaseListFragment() {
             }
         })
 
-        adapter.setOnItemRemove(object : OnItemRemove{
+        adapter.setOnItemRemove(object : OnItemRemove {
             override fun removeItem(anime: ShortAnime) {
                 viewModel.removeAnime(anime)
             }
