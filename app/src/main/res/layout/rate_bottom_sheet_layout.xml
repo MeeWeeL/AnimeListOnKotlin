@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rate_card"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:visibility="gone">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,6 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20dp"
             android:layout_marginTop="@dimen/_20dp"
+            android:layout_marginEnd="@dimen/_20dp"
             android:layout_marginBottom="@dimen/_20dp"
             android:text="@string/rate_this_title"
             android:textSize="@dimen/_20sp"
@@ -32,7 +32,7 @@
             android:layout_marginEnd="@dimen/_10dp"
             android:layout_marginBottom="@dimen/_20dp"
             android:backgroundTint="@color/lazy_gray"
-            android:text="Cancel"
+            android:text="@string/later"
             app:layout_constraintBottom_toTopOf="@id/star_3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

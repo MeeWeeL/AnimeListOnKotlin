@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.meeweel.anilist.R
 import com.meeweel.anilist.app.App
 import com.meeweel.anilist.data.repository.LocalRepository
 import com.meeweel.anilist.data.retrofit.AnimeApi
 import com.meeweel.anilist.databinding.DetailsFragmentBinding
+import com.meeweel.anilist.databinding.RateBottomSheetLayoutBinding
 import com.meeweel.anilist.domain.models.Anime
 import com.meeweel.anilist.ui.MainActivity
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -107,44 +109,48 @@ class DetailsFragment : Fragment() {
             if (animeData.ratingCheck != 0) ratingText += "\n(${getText(R.string.your_rate)}: ${animeData.ratingCheck})"
             releaseRating.text = ratingText
 
-            seriesQuantity.text =
+            seriesQuantity?.text =
                 "${getText(R.string.seriesQuantity)}: ${animeData.seriesQuantity}"
             releaseAgeRate.text = "${getText(R.string.age_rating)}: ${animeData.ageRating}+"
 
-            if (animeData.ratingCheck == 0 && animeData.list == MainActivity.WATCHED) {
-                binding.rateScore.apply {
-                    rateCard.visibility = View.VISIBLE
-                    cancelBtn.setOnClickListener {
-                        rateCard.visibility = View.GONE
-                    }
-                    star1.setOnClickListener {
-                        makeRateScore(animeData.id, 1)
-                        repository.updateRate(animeData.id, 1)
-                        rateCard.visibility = View.GONE
-                    }
-                    star2.setOnClickListener {
-                        makeRateScore(animeData.id, 2)
-                        repository.updateRate(animeData.id, 2)
-                        rateCard.visibility = View.GONE
-                    }
-                    star3.setOnClickListener {
-                        makeRateScore(animeData.id, 3)
-                        repository.updateRate(animeData.id, 3)
-                        rateCard.visibility = View.GONE
-                    }
-                    star4.setOnClickListener {
-                        makeRateScore(animeData.id, 4)
-                        repository.updateRate(animeData.id, 4)
-                        rateCard.visibility = View.GONE
-                    }
-                    star5.setOnClickListener {
-                        makeRateScore(animeData.id, 5)
-                        repository.updateRate(animeData.id, 5)
-                        rateCard.visibility = View.GONE
-                    }
-                }
+            showRateBottomDialog(animeData)
+        }
+    }
 
+    private fun showRateBottomDialog(animeData: Anime) {
+        val dialog = BottomSheetDialog(requireContext())
+        val dialogBinding: RateBottomSheetLayoutBinding =
+            RateBottomSheetLayoutBinding.inflate(layoutInflater)
+        dialog.setContentView(dialogBinding.root)
+
+        fun changeRateScore(score: Int) {
+            makeRateScore(animeData.id, score)
+            repository.updateRate(animeData.id, score)
+            dialog.dismiss()
+        }
+
+        if (animeData.ratingCheck == 0 && animeData.list == MainActivity.WATCHED) {
+            dialogBinding.rateCard.apply {
+                dialogBinding.cancelBtn.setOnClickListener {
+                    dialog.dismiss()
+                }
+                dialogBinding.star1.setOnClickListener {
+                    changeRateScore(1)
+                }
+                dialogBinding.star2.setOnClickListener {
+                    changeRateScore(2)
+                }
+                dialogBinding.star3.setOnClickListener {
+                    changeRateScore(3)
+                }
+                dialogBinding.star4.setOnClickListener {
+                    changeRateScore(4)
+                }
+                dialogBinding.star5.setOnClickListener {
+                    changeRateScore(5)
+                }
             }
+            dialog.show()
         }
     }
 

@@ -46,6 +46,7 @@
     <string name="clear_filter">Сбросить фильтры</string>
     <string name="OK">OK</string>
     <string name="sort_by">Сортировать по: </string>
+    <string name="cancel">Отмена</string>
 
     <string-array name="genre_array">
         <item>Moscow</item>
