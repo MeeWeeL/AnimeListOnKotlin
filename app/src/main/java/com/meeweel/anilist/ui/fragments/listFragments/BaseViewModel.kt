@@ -33,6 +33,8 @@ abstract class BaseViewModel : ViewModel() {
         return liveDataToObserve
     }
 
+    val allTitles get() = repository.getAllAnime()
+
     fun getAnimeFromLocalSource() = getDataFromLocalSource()
 
     private fun postList(list: List<ShortAnime>) {
@@ -54,18 +56,7 @@ abstract class BaseViewModel : ViewModel() {
                 actualData.clear()
                 actualData.addAll(filter.filter(list))
                 postList(actualData)
-            }, { liveDataToObserve.postValue(AppState.Success(actualData)) })
-    }
-
-    fun getAll() {
-        repository.getAllAnime()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                actualData.clear()
-                actualData.addAll(filter.filter(it))
-                postList(actualData)
-            }, { liveDataToObserve.postValue(AppState.Success(actualData)) })
+            }, { postList(actualData) })
     }
 
     fun setTitleText(text: String) {
@@ -102,7 +93,6 @@ abstract class BaseViewModel : ViewModel() {
         actualData.remove(anime)
         postList(actualData)
     }
-
 
     abstract fun getAnimeList(): Single<List<ShortAnime>>
 

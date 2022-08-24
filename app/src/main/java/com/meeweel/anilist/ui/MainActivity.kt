@@ -29,7 +29,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        setInstance(savedInstanceState)
+        super.onCreate(mainActivityInstance)
         setNightMode(getCurrentTheme())
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -87,19 +88,6 @@ class MainActivity : AppCompatActivity() {
         syncer.onDestroy() // При уничтожении активити, уничтожить все асинхронные потоки в синхронизаторе
     }
 
-    companion object {
-        var time = System.currentTimeMillis() - 20000L
-        const val adsDelay = 300000L // Время перерыва между показами рекламы
-
-        const val MAIN = 1
-        const val WATCHED = 2
-        const val NOT_WATCHED = 3
-        const val WANTED = 4
-        const val UNWANTED = 5
-
-        const val ARG_ANIME_ID = "Anime ID"
-    }
-
     fun setNightMode(isNightModeOn: Boolean) {
         val shardPreferences = getSharedPreferences(KEY_SP, MODE_PRIVATE)
         val editor = shardPreferences.edit()
@@ -117,4 +105,21 @@ class MainActivity : AppCompatActivity() {
         return sharedPreferences.getBoolean(KEY_CURRENT_THEME, false)
     }
 
+    companion object {
+        var mainActivityInstance: Bundle? = null
+        fun setInstance(bundle: Bundle?) {
+            if (bundle != null && mainActivityInstance != null)
+            mainActivityInstance = bundle
+        }
+        var time = System.currentTimeMillis() - 20000L
+        const val adsDelay = 300000L // Время перерыва между показами рекламы
+
+        const val MAIN = 1
+        const val WATCHED = 2
+        const val NOT_WATCHED = 3
+        const val WANTED = 4
+        const val UNWANTED = 5
+
+        const val ARG_ANIME_ID = "Anime ID"
+    }
 }

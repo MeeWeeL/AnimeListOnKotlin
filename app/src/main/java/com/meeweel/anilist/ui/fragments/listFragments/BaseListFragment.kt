@@ -39,6 +39,8 @@ import com.meeweel.anilist.ui.MainActivity.Companion.NOT_WATCHED
 import com.meeweel.anilist.ui.MainActivity.Companion.UNWANTED
 import com.meeweel.anilist.ui.MainActivity.Companion.WANTED
 import com.meeweel.anilist.ui.MainActivity.Companion.WATCHED
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 abstract class BaseListFragment : Fragment() {
@@ -312,14 +314,12 @@ abstract class BaseListFragment : Fragment() {
         val profileBinding = ProfileLayoutBinding.inflate(layoutInflater)
         dialog.setContentView(profileBinding.root)
 
-        val profileObserver = Observer<AppState> { state ->
-            var list = listOf<ShortAnime>()
+        fun profileData(list: List<ShortAnime>) {
             var main = 0
             var watched = 0
             var wanted = 0
             var notWatched = 0
             var unwanted = 0
-           if (state is AppState.Success) list = state.animeData
             list.forEach { item ->
                 when (item.list) {
                     MAIN -> main++
@@ -353,8 +353,11 @@ abstract class BaseListFragment : Fragment() {
                 }
             }
         }
-        viewModel.getData().observe(viewLifecycleOwner, profileObserver)
-        viewModel.getAll()
+        viewModel.allTitles.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                profileData(it)
+            }, {  })
         dialog.show()
     }
 
