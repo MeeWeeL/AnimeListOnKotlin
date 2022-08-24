@@ -42,6 +42,11 @@ import com.meeweel.anilist.ui.MainActivity.Companion.WATCHED
 import javax.inject.Inject
 
 abstract class BaseListFragment : Fragment() {
+    private lateinit var parentActivity: MainActivity
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        parentActivity = requireActivity() as MainActivity
+    }
 
     @Inject
     lateinit var repository: LocalRepository
@@ -308,7 +313,7 @@ abstract class BaseListFragment : Fragment() {
         dialog.setContentView(profileBinding.root)
 
         val profileObserver = Observer<AppState> { state ->
-            var list =listOf<ShortAnime>()
+            var list = listOf<ShortAnime>()
             var main = 0
             var watched = 0
             var wanted = 0
@@ -337,12 +342,23 @@ abstract class BaseListFragment : Fragment() {
                 unwantedCopy.setOnClickListener { list.copy(UNWANTED) }
             }
         }
+        
+        with(profileBinding) {
+            nightModeCheckbox.isChecked = parentActivity.getCurrentTheme()
+            nightModeCheckbox.setOnCheckedChangeListener { compoundButton, b ->
+                if (nightModeCheckbox.isChecked) {
+                    parentActivity.setNightMode(true)
+                } else {
+                    parentActivity.setNightMode(false)
+                }
+            }
+        }
         viewModel.getData().observe(viewLifecycleOwner, profileObserver)
         viewModel.getAll()
         dialog.show()
     }
 
-    private fun List<ShortAnime>.copy(listInt: Int) {
+        private fun List<ShortAnime>.copy(listInt: Int) {
         val copyList = StringBuilder()
         var count = 0
         this.sortedBy { item -> if (isRu) item.ruTitle else item.enTitle }.forEach {
@@ -376,7 +392,6 @@ abstract class BaseListFragment : Fragment() {
     interface OnItemViewClickListener {
         fun onItemViewClick(anime: ShortAnime)
     }
-
 
     interface OnLongItemViewClickListener {
         fun onLongItemViewClick(anime: ShortAnime, view: View, position: Int)
