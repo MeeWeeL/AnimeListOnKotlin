@@ -234,8 +234,9 @@ abstract class BaseListFragment : Fragment() {
 
     private fun popupMenuClick(anime: ShortAnime, list: Int, position: Int) {
         repository.updateLocalEntity(anime.id, list)
-        adapter.notifyRemove(anime, position)
+       // adapter.notifyRemove(anime, position)
         TOAST_MESSAGE.toast()
+        viewModel.removeAnime(anime)
     }
 
     //, R.style.FilterDialogStyle
@@ -311,13 +312,14 @@ abstract class BaseListFragment : Fragment() {
         val profileBinding = ProfileLayoutBinding.inflate(layoutInflater)
         dialog.setContentView(profileBinding.root)
 
-        val profileObserver = Observer<List<ShortAnime>> { list ->
+        val profileObserver = Observer<AppState> { state ->
+            var list = listOf<ShortAnime>()
             var main = 0
             var watched = 0
             var wanted = 0
             var notWatched = 0
             var unwanted = 0
-
+           if (state is AppState.Success) list = state.animeData
             list.forEach { item ->
                 when (item.list) {
                     MAIN -> main++
@@ -340,7 +342,7 @@ abstract class BaseListFragment : Fragment() {
                 unwantedCopy.setOnClickListener { list.copy(UNWANTED) }
             }
         }
-
+        
         with(profileBinding) {
             nightModeCheckbox.isChecked = parentActivity.getCurrentTheme()
             nightModeCheckbox.setOnCheckedChangeListener { compoundButton, b ->
@@ -351,11 +353,10 @@ abstract class BaseListFragment : Fragment() {
                 }
             }
         }
-        viewModel.shortLiveData.observe(viewLifecycleOwner, profileObserver)
+        viewModel.getData().observe(viewLifecycleOwner, profileObserver)
         viewModel.getAll()
         dialog.show()
     }
-
 
         private fun List<ShortAnime>.copy(listInt: Int) {
         val copyList = StringBuilder()
@@ -392,9 +393,12 @@ abstract class BaseListFragment : Fragment() {
         fun onItemViewClick(anime: ShortAnime)
     }
 
-
     interface OnLongItemViewClickListener {
         fun onLongItemViewClick(anime: ShortAnime, view: View, position: Int)
+    }
+
+    interface OnItemRemove {
+        fun removeItem (anime:ShortAnime)
     }
 
     abstract fun getMenuId(): Int
