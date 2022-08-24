@@ -47,7 +47,6 @@
     <string name="OK">OK</string>
     <string name="sort_by">Сортировать по: </string>
     <string name="cancel">Отмена</string>
-    <string name="later">Позже</string>
 
     <string-array name="genre_array">
         <item>Moscow</item>

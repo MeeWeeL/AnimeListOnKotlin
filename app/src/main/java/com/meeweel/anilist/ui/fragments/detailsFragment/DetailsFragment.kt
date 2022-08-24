@@ -104,8 +104,14 @@ class DetailsFragment : Fragment() {
             releaseAuthor.text = "${getText(R.string.author)}: ${animeData.author}"
             releaseGenre.text = "${getText(R.string.genre)}: ${animeData.genre}"
             releaseData.text = "${getText(R.string.data)}: ${animeData.data}"
+
+            var ratingText = "${getText(R.string.rating)}: ${animeData.rating}%"
+            if (animeData.ratingCheck != 0) ratingText += "\n(${getText(R.string.your_rate)}: ${animeData.ratingCheck})"
+            releaseRating.text = ratingText
+
+            seriesQuantity?.text =
+                "${getText(R.string.seriesQuantity)}: ${animeData.seriesQuantity}"
             releaseAgeRate.text = "${getText(R.string.age_rating)}: ${animeData.ageRating}+"
-            releaseRating.text = "${getText(R.string.rating)}: ${animeData.rating}%"
 
             showRateBottomDialog(animeData)
         }
@@ -117,7 +123,7 @@ class DetailsFragment : Fragment() {
             RateBottomSheetLayoutBinding.inflate(layoutInflater)
         dialog.setContentView(dialogBinding.root)
 
-        fun changeAnimeRateScore(score: Int) {
+        fun changeRateScore(score: Int) {
             makeRateScore(animeData.id, score)
             repository.updateRate(animeData.id, score)
             dialog.dismiss()
@@ -129,19 +135,19 @@ class DetailsFragment : Fragment() {
                     dialog.dismiss()
                 }
                 dialogBinding.star1.setOnClickListener {
-                    changeAnimeRateScore(1)
+                    changeRateScore(1)
                 }
                 dialogBinding.star2.setOnClickListener {
-                    changeAnimeRateScore(2)
+                    changeRateScore(2)
                 }
                 dialogBinding.star3.setOnClickListener {
-                    changeAnimeRateScore(3)
+                    changeRateScore(3)
                 }
                 dialogBinding.star4.setOnClickListener {
-                    changeAnimeRateScore(4)
+                    changeRateScore(4)
                 }
                 dialogBinding.star5.setOnClickListener {
-                    changeAnimeRateScore(5)
+                    changeRateScore(5)
                 }
             }
             dialog.show()
