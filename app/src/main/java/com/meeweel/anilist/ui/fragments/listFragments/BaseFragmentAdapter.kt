@@ -10,6 +10,7 @@ abstract class BaseFragmentAdapter :
     protected var animeData: MutableList<ShortAnime> = mutableListOf()
     protected var onItemViewClickListener: BaseListFragment.OnItemViewClickListener? = null
     protected var onLongItemViewClickListener: BaseListFragment.OnLongItemViewClickListener? = null
+    protected var onItemRemove : BaseListFragment.OnItemRemove? = null
 
     override fun getItemCount(): Int {
         return animeData.size
@@ -23,9 +24,14 @@ abstract class BaseFragmentAdapter :
         this.onLongItemViewClickListener = onLongItemViewClickListener
     }
 
+    internal fun setOnItemRemove (onItemRemove: BaseListFragment.OnItemRemove) {
+        this.onItemRemove = onItemRemove
+    }
+
     internal fun removeClickListeners() {
         onItemViewClickListener = null
         onLongItemViewClickListener = null
+        onItemRemove = null
     }
 
     internal fun setAnime(data: List<ShortAnime>) {

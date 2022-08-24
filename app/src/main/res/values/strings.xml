@@ -47,6 +47,7 @@
     <string name="clear_filter">Clear filter</string>
     <string name="OK">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="night_mode">Night mode</string>
     <string-array name="genre_array">
 
         <item>Genre</item>
