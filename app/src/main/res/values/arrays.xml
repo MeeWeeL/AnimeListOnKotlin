@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="years_slider_values">
-        <item>1900.0</item>
-        <item>2100.0</item>
+        <item>1969.0</item>
+        <item>2022.0</item>
     </array>
 </resources>

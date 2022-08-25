@@ -9,7 +9,7 @@ import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.meeweel.anilist.view.MainActivity
+import com.meeweel.anilist.ui.MainActivity
 import org.hamcrest.Matcher
 import org.junit.After
 import org.junit.Before
@@ -29,8 +29,10 @@ class ListFragmentEspressoTest {
     @Test
     fun activitySearch_IsWorking() {
         onView(withId(R.id.input_edit_text)).perform(click())
-        onView(withId(R.id.input_edit_text)).perform(replaceText("sister"),
-            closeSoftKeyboard())
+        onView(withId(R.id.input_edit_text)).perform(
+            replaceText("sister"),
+            closeSoftKeyboard()
+        )
         onView(withId(R.id.input_edit_text)).perform(pressImeActionButton())
     }
 
@@ -60,14 +62,18 @@ class ListFragmentEspressoTest {
         onView(withId(R.id.not_watched_fragment_nav)).perform(click())
         onView(isRoot()).perform(delay(1000))
         onView(withId(R.id.notWatchedFragmentRecyclerView)).check(matches(isDisplayed()))
-        onView(withId(R.id.input_edit_text)).perform(replaceText("sister"),
-            closeSoftKeyboard())
+        onView(withId(R.id.input_edit_text)).perform(
+            replaceText("sister"),
+            closeSoftKeyboard()
+        )
         onView(isRoot()).perform(delay(2000))
         onView(withId(R.id.watched_fragment_nav)).perform(click())
         onView(isRoot()).perform(delay(2000))
         onView(withId(R.id.input_edit_text)).perform(click())
-        onView(withId(R.id.input_edit_text)).perform(replaceText("sister"),
-            closeSoftKeyboard())
+        onView(withId(R.id.input_edit_text)).perform(
+            replaceText("sister"),
+            closeSoftKeyboard()
+        )
         onView(withId(R.id.watchedFragmentRecyclerView)).check(matches(isDisplayed()))
     }
 

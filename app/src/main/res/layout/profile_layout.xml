@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/night_mode_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/night_mode"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10dp"
+            android:text="@string/in_queue_list"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/wanted_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10dp"
+            android:text="0"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/wanted_copy"
+            style="@style/profileButtonStyle" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10dp"
+            android:text="@string/watched_list"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/watched_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10dp"
+            android:text="0"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/watched_copy"
+            style="@style/profileButtonStyle" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10dp"
+            android:text="@string/not_watched_list"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/not_watched_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10dp"
+            android:text="0"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/not_watched_copy"
+            style="@style/profileButtonStyle" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10dp"
+            android:text="@string/unwanted_list"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/unwanted_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10dp"
+            android:text="0"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/unwanted_copy"
+            style="@style/profileButtonStyle" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10dp"
+            android:text="@string/unsorted_list"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/main_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10dp"
+            android:text="0"
+            android:textSize="@dimen/_20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/main_copy"
+            style="@style/profileButtonStyle" />
+    </LinearLayout>
+</LinearLayout>

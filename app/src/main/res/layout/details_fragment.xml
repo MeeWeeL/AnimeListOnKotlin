@@ -2,13 +2,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.detailsFragment.DetailsFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/details_bar"
-        android:backgroundTint="@color/main_color"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_50dp">
+        android:layout_height="@dimen/_50dp"
+        android:backgroundTint="@color/main_color">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -19,16 +20,16 @@
                 android:id="@+id/details_bar_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:alpha="0.4"
                 android:scaleType="centerCrop"
                 android:src="@drawable/anibackground"
-                android:alpha="0.4"
                 tools:ignore="ContentDescription" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/details_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:menu="@menu/details_fragment_menu"/>
+                app:menu="@menu/details_fragment_menu" />
         </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -59,7 +60,7 @@
 
             <ImageView
                 android:id="@+id/anime_image"
-                style="@style/detailsEnImage"/>
+                style="@style/detailsEnImage" />
 
             <TextView
                 android:id="@+id/release_Data"
@@ -68,9 +69,9 @@
 
             <TextView
                 android:id="@+id/release_Author"
+                style="@style/parameters"
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="wrap_content"
-                style="@style/parameters"
                 app:layout_constraintBottom_toTopOf="@id/release_rating"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_weight="2"
@@ -78,12 +79,11 @@
                 app:layout_constraintTop_toBottomOf="@id/release_Data"
                 tools:text="author" />
 
-
             <TextView
                 android:id="@+id/release_rating"
+                style="@style/parameters"
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="wrap_content"
-                style="@style/parameters"
                 app:layout_constraintBottom_toTopOf="@id/release_age_rate"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_weight="2"
@@ -93,10 +93,10 @@
 
             <TextView
                 android:id="@+id/release_age_rate"
+                style="@style/parameters"
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="wrap_content"
-                style="@style/parameters"
-                app:layout_constraintBottom_toTopOf="@id/release_Genre"
+                app:layout_constraintBottom_toTopOf="@id/series_quantity"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_weight="2"
                 app:layout_constraintStart_toEndOf="@id/anime_image"
@@ -104,10 +104,22 @@
                 tools:text="age rate" />
 
             <TextView
-                android:id="@+id/release_Genre"
+                android:id="@+id/series_quantity"
+                style="@style/parameters"
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/release_Genre"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="2"
+                app:layout_constraintStart_toEndOf="@id/anime_image"
+                app:layout_constraintTop_toBottomOf="@+id/release_age_rate"
+                tools:text="episodes" />
+
+            <TextView
+                android:id="@+id/release_Genre"
                 style="@style/parameters"
+                android:layout_width="@dimen/_0dp"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toTopOf="@id/english_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_weight="2"
@@ -129,9 +141,6 @@
                 android:layout_marginTop="@dimen/_10dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/anibackground"
-                android:alpha="0.1"
-                app:layout_constraintTop_toBottomOf="@id/release_Genre"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
@@ -175,7 +184,7 @@
             <TextView
                 android:id="@+id/description_value"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_0dp"
+                android:layout_height="wrap_content"
                 android:padding="@dimen/_10dp"
                 android:paddingBottom="@dimen/_10dp"
                 android:text="@string/default_description"
@@ -190,6 +199,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
+        app:layout_anchor="@+id/details_scroll_view"
+        app:layout_anchorGravity="center"
         tools:visibility="visible">
 
         <ProgressBar
@@ -199,13 +210,4 @@
             android:layout_gravity="center" />
     </FrameLayout>
 
-    <include
-        android:id="@+id/rate_score"
-        layout="@layout/rate_layout"
-        android:layout_marginStart="@dimen/_10dp"
-        android:layout_marginEnd="@dimen/_10dp"
-        android:layout_marginBottom="@dimen/_40dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

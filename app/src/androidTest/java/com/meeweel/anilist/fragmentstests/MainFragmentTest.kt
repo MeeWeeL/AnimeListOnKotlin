@@ -9,8 +9,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.meeweel.anilist.R
-import com.meeweel.anilist.view.fragments.mainfragment.MainFragment
-import com.meeweel.anilist.view.fragments.mainfragment.MainFragmentAdapter
+import com.meeweel.anilist.ui.fragments.listFragments.lists.mainFragment.MainFragmentAdapter
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

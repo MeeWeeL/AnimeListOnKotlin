@@ -11,6 +11,8 @@
     <string name="default_description">Default description</string>
     <string name="description">описание</string>
     <string name="rating">Рейтинг</string>
+    <string name="your_rate">Твоя оценка</string>
+    <string name="seriesQuantity">Количество серий</string>
     <string name="author">Автор</string>
     <string name="genre">Жанр</string>
     <string name="data">Дата релиза</string>
@@ -24,10 +26,40 @@
     <dimen name="recycler_item_text_size">25sp</dimen>
     <dimen name="recycler_item_line_height">1dp</dimen>
 
+    <!--  Dialog  -->
+    <string name="newVersionAvailable">Доступно обновление</string>
+    <string name="wannaUpdate">Перейти в Google play?</string>
+    <string name="later">Позже</string>
+    <string name="yes">Да</string>
+
+    <!--    Lists    -->
+    <string name="in_queue_list">В очереди:</string>
+    <string name="watched_list">Смотрел(а):</string>
+    <string name="not_watched_list">Не смотрел(а):</string>
+    <string name="unwanted_list">Не хочу:</string>
+    <string name="unsorted_list">Не проверил(а):</string>
+
+    <!--    Filter    -->
+    <string name="filter">Фильтр</string>
+    <string name="genres">Жанр: </string>
+    <string name="years">Годы: </string>
+    <string name="clear_filter">Сбросить фильтры</string>
+    <string name="OK">OK</string>
+    <string name="sort_by">Сортировать по: </string>
+    <string name="cancel">Отмена</string>
+
     <string-array name="genre_array">
         <item>Moscow</item>
         <item>Petersburg</item>
         <item>Rostov</item>
         <item>Pacific Land</item>
     </string-array>
+
+    <string-array name="sort_array">
+        <item>Дата</item>
+        <item>Petersburg</item>
+        <item>Rostov</item>
+        <item>Pacific Land</item>
+    </string-array>
+    <string name="night_mode">Тёмная тема</string>
 </resources>

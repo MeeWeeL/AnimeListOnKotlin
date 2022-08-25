@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rate_card"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/rate_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_marginTop="@dimen/_20dp"
+            android:layout_marginEnd="@dimen/_20dp"
+            android:layout_marginBottom="@dimen/_20dp"
+            android:text="@string/rate_this_title"
+            android:textSize="@dimen/_20sp"
+            app:layout_constraintBottom_toTopOf="@id/star_3"
+            app:layout_constraintEnd_toStartOf="@id/cancel_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/cancel_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20dp"
+            android:layout_marginEnd="@dimen/_10dp"
+            android:layout_marginBottom="@dimen/_20dp"
+            android:backgroundTint="@color/lazy_gray"
+            android:text="@string/later"
+            app:layout_constraintBottom_toTopOf="@id/star_3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/star_1"
+            android:layout_width="@dimen/_60dp"
+            android:layout_height="@dimen/_60dp"
+            android:layout_marginBottom="@dimen/_10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_star1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/star_2"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/star_2"
+            android:layout_width="@dimen/_60dp"
+            android:layout_height="@dimen/_60dp"
+            android:layout_marginBottom="@dimen/_10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_star2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/star_3"
+            app:layout_constraintStart_toEndOf="@id/star_1" />
+
+        <ImageButton
+            android:id="@+id/star_3"
+            android:layout_width="@dimen/_60dp"
+            android:layout_height="@dimen/_60dp"
+            android:layout_marginBottom="@dimen/_10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_star3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/star_4"
+            app:layout_constraintStart_toEndOf="@id/star_2" />
+
+        <ImageButton
+            android:id="@+id/star_4"
+            android:layout_width="@dimen/_60dp"
+            android:layout_height="@dimen/_60dp"
+            android:layout_marginBottom="@dimen/_10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_star4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/star_5"
+            app:layout_constraintStart_toEndOf="@id/star_3" />
+
+        <ImageButton
+            android:id="@+id/star_5"
+            android:layout_width="@dimen/_60dp"
+            android:layout_height="@dimen/_60dp"
+            android:layout_marginBottom="@dimen/_10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_star5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/star_4" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

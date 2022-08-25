@@ -1,10 +1,11 @@
 package com.meeweel.anilist.di
 
+//import com.meeweel.anilist.workmanager.SynchronizeWorker
 import android.content.Context
-import com.meeweel.anilist.view.MainActivity
-import com.meeweel.anilist.view.fragments.baselistfragment.BaseListFragment
-import com.meeweel.anilist.view.fragments.baselistfragment.BaseViewModel
-import com.meeweel.anilist.view.fragments.detailsfragment.DetailsFragment
+import com.meeweel.anilist.ui.MainActivity
+import com.meeweel.anilist.ui.fragments.detailsFragment.DetailsFragment
+import com.meeweel.anilist.ui.fragments.listFragments.BaseListFragment
+import com.meeweel.anilist.ui.fragments.listFragments.BaseViewModel
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -14,7 +15,6 @@ import javax.inject.Singleton
 @Component(
     modules = [
         RepositoryModule::class,
-        CiceroneModule::class,
         SynchronizerModule::class
     ]
 )
@@ -32,4 +32,5 @@ interface AppComponent {
     fun inject(detailsFragment: DetailsFragment)
     fun inject(baseViewModel: BaseViewModel)
     fun inject(baseListFragment: BaseListFragment)
+//    fun inject(worker: SynchronizeWorker)
 }

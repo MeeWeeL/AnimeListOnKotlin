@@ -11,6 +11,8 @@
     <string name="default_description">Default description</string>
     <string name="description">description</string>
     <string name="rating">Rating</string>
+    <string name="your_rate">Your rate</string>
+    <string name="seriesQuantity">Episodes</string>
     <string name="author">Author</string>
     <string name="genre">Genre</string>
     <string name="data">Date</string>
@@ -24,8 +26,38 @@
     <dimen name="recycler_item_text_size">25sp</dimen>
     <dimen name="recycler_item_line_height">1dp</dimen>
 
+    <!--  Dialog  -->
+    <string name="newVersionAvailable">A newer version is available</string>
+    <string name="wannaUpdate">Do you want to update the app?</string>
+    <string name="later">Later</string>
+    <string name="yes">Yes</string>
+
+    <!--    Lists    -->
+    <string name="in_queue_list">In-queue:</string>
+    <string name="watched_list">Watched:</string>
+    <string name="not_watched_list">Not-watched:</string>
+    <string name="unwanted_list">Unwanted:</string>
+    <string name="unsorted_list">Unsorted:</string>
+
+    <!--    Filter    -->
+    <string name="filter">Filter</string>
+    <string name="genres">Genre: </string>
+    <string name="years">Years: </string>
+    <string name="sort_by">Sort by: </string>
+    <string name="clear_filter">Clear filter</string>
+    <string name="OK">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="night_mode">Night mode</string>
     <string-array name="genre_array">
+
         <item>Genre</item>
+        <item>Petersburg</item>
+        <item>Rostov</item>
+        <item>Pacific Land</item>
+    </string-array>
+
+    <string-array name="sort_array">
+        <item>Date</item>
         <item>Petersburg</item>
         <item>Rostov</item>
         <item>Pacific Land</item>
