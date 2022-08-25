@@ -99,7 +99,7 @@ abstract class BaseListFragment : Fragment() {
         is AppState.Success -> {
             val animeData = data.animeData
             loadingLayoutView.visibility = View.GONE
-            adapter.setAnime(animeData)
+            adapter.submitList(animeData)
         }
         is AppState.Loading -> {
             loadingLayoutView.visibility = View.VISIBLE

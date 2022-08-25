@@ -25,14 +25,6 @@ class NotWatchedFragmentAdapter(private val repository: LocalRepository) : BaseF
         return MainViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        holder.bind(animeData[position])
-    }
-
-    override fun getItemCount(): Int {
-        return animeData.size
-    }
-
     inner class MainViewHolder(private val binding: NotWatchedRecyclerItemBinding) :
         BaseViewHolder(binding.root) {
 
@@ -80,12 +72,12 @@ class NotWatchedFragmentAdapter(private val repository: LocalRepository) : BaseF
 
     override fun onItemDismiss(position: Int, i: Int) {
         if (i == ItemTouchHelper.START) {
-            repository.updateLocalEntity(animeData[position].id, UNWANTED)
-            onItemRemove?.removeItem(animeData[position])
+            repository.updateLocalEntity(getItem(position).id, UNWANTED)
+            onItemRemove?.removeItem(getItem(position))
         }
         if (i == ItemTouchHelper.END) {
-            repository.updateLocalEntity(animeData[position].id, WANTED)
-            onItemRemove?.removeItem(animeData[position])
+            repository.updateLocalEntity(getItem(position).id, WANTED)
+            onItemRemove?.removeItem(getItem(position))
         }
     }
 }

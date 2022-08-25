@@ -24,14 +24,6 @@ class WantedFragmentAdapter(private val repository: LocalRepository) : BaseFragm
         return MainViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        holder.bind(animeData[position])
-    }
-
-    override fun getItemCount(): Int {
-        return animeData.size
-    }
-
     inner class MainViewHolder(private val binding: WantedRecyclerItemBinding) :
         BaseViewHolder(binding.root) {
 
@@ -72,8 +64,8 @@ class WantedFragmentAdapter(private val repository: LocalRepository) : BaseFragm
 
     override fun onItemDismiss(position: Int, i: Int) {
         if (i == ItemTouchHelper.END) {
-            repository.updateLocalEntity(animeData[position].id, WATCHED)
-            onItemRemove?.removeItem(animeData[position])
+            repository.updateLocalEntity(getItem(position).id, WATCHED)
+            onItemRemove?.removeItem(getItem(position))
         }
     }
 }

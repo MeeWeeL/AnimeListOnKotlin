@@ -21,14 +21,6 @@ class UnwantedFragmentAdapter : BaseFragmentAdapter() {
         return MainViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        holder.bind(animeData[position])
-    }
-
-    override fun getItemCount(): Int {
-        return animeData.size
-    }
-
     inner class MainViewHolder(private val binding: UnwantedRecyclerItemBinding) :
         BaseViewHolder(binding.root) {
 
