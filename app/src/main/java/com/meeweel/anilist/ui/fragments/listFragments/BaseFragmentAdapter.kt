@@ -1,19 +1,21 @@
 package com.meeweel.anilist.ui.fragments.listFragments
 
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.meeweel.anilist.domain.models.ShortAnime
 import com.meeweel.anilist.ui.fragments.listFragments.touchHelpers.ItemTouchHelperAdapter
 
 abstract class BaseFragmentAdapter :
-    RecyclerView.Adapter<BaseViewHolder>(), ItemTouchHelperAdapter {
+    ListAdapter<ShortAnime, BaseViewHolder>(DiffCallback), ItemTouchHelperAdapter {
 
-    protected var animeData: MutableList<ShortAnime> = mutableListOf()
     protected var onItemViewClickListener: BaseListFragment.OnItemViewClickListener? = null
     protected var onLongItemViewClickListener: BaseListFragment.OnLongItemViewClickListener? = null
     protected var onItemRemove: BaseListFragment.OnItemRemove? = null
 
-    override fun getItemCount(): Int {
-        return animeData.size
+
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 
     internal fun setOnItemViewClickListener(onItemViewClickListener: BaseListFragment.OnItemViewClickListener) {
@@ -34,19 +36,22 @@ abstract class BaseFragmentAdapter :
         onItemRemove = null
     }
 
-    internal fun setAnime(data: List<ShortAnime>) {
-        animeData = data.toMutableList()
-        notifyDataSetChanged()
-    }
-
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
-        animeData.removeAt(fromPosition).apply {
-            animeData.add(if (toPosition > fromPosition) toPosition - 1 else toPosition, this)
-        }
-        notifyItemMoved(fromPosition, toPosition)
+
     }
 
     override fun onItemDismiss(position: Int, i: Int) {
 
+    }
+
+    companion object DiffCallback : DiffUtil.ItemCallback<ShortAnime>() {
+
+        override fun areItemsTheSame(oldItem: ShortAnime, newItem: ShortAnime): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: ShortAnime, newItem: ShortAnime): Boolean {
+            return oldItem.id == newItem.id
+        }
     }
 }

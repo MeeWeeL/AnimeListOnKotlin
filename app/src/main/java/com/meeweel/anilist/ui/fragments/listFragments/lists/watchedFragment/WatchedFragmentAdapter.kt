@@ -23,11 +23,7 @@ class WatchedFragmentAdapter : BaseFragmentAdapter() {
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        holder.bind(animeData[position])
-    }
-
-    override fun getItemCount(): Int {
-        return animeData.size
+        holder.bind(getItem(position))
     }
 
     inner class MainViewHolder(private val binding: WatchedRecyclerItemBinding) :
