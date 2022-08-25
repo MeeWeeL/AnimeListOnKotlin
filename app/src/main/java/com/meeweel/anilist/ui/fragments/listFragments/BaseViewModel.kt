@@ -41,7 +41,7 @@ abstract class BaseViewModel : ViewModel() {
         Thread {
             liveDataToObserve.postValue(
                 AppState.Success(
-                   filter.filter(list)
+                    filter.filter(list)
                 )
             )
         }.start()
@@ -89,7 +89,7 @@ abstract class BaseViewModel : ViewModel() {
     fun getYearTo(): Int = filter.getYearTo()
     fun getSort(): ListFilterSet.Sort = filter.getSort()
 
-    fun removeAnime (anime:ShortAnime) {
+    fun removeAnime(anime: ShortAnime) {
         actualData.remove(anime)
         postList(actualData)
     }

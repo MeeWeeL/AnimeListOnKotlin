@@ -56,14 +56,12 @@ class MainFragmentAdapter(private val repository: LocalRepository) : BaseFragmen
                     true
                 }
                 watchedBtn.setOnClickListener {
-                    onItemRemove?.removeItem(anime)
                     repository.updateLocalEntity(anime.id, WATCHED)
-                    notifyRemove(anime, layoutPosition)
+                    onItemRemove?.removeItem(anime)
                 }
                 notWatchedBtn.setOnClickListener {
-                    onItemRemove?.removeItem(anime)
                     repository.updateLocalEntity(anime.id, NOT_WATCHED)
-                    notifyRemove(anime, layoutPosition)
+                    onItemRemove?.removeItem(anime)
                 }
             }
         }
@@ -80,16 +78,12 @@ class MainFragmentAdapter(private val repository: LocalRepository) : BaseFragmen
 
     override fun onItemDismiss(position: Int, i: Int) {
         if (i == ItemTouchHelper.START) {
-            onItemRemove?.removeItem(animeData[position])
             repository.updateLocalEntity(animeData[position].id, NOT_WATCHED)
-            animeData.removeAt(position)
-            notifyItemRemoved(position)
+            onItemRemove?.removeItem(animeData[position])
         }
         if (i == ItemTouchHelper.END) {
-            onItemRemove?.removeItem(animeData[position])
             repository.updateLocalEntity(animeData[position].id, WATCHED)
-            animeData.removeAt(position)
-            notifyItemRemoved(position)
+            onItemRemove?.removeItem(animeData[position])
         }
     }
 }

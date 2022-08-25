@@ -29,21 +29,25 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setInstance(savedInstanceState)
-        super.onCreate(mainActivityInstance)
+        super.onCreate(savedInstanceState)
         setNightMode(getCurrentTheme())
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         App.appInstance.component.inject(this) // Иньекция зависимостей из даггера в текущий класс
         MobileAds.initialize(this)
-        if (savedInstanceState == null) {
-            val syncObserver = Observer<AnimeSynchronizer.Response> { a -> renderData(a) } // Создание наблюдателя
-            syncer.appVersion = BuildConfig.VERSION_NAME // Установка текущей версии приложения в синхронизаторе
-            syncer.syncLiveData.observe(this, syncObserver) // Подписка на обновления статуса синхронизации
+        if (!isSynchronized) {
+            val syncObserver =
+                Observer<AnimeSynchronizer.Response> { a -> renderData(a) } // Создание наблюдателя
+            syncer.appVersion =
+                BuildConfig.VERSION_NAME // Установка текущей версии приложения в синхронизаторе
+            syncer.syncLiveData.observe(
+                this,
+                syncObserver
+            ) // Подписка на обновления статуса синхронизации
             syncer.synchronize() // Запуск синхронизации с сервером
         }
     }
-    
+
     private fun renderData(responseState: AnimeSynchronizer.Response) {
         when (responseState) { // Действия в зависимости от состояния синхронизации
             ANIME_UPLOADED -> {
@@ -59,8 +63,13 @@ class MainActivity : AppCompatActivity() {
             CONNECTED -> "Synchronization".toast()
             NEW_ANIME -> "Found new anime".toast()
             SERVER_ERROR -> "Server error".toast()
-            HAS_NEWER_VERSION -> showUpdateDialog() // Вызов диалога с предложением перейти в Google play для обновления приложения
-            HAVE_ACTUAL_VERSION -> {}
+            HAS_NEWER_VERSION -> {
+                showUpdateDialog() // Вызов диалога с предложением перейти в Google play для обновления приложения
+                isSynchronized = true
+            }
+            HAVE_ACTUAL_VERSION -> {
+                isSynchronized = true
+            }
         }
     }
 
@@ -81,12 +90,8 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun String.toast() = Toast.makeText(this@MainActivity, this, Toast.LENGTH_SHORT).show() // Для удобного вызова тоста от любой стринги
-
-    override fun onDestroy() {
-        super.onDestroy()
-        syncer.onDestroy() // При уничтожении активити, уничтожить все асинхронные потоки в синхронизаторе
-    }
+    private fun String.toast() = Toast.makeText(this@MainActivity, this, Toast.LENGTH_SHORT)
+        .show() // Для удобного вызова тоста от любой стринги
 
     fun setNightMode(isNightModeOn: Boolean) {
         val shardPreferences = getSharedPreferences(KEY_SP, MODE_PRIVATE)
@@ -105,12 +110,13 @@ class MainActivity : AppCompatActivity() {
         return sharedPreferences.getBoolean(KEY_CURRENT_THEME, false)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        syncer.onDestroy() // При уничтожении активити, уничтожить все асинхронные потоки в синхронизаторе
+    }
+
     companion object {
-        var mainActivityInstance: Bundle? = null
-        fun setInstance(bundle: Bundle?) {
-            if (bundle != null && mainActivityInstance != null)
-            mainActivityInstance = bundle
-        }
+        var isSynchronized = false
         var time = System.currentTimeMillis() - 20000L
         const val adsDelay = 300000L // Время перерыва между показами рекламы
 
