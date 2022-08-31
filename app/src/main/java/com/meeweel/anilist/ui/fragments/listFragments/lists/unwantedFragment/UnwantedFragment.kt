@@ -20,14 +20,12 @@ import com.meeweel.anilist.ui.fragments.listFragments.BaseListFragment
 class UnwantedFragment : BaseListFragment() {
 
     private var _binding: UnwantedFragmentBinding? = null
-    private val binding
-        get() = _binding!!
-    override val loadingLayoutView: View
-        get() = binding.loadingLayout
+    private val binding get() = _binding!!
+    override val loadingLayoutView: View get() = binding.loadingLayout
+    override val adapter: UnwantedFragmentAdapter get() = adapterState!!
 
-    override lateinit var adapter: UnwantedFragmentAdapter
     override val viewModel: UnwantedViewModel by lazy {
-        ViewModelProvider(this).get(UnwantedViewModel::class.java)
+        ViewModelProvider(this)[UnwantedViewModel::class.java]
             .apply { App.appInstance.component.inject(this) }
     }
 
@@ -47,14 +45,9 @@ class UnwantedFragment : BaseListFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = UnwantedFragmentBinding.inflate(inflater, container, false)
-        adapter = UnwantedFragmentAdapter()
+        if (adapterState == null)
+        adapterState = UnwantedFragmentAdapter()
         return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-        adapter.removeClickListeners()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -105,7 +98,13 @@ class UnwantedFragment : BaseListFragment() {
         return R.menu.unwanted_popup_menu
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        adapter.removeClickListeners()
+    }
+
     companion object {
-        fun newInstance() = UnwantedFragment()
+        var adapterState: UnwantedFragmentAdapter? = null
     }
 }
