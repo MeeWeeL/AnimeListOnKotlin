@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.SearchView
@@ -97,18 +98,23 @@ abstract class BaseListFragment : Fragment() {
 
     private fun renderData(data: AppState) = when (data) {
         is AppState.Success -> {
-            val animeData = data.animeData
             loadingLayoutView.visibility = View.GONE
-            adapter.submitList(animeData)
+            adapter.submitList(data.animeData)
+            isEmptyList(data.animeData.isEmpty())
         }
         is AppState.Loading -> {
             loadingLayoutView.visibility = View.VISIBLE
         }
         is AppState.Error -> {
             loadingLayoutView.visibility = View.GONE
-
         }
     }
+
+    private fun isEmptyList(isEmpty: Boolean) {
+        displayIsListEmpty().visibility = if (isEmpty) View.VISIBLE else View.GONE
+    }
+
+    abstract fun displayIsListEmpty(): TextView
 
     protected fun refresh(start: NavPoint = NavPoint.MAIN, end: NavPoint = NavPoint.MAIN) {
         val newTime = System.currentTimeMillis()

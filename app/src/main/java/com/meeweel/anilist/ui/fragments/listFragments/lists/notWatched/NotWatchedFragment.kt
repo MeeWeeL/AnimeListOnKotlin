@@ -107,4 +107,6 @@ class NotWatchedFragment : BaseListFragment() {
     companion object {
         fun newInstance() = NotWatchedFragment()
     }
+
+    override fun displayIsListEmpty() = binding.isListEmpty
 }

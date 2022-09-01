@@ -107,4 +107,6 @@ class WantedFragment : BaseListFragment() {
     companion object {
         fun newInstance() = WantedFragment()
     }
+
+    override fun displayIsListEmpty() = binding.isListEmpty
 }

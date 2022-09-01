@@ -62,4 +62,5 @@
         <item>Pacific Land</item>
     </string-array>
     <string name="night_mode">Тёмная тема</string>
+    <string name="listIsEmpty">List is empty...</string>
 </resources>

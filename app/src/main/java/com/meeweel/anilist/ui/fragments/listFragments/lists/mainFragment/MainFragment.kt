@@ -108,4 +108,6 @@ class MainFragment : BaseListFragment() {
     companion object {
         fun newInstance() = MainFragment()
     }
+
+    override fun displayIsListEmpty() = binding.isListEmpty
 }

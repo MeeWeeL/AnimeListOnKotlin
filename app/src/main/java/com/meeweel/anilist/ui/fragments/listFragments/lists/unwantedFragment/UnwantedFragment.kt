@@ -108,4 +108,6 @@ class UnwantedFragment : BaseListFragment() {
     companion object {
         fun newInstance() = UnwantedFragment()
     }
+
+    override fun displayIsListEmpty() = binding.isListEmpty
 }
