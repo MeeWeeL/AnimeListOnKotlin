@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:text="@string/listIsEmpty"
-        android:textSize="30sp"
+        android:textSize="@dimen/is_list_empty_TW_size"
         android:visibility="gone"
         app:layout_anchor="@id/wantedFragmentRecyclerView"
         app:layout_anchorGravity="top" />
