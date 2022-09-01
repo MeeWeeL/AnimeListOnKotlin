@@ -22,7 +22,7 @@ class WatchedFragment : BaseListFragment() {
     private var _binding: WatchedFragmentBinding? = null
     private val binding get() = _binding!!
     override val loadingLayoutView: View get() = binding.loadingLayout
-    override val adapter: WatchedFragmentAdapter = WatchedFragmentAdapter()
+    override val adapter: WatchedFragmentAdapter get() = adapterState!!
 
     override val viewModel: WatchedViewModel by lazy {
         ViewModelProvider(this)[WatchedViewModel::class.java]
@@ -45,6 +45,8 @@ class WatchedFragment : BaseListFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = WatchedFragmentBinding.inflate(inflater, container, false)
+        if (adapterState == null)
+            adapterState = WatchedFragmentAdapter()
         return binding.root
     }
 
@@ -94,5 +96,9 @@ class WatchedFragment : BaseListFragment() {
         super.onDestroyView()
         _binding = null
         adapter.removeClickListeners()
+    }
+
+    companion object {
+        var adapterState: WatchedFragmentAdapter? = null
     }
 }

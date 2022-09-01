@@ -22,7 +22,7 @@ class WantedFragment : BaseListFragment() {
     private var _binding: WantedFragmentBinding? = null
     private val binding get() = _binding!!
     override val loadingLayoutView: View get() = binding.loadingLayout
-    override val adapter: WantedFragmentAdapter = WantedFragmentAdapter(repository)
+    override val adapter: WantedFragmentAdapter get() = adapterState!!
 
     override val viewModel: WantedViewModel by lazy {
         ViewModelProvider(this)[WantedViewModel::class.java]
@@ -45,6 +45,8 @@ class WantedFragment : BaseListFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = WantedFragmentBinding.inflate(inflater, container, false)
+        if (adapterState == null)
+            adapterState = WantedFragmentAdapter(repository)
         return binding.root
     }
 
@@ -94,5 +96,9 @@ class WantedFragment : BaseListFragment() {
         super.onDestroyView()
         _binding = null
         adapter.removeClickListeners()
+    }
+
+    companion object {
+        var adapterState: WantedFragmentAdapter? = null
     }
 }
