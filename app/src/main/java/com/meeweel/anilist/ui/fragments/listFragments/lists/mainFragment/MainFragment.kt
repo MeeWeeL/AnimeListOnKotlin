@@ -23,7 +23,7 @@ class MainFragment : BaseListFragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
     override val loadingLayoutView: View get() = binding.loadingLayout
-    override val adapter: MainFragmentAdapter get() = adapterState!!
+    override val adapter: MainFragmentAdapter = MainFragmentAdapter(repository)
 
     override val viewModel: MainViewModel by lazy {
         ViewModelProvider(this)[MainViewModel::class.java]
@@ -45,8 +45,6 @@ class MainFragment : BaseListFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
-        if (adapterState == null)
-            adapterState = MainFragmentAdapter(repository)
         return binding.root
     }
 
@@ -90,21 +88,12 @@ class MainFragment : BaseListFragment() {
         }
     }
 
-    override fun getMenuItem(id: Int): MenuItem {
-        return binding.toolbar.menu.findItem(id)
-    }
-
-    override fun getMenuId(): Int {
-        return R.menu.main_popup_menu
-    }
+    override fun getMenuItem(id: Int): MenuItem = binding.toolbar.menu.findItem(id)
+    override fun getMenuId() = R.menu.main_popup_menu
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
         adapter.removeClickListeners()
-    }
-
-    companion object {
-        var adapterState: MainFragmentAdapter? = null
     }
 }
