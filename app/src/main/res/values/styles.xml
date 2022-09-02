@@ -267,26 +267,17 @@
     <!--  Watched Button  -->
     <style name="watchedButton" parent="@style/greenButton">
         <item name="android:text">@string/watched</item>
-        <item name="android:textSize">@dimen/_13sp</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:singleLine">true</item>
         <item name="layout_constraintBottom_toBottomOf">parent</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toEndOf">@id/not_watched_btn</item>
     </style>
     <!--  Watched Button on Wanted list  -->
     <style name="watchedButtonOnWantedList" parent="watchedButton">
-        <item name="android:textSize">@dimen/_13sp</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:singleLine">true</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
     </style>
     <!--  Not Watched Button  -->
     <style name="notWatchedButton" parent="@style/redButton">
         <item name="android:text">@string/not_watched</item>
-        <item name="android:textSize">@dimen/_13sp</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:singleLine">true</item>
         <item name="layout_constraintBottom_toBottomOf">parent</item>
         <item name="layout_constraintEnd_toStartOf">@id/watched_btn</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
@@ -294,7 +285,6 @@
     <!--  Wanted Button  -->
     <style name="wantedButton" parent="@style/greenButton">
         <item name="android:text">@string/wanted</item>
-        <item name="android:textSize">@dimen/_13sp</item>
         <item name="layout_constraintBottom_toBottomOf">parent</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toEndOf">@id/unwanted_btn</item>
@@ -302,7 +292,6 @@
     <!--  Unwanted Button  -->
     <style name="unwantedButton" parent="@style/redButton">
         <item name="android:text">@string/unwanted</item>
-        <item name="android:textSize">@dimen/_13sp</item>
         <item name="layout_constraintBottom_toBottomOf">parent</item>
         <item name="layout_constraintEnd_toStartOf">@id/wanted_btn</item>
     <item name="layout_constraintStart_toStartOf">parent</item>
@@ -315,6 +304,9 @@
         <item name="android:layout_height">@dimen/_40dp</item>
         <item name="android:layout_marginEnd">@dimen/_5dp</item>
         <item name="android:layout_marginStart">@dimen/_5dp</item>
+        <item name="android:textSize">@dimen/_13sp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/lazy_red</item>
     </style>
 
