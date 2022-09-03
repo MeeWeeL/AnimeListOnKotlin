@@ -20,14 +20,12 @@ import com.meeweel.anilist.ui.fragments.listFragments.BaseListFragment
 class WatchedFragment : BaseListFragment() {
 
     private var _binding: WatchedFragmentBinding? = null
-    private val binding
-        get() = _binding!!
-    override val loadingLayoutView: View
-        get() = binding.loadingLayout
+    private val binding get() = _binding!!
+    override val loadingLayoutView: View get() = binding.loadingLayout
+    override val adapter: WatchedFragmentAdapter get() = adapterState!!
 
-    override lateinit var adapter: WatchedFragmentAdapter
     override val viewModel: WatchedViewModel by lazy {
-        ViewModelProvider(this).get(WatchedViewModel::class.java)
+        ViewModelProvider(this)[WatchedViewModel::class.java]
             .apply { App.appInstance.component.inject(this) }
     }
 
@@ -47,14 +45,9 @@ class WatchedFragment : BaseListFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = WatchedFragmentBinding.inflate(inflater, container, false)
-        adapter = WatchedFragmentAdapter()
+        if (adapterState == null)
+            adapterState = WatchedFragmentAdapter()
         return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-        adapter.removeClickListeners()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -96,15 +89,16 @@ class WatchedFragment : BaseListFragment() {
         }
     }
 
-    override fun getMenuItem(id: Int): MenuItem {
-        return binding.toolbar.menu.findItem(id)
-    }
+    override fun getMenuItem(id: Int): MenuItem = binding.toolbar.menu.findItem(id)
+    override fun getMenuId() = R.menu.watched_popup_menu
 
-    override fun getMenuId(): Int {
-        return R.menu.watched_popup_menu
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        adapter.removeClickListeners()
     }
 
     companion object {
-        fun newInstance() = WatchedFragment()
+        var adapterState: WatchedFragmentAdapter? = null
     }
 }
