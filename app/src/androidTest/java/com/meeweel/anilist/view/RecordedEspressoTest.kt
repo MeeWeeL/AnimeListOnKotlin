@@ -115,19 +115,6 @@ class RecordedEspressoTest {
 
         Thread.sleep(2000)
 
-        val textInputEditText = onView(
-            allOf(
-                withId(R.id.input_edit_text),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.input_layout),
-                        0
-                    ),
-                    0
-                ),
-                isDisplayed()
-            )
-        )
 
         val uiDevice: UiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
         val context = ApplicationProvider.getApplicationContext<Context>()

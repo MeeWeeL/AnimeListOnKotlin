@@ -60,21 +60,6 @@ class UiAutomatorBehaviorTest {
     }
 
     @Test
-    fun test_SearchIsPositive() {
-
-        val editText = uiDevice.findObject(By.res(packageName, "input_edit_text"))
-        editText.text = "UiAutomator"
-        Espresso.onView(ViewMatchers.withId(R.id.input_edit_text))
-            .perform(ViewActions.pressImeActionButton())
-        val changedText =
-            uiDevice.wait(
-                Until.findObject(By.res(packageName, "input_edit_text")),
-                TIMEOUT
-            )
-        Assert.assertEquals(changedText.text.toString(), "UiAutomator")
-    }
-
-    @Test
     fun test_MainListDisplayed() {
 
         Espresso.onView(ViewMatchers.withId(R.id.mainFragmentRecyclerView))
