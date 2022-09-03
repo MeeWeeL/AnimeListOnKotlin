@@ -106,7 +106,7 @@ class DetailsFragment : Fragment() {
             releaseData.text = "${getText(R.string.data)}: ${animeData.data}"
 
             var ratingText = "${getText(R.string.rating)}: ${animeData.rating}%"
-            if (animeData.ratingCheck != 0) ratingText += "\n(${getText(R.string.your_rate)}: ${animeData.ratingCheck})"
+            if (animeData.ratingCheck != 0) ratingText += "\n(${getText(R.string.my_rate)}: ${animeData.ratingCheck})"
             releaseRating.text = ratingText
 
             seriesQuantity?.text =
