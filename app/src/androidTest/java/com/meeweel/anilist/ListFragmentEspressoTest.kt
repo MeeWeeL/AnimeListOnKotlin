@@ -3,7 +3,6 @@ package com.meeweel.anilist
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.UiController
@@ -22,6 +21,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+
 
 @RunWith(AndroidJUnit4::class)
 class ListFragmentEspressoTest {
@@ -468,7 +468,11 @@ class ListFragmentEspressoTest {
     private fun openDescriptionOfRecyclerItem() {
         onView(isRoot()).perform(delay(navigationDelay))
         onView(withId(R.id.mainFragmentRecyclerView)).perform(
-            RecyclerViewActions.actionOnItemAtPosition<MainFragmentAdapter.MainViewHolder>(0, click()))
+            RecyclerViewActions.actionOnItemAtPosition<MainFragmentAdapter.MainViewHolder>(
+                0,
+                click()
+            )
+        )
         onView(isRoot()).perform(delay(navigationDelay))
     }
 
