@@ -160,9 +160,9 @@ class DetailsFragment : Fragment() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                toast("Rated")
+                toast(getString(R.string.rated))
             }, {
-                toast("No internet")
+                toast(getString(R.string.no_connection))
             })
         upload(false)
     }
@@ -176,9 +176,9 @@ class DetailsFragment : Fragment() {
                 .subscribe({
                     repository.updateFromNetwork(it, id)
                     observeData(id)
-                    if (isRate) toast("Updated")
+                    if (isRate) toast(getString(R.string.updated))
                 }, {
-                    toast("No internet")
+                    toast(getString(R.string.no_connection))
                 })
         }
     }
@@ -190,13 +190,13 @@ class DetailsFragment : Fragment() {
             .subscribe({
                 populateData(it)
             }, {
-                toast("No internet")
+                toast(getString(R.string.no_connection))
             })
     }
 
     private fun toast(text: String) {
         val snackBar = Snackbar.make(binding.detailsBar, text, Snackbar.LENGTH_SHORT)
-        snackBar.setAction("SKIP") {
+        snackBar.setAction(getString(R.string.skip)) {
 //            Toast.makeText(getContext(), "Ok...", Toast.LENGTH_SHORT).show()
         }
         snackBar.show()

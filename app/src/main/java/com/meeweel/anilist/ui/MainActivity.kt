@@ -51,18 +51,18 @@ class MainActivity : AppCompatActivity() {
     private fun renderData(responseState: AnimeSynchronizer.Response) {
         when (responseState) { // Действия в зависимости от состояния синхронизации
             ANIME_UPLOADED -> {
-                "${syncer.getCounter()} new anime uploaded".toast()
+                "${syncer.getCounter()} ${getString(R.string.new_anime_uploaded)}".toast()
                 findNavController(R.id.nav_host_fragment).navigate(R.id.action_mainFragment_self) // Перезагрузка главного фрагмента, чтобы список обновился
                 syncer.checkVersion() // Проверка на наличие обновлений
             }
             ACTUAL_DATA -> {
-                "You have actual data".toast()
+                getString(R.string.actual_data).toast()
                 syncer.checkVersion()
             }
-            NO_INTERNET -> "No connection".toast()
-            CONNECTED -> "Synchronization".toast()
-            NEW_ANIME -> "Found new anime".toast()
-            SERVER_ERROR -> "Server error".toast()
+            NO_INTERNET -> getString(R.string.no_connection).toast()
+            CONNECTED -> getString(R.string.synchronization).toast()
+            NEW_ANIME -> getString(R.string.found_new_anime).toast()
+            SERVER_ERROR -> getString(R.string.server_error).toast()
             HAS_NEWER_VERSION -> {
                 showUpdateDialog() // Вызов диалога с предложением перейти в Google play для обновления приложения
                 isSynchronized = true
