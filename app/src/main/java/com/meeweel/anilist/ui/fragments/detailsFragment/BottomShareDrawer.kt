@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.meeweel.anilist.R
+import com.meeweel.anilist.data.interactors.Interactor
 import com.meeweel.anilist.data.repository.LocalRepository
 import com.meeweel.anilist.databinding.BottomShareDrawerBinding
 import com.meeweel.anilist.ui.MainActivity.Companion.MAIN
@@ -15,7 +16,7 @@ import com.meeweel.anilist.ui.MainActivity.Companion.UNWANTED
 import com.meeweel.anilist.ui.MainActivity.Companion.WANTED
 import com.meeweel.anilist.ui.MainActivity.Companion.WATCHED
 
-class BottomShareDrawer(private val repository: LocalRepository) : BottomSheetDialogFragment() {
+class BottomShareDrawer(private val interactor: Interactor) : BottomSheetDialogFragment() {
 
     private var aniId: Int? = null
     lateinit var bind: BottomShareDrawerBinding
@@ -35,19 +36,19 @@ class BottomShareDrawer(private val repository: LocalRepository) : BottomSheetDi
         bind.shareView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.to_watched -> {
-                    repository.updateLocalEntity(aniId!!, WATCHED)
+                    interactor.updateLocalEntity(aniId!!, WATCHED)
                 }
                 R.id.to_not_watched -> {
-                    repository.updateLocalEntity(aniId!!, NOT_WATCHED)
+                    interactor.updateLocalEntity(aniId!!, NOT_WATCHED)
                 }
                 R.id.to_wanted -> {
-                    repository.updateLocalEntity(aniId!!, WANTED)
+                    interactor.updateLocalEntity(aniId!!, WANTED)
                 }
                 R.id.to_unwanted -> {
-                    repository.updateLocalEntity(aniId!!, UNWANTED)
+                    interactor.updateLocalEntity(aniId!!, UNWANTED)
                 }
                 R.id.to_main -> {
-                    repository.updateLocalEntity(aniId!!, MAIN)
+                    interactor.updateLocalEntity(aniId!!, MAIN)
                 }
             }
             toast("Moved")
