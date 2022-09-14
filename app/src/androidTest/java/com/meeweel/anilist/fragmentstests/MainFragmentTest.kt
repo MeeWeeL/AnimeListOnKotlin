@@ -49,7 +49,6 @@ class MainFragmentTest {
     fun activityAppBar_IsVisible() {
         onView(withId(R.id.app_bar_layout)).check(matches(ViewMatchers.isDisplayed()))
         onView(withId(R.id.search_app_bar)).check(matches(ViewMatchers.isDisplayed()))
-        onView(withId(R.id.sort_app_bar)).check(matches(ViewMatchers.isDisplayed()))
     }
 
     @Test

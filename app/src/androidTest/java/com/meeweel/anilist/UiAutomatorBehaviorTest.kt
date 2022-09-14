@@ -1,13 +1,10 @@
 package com.meeweel.anilist
 
-import DELAY
-import STEPS
 import android.content.Context
 import android.content.Intent
 import android.widget.TextView
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
-import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -42,7 +39,7 @@ class UiAutomatorBehaviorTest {
     fun test_Searcher() {
 
         uiDevice.pressHome()
-        uiDevice.swipe(500, 600, 500, 100, STEPS)
+        uiDevice.swipe(500, 600, 500, 100, 10)
         val appViews = UiScrollable(UiSelector().scrollable(false))
         val className = UiSelector().className(TextView::class.java.name)
         val settingsApp = appViews.getChildByText(className, "Settings")
@@ -57,21 +54,6 @@ class UiAutomatorBehaviorTest {
 
         val editText = uiDevice.findObject(By.res(packageName, "input_edit_text"))
         Assert.assertNotNull(editText)
-    }
-
-    @Test
-    fun test_SearchIsPositive() {
-
-        val editText = uiDevice.findObject(By.res(packageName, "input_edit_text"))
-        editText.text = "UiAutomator"
-        Espresso.onView(ViewMatchers.withId(R.id.input_edit_text))
-            .perform(ViewActions.pressImeActionButton())
-        val changedText =
-            uiDevice.wait(
-                Until.findObject(By.res(packageName, "input_edit_text")),
-                TIMEOUT
-            )
-        Assert.assertEquals(changedText.text.toString(), "UiAutomator")
     }
 
     @Test
@@ -178,7 +160,7 @@ class UiAutomatorBehaviorTest {
     }
 
     companion object {
-        private const val TIMEOUT = DELAY
+        private const val TIMEOUT = 150L
     }
 
     enum class List {

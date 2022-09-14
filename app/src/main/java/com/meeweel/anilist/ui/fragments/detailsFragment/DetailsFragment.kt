@@ -12,6 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.meeweel.anilist.R
 import com.meeweel.anilist.app.App
+import com.meeweel.anilist.data.interactors.Interactor
 import com.meeweel.anilist.data.repository.LocalRepository
 import com.meeweel.anilist.data.retrofit.AnimeApi
 import com.meeweel.anilist.databinding.DetailsFragmentBinding
@@ -26,10 +27,7 @@ import javax.inject.Inject
 class DetailsFragment : Fragment() {
 
     @Inject
-    lateinit var animeApi: AnimeApi
-
-    @Inject
-    lateinit var repository: LocalRepository
+    lateinit var interactor: Interactor
 
     private var animeId: Int? = null
     private var _binding: DetailsFragmentBinding? = null
@@ -68,7 +66,7 @@ class DetailsFragment : Fragment() {
         }
         binding.detailsToolbar.menu.findItem(R.id.share_to).setOnMenuItemClickListener {
             animeId?.let {
-                val drawer = BottomShareDrawer(repository)
+                val drawer = BottomShareDrawer(interactor)
                 val bundle = Bundle()
                 bundle.putInt("aniId", it)
                 drawer.arguments = bundle
@@ -106,7 +104,7 @@ class DetailsFragment : Fragment() {
             releaseData.text = "${getText(R.string.data)}: ${animeData.data}"
 
             var ratingText = "${getText(R.string.rating)}: ${animeData.rating}%"
-            if (animeData.ratingCheck != 0) ratingText += "\n(${getText(R.string.your_rate)}: ${animeData.ratingCheck})"
+            if (animeData.ratingCheck != 0) ratingText += "\n(${getText(R.string.my_rate)}: ${animeData.ratingCheck})"
             releaseRating.text = ratingText
 
             seriesQuantity?.text =
@@ -125,7 +123,7 @@ class DetailsFragment : Fragment() {
 
         fun changeRateScore(score: Int) {
             makeRateScore(animeData.id, score)
-            repository.updateRate(animeData.id, score)
+            interactor.updateRate(animeData.id, score)
             dialog.dismiss()
         }
 
@@ -156,13 +154,13 @@ class DetailsFragment : Fragment() {
 
     @SuppressLint("CheckResult")
     private fun makeRateScore(id: Int, score: Int) {
-        animeApi.reteScore(score, id)
+        interactor.rateScore(score, id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                toast("Rated")
+                toast(getString(R.string.rated))
             }, {
-                toast("No internet")
+                toast(getString(R.string.no_connection))
             })
         upload(false)
     }
@@ -170,33 +168,33 @@ class DetailsFragment : Fragment() {
     @SuppressLint("CheckResult")
     private fun upload(isRate: Boolean) {
         animeId?.let { id ->
-            animeApi.getAnime(id)
+            interactor.getAnime(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    repository.updateFromNetwork(it, id)
+                    interactor.updateFromNetwork(it, id)
                     observeData(id)
-                    if (isRate) toast("Updated")
+                    if (isRate) toast(getString(R.string.updated))
                 }, {
-                    toast("No internet")
+                    toast(getString(R.string.no_connection))
                 })
         }
     }
 
     private fun observeData(animeId: Int) {
-        repository.getAnimeById(animeId)
+        interactor.getAnimeById(animeId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 populateData(it)
             }, {
-                toast("No internet")
+                toast(getString(R.string.no_connection))
             })
     }
 
     private fun toast(text: String) {
         val snackBar = Snackbar.make(binding.detailsBar, text, Snackbar.LENGTH_SHORT)
-        snackBar.setAction("SKIP") {
+        snackBar.setAction(getString(R.string.skip)) {
 //            Toast.makeText(getContext(), "Ok...", Toast.LENGTH_SHORT).show()
         }
         snackBar.show()

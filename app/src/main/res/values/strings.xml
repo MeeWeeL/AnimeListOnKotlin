@@ -11,7 +11,7 @@
     <string name="default_description">Default description</string>
     <string name="description">description</string>
     <string name="rating">Rating</string>
-    <string name="your_rate">Your rate</string>
+    <string name="my_rate">My rate</string>
     <string name="seriesQuantity">Episodes</string>
     <string name="author">Author</string>
     <string name="genre">Genre</string>
@@ -23,6 +23,15 @@
     <string name="sort">Sort by</string>
     <string name="me">Me</string>
     <string name="filters">Filters</string>
+    <string name="new_anime_uploaded">new anime uploaded</string>
+    <string name="actual_data">You have actual data</string>
+    <string name="no_connection">No connection</string>
+    <string name="synchronization">Synchronization</string>
+    <string name="found_new_anime">New anime are found</string>
+    <string name="server_error">Server error</string>
+    <string name="rated">Rated</string>
+    <string name="updated">Updated</string>
+    <string name="skip">SKIP</string>
     <dimen name="recycler_item_text_size">25sp</dimen>
     <dimen name="recycler_item_line_height">1dp</dimen>
 

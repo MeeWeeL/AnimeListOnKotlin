@@ -26,5 +26,5 @@ interface AnimeApi {
     fun getActualVersion(): Single<String>
 
     @GET("./api.php?q=score")
-    fun reteScore(@Query("score") score: Int, @Query("id") id: Int): Single<String>
+    fun rateScore(@Query("score") score: Int, @Query("id") id: Int): Single<String>
 }
