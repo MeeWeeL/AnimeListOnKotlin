@@ -101,4 +101,6 @@ class WantedFragment : BaseListFragment() {
     companion object {
         var adapterState: WantedFragmentAdapter? = null
     }
+
+    override fun displayIsListEmpty() = binding.isListEmpty
 }

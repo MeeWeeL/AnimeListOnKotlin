@@ -43,6 +43,17 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/watched_recycler_item" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/is_list_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:text="@string/listIsEmpty"
+        android:textSize="@dimen/is_list_empty_TW_size"
+        android:visibility="gone"
+        app:layout_anchor="@id/unwantedFragmentRecyclerView"
+        app:layout_anchorGravity="top" />
+
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar"
         style="@style/bottomAppBarBackStyle">

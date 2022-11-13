@@ -101,4 +101,6 @@ class NotWatchedFragment : BaseListFragment() {
     companion object {
         var adapterState: NotWatchedFragmentAdapter? = null
     }
+
+    override fun displayIsListEmpty() = binding.isListEmpty
 }

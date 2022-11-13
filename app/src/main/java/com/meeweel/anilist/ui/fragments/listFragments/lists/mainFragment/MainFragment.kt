@@ -102,4 +102,6 @@ class MainFragment : BaseListFragment() {
     companion object {
         var adapterState: MainFragmentAdapter? = null
     }
+
+    override fun displayIsListEmpty() = binding.isListEmpty
 }
