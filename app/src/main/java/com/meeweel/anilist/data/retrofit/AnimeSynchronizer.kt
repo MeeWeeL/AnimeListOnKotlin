@@ -73,7 +73,7 @@ class AnimeSynchronizer @Inject constructor(
             .setSchedulers()
             .subscribe({
                 // Если номер текущей версии отличается от актуальной, сообщаем это активити
-                response.postValue(if (appVersion.isNotEmpty() && appVersion != it) Response.HAS_NEWER_VERSION else Response.HAVE_ACTUAL_VERSION)
+                response.postValue(if (appVersion.isNotEmpty() && appVersion != it && it != "0") Response.HAS_NEWER_VERSION else Response.HAVE_ACTUAL_VERSION)
             }, {
                 response.postValue(Response.SERVER_ERROR)
             }).setDisposable()

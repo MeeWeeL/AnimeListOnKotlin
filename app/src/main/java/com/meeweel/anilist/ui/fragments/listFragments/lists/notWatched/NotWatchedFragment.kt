@@ -20,14 +20,12 @@ import com.meeweel.anilist.ui.fragments.listFragments.BaseListFragment
 class NotWatchedFragment : BaseListFragment() {
 
     private var _binding: NotWatchedFragmentBinding? = null
-    private val binding
-        get() = _binding!!
-    override val loadingLayoutView: View
-        get() = binding.loadingLayout
+    private val binding get() = _binding!!
+    override val loadingLayoutView: View get() = binding.loadingLayout
+    override val adapter: NotWatchedFragmentAdapter get() = adapterState!!
 
-    override lateinit var adapter: NotWatchedFragmentAdapter
     override val viewModel: NotWatchedViewModel by lazy {
-        ViewModelProvider(this).get(NotWatchedViewModel::class.java)
+        ViewModelProvider(this)[NotWatchedViewModel::class.java]
             .apply { App.appInstance.component.inject(this) }
     }
 
@@ -47,14 +45,9 @@ class NotWatchedFragment : BaseListFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = NotWatchedFragmentBinding.inflate(inflater, container, false)
-        adapter = NotWatchedFragmentAdapter(repository)
+        if (adapterState == null)
+            adapterState = NotWatchedFragmentAdapter(repository)
         return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-        adapter.removeClickListeners()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -96,16 +89,17 @@ class NotWatchedFragment : BaseListFragment() {
         }
     }
 
-    override fun getMenuItem(id: Int): MenuItem {
-        return binding.toolbar.menu.findItem(id)
-    }
+    override fun getMenuItem(id: Int): MenuItem = binding.toolbar.menu.findItem(id)
+    override fun getMenuId() = R.menu.not_watched_popup_menu
 
-    override fun getMenuId(): Int {
-        return R.menu.not_watched_popup_menu
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        adapter.removeClickListeners()
     }
 
     companion object {
-        fun newInstance() = NotWatchedFragment()
+        var adapterState: NotWatchedFragmentAdapter? = null
     }
 
     override fun displayIsListEmpty() = binding.isListEmpty

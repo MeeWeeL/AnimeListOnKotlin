@@ -11,7 +11,7 @@
     <string name="default_description">Default description</string>
     <string name="description">описание</string>
     <string name="rating">Рейтинг</string>
-    <string name="your_rate">Твоя оценка</string>
+    <string name="my_rate">Моя оценка</string>
     <string name="seriesQuantity">Количество серий</string>
     <string name="author">Автор</string>
     <string name="genre">Жанр</string>
@@ -23,6 +23,15 @@
     <string name="sort">Сортировать</string>
     <string name="me">Я</string>
     <string name="filters">Фильтры</string>
+    <string name="new_anime_uploaded">новых аниме загружено</string>
+    <string name="actual_data">Данные обновлены</string>
+    <string name="no_connection">Нет интернета</string>
+    <string name="synchronization">Синхронизация</string>
+    <string name="found_new_anime">Найдены новые аниме</string>
+    <string name="server_error">Ошибка сервера</string>
+    <string name="rated">Оценка поставлена</string>
+    <string name="updated">Обновлено</string>
+    <string name="skip">ПРОПУСТИТЬ</string>
     <dimen name="recycler_item_text_size">25sp</dimen>
     <dimen name="recycler_item_line_height">1dp</dimen>
 
