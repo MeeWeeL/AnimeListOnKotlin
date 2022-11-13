@@ -70,9 +70,7 @@ abstract class BaseListFragment : Fragment() {
     abstract val adapter: BaseFragmentAdapter
 
     protected fun initObserver() {
-        val observer = Observer<AppState> { a ->
-            renderData(a)
-        }
+        val observer = Observer<AppState> { a -> renderData(a) }
         viewModel.getData().observe(viewLifecycleOwner, observer)
         viewModel.getAnimeFromLocalSource()
     }
@@ -185,10 +183,7 @@ abstract class BaseListFragment : Fragment() {
     protected fun setAppBarListeners() {
         val searchView: SearchView = getMenuItem(R.id.search_app_bar).actionView as SearchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
-
+            override fun onQueryTextSubmit(query: String?) = false
             override fun onQueryTextChange(newText: String?): Boolean {
                 viewModel.setTitleText(newText!!)
                 return false
@@ -236,12 +231,9 @@ abstract class BaseListFragment : Fragment() {
 
     private fun popupMenuClick(anime: ShortAnime, list: Int, position: Int) {
         repository.updateLocalEntity(anime.id, list)
-        // adapter.notifyRemove(anime, position)
-        TOAST_MESSAGE.toast()
         viewModel.removeAnime(anime)
     }
 
-    //, R.style.FilterDialogStyle
     private fun showFilterDialog() {
         val dialog = BottomSheetDialog(requireContext())
         val filterBinding = FilterLayoutBinding.inflate(layoutInflater)
@@ -345,15 +337,13 @@ abstract class BaseListFragment : Fragment() {
 
         with(profileBinding) {
             nightModeCheckbox.isChecked = parentActivity.getCurrentTheme()
-            nightModeCheckbox.setOnCheckedChangeListener { compoundButton, b ->
-                if (nightModeCheckbox.isChecked) {
-                    parentActivity.setNightMode(true)
-                } else {
-                    parentActivity.setNightMode(false)
-                }
+            nightModeCheckbox.setOnCheckedChangeListener { _, _ ->
+                if (nightModeCheckbox.isChecked) parentActivity.setNightMode(true)
+                else parentActivity.setNightMode(false)
             }
         }
-        viewModel.allTitles.subscribeOn(Schedulers.io())
+        viewModel.allTitles
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 profileData(it)

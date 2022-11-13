@@ -2,7 +2,6 @@ package com.meeweel.anilist.ui.fragments.listFragments
 
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.meeweel.anilist.domain.models.ShortAnime
 import com.meeweel.anilist.ui.fragments.listFragments.touchHelpers.ItemTouchHelperAdapter
 
@@ -36,13 +35,8 @@ abstract class BaseFragmentAdapter :
         onItemRemove = null
     }
 
-    override fun onItemMove(fromPosition: Int, toPosition: Int) {
-
-    }
-
-    override fun onItemDismiss(position: Int, i: Int) {
-
-    }
+    override fun onItemMove(fromPosition: Int, toPosition: Int) = Unit
+    override fun onItemDismiss(position: Int, i: Int) = Unit
 
     companion object DiffCallback : DiffUtil.ItemCallback<ShortAnime>() {
 
