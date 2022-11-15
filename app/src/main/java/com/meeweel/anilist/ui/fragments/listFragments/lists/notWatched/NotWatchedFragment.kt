@@ -9,7 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 import com.meeweel.anilist.R
 import com.meeweel.anilist.app.App
 import com.meeweel.anilist.databinding.NotWatchedFragmentBinding
@@ -22,14 +22,14 @@ class NotWatchedFragment : BaseListFragment() {
     private var _binding: NotWatchedFragmentBinding? = null
     private val binding get() = _binding!!
     override val loadingLayoutView: View get() = binding.loadingLayout
-    override val adapter: NotWatchedFragmentAdapter get() = adapterState!!
+    override val adapter by lazy { NotWatchedFragmentAdapter(repository) }
 
     override val viewModel: NotWatchedViewModel by lazy {
         ViewModelProvider(this)[NotWatchedViewModel::class.java]
             .apply { App.appInstance.component.inject(this) }
     }
 
-    private val navBarListener = BottomNavigationView.OnNavigationItemSelectedListener {
+    private val navBarListener = NavigationBarView.OnItemSelectedListener {
         when (it.itemId) {
             R.id.main_fragment_nav -> refresh(NavPoint.NOT_WATCHED, NavPoint.MAIN)
             R.id.watched_fragment_nav -> refresh(NavPoint.NOT_WATCHED, NavPoint.WATCHED)
@@ -45,8 +45,6 @@ class NotWatchedFragment : BaseListFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = NotWatchedFragmentBinding.inflate(inflater, container, false)
-        if (adapterState == null)
-            adapterState = NotWatchedFragmentAdapter(repository)
         return binding.root
     }
 
@@ -63,7 +61,7 @@ class NotWatchedFragment : BaseListFragment() {
         })
         adapter.setOnLongItemViewClickListener(object : OnLongItemViewClickListener {
             override fun onLongItemViewClick(anime: ShortAnime, view: View, position: Int) {
-                showPopupMenu(anime, view, position)
+                showPopupMenu(anime, view)
             }
         })
         adapter.setOnItemRemove(object : OnItemRemove {
@@ -77,7 +75,7 @@ class NotWatchedFragment : BaseListFragment() {
 
         binding.navBar.background = null
         binding.navBar.menu.findItem(R.id.not_watched_fragment_nav).isChecked = true
-        binding.navBar.setOnNavigationItemSelectedListener(navBarListener)
+        binding.navBar.setOnItemSelectedListener(navBarListener)
 
         binding.notWatchedFragmentRecyclerView.adapter = adapter
 
@@ -89,6 +87,10 @@ class NotWatchedFragment : BaseListFragment() {
         }
     }
 
+    override fun scrollUp() {
+        binding.notWatchedFragmentRecyclerView.scrollToPosition(0)
+    }
+
     override fun getMenuItem(id: Int): MenuItem = binding.toolbar.menu.findItem(id)
     override fun getMenuId() = R.menu.not_watched_popup_menu
 
@@ -96,9 +98,5 @@ class NotWatchedFragment : BaseListFragment() {
         super.onDestroyView()
         _binding = null
         adapter.removeClickListeners()
-    }
-
-    companion object {
-        var adapterState: NotWatchedFragmentAdapter? = null
     }
 }

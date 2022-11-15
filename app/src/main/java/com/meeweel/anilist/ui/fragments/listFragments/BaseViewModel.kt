@@ -37,13 +37,9 @@ abstract class BaseViewModel : ViewModel() {
 
     fun getAnimeFromLocalSource() = getDataFromLocalSource()
 
-    private fun postList(list: List<ShortAnime>) {
+    private fun postList(list: List<ShortAnime>, isFiltered: Boolean = false) {
         Thread {
-            liveDataToObserve.postValue(
-                AppState.Success(
-                    filter.filter(list)
-                )
-            )
+            liveDataToObserve.postValue(AppState.Success(filter.filter(list), isFiltered))
         }.start()
     }
 
@@ -61,27 +57,27 @@ abstract class BaseViewModel : ViewModel() {
 
     fun setTitleText(text: String) {
         filter.setTitleText(text)
-        postList(filter.filter(actualData))
+        postList(filter.filter(actualData), true)
     }
 
     fun setSort(sort: ListFilterSet.Sort) {
         filter.setSort(sort)
-        postList(filter.filter(actualData))
+        postList(filter.filter(actualData), true)
     }
 
     fun setGenre(genre: ListFilterSet.Genre) {
         filter.setGenre(genre)
-        postList(filter.filter(actualData))
+        postList(filter.filter(actualData), true)
     }
 
     fun setYears(yearFrom: Int, yearTo: Int) {
         filter.setYears(yearFrom, yearTo)
-        postList(filter.filter(actualData))
+        postList(filter.filter(actualData), true)
     }
 
     fun clearFilter() {
         filter.clear()
-        postList(filter.filter(actualData))
+        postList(filter.filter(actualData), true)
     }
 
     fun getGenre(): ListFilterSet.Genre = filter.getGenre()

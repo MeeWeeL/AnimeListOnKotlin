@@ -97,7 +97,7 @@ abstract class BaseListFragment : Fragment() {
         is AppState.Success -> {
             val animeData = data.animeData
             loadingLayoutView.visibility = View.GONE
-            adapter.submitList(animeData)
+            adapter.submitList(animeData) { if (data.isFiltered) scrollUp() }
         }
         is AppState.Loading -> {
             loadingLayoutView.visibility = View.VISIBLE
@@ -107,6 +107,8 @@ abstract class BaseListFragment : Fragment() {
 
         }
     }
+
+    abstract fun scrollUp()
 
     protected fun refresh(start: NavPoint = NavPoint.MAIN, end: NavPoint = NavPoint.MAIN) {
         val newTime = System.currentTimeMillis()
@@ -197,30 +199,30 @@ abstract class BaseListFragment : Fragment() {
 
     abstract fun getMenuItem(id: Int): MenuItem
 
-    protected fun showPopupMenu(anime: ShortAnime, view: View, position: Int) {
+    protected fun showPopupMenu(anime: ShortAnime, view: View) {
         val popupMenu = PopupMenu(requireContext(), view, Gravity.END)
         popupMenu.inflate(getMenuId())
         popupMenu.setForceShowIcon(true)
         popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.to_main -> {
-                    popupMenuClick(anime, MAIN, position)
+                    popupMenuClick(anime, MAIN)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.to_watched -> {
-                    popupMenuClick(anime, WATCHED, position)
+                    popupMenuClick(anime, WATCHED)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.to_not_watched -> {
-                    popupMenuClick(anime, NOT_WATCHED, position)
+                    popupMenuClick(anime, NOT_WATCHED)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.to_wanted -> {
-                    popupMenuClick(anime, WANTED, position)
+                    popupMenuClick(anime, WANTED)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.to_unwanted -> {
-                    popupMenuClick(anime, UNWANTED, position)
+                    popupMenuClick(anime, UNWANTED)
                     return@setOnMenuItemClickListener true
                 }
                 else -> return@setOnMenuItemClickListener false
@@ -229,7 +231,7 @@ abstract class BaseListFragment : Fragment() {
         popupMenu.show()
     }
 
-    private fun popupMenuClick(anime: ShortAnime, list: Int, position: Int) {
+    private fun popupMenuClick(anime: ShortAnime, list: Int) {
         repository.updateLocalEntity(anime.id, list)
         viewModel.removeAnime(anime)
     }
@@ -397,7 +399,6 @@ abstract class BaseListFragment : Fragment() {
     abstract fun getMenuId(): Int
 
     companion object {
-        private const val TOAST_MESSAGE = "Moved"
         private const val COPIED = "Copied"
     }
 }

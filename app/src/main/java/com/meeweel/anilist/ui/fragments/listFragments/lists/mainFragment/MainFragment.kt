@@ -10,7 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.MainFragmentBinding
 import com.meeweel.anilist.domain.models.ShortAnime
@@ -29,7 +29,7 @@ class MainFragment : BaseListFragment() {
         ViewModelProvider(this)[MainViewModel::class.java]
     }
 
-    private val navBarListener = BottomNavigationView.OnNavigationItemSelectedListener {
+    private val navBarListener = NavigationBarView.OnItemSelectedListener {
         when (it.itemId) {
             R.id.main_fragment_nav -> refresh(NavPoint.MAIN, NavPoint.MAIN)
             R.id.watched_fragment_nav -> refresh(NavPoint.MAIN, NavPoint.WATCHED)
@@ -64,7 +64,7 @@ class MainFragment : BaseListFragment() {
         })
         adapter.setOnLongItemViewClickListener(object : OnLongItemViewClickListener {
             override fun onLongItemViewClick(anime: ShortAnime, view: View, position: Int) {
-                showPopupMenu(anime, view, position)
+                showPopupMenu(anime, view)
             }
         })
         adapter.setOnItemRemove(object : OnItemRemove {
@@ -78,7 +78,7 @@ class MainFragment : BaseListFragment() {
 
         binding.navBar.background = null
         binding.navBar.menu.findItem(R.id.main_fragment_nav).isChecked = true
-        binding.navBar.setOnNavigationItemSelectedListener(navBarListener)
+        binding.navBar.setOnItemSelectedListener(navBarListener)
 
         binding.mainFragmentRecyclerView.adapter = adapter
 
@@ -88,6 +88,10 @@ class MainFragment : BaseListFragment() {
         binding.toolbar.setNavigationOnClickListener {
             showProfileDialog()
         }
+    }
+
+    override fun scrollUp() {
+        binding.mainFragmentRecyclerView.scrollToPosition(0)
     }
 
     override fun getMenuItem(id: Int): MenuItem = binding.toolbar.menu.findItem(id)
