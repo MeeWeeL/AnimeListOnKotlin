@@ -1,9 +1,9 @@
 package com.meeweel.anilist.ui.fragments.listFragments
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.meeweel.anilist.R
 import com.meeweel.anilist.app.App
 import com.meeweel.anilist.data.repository.LocalRepository
 import com.meeweel.anilist.domain.AppState
@@ -24,7 +24,6 @@ abstract class BaseViewModel : ViewModel() {
         App.appInstance.component.inject(baseViewModel = this)
     }
 
-    private val isRu: Boolean = App.ContextHolder.context.resources.getBoolean(R.bool.isRussian)
     private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
     private var actualData: MutableList<ShortAnime> = mutableListOf()
 
@@ -38,9 +37,8 @@ abstract class BaseViewModel : ViewModel() {
     fun getAnimeFromLocalSource() = getDataFromLocalSource()
 
     private fun postList(list: List<ShortAnime>, isFiltered: Boolean = false) {
-        Thread {
-            liveDataToObserve.postValue(AppState.Success(filter.filter(list), isFiltered))
-        }.start()
+        liveDataToObserve.postValue(AppState.Success(filter.filter(list), isFiltered))
+        Log.e("SORT", "postList: END SORT")
     }
 
     private fun getDataFromLocalSource() {
@@ -61,8 +59,11 @@ abstract class BaseViewModel : ViewModel() {
     }
 
     fun setSort(sort: ListFilterSet.Sort) {
+        Log.e("SORT", "setSort: START")
         filter.setSort(sort)
+        Log.e("SORT", "setSort: SET SORT")
         postList(filter.filter(actualData), true)
+        Log.e("SORT", "setSort: POST FILTER")
     }
 
     fun setGenre(genre: ListFilterSet.Genre) {

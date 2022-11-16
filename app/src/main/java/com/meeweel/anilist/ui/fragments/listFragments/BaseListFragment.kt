@@ -95,20 +95,25 @@ abstract class BaseListFragment : Fragment() {
 
     private fun renderData(data: AppState) = when (data) {
         is AppState.Success -> {
+            loadingLayoutView.visibility = View.VISIBLE
             val animeData = data.animeData
-            loadingLayoutView.visibility = View.GONE
-            adapter.submitList(animeData) { if (data.isFiltered) scrollUp() }
+            adapter.submitList(animeData) {
+                if (data.isFiltered) scrollUp()
+                Log.e("submitList", "END")
+                loadingLayoutView.visibility = View.GONE
+            }
         }
         is AppState.Loading -> {
             loadingLayoutView.visibility = View.VISIBLE
         }
         is AppState.Error -> {
             loadingLayoutView.visibility = View.GONE
-
         }
     }
 
     abstract fun scrollUp()
+//    abstract fun loadingStart()
+//    abstract fun loadingStop()
 
     protected fun refresh(start: NavPoint = NavPoint.MAIN, end: NavPoint = NavPoint.MAIN) {
         val newTime = System.currentTimeMillis()
