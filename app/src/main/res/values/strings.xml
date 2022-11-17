@@ -40,6 +40,7 @@
     <string name="wannaUpdate">Do you want to update the app?</string>
     <string name="later">Later</string>
     <string name="yes">Yes</string>
+    <string name="copied">Copied</string>
 
     <!--    Lists    -->
     <string name="in_queue_list">In-queue:</string>

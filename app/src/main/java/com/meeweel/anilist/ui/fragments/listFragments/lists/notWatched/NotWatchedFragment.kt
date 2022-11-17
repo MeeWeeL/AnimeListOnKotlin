@@ -16,6 +16,7 @@ import com.meeweel.anilist.databinding.NotWatchedFragmentBinding
 import com.meeweel.anilist.domain.models.ShortAnime
 import com.meeweel.anilist.ui.MainActivity
 import com.meeweel.anilist.ui.fragments.listFragments.BaseListFragment
+import com.meeweel.anilist.utils.DialogsUtils
 
 class NotWatchedFragment : BaseListFragment() {
 
@@ -83,7 +84,7 @@ class NotWatchedFragment : BaseListFragment() {
         setAppBarListeners()
 
         binding.toolbar.setNavigationOnClickListener {
-            showProfileDialog()
+            DialogsUtils.showProfileDialog(requireActivity(), viewModel.allTitles)
         }
     }
 

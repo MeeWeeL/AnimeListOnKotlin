@@ -16,6 +16,7 @@ import com.meeweel.anilist.databinding.MainFragmentBinding
 import com.meeweel.anilist.domain.models.ShortAnime
 import com.meeweel.anilist.ui.MainActivity
 import com.meeweel.anilist.ui.fragments.listFragments.BaseListFragment
+import com.meeweel.anilist.utils.DialogsUtils.showProfileDialog
 
 
 class MainFragment : BaseListFragment() {
@@ -86,7 +87,7 @@ class MainFragment : BaseListFragment() {
         setAppBarListeners()
 
         binding.toolbar.setNavigationOnClickListener {
-            showProfileDialog()
+            showProfileDialog(requireActivity(), viewModel.allTitles)
         }
     }
 

@@ -3,7 +3,6 @@ package com.meeweel.anilist.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
@@ -16,10 +15,8 @@ import com.meeweel.anilist.app.App
 import com.meeweel.anilist.data.retrofit.AnimeSynchronizer
 import com.meeweel.anilist.data.retrofit.AnimeSynchronizer.Response.*
 import com.meeweel.anilist.databinding.ActivityMainBinding
+import com.meeweel.anilist.utils.toast
 import javax.inject.Inject
-
-const val KEY_SP = "sp"
-const val KEY_CURRENT_THEME = "current_theme"
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         MobileAds.initialize(this)
         if (!isSynchronized) {
             val syncObserver =
-                Observer<AnimeSynchronizer.Response> { a -> renderData(a) } // Создание наблюдателя
+                Observer<AnimeSynchronizer.Response> { a -> renderSyncStatus(a) } // Создание наблюдателя
             syncer.appVersion =
                 BuildConfig.VERSION_NAME // Установка текущей версии приложения в синхронизаторе
             syncer.syncLiveData.observe(
@@ -48,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun renderData(responseState: AnimeSynchronizer.Response) {
+    private fun renderSyncStatus(responseState: AnimeSynchronizer.Response) {
         when (responseState) { // Действия в зависимости от состояния синхронизации
             ANIME_UPLOADED -> {
                 "${syncer.getCounter()} ${getString(R.string.new_anime_uploaded)}".toast()
@@ -90,8 +87,7 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun String.toast() = Toast.makeText(this@MainActivity, this, Toast.LENGTH_SHORT)
-        .show() // Для удобного вызова тоста от любой стринги
+    private fun String.toast() = this.toast(this@MainActivity)
 
     fun setNightMode(isNightModeOn: Boolean) {
         val shardPreferences = getSharedPreferences(KEY_SP, MODE_PRIVATE)
@@ -116,6 +112,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
+
+        const val KEY_SP = "sp"
+        const val KEY_CURRENT_THEME = "current_theme"
+
         var isSynchronized = false
         var time = System.currentTimeMillis() - 20000L
         const val adsDelay = 300000L // Время перерыва между показами рекламы

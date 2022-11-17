@@ -40,6 +40,7 @@
     <string name="wannaUpdate">Перейти в Google play?</string>
     <string name="later">Позже</string>
     <string name="yes">Да</string>
+    <string name="copied">Скопировано</string>
 
     <!--    Lists    -->
     <string name="in_queue_list">В очереди:</string>

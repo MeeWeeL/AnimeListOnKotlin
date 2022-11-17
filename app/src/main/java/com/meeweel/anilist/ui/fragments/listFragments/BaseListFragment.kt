@@ -1,18 +1,12 @@
 package com.meeweel.anilist.ui.fragments.listFragments
 
-import android.annotation.TargetApi
-import android.content.ClipData
-import android.content.Context
-import android.os.Build
 import android.os.Bundle
-import android.text.ClipboardManager
 import android.util.Log
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -28,7 +22,6 @@ import com.meeweel.anilist.R
 import com.meeweel.anilist.app.App
 import com.meeweel.anilist.data.repository.LocalRepository
 import com.meeweel.anilist.databinding.FilterLayoutBinding
-import com.meeweel.anilist.databinding.ProfileLayoutBinding
 import com.meeweel.anilist.domain.AppState
 import com.meeweel.anilist.domain.ListFilterSet.Genre
 import com.meeweel.anilist.domain.ListFilterSet.Sort
@@ -39,16 +32,9 @@ import com.meeweel.anilist.ui.MainActivity.Companion.NOT_WATCHED
 import com.meeweel.anilist.ui.MainActivity.Companion.UNWANTED
 import com.meeweel.anilist.ui.MainActivity.Companion.WANTED
 import com.meeweel.anilist.ui.MainActivity.Companion.WATCHED
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 abstract class BaseListFragment : Fragment() {
-    private lateinit var parentActivity: MainActivity
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        parentActivity = requireActivity() as MainActivity
-    }
 
     @Inject
     lateinit var repository: LocalRepository
@@ -57,8 +43,6 @@ abstract class BaseListFragment : Fragment() {
         super.onCreate(savedInstanceState)
         App.appInstance.component.inject(this)
     }
-
-    private val isRu get() = requireActivity().resources.getBoolean(R.bool.isRussian)
 
     // ADS
     private var mInterstitialAd: InterstitialAd? = null
@@ -112,8 +96,6 @@ abstract class BaseListFragment : Fragment() {
     }
 
     abstract fun scrollUp()
-//    abstract fun loadingStart()
-//    abstract fun loadingStop()
 
     protected fun refresh(start: NavPoint = NavPoint.MAIN, end: NavPoint = NavPoint.MAIN) {
         val newTime = System.currentTimeMillis()
@@ -308,87 +290,6 @@ abstract class BaseListFragment : Fragment() {
         }
     }
 
-    internal fun showProfileDialog() {
-        val dialog = BottomSheetDialog(requireContext())
-        val profileBinding = ProfileLayoutBinding.inflate(layoutInflater)
-        dialog.setContentView(profileBinding.root)
-
-        fun profileData(list: List<ShortAnime>) {
-            var main = 0
-            var watched = 0
-            var wanted = 0
-            var notWatched = 0
-            var unwanted = 0
-            list.forEach { item ->
-                when (item.list) {
-                    MAIN -> main++
-                    WATCHED -> watched++
-                    NOT_WATCHED -> notWatched++
-                    WANTED -> wanted++
-                    UNWANTED -> unwanted++
-                }
-            }
-            with(profileBinding) {
-                mainCounter.text = main.toString()
-                watchedCounter.text = watched.toString()
-                notWatchedCounter.text = notWatched.toString()
-                wantedCounter.text = wanted.toString()
-                unwantedCounter.text = unwanted.toString()
-                mainCopy.setOnClickListener { list.copy(MAIN) }
-                watchedCopy.setOnClickListener { list.copy(WATCHED) }
-                notWatchedCopy.setOnClickListener { list.copy(NOT_WATCHED) }
-                wantedCopy.setOnClickListener { list.copy(WANTED) }
-                unwantedCopy.setOnClickListener { list.copy(UNWANTED) }
-            }
-        }
-
-        with(profileBinding) {
-            nightModeCheckbox.isChecked = parentActivity.getCurrentTheme()
-            nightModeCheckbox.setOnCheckedChangeListener { _, _ ->
-                if (nightModeCheckbox.isChecked) parentActivity.setNightMode(true)
-                else parentActivity.setNightMode(false)
-            }
-        }
-        viewModel.allTitles
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                profileData(it)
-            }, { })
-        dialog.show()
-    }
-
-    private fun List<ShortAnime>.copy(listInt: Int) {
-        val copyList = StringBuilder()
-        var count = 0
-        this.sortedBy { item -> if (isRu) item.ruTitle else item.enTitle }.forEach {
-            if (it.list == listInt)
-                copyList.append("${++count}. ${if (isRu) it.ruTitle else it.enTitle} (${it.data})\n")
-        }
-        copyList.toString().copyText()
-    }
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private fun String.copyText() {
-        val sdk = Build.VERSION.SDK_INT
-        if (sdk < Build.VERSION_CODES.HONEYCOMB) {
-            val clipboard =
-                requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            clipboard.text = this
-            COPIED.toast()
-        } else {
-            val clipboard =
-                requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
-            val clip = ClipData.newPlainText("TAG", this)
-            clipboard.setPrimaryClip(clip)
-            COPIED.toast()
-        }
-    }
-
-    private fun String.toast() {
-        Toast.makeText(requireContext(), this, Toast.LENGTH_SHORT).show()
-    }
-
     interface OnItemViewClickListener {
         fun onItemViewClick(anime: ShortAnime)
     }
@@ -403,7 +304,4 @@ abstract class BaseListFragment : Fragment() {
 
     abstract fun getMenuId(): Int
 
-    companion object {
-        private const val COPIED = "Copied"
-    }
 }
