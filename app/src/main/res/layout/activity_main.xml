@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
@@ -15,4 +15,11 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph" />
 
+    <FrameLayout
+        android:id="@+id/loadingLayout"
+        style="@style/loadingLayoutStyle"
+        tools:visibility="gone">
+
+        <ProgressBar style="@style/progressBarStyle" />
+    </FrameLayout>
 </FrameLayout>

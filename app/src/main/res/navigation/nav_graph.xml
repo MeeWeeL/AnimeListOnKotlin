@@ -56,11 +56,6 @@
             app:popUpTo="@id/watchedFragment"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_watchedFragment_self"
-            app:destination="@id/watchedFragment"
-            app:popUpTo="@id/watchedFragment"
-            app:popUpToInclusive="true" />
-        <action
             android:id="@+id/action_watchedFragment_to_wantedFragment"
             app:destination="@id/wantedFragment"
             app:popUpTo="@id/watchedFragment"
@@ -96,11 +91,6 @@
             app:popUpTo="@id/notWatchedFragment"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_notWatchedFragment_self"
-            app:destination="@id/notWatchedFragment"
-            app:popUpTo="@id/notWatchedFragment"
-            app:popUpToInclusive="true" />
-        <action
             android:id="@+id/action_notWatchedFragment_to_unwantedFragment"
             app:destination="@id/unwantedFragment"
             app:popUpTo="@id/notWatchedFragment"
@@ -130,11 +120,6 @@
         android:name="com.meeweel.anilist.ui.fragments.listFragments.lists.wantedFragment.WantedFragment"
         android:label="wanted_fragment"
         tools:layout="@layout/wanted_fragment">
-        <action
-            android:id="@+id/action_wantedFragment_self"
-            app:destination="@id/wantedFragment"
-            app:popUpTo="@id/wantedFragment"
-            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_wantedFragment_to_unwantedFragment"
             app:destination="@id/unwantedFragment"
@@ -170,11 +155,6 @@
         android:name="com.meeweel.anilist.ui.fragments.listFragments.lists.unwantedFragment.UnwantedFragment"
         android:label="unwanted_fragment"
         tools:layout="@layout/unwanted_fragment">
-        <action
-            android:id="@+id/action_unwantedFragment_self"
-            app:destination="@id/unwantedFragment"
-            app:popUpTo="@id/unwantedFragment"
-            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_unwantedFragment_to_wantedFragment"
             app:destination="@id/wantedFragment"

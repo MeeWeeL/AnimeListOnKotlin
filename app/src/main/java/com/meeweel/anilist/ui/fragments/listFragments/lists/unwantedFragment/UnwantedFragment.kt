@@ -36,7 +36,6 @@ class UnwantedFragment : BaseListFragment() {
             R.id.watched_fragment_nav -> refresh(NavPoint.UNWANTED, NavPoint.WATCHED)
             R.id.not_watched_fragment_nav -> refresh(NavPoint.UNWANTED, NavPoint.NOT_WATCHED)
             R.id.wanted_fragment_nav -> refresh(NavPoint.UNWANTED, NavPoint.WANTED)
-            R.id.unwanted_fragment_nav -> refresh(NavPoint.UNWANTED, NavPoint.UNWANTED)
         }
         true
     }

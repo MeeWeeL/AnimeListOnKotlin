@@ -103,44 +103,44 @@ abstract class BaseListFragment : Fragment() {
             MainActivity.time = newTime
             showAds()
         }
-        val navigationId = when (start) {
+        val navigationId: Int? = when (start) {
             NavPoint.MAIN -> when (end) {
-                NavPoint.MAIN -> R.id.action_mainFragment_self
                 NavPoint.WATCHED -> R.id.action_mainFragment_to_watchedFragment
                 NavPoint.NOT_WATCHED -> R.id.action_mainFragment_to_notWatchedFragment
                 NavPoint.WANTED -> R.id.action_mainFragment_to_wantedFragment
                 NavPoint.UNWANTED -> R.id.action_mainFragment_to_unwantedFragment
+                else -> null
             }
             NavPoint.WATCHED -> when (end) {
                 NavPoint.MAIN -> R.id.action_watchedFragment_to_mainFragment
-                NavPoint.WATCHED -> R.id.action_watchedFragment_self
                 NavPoint.NOT_WATCHED -> R.id.action_watchedFragment_to_notWatchedFragment
                 NavPoint.WANTED -> R.id.action_watchedFragment_to_wantedFragment
                 NavPoint.UNWANTED -> R.id.action_watchedFragment_to_unwantedFragment
+                else -> null
             }
             NavPoint.NOT_WATCHED -> when (end) {
                 NavPoint.MAIN -> R.id.action_notWatchedFragment_to_mainFragment
                 NavPoint.WATCHED -> R.id.action_notWatchedFragment_to_watchedFragment
-                NavPoint.NOT_WATCHED -> R.id.action_notWatchedFragment_self
                 NavPoint.WANTED -> R.id.action_notWatchedFragment_to_wantedFragment
                 NavPoint.UNWANTED -> R.id.action_notWatchedFragment_to_unwantedFragment
+                else -> null
             }
             NavPoint.WANTED -> when (end) {
                 NavPoint.MAIN -> R.id.action_wantedFragment_to_mainFragment
                 NavPoint.WATCHED -> R.id.action_wantedFragment_to_watchedFragment
                 NavPoint.NOT_WATCHED -> R.id.action_wantedFragment_to_notWatchedFragment
-                NavPoint.WANTED -> R.id.action_wantedFragment_self
                 NavPoint.UNWANTED -> R.id.action_wantedFragment_to_unwantedFragment
+                else -> null
             }
             NavPoint.UNWANTED -> when (end) {
                 NavPoint.MAIN -> R.id.action_unwantedFragment_to_mainFragment
                 NavPoint.WATCHED -> R.id.action_unwantedFragment_to_watchedFragment
                 NavPoint.NOT_WATCHED -> R.id.action_unwantedFragment_to_notWatchedFragment
                 NavPoint.WANTED -> R.id.action_unwantedFragment_to_wantedFragment
-                NavPoint.UNWANTED -> R.id.action_unwantedFragment_self
+                else -> null
             }
         }
-        findNavController().navigate(navigationId)
+        navigationId?.let { findNavController().navigate(resId = navigationId) }
     }
 
     enum class NavPoint {

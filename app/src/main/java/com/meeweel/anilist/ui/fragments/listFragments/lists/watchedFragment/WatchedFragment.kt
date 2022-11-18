@@ -33,7 +33,6 @@ class WatchedFragment : BaseListFragment() {
     private val navBarListener = NavigationBarView.OnItemSelectedListener {
         when (it.itemId) {
             R.id.main_fragment_nav -> refresh(NavPoint.WATCHED, NavPoint.MAIN)
-            R.id.watched_fragment_nav -> refresh(NavPoint.WATCHED, NavPoint.WATCHED)
             R.id.not_watched_fragment_nav -> refresh(NavPoint.WATCHED, NavPoint.NOT_WATCHED)
             R.id.wanted_fragment_nav -> refresh(NavPoint.WATCHED, NavPoint.WANTED)
             R.id.unwanted_fragment_nav -> refresh(NavPoint.WATCHED, NavPoint.UNWANTED)
