@@ -4,10 +4,11 @@ import com.meeweel.anilist.data.repository.LocalRepository
 import com.meeweel.anilist.domain.models.Anime
 import com.meeweel.anilist.domain.models.ShortAnime
 import com.meeweel.anilist.model.data.AnimeResponse
+import com.meeweel.anilist.ui.MainActivity
 import io.reactivex.rxjava3.core.Single
 
 class LocalRepositoryImpl(
-    private val localEntityDataSource: EntityDao
+    private val localEntityDataSource: EntityDao // мокать
 ) : LocalRepository {
 
     override fun getQuantity(): Single<Int> {
@@ -19,23 +20,23 @@ class LocalRepositoryImpl(
     }
 
     override fun getLocalMainAnimeList(): Single<List<ShortAnime>> {
-        return localEntityDataSource.getShortAnimeList(1)
+        return localEntityDataSource.getShortAnimeList(MainActivity.MAIN)
     }
 
     override fun getLocalWatchedAnimeList(): Single<List<ShortAnime>> {
-        return localEntityDataSource.getShortAnimeList(2)
+        return localEntityDataSource.getShortAnimeList(MainActivity.WATCHED)
     }
 
     override fun getLocalNotWatchedAnimeList(): Single<List<ShortAnime>> {
-        return localEntityDataSource.getShortAnimeList(3)
+        return localEntityDataSource.getShortAnimeList(MainActivity.NOT_WATCHED)
     }
 
     override fun getLocalWantedAnimeList(): Single<List<ShortAnime>> {
-        return localEntityDataSource.getShortAnimeList(4)
+        return localEntityDataSource.getShortAnimeList(MainActivity.WANTED)
     }
 
     override fun getLocalUnwantedAnimeList(): Single<List<ShortAnime>> {
-        return localEntityDataSource.getShortAnimeList(5)
+        return localEntityDataSource.getShortAnimeList(MainActivity.UNWANTED)
     }
 
     override fun insertLocalEntity(entity: Entity) {
