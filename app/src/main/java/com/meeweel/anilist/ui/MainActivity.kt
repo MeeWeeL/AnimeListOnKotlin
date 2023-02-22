@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.meeweel.anilist.BuildConfig
@@ -62,7 +61,8 @@ class MainActivity : AppCompatActivity() {
             ANIME_UPLOADED -> {
                 binding.loadingLayout.visibility = View.GONE
                 "${syncer.getCounter()} ${getString(R.string.new_anime_uploaded)}".toast()
-                Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.action_mainFragment_self)
+                Navigation.findNavController(this, R.id.nav_host_fragment)
+                    .navigate(R.id.action_mainFragment_self)
                 syncer.checkVersion() // Проверка на наличие обновлений
             }
             ACTUAL_DATA -> {

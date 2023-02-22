@@ -2,19 +2,18 @@ package com.meeweel.anilist.data.retrofit
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.meeweel.anilist.data.repository.LocalRepository
+import com.meeweel.anilist.data.repository.Repository
 import com.meeweel.anilist.data.room.toEntityList
-import com.meeweel.anilist.data.rx.SchedulerProvider
 import com.meeweel.anilist.model.data.AnimeResponse
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 class AnimeSynchronizer @Inject constructor(
-    private val aniApi: AnimeApi,
-    private val repository: LocalRepository,
-    private val schedulerProvider: SchedulerProvider
+    private val repository: Repository
 ) {
 
     var appVersion = "" // Установленная версия приложения
@@ -27,7 +26,7 @@ class AnimeSynchronizer @Inject constructor(
     private val response: MutableLiveData<Response> = MutableLiveData() // Состояние синхронизации
     val syncLiveData get(): LiveData<Response> = response // Переменная, на которую подписывается активити
 
-    fun synchronize() = aniApi.getQuantity()  // Получение количества сериалов на сервере
+    fun synchronize() = repository.getQuantityRemote()  // Получение количества сериалов на сервере
         .setSchedulers()
         .subscribe({
             response.postValue(Response.CONNECTED)
@@ -37,20 +36,21 @@ class AnimeSynchronizer @Inject constructor(
             response.postValue(Response.NO_INTERNET)
         }).setDisposable()
 
-    private fun localQuantity() = repository.getQuantity() // Получение количества аниме из БД
-        .setSchedulers()
-        .subscribe({
-            localQuantity = it
-            ifIf()
-        }, {
-            localQuantity =
-                0 // Если произошла ошибка, при запросе в бд, значит в БД ещё ничего не было загружено
-            ifIf()
-        }).setDisposable()
+    private fun localQuantity() =
+        repository.getAnimeQuantityLocal() // Получение количества аниме из БД
+            .setSchedulers()
+            .subscribe({
+                localQuantity = it
+                ifIf()
+            }, {
+                localQuantity =
+                    0 // Если произошла ошибка, при запросе в бд, значит в БД ещё ничего не было загружено
+                ifIf()
+            }).setDisposable()
 
     private fun ifIf() {
         if (actualQuantity > localQuantity) {
-            aniApi.getAnimes(localQuantity) // Запрос на загрузку с сервера новых сериалов.
+            repository.getAnimeListRemote(localQuantity) // Запрос на загрузку с сервера новых сериалов.
                 // Для этого передаём количество сериалов в БД. Оно является ID последнего загруженного сериала
                 // Так сервер поймёт, какие сериалы следует передать
                 .setSchedulers()
@@ -64,12 +64,12 @@ class AnimeSynchronizer @Inject constructor(
     }
 
     private fun insert(list: List<AnimeResponse>) { // Сохранение скаченных сериалов в БД
-        repository.insertLocalEntity(list.toEntityList())
+        repository.insertEntityLocal(list.toEntityList())
         response.postValue(Response.ANIME_UPLOADED)
     }
 
     fun checkVersion() =
-        aniApi.getActualVersion() // Получение с сервера номер актуальной версии приложения в Google play
+        repository.getActualVersionRemote() // Получение с сервера номер актуальной версии приложения в Google play
             .setSchedulers()
             .subscribe({
                 // Если номер текущей версии отличается от актуальной, сообщаем это активити
@@ -83,8 +83,8 @@ class AnimeSynchronizer @Inject constructor(
 
     private fun <T : Any> Single<T>.setSchedulers(): Single<T> =
         this // Функция для сокращения повторяемого кода
-            .subscribeOn(schedulerProvider.io()) // Производить асинхронную работу на легковесном потоке
-            .observeOn(schedulerProvider.ui()) // Производить обработку асинхронно полученных данных в главном потоке
+            .subscribeOn(Schedulers.io()) // Производить асинхронную работу на легковесном потоке
+            .observeOn(AndroidSchedulers.mainThread()) // Производить обработку асинхронно полученных данных в главном потоке
 
     private fun Disposable.setDisposable() =
         compositeDisposable.add(this) // Функция для помещения асинхронного запрова в композит

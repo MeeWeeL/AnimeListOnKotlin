@@ -13,6 +13,10 @@ interface AnimeApi {
     @Headers("Content-type: application/json")
     fun getAnime(@Query("id") id: Int): Single<AnimeResponse> // @Query добавляет в запрос &id=$id
 
+    @GET("./api.php?q=post")
+    @Headers("Content-type: application/json")
+    suspend fun getAnimeByIdRemote(@Query("id") id: Int): AnimeResponse
+
     @GET("./api.php?q=posts")
     @Headers("Content-type: application/json")
     fun getAnimes(@Query("id") id: Int): Single<List<AnimeResponse>>

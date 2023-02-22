@@ -12,22 +12,23 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.meeweel.anilist.R
 import com.meeweel.anilist.app.App
-import com.meeweel.anilist.data.interactors.Interactor
-import com.meeweel.anilist.data.repository.LocalRepository
-import com.meeweel.anilist.data.retrofit.AnimeApi
+import com.meeweel.anilist.data.repository.Repository
 import com.meeweel.anilist.databinding.DetailsFragmentBinding
 import com.meeweel.anilist.databinding.RateBottomSheetLayoutBinding
 import com.meeweel.anilist.domain.models.Anime
 import com.meeweel.anilist.ui.MainActivity
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 class DetailsFragment : Fragment() {
 
     @Inject
-    lateinit var interactor: Interactor
+    lateinit var repository: Repository
 
     private var animeId: Int? = null
     private var _binding: DetailsFragmentBinding? = null
@@ -66,7 +67,7 @@ class DetailsFragment : Fragment() {
         }
         binding.detailsToolbar.menu.findItem(R.id.share_to).setOnMenuItemClickListener {
             animeId?.let {
-                val drawer = BottomShareDrawer(interactor)
+                val drawer = BottomShareDrawer(repository)
                 val bundle = Bundle()
                 bundle.putInt("aniId", it)
                 drawer.arguments = bundle
@@ -107,7 +108,7 @@ class DetailsFragment : Fragment() {
             if (animeData.ratingCheck != 0) ratingText += "\n(${getText(R.string.my_rate)}: ${animeData.ratingCheck})"
             releaseRating.text = ratingText
 
-            seriesQuantity?.text =
+            seriesQuantity.text =
                 "${getText(R.string.seriesQuantity)}: ${animeData.seriesQuantity}"
             releaseAgeRate.text = "${getText(R.string.age_rating)}: ${animeData.ageRating}+"
 
@@ -123,7 +124,7 @@ class DetailsFragment : Fragment() {
 
         fun changeRateScore(score: Int) {
             makeRateScore(animeData.id, score)
-            interactor.updateRate(animeData.id, score)
+            repository.updateRateLocal(animeData.id, score)
             dialog.dismiss()
         }
 
@@ -154,7 +155,7 @@ class DetailsFragment : Fragment() {
 
     @SuppressLint("CheckResult")
     private fun makeRateScore(id: Int, score: Int) {
-        interactor.rateScore(score, id)
+        repository.rateScoreRemote(score, id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -165,24 +166,37 @@ class DetailsFragment : Fragment() {
         upload(false)
     }
 
-    @SuppressLint("CheckResult")
     private fun upload(isRate: Boolean) {
+
         animeId?.let { id ->
-            interactor.getAnime(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    interactor.updateFromNetwork(it, id)
+            GlobalScope.launch(Dispatchers.IO) {
+                repository.apply {
+                    updateFromNetworkLocal(getAnimeByIdRemote(id), id)
                     observeData(id)
-                    if (isRate) toast(getString(R.string.updated))
-                }, {
-                    toast(getString(R.string.no_connection))
-                })
+                    if (isRate) toast("Updated")
+                }
+            }
         }
     }
 
+//    @SuppressLint("CheckResult")
+//    private fun upload(isRate: Boolean) {
+//        animeId?.let { id ->
+//            interactor.getAnime(id)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe({
+//                    interactor.updateFromNetwork(it, id)
+//                    observeData(id)
+//                    if (isRate) toast(getString(R.string.updated))
+//                }, {
+//                    toast(getString(R.string.no_connection))
+//                })
+//        }
+//    }
+
     private fun observeData(animeId: Int) {
-        interactor.getAnimeById(animeId)
+        repository.getAnimeByIdLocal(animeId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

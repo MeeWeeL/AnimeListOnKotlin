@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.meeweel.anilist.R
-import com.meeweel.anilist.data.interactors.Interactor
-import com.meeweel.anilist.data.repository.LocalRepository
+import com.meeweel.anilist.data.repository.Repository
 import com.meeweel.anilist.databinding.BottomShareDrawerBinding
 import com.meeweel.anilist.ui.MainActivity.Companion.MAIN
 import com.meeweel.anilist.ui.MainActivity.Companion.NOT_WATCHED
@@ -16,7 +15,7 @@ import com.meeweel.anilist.ui.MainActivity.Companion.UNWANTED
 import com.meeweel.anilist.ui.MainActivity.Companion.WANTED
 import com.meeweel.anilist.ui.MainActivity.Companion.WATCHED
 
-class BottomShareDrawer(private val interactor: Interactor) : BottomSheetDialogFragment() {
+class BottomShareDrawer(private val repository: Repository) : BottomSheetDialogFragment() {
 
     private var aniId: Int? = null
     lateinit var bind: BottomShareDrawerBinding
@@ -36,19 +35,19 @@ class BottomShareDrawer(private val interactor: Interactor) : BottomSheetDialogF
         bind.shareView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.to_watched -> {
-                    interactor.updateLocalEntity(aniId!!, WATCHED)
+                    repository.updateEntityLocal(aniId!!, WATCHED)
                 }
                 R.id.to_not_watched -> {
-                    interactor.updateLocalEntity(aniId!!, NOT_WATCHED)
+                    repository.updateEntityLocal(aniId!!, NOT_WATCHED)
                 }
                 R.id.to_wanted -> {
-                    interactor.updateLocalEntity(aniId!!, WANTED)
+                    repository.updateEntityLocal(aniId!!, WANTED)
                 }
                 R.id.to_unwanted -> {
-                    interactor.updateLocalEntity(aniId!!, UNWANTED)
+                    repository.updateEntityLocal(aniId!!, UNWANTED)
                 }
                 R.id.to_main -> {
-                    interactor.updateLocalEntity(aniId!!, MAIN)
+                    repository.updateEntityLocal(aniId!!, MAIN)
                 }
             }
             toast("Moved")

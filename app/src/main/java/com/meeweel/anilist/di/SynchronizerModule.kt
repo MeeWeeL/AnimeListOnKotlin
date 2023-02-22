@@ -1,9 +1,7 @@
 package com.meeweel.anilist.di
 
-import com.meeweel.anilist.data.repository.LocalRepository
-import com.meeweel.anilist.data.retrofit.AnimeApi
+import com.meeweel.anilist.data.repository.Repository
 import com.meeweel.anilist.data.retrofit.AnimeSynchronizer
-import com.meeweel.anilist.data.rx.SearchSchedulerProvider
 import dagger.Module
 import dagger.Provides
 
@@ -11,6 +9,6 @@ import dagger.Provides
 class SynchronizerModule {
 
     @Provides
-    fun provideSynchronizer(aniApi: AnimeApi, repository: LocalRepository): AnimeSynchronizer =
-        AnimeSynchronizer(aniApi, repository, SearchSchedulerProvider())
+    fun provideSynchronizer(repository: Repository): AnimeSynchronizer =
+        AnimeSynchronizer(repository)
 }
