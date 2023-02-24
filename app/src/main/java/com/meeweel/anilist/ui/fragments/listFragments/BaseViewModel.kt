@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.meeweel.anilist.app.App
-import com.meeweel.anilist.data.repository.LocalRepository
+import com.meeweel.anilist.data.repository.Repository
 import com.meeweel.anilist.domain.AppState
 import com.meeweel.anilist.domain.ListFilterSet
 import com.meeweel.anilist.domain.models.ShortAnime
@@ -16,7 +16,7 @@ import javax.inject.Inject
 abstract class BaseViewModel : ViewModel() {
 
     @Inject
-    lateinit var repository: LocalRepository
+    lateinit var repository: Repository
     private val filter = ListFilterSet()
 
     init {
@@ -31,7 +31,7 @@ abstract class BaseViewModel : ViewModel() {
         return liveDataToObserve
     }
 
-    val allTitles get() = repository.getAllAnime()
+    val allTitles get() = repository.getAllAnimeLocal()
 
     fun getAnimeFromLocalSource() = getDataFromLocalSource()
 

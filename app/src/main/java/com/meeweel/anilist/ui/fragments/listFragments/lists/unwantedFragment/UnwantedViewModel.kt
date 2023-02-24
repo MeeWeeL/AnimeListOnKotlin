@@ -4,5 +4,5 @@ import com.meeweel.anilist.ui.fragments.listFragments.BaseViewModel
 
 class UnwantedViewModel : BaseViewModel() {
 
-    override fun getAnimeList() = repository.getLocalUnwantedAnimeList()
+    override fun getAnimeList() = repository.getUnwantedAnimeListLocal()
 }

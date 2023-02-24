@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
 import com.meeweel.anilist.app.App
-import com.meeweel.anilist.data.repository.LocalRepository
+import com.meeweel.anilist.data.repository.Repository
 import com.meeweel.anilist.databinding.WantedRecyclerItemBinding
 import com.meeweel.anilist.domain.models.ShortAnime
 import com.meeweel.anilist.ui.MainActivity.Companion.WATCHED
 import com.meeweel.anilist.ui.fragments.listFragments.BaseFragmentAdapter
 import com.meeweel.anilist.ui.fragments.listFragments.BaseViewHolder
 
-class WantedFragmentAdapter(private val repository: LocalRepository) : BaseFragmentAdapter() {
+class WantedFragmentAdapter(private val repository: Repository) : BaseFragmentAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val binding = WantedRecyclerItemBinding.inflate(
@@ -47,7 +47,7 @@ class WantedFragmentAdapter(private val repository: LocalRepository) : BaseFragm
                     true
                 }
                 watchedBtnOnWanted.setOnClickListener {
-                    repository.updateLocalEntity(anime.id, WATCHED)
+                    repository.updateEntityLocal(anime.id, WATCHED)
                     onItemRemove?.removeItem(anime)
                 }
             }
@@ -64,7 +64,7 @@ class WantedFragmentAdapter(private val repository: LocalRepository) : BaseFragm
 
     override fun onItemDismiss(position: Int, i: Int) {
         if (i == ItemTouchHelper.END) {
-            repository.updateLocalEntity(getItem(position).id, WATCHED)
+            repository.updateEntityLocal(getItem(position).id, WATCHED)
             onItemRemove?.removeItem(getItem(position))
         }
     }

@@ -20,7 +20,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.meeweel.anilist.R
 import com.meeweel.anilist.app.App
-import com.meeweel.anilist.data.repository.LocalRepository
+import com.meeweel.anilist.data.repository.Repository
 import com.meeweel.anilist.databinding.FilterLayoutBinding
 import com.meeweel.anilist.domain.AppState
 import com.meeweel.anilist.domain.ListFilterSet.Genre
@@ -37,7 +37,7 @@ import javax.inject.Inject
 abstract class BaseListFragment : Fragment() {
 
     @Inject
-    lateinit var repository: LocalRepository
+    lateinit var repository: Repository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -219,7 +219,7 @@ abstract class BaseListFragment : Fragment() {
     }
 
     private fun popupMenuClick(anime: ShortAnime, list: Int) {
-        repository.updateLocalEntity(anime.id, list)
+        repository.updateEntityLocal(anime.id, list)
         viewModel.removeAnime(anime)
     }
 

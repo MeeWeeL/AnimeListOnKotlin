@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
 import com.meeweel.anilist.app.App
-import com.meeweel.anilist.data.repository.LocalRepository
+import com.meeweel.anilist.data.repository.Repository
 import com.meeweel.anilist.databinding.MainRecyclerItemBinding
 import com.meeweel.anilist.domain.models.ShortAnime
 import com.meeweel.anilist.ui.MainActivity.Companion.NOT_WATCHED
@@ -14,7 +14,7 @@ import com.meeweel.anilist.ui.MainActivity.Companion.WATCHED
 import com.meeweel.anilist.ui.fragments.listFragments.BaseFragmentAdapter
 import com.meeweel.anilist.ui.fragments.listFragments.BaseViewHolder
 
-class MainFragmentAdapter(private val repository: LocalRepository) : BaseFragmentAdapter() {
+class MainFragmentAdapter(private val repository: Repository) : BaseFragmentAdapter() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val binding = MainRecyclerItemBinding.inflate(
@@ -48,11 +48,11 @@ class MainFragmentAdapter(private val repository: LocalRepository) : BaseFragmen
                     true
                 }
                 watchedBtn.setOnClickListener {
-                    repository.updateLocalEntity(anime.id, WATCHED)
+                    repository.updateEntityLocal(anime.id, WATCHED)
                     onItemRemove?.removeItem(anime)
                 }
                 notWatchedBtn.setOnClickListener {
-                    repository.updateLocalEntity(anime.id, NOT_WATCHED)
+                    repository.updateEntityLocal(anime.id, NOT_WATCHED)
                     onItemRemove?.removeItem(anime)
                 }
             }
@@ -70,11 +70,11 @@ class MainFragmentAdapter(private val repository: LocalRepository) : BaseFragmen
 
     override fun onItemDismiss(position: Int, i: Int) {
         if (i == ItemTouchHelper.START) {
-            repository.updateLocalEntity(getItem(position).id, NOT_WATCHED)
+            repository.updateEntityLocal(getItem(position).id, NOT_WATCHED)
             onItemRemove?.removeItem(getItem(position))
         }
         if (i == ItemTouchHelper.END) {
-            repository.updateLocalEntity(getItem(position).id, WATCHED)
+            repository.updateEntityLocal(getItem(position).id, WATCHED)
             onItemRemove?.removeItem(getItem(position))
         }
     }

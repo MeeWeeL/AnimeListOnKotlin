@@ -4,5 +4,5 @@ import com.meeweel.anilist.ui.fragments.listFragments.BaseViewModel
 
 class WatchedViewModel : BaseViewModel() {
 
-    override fun getAnimeList() = repository.getLocalWatchedAnimeList()
+    override fun getAnimeList() = repository.getWatchedAnimeListLocal()
 }
