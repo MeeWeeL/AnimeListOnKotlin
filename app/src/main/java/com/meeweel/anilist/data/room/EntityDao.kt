@@ -16,8 +16,8 @@ interface EntityDao {
     @Query("SELECT id, ruTitle, enTitle, image, data, rating, enGenre, ruGenre, list, ratingCheck FROM Entity")
     fun getAllAnime(): Single<List<ShortAnime>>
 
-    @Query("SELECT * FROM Entity WHERE list = :list")
-    fun getAnimeList(list: Int): List<Entity>
+    @Query("SELECT id, ruTitle, enTitle, image, data, rating, enGenre, ruGenre, list, ratingCheck FROM Entity WHERE list = :listState")
+    suspend fun getAnimeList(listState: Int): List<ShortAnime>
 
     @Query("SELECT id, ruTitle, enTitle, image, data, rating, enGenre, ruGenre, list, ratingCheck FROM Entity WHERE list = :list")
     fun getShortAnimeList(list: Int): Single<List<ShortAnime>>

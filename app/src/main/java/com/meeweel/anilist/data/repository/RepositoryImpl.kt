@@ -8,6 +8,7 @@ import com.meeweel.anilist.domain.models.Anime
 import com.meeweel.anilist.domain.models.ShortAnime
 import com.meeweel.anilist.model.data.AnimeResponse
 import com.meeweel.anilist.model.data.MaxIdResponse
+import com.meeweel.anilist.newUI.ListState
 import io.reactivex.rxjava3.core.Single
 
 class RepositoryImpl(
@@ -16,6 +17,7 @@ class RepositoryImpl(
 ) : Repository {
 
     // LOCAL
+    // RxJava
     override fun getAnimeQuantityLocal(): Single<Int> {
         return localDataSource.getQuantity()
     }
@@ -88,6 +90,12 @@ class RepositoryImpl(
     override fun updateRateLocal(id: Int, score: Int) {
         return localDataSource.updateRate(id, score)
     }
+
+    // Coroutines
+    override suspend fun getAnimeListLocal(listState: ListState): List<ShortAnime> {
+        return localDataSource.getAnimeList(listState.int)
+    }
+
 
     // REMOTE
     override suspend fun getAnimeByIdRemote(id: Int): AnimeResponse {
