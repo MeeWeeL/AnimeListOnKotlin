@@ -5,10 +5,13 @@ import com.meeweel.anilist.domain.models.Anime
 import com.meeweel.anilist.domain.models.ShortAnime
 import com.meeweel.anilist.model.data.AnimeResponse
 import com.meeweel.anilist.model.data.MaxIdResponse
+import com.meeweel.anilist.newUI.ListState
 import io.reactivex.rxjava3.core.Single
 
 interface Repository {
 
+
+    // RxJava
     fun getAnimeQuantityLocal(): Single<Int>
     fun getAllAnimeLocal(): Single<List<ShortAnime>>
     fun getMainAnimeListLocal(): Single<List<ShortAnime>>
@@ -22,6 +25,9 @@ interface Repository {
     fun getAnimeByIdLocal(id: Int): Single<Anime>
     fun updateRateLocal(id: Int, score: Int)
     fun insertEntityLocal(entityList: List<Entity>)
+
+    // Coroutines
+    suspend fun getAnimeListLocal(listState: ListState): List<ShortAnime>
 
     fun getAnimeRemote(id: Int): Single<AnimeResponse>
     suspend fun getAnimeByIdRemote(id: Int): AnimeResponse

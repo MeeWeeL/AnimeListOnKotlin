@@ -2,6 +2,8 @@ package com.meeweel.anilist.di
 
 //import com.meeweel.anilist.workmanager.SynchronizeWorker
 import android.content.Context
+import com.meeweel.anilist.newUI.NewMainActivity
+import com.meeweel.anilist.newUI.NewMainViewModel
 import com.meeweel.anilist.ui.MainActivity
 import com.meeweel.anilist.ui.fragments.detailsFragment.DetailsFragment
 import com.meeweel.anilist.ui.fragments.listFragments.BaseListFragment
@@ -29,8 +31,10 @@ interface AppComponent {
     }
 
     fun inject(activity: MainActivity)
+    fun inject(activity: NewMainActivity)
     fun inject(detailsFragment: DetailsFragment)
     fun inject(baseViewModel: BaseViewModel)
+    fun inject(viewModel: NewMainViewModel)
     fun inject(baseListFragment: BaseListFragment)
 //    fun inject(worker: SynchronizeWorker)
 }
