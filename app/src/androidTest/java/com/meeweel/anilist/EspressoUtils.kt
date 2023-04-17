@@ -20,6 +20,16 @@ object EspressoUtils {
         Espresso.onView(ViewMatchers.isRoot()).perform(ViewActions.pressBack())
     }
 
+    /** isVisible */
+    fun ViewInteraction.isVisible() {
+        check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    }
+
+    /** isNotVisible */
+    fun ViewInteraction.isNotVisible() {
+        check { view, _ -> (view as View).visibility != View.VISIBLE }
+    }
+
     /** isClickable */
     fun ViewInteraction.isClickable() {
         check(ViewAssertions.matches(ViewMatchers.isClickable()))
