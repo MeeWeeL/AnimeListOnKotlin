@@ -11,6 +11,10 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
+/**
+ *  Проверка, правильная ли кнопка навигации нажата (selected) при запуске приложения.
+ *  При запуске приложения должена быть нажата кнопка "База" ("Main").
+ */
 @RunWith(AndroidJUnit4::class)
 class Test2001 {
 
@@ -23,36 +27,32 @@ class Test2001 {
 
     @Test
     fun navBar_isMainSelected() {
-        findViewById(R.id.main_fragment_nav).check { view, _ ->
-            assert((view as BottomNavigationItemView).isSelected)
-        }
+        checkSelection(R.id.main_fragment_nav, true)
     }
 
     @Test
     fun navBar_isWantedNotSelected() {
-        findViewById(R.id.wanted_fragment_nav).check { view, _ ->
-            assert(!(view as BottomNavigationItemView).isSelected)
-        }
+        checkSelection(R.id.wanted_fragment_nav, false)
     }
 
     @Test
     fun navBar_isWatchedNotSelected() {
-        findViewById(R.id.watched_fragment_nav).check { view, _ ->
-            assert(!(view as BottomNavigationItemView).isSelected)
-        }
+        checkSelection(R.id.watched_fragment_nav, false)
     }
 
     @Test
     fun navBar_isNotWatchedNotSelected() {
-        findViewById(R.id.not_watched_fragment_nav).check { view, _ ->
-            assert(!(view as BottomNavigationItemView).isSelected)
-        }
+        checkSelection(R.id.not_watched_fragment_nav, false)
     }
 
     @Test
     fun navBar_isUnwantedNotSelected() {
-        findViewById(R.id.unwanted_fragment_nav).check { view, _ ->
-            assert(!(view as BottomNavigationItemView).isSelected)
+        checkSelection(R.id.unwanted_fragment_nav, false)
+    }
+
+    private fun checkSelection(id: Int, isSelected: Boolean) {
+        findViewById(id).check { view, _ ->
+            assert((view as BottomNavigationItemView).isSelected == isSelected)
         }
     }
 
