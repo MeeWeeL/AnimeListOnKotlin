@@ -45,6 +45,7 @@ class NewMainFragment : Fragment() {
                 AppState.Loading -> (requireActivity() as NewMainActivity).turnLoading(true)
             }
         }
+        (requireActivity() as NewMainActivity).getNavBar().selectedItemId = R.id.main_fragment_nav
         (requireActivity() as NewMainActivity).getNavBar().setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.main_fragment_nav -> {
