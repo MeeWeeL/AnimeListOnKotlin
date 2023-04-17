@@ -27,6 +27,7 @@ class NewMainViewModel(private val repository: Repository = RepositoryImpl(
     private var currentState = ListState.MAIN
 
     private var currentList: MutableList<ShortAnime> = mutableListOf()
+
     private var currentListData: MutableLiveData<AppState> = MutableLiveData()
     fun getCurrentListData(): LiveData<AppState> = currentListData
 
