@@ -45,7 +45,9 @@ class NewMainFragment : Fragment() {
                 AppState.Loading -> (requireActivity() as NewMainActivity).turnLoading(true)
             }
         }
-        (requireActivity() as NewMainActivity).getNavBar().setOnItemSelectedListener {
+        (requireActivity() as NewMainActivity).getNavBar().apply {
+            selectedItemId = R.id.main_fragment_nav
+            setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.main_fragment_nav -> {
                     "Good".toast(requireContext())
