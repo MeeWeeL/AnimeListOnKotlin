@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.NewFragmentMainBinding
 import com.meeweel.anilist.domain.AppState
-import com.meeweel.anilist.utils.toast
 
 class NewMainFragment : Fragment() {
 
@@ -49,8 +48,24 @@ class NewMainFragment : Fragment() {
             selectedItemId = R.id.main_fragment_nav
             setOnItemSelectedListener {
                 when (it.itemId) {
+                    R.id.unwanted_fragment_nav -> {
+                        viewModel.changeListTo(ListState.UNWANTED)
+                    }
+
+                    R.id.not_watched_fragment_nav -> {
+                        viewModel.changeListTo(ListState.NOT_WATCHED)
+                    }
+
                     R.id.main_fragment_nav -> {
-                        "Good".toast(requireContext())
+                        viewModel.changeListTo(ListState.MAIN)
+                    }
+
+                    R.id.wanted_fragment_nav -> {
+                        viewModel.changeListTo(ListState.WANTED)
+                    }
+
+                    R.id.watched_fragment_nav -> {
+                        viewModel.changeListTo(ListState.WATCHED)
                     }
                     else -> {}
                 }
