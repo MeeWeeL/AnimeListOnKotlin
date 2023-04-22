@@ -31,5 +31,6 @@ class RetrofitImpl {
 
     companion object {
         private const val BASE_URL_LOCATIONS = "https://anilist.pserver.ru"
+        fun getService() = RetrofitImpl().getService()
     }
 }

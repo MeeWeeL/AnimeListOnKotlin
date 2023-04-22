@@ -20,7 +20,7 @@ interface Repository {
     fun getWantedAnimeListLocal(): Single<List<ShortAnime>>
     fun getUnwantedAnimeListLocal(): Single<List<ShortAnime>>
     fun insertEntityLocal(entity: Entity)
-    fun updateEntityLocal(aniId: Int, list: Int)
+    fun updateEntityLocal(aniId: Int, animeState: ListState)
     fun updateFromNetworkLocal(anime: AnimeResponse, id: Int)
     fun getAnimeByIdLocal(id: Int): Single<Anime>
     fun updateRateLocal(id: Int, score: Int)

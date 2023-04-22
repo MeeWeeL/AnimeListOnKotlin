@@ -5,14 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.meeweel.anilist.R
-import com.meeweel.anilist.app.App
 import com.meeweel.anilist.databinding.MainRecyclerItemBinding
 import com.meeweel.anilist.domain.models.ShortAnime
-import com.meeweel.anilist.ui.MainActivity
-import com.meeweel.anilist.ui.fragments.listFragments.BaseViewHolder
 
 class NewAnimeListAdapter: ListAdapter<ShortAnime, NewMainViewHolder>(DiffCallback) {
 

@@ -54,8 +54,8 @@ class RepositoryImpl(
         return localDataSource.insertList(entityList)
     }
 
-    override fun updateEntityLocal(aniId: Int, list: Int) {
-        return localDataSource.update(aniId, list)
+    override fun updateEntityLocal(aniId: Int, animeState: ListState) {
+        return localDataSource.update(aniId, animeState.int)
     }
 
     override fun updateFromNetworkLocal(anime: AnimeResponse, id: Int) {

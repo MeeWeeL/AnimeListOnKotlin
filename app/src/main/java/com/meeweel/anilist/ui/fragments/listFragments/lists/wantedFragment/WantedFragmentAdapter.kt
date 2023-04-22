@@ -9,6 +9,7 @@ import com.meeweel.anilist.app.App
 import com.meeweel.anilist.data.repository.Repository
 import com.meeweel.anilist.databinding.WantedRecyclerItemBinding
 import com.meeweel.anilist.domain.models.ShortAnime
+import com.meeweel.anilist.newUI.ListState
 import com.meeweel.anilist.ui.MainActivity.Companion.WATCHED
 import com.meeweel.anilist.ui.fragments.listFragments.BaseFragmentAdapter
 import com.meeweel.anilist.ui.fragments.listFragments.BaseViewHolder
@@ -47,7 +48,7 @@ class WantedFragmentAdapter(private val repository: Repository) : BaseFragmentAd
                     true
                 }
                 watchedBtnOnWanted.setOnClickListener {
-                    repository.updateEntityLocal(anime.id, WATCHED)
+                    repository.updateEntityLocal(anime.id, ListState.WATCHED)
                     onItemRemove?.removeItem(anime)
                 }
             }
@@ -64,7 +65,7 @@ class WantedFragmentAdapter(private val repository: Repository) : BaseFragmentAd
 
     override fun onItemDismiss(position: Int, i: Int) {
         if (i == ItemTouchHelper.END) {
-            repository.updateEntityLocal(getItem(position).id, WATCHED)
+            repository.updateEntityLocal(getItem(position).id, ListState.WATCHED)
             onItemRemove?.removeItem(getItem(position))
         }
     }

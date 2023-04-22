@@ -1,6 +1,9 @@
 package com.meeweel.anilist
 
+import android.content.Context
+import android.os.Environment
 import android.view.View
+import android.widget.Toast
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
@@ -8,11 +11,17 @@ import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.platform.app.InstrumentationRegistry
 import org.hamcrest.Matcher
+import java.io.*
+import java.nio.channels.FileChannel
 
 object EspressoUtils {
 
     private const val CLICK_DELAY = 0L
+
+    // Constants
+    const val DB_NAME = "Repository.db"
 
 
     /** Кнопка назад */
@@ -56,6 +65,83 @@ object EspressoUtils {
     /** Найти вью по тексту */
     fun findViewByText(text: String): ViewInteraction {
         return Espresso.onView(ViewMatchers.withText(text))
+    }
+
+    /**
+     *  Получить путь к базе данных с названием самой базы данных
+     *  Пример: "data/databases/Repository.db"
+     */
+    fun getFullPathDB(nameDB: String = DB_NAME) {
+        InstrumentationRegistry.getInstrumentation().targetContext.getDatabasePath(nameDB).absolutePath
+    }
+
+    /**
+     *  Получить путь к базе данных без названия самой базы данных
+     *  Пример: "data/databases/"
+     */
+    fun getPathDB(nameDB: String = DB_NAME): String {
+        return InstrumentationRegistry.getInstrumentation().targetContext.getDatabasePath(nameDB).absolutePath
+    }
+
+    /**
+     *  Загрузить тестовую базу данных из директории assets
+     */
+    fun insertDB(fromNameDB: String = DB_NAME) {
+        val pathDB: String = deleteDB()
+        val context: Context = InstrumentationRegistry.getInstrumentation().context
+        val inputStream: InputStream = context.assets.open(fromNameDB)
+        val outputStream: OutputStream = FileOutputStream(pathDB)
+        val buffer = ByteArray(1024)
+        var length: Int
+        while (inputStream.read(buffer).also { length = it } > 0) {
+            outputStream.write(buffer, 0, length)
+        }
+        outputStream.flush()
+        outputStream.close()
+        inputStream.close()
+    }
+
+    /**
+     *  Удалить базу данных
+     */
+    fun deleteDB(dbName: String = DB_NAME): String {
+        val path = getPathDB()
+        InstrumentationRegistry.getInstrumentation().targetContext.deleteDatabase(dbName)
+        return path
+    }
+
+    // льтернативный способ загрузки БД в
+    private fun importDBFile(context: Context) {
+        val importDB: File = context.getDatabasePath(DB_NAME)
+        val dataDir: String = Environment.getDataDirectory().path
+        val packageName: String = context.packageName
+        val importDir = File("$dataDir/data/$packageName/databases/")
+        if (!importDir.exists()) {
+            Toast.makeText(context, "There was a problem importing the Database", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+        val importFile = File(importDir.path + "/" + importDB.name)
+        try {
+            importFile.createNewFile()
+            copyDB(importDB, importFile)
+            Toast.makeText(context, "Import Successful", Toast.LENGTH_SHORT).show()
+        } catch (ex: IOException) {
+            Toast.makeText(context, "There was a problem importing the Database", Toast.LENGTH_SHORT)
+                .show()
+        }
+    }
+
+    @Throws(IOException::class)
+    private fun copyDB(from: File, to: File) {
+        val inChannel: FileChannel = FileInputStream(from).channel
+        val outChannel: FileChannel = FileOutputStream(to).channel
+        try {
+            inChannel.transferTo(0, inChannel.size(), outChannel)
+        } finally {
+            inChannel.close()
+            outChannel.close()
+        }
     }
 
     /** Задержка без остановки главного потока */

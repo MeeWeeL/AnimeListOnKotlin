@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun String.toast() = this.toast(this@MainActivity)
+    private fun String.toast() = toast(this)
 
     fun setNightMode(isNightModeOn: Boolean) {
         val shardPreferences = getSharedPreferences(KEY_SP, MODE_PRIVATE)

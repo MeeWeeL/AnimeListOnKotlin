@@ -26,6 +26,7 @@ import com.meeweel.anilist.domain.AppState
 import com.meeweel.anilist.domain.ListFilterSet.Genre
 import com.meeweel.anilist.domain.ListFilterSet.Sort
 import com.meeweel.anilist.domain.models.ShortAnime
+import com.meeweel.anilist.newUI.ListState
 import com.meeweel.anilist.ui.MainActivity
 import com.meeweel.anilist.ui.MainActivity.Companion.MAIN
 import com.meeweel.anilist.ui.MainActivity.Companion.NOT_WATCHED
@@ -193,23 +194,23 @@ abstract class BaseListFragment : Fragment() {
         popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.to_main -> {
-                    popupMenuClick(anime, MAIN)
+                    popupMenuClick(anime, ListState.MAIN)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.to_watched -> {
-                    popupMenuClick(anime, WATCHED)
+                    popupMenuClick(anime, ListState.WATCHED)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.to_not_watched -> {
-                    popupMenuClick(anime, NOT_WATCHED)
+                    popupMenuClick(anime, ListState.NOT_WATCHED)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.to_wanted -> {
-                    popupMenuClick(anime, WANTED)
+                    popupMenuClick(anime, ListState.WANTED)
                     return@setOnMenuItemClickListener true
                 }
                 R.id.to_unwanted -> {
-                    popupMenuClick(anime, UNWANTED)
+                    popupMenuClick(anime, ListState.UNWANTED)
                     return@setOnMenuItemClickListener true
                 }
                 else -> return@setOnMenuItemClickListener false
@@ -218,8 +219,8 @@ abstract class BaseListFragment : Fragment() {
         popupMenu.show()
     }
 
-    private fun popupMenuClick(anime: ShortAnime, list: Int) {
-        repository.updateEntityLocal(anime.id, list)
+    private fun popupMenuClick(anime: ShortAnime, animeState: ListState) {
+        repository.updateEntityLocal(anime.id, animeState)
         viewModel.removeAnime(anime)
     }
 

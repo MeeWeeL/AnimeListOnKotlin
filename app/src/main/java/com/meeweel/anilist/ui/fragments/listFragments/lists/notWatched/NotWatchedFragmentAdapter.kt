@@ -9,6 +9,7 @@ import com.meeweel.anilist.app.App
 import com.meeweel.anilist.data.repository.Repository
 import com.meeweel.anilist.databinding.NotWatchedRecyclerItemBinding
 import com.meeweel.anilist.domain.models.ShortAnime
+import com.meeweel.anilist.newUI.ListState
 import com.meeweel.anilist.ui.MainActivity.Companion.UNWANTED
 import com.meeweel.anilist.ui.MainActivity.Companion.WANTED
 import com.meeweel.anilist.ui.fragments.listFragments.BaseFragmentAdapter
@@ -51,11 +52,11 @@ class NotWatchedFragmentAdapter(private val repository: Repository) : BaseFragme
                     true
                 }
                 wantedBtn.setOnClickListener {
-                    repository.updateEntityLocal(anime.id, WANTED)
+                    repository.updateEntityLocal(anime.id, ListState.WANTED)
                     onItemRemove?.removeItem(anime)
                 }
                 unwantedBtn.setOnClickListener {
-                    repository.updateEntityLocal(anime.id, UNWANTED)
+                    repository.updateEntityLocal(anime.id, ListState.UNWANTED)
                     onItemRemove?.removeItem(anime)
                 }
             }
@@ -72,11 +73,11 @@ class NotWatchedFragmentAdapter(private val repository: Repository) : BaseFragme
 
     override fun onItemDismiss(position: Int, i: Int) {
         if (i == ItemTouchHelper.START) {
-            repository.updateEntityLocal(getItem(position).id, UNWANTED)
+            repository.updateEntityLocal(getItem(position).id, ListState.UNWANTED)
             onItemRemove?.removeItem(getItem(position))
         }
         if (i == ItemTouchHelper.END) {
-            repository.updateEntityLocal(getItem(position).id, WANTED)
+            repository.updateEntityLocal(getItem(position).id, ListState.WANTED)
             onItemRemove?.removeItem(getItem(position))
         }
     }

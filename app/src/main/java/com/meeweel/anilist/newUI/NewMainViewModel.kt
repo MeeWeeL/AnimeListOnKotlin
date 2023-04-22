@@ -4,46 +4,42 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.room.Room
-import com.meeweel.anilist.app.App.ContextHolder.context
-import com.meeweel.anilist.data.repository.Repository
-import com.meeweel.anilist.data.repository.RepositoryImpl
-import com.meeweel.anilist.data.retrofit.RetrofitImpl
-import com.meeweel.anilist.data.room.EntityDataBase
-import com.meeweel.anilist.di.RepositoryModule
 import com.meeweel.anilist.domain.AppState
 import com.meeweel.anilist.domain.models.ShortAnime
+import com.meeweel.anilist.domain.useCases.ChangeAnimeStateUseCase
+import com.meeweel.anilist.domain.useCases.GetAnimeListUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class NewMainViewModel(private val repository: Repository = RepositoryImpl(
-    RetrofitImpl().getService(),
-    Room.databaseBuilder(context, EntityDataBase::class.java, RepositoryModule.DB_NAME).allowMainThreadQueries()
-        .build().entityDao()
-)) : ViewModel() {
-
-
+class NewMainViewModel(
+    private val getAnimeListUseCase: GetAnimeListUseCase = GetAnimeListUseCase(),
+    private val changeAnimeStateUseCase: ChangeAnimeStateUseCase = ChangeAnimeStateUseCase()
+) : ViewModel() {
 
     private var currentState = ListState.MAIN
-
     private var currentList: MutableList<ShortAnime> = mutableListOf()
-
-    private var currentListData: MutableLiveData<AppState> = MutableLiveData()
-    fun getCurrentListData(): LiveData<AppState> = currentListData
+    private var _listToObserve: MutableLiveData<AppState> = MutableLiveData()
+    val listToObserve: LiveData<AppState> get() = _listToObserve
 
     init {
-        loadAnimeList(currentState)
+        loadAnimeList()
     }
 
-    private fun loadAnimeList(listState: ListState) {
+    private fun loadAnimeList() {
         viewModelScope.launch(Dispatchers.IO) {
-            currentList = repository.getAnimeListLocal(listState).sortedBy(ShortAnime::ruTitle).toMutableList()
-            currentListData.postValue(AppState.Success(currentList))
+            currentList = getAnimeListUseCase(currentState).toMutableList()
+            _listToObserve.postValue(AppState.Success(currentList))
+        }
+    }
+
+    fun changeAnimeState(animeID: Int, newState: ListState) {
+        viewModelScope.launch(Dispatchers.IO) {
+            changeAnimeStateUseCase(animeID, newState)
         }
     }
 
     fun changeListTo(state: ListState) {
         currentState = state
-        loadAnimeList(state)
+        loadAnimeList()
     }
 }

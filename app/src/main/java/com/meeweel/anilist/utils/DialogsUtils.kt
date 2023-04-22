@@ -26,7 +26,7 @@ object DialogsUtils {
                 activity.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
             val clip = ClipData.newPlainText("TAG", this)
             clipboard.setPrimaryClip(clip)
-            activity.resources.getString(R.string.copied).toast(activity)
+            activity.toast(activity.resources.getString(R.string.copied))
         }
 
         fun List<ShortAnime>.copy(listInt: Int) {

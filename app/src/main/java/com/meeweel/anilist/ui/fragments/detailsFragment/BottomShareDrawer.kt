@@ -9,23 +9,20 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.meeweel.anilist.R
 import com.meeweel.anilist.data.repository.Repository
 import com.meeweel.anilist.databinding.BottomShareDrawerBinding
-import com.meeweel.anilist.ui.MainActivity.Companion.MAIN
-import com.meeweel.anilist.ui.MainActivity.Companion.NOT_WATCHED
-import com.meeweel.anilist.ui.MainActivity.Companion.UNWANTED
-import com.meeweel.anilist.ui.MainActivity.Companion.WANTED
-import com.meeweel.anilist.ui.MainActivity.Companion.WATCHED
+import com.meeweel.anilist.newUI.ListState
 
 class BottomShareDrawer(private val repository: Repository) : BottomSheetDialogFragment() {
 
-    private var aniId: Int? = null
+    private var _animeID: Int? = null
+    private val animeID get() = _animeID!!
     lateinit var bind: BottomShareDrawerBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         bind = BottomShareDrawerBinding.inflate(inflater, container, false)
-        aniId = requireArguments().getInt("aniId")
+        _animeID = requireArguments().getInt("aniId")
         return bind.root
     }
 
@@ -34,21 +31,11 @@ class BottomShareDrawer(private val repository: Repository) : BottomSheetDialogF
 
         bind.shareView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.to_watched -> {
-                    repository.updateEntityLocal(aniId!!, WATCHED)
-                }
-                R.id.to_not_watched -> {
-                    repository.updateEntityLocal(aniId!!, NOT_WATCHED)
-                }
-                R.id.to_wanted -> {
-                    repository.updateEntityLocal(aniId!!, WANTED)
-                }
-                R.id.to_unwanted -> {
-                    repository.updateEntityLocal(aniId!!, UNWANTED)
-                }
-                R.id.to_main -> {
-                    repository.updateEntityLocal(aniId!!, MAIN)
-                }
+                R.id.to_watched -> repository.updateEntityLocal(animeID, ListState.WATCHED)
+                R.id.to_not_watched -> repository.updateEntityLocal(animeID, ListState.NOT_WATCHED)
+                R.id.to_wanted -> repository.updateEntityLocal(animeID, ListState.WANTED)
+                R.id.to_unwanted -> repository.updateEntityLocal(animeID, ListState.UNWANTED)
+                R.id.to_main -> repository.updateEntityLocal(animeID, ListState.MAIN)
             }
             toast("Moved")
             dismiss() // Закрывает диалоговое окно

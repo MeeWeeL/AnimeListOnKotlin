@@ -6,8 +6,6 @@ import com.meeweel.anilist.R
 import com.meeweel.anilist.app.App
 import com.meeweel.anilist.databinding.MainRecyclerItemBinding
 import com.meeweel.anilist.domain.models.ShortAnime
-import com.meeweel.anilist.ui.fragments.listFragments.BaseViewHolder
-import com.meeweel.anilist.ui.fragments.listFragments.touchHelpers.ItemTouchHelperViewHolder
 
 class NewMainViewHolder(private val binding: MainRecyclerItemBinding) : RecyclerView.ViewHolder(binding.root) {
 

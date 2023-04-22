@@ -3,7 +3,6 @@ package com.meeweel.anilist.newUI
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.google.android.material.navigation.NavigationBarView
 import com.meeweel.anilist.R

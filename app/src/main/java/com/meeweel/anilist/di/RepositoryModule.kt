@@ -24,7 +24,7 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    internal fun provideDataSourceRemote(): AnimeApi = RetrofitImpl().getService()
+    internal fun provideDataSourceRemote(): AnimeApi = RetrofitImpl.getService()
 
     @Provides
     @Singleton

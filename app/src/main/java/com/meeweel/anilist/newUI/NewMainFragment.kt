@@ -34,7 +34,7 @@ class NewMainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         ItemTouchHelper(NewMainItemTouchHelper(adapter)).attachToRecyclerView(binding.mainFragmentRecyclerView)
         binding.mainFragmentRecyclerView.adapter = adapter
-        viewModel.getCurrentListData().observe(viewLifecycleOwner) {
+        viewModel.listToObserve.observe(viewLifecycleOwner) {
             when (it) {
                 is AppState.Success -> {
                     adapter.submitList(it.animeData) {
@@ -50,7 +50,7 @@ class NewMainFragment : Fragment() {
             setOnItemSelectedListener {
                 when (it.itemId) {
                     R.id.main_fragment_nav -> {
-                        "Good".toast(requireContext())
+                        toast("Good")
                     }
                     else -> {}
                 }

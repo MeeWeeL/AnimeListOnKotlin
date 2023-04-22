@@ -2,8 +2,6 @@ package com.meeweel.anilist.newUI
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.meeweel.anilist.ui.fragments.listFragments.lists.mainFragment.MainFragmentAdapter
-import com.meeweel.anilist.ui.fragments.listFragments.touchHelpers.ItemTouchHelperViewHolder
 
 class NewMainItemTouchHelper(private val adapter: NewAnimeListAdapter) :
     ItemTouchHelper.Callback() {
