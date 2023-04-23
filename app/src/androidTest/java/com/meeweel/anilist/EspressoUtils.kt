@@ -4,13 +4,16 @@ import android.content.Context
 import android.os.Environment
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.platform.app.InstrumentationRegistry
 import org.hamcrest.Matcher
 import java.io.*
@@ -54,7 +57,7 @@ object EspressoUtils {
     /** Нажать */
     fun ViewInteraction.click() {
         perform(ViewActions.click())
-        delay(CLICK_DELAY)
+//        delay(CLICK_DELAY)
     }
 
     /** Найти вью по id */
@@ -62,9 +65,26 @@ object EspressoUtils {
         return Espresso.onView(ViewMatchers.withId(id))
     }
 
+    /** Найти по тексту карточку в RecyclerView с прокруткой */
+    fun findCardByText(text: String): ViewInteraction {
+        scrollToCardByText(text)
+        return Espresso.onView(ViewMatchers.withText(text))
+    }
+
     /** Найти вью по тексту */
     fun findViewByText(text: String): ViewInteraction {
         return Espresso.onView(ViewMatchers.withText(text))
+    }
+
+    fun scrollToCardByText(text: String) {
+        Espresso.onView(withId(R.id.mainFragmentRecyclerView))
+            .perform(
+                RecyclerViewActions.scrollTo<RecyclerView.ViewHolder>(
+                    ViewMatchers.hasDescendant(
+                        ViewMatchers.withText(text)
+                    )
+                )
+            )
     }
 
     /**
@@ -117,7 +137,11 @@ object EspressoUtils {
         val packageName: String = context.packageName
         val importDir = File("$dataDir/data/$packageName/databases/")
         if (!importDir.exists()) {
-            Toast.makeText(context, "There was a problem importing the Database", Toast.LENGTH_SHORT)
+            Toast.makeText(
+                context,
+                "There was a problem importing the Database",
+                Toast.LENGTH_SHORT
+            )
                 .show()
             return
         }
@@ -127,7 +151,11 @@ object EspressoUtils {
             copyDB(importDB, importFile)
             Toast.makeText(context, "Import Successful", Toast.LENGTH_SHORT).show()
         } catch (ex: IOException) {
-            Toast.makeText(context, "There was a problem importing the Database", Toast.LENGTH_SHORT)
+            Toast.makeText(
+                context,
+                "There was a problem importing the Database",
+                Toast.LENGTH_SHORT
+            )
                 .show()
         }
     }

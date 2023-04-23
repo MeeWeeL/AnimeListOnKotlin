@@ -9,7 +9,6 @@ import com.meeweel.anilist.domain.models.ShortAnime
 
 class NewMainViewHolder(private val binding: MainRecyclerItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-
         fun bind(anime: ShortAnime) {
             binding.apply {
                 mainFragmentRecyclerItemTextView.text =
