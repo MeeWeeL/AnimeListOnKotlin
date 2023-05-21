@@ -11,7 +11,7 @@ import com.meeweel.anilist.databinding.UnwantedRecyclerItemBinding
 import com.meeweel.anilist.databinding.WantedRecyclerItemBinding
 import com.meeweel.anilist.databinding.WatchedRecyclerItemBinding
 import com.meeweel.anilist.domain.models.ShortAnime
-import com.meeweel.anilist.newPresentation.mainFragment.ListState
+import com.meeweel.anilist.domain.enums.ListState
 import com.meeweel.anilist.newPresentation.mainFragment.adapter.viewHolders.BaseViewHolder
 import com.meeweel.anilist.newPresentation.mainFragment.adapter.viewHolders.NewMainViewHolder
 import com.meeweel.anilist.newPresentation.mainFragment.adapter.viewHolders.NotWatchedViewHolder
@@ -23,32 +23,32 @@ class NewAnimeListAdapter : ListAdapter<ShortAnime, BaseViewHolder>(DiffCallback
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        return when (viewType) {
-            ListState.MAIN.int - 1 -> NewMainViewHolder(
+        return when (viewType - 1) {
+            ListState.MAIN.int -> NewMainViewHolder(
                 MainRecyclerItemBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
             )
 
-            ListState.UNWANTED.int - 1 -> UnwantedViewHolder(
+            ListState.UNWANTED.int -> UnwantedViewHolder(
                 UnwantedRecyclerItemBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
             )
 
-            ListState.WANTED.int - 1 -> WantedViewHolder(
+            ListState.WANTED.int -> WantedViewHolder(
                 WantedRecyclerItemBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
             )
 
-            ListState.NOT_WATCHED.int - 1 -> NotWatchedViewHolder(
+            ListState.NOT_WATCHED.int -> NotWatchedViewHolder(
                 NotWatchedRecyclerItemBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
             )
 
-            ListState.WATCHED.int - 1 -> WatchedViewHolder(
+            ListState.WATCHED.int -> WatchedViewHolder(
                 WatchedRecyclerItemBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
@@ -65,6 +65,7 @@ class NewAnimeListAdapter : ListAdapter<ShortAnime, BaseViewHolder>(DiffCallback
     override fun getItemViewType(position: Int): Int {
         return currentList[position].list - 1
     }
+
     fun onItemSwipe(viewHolderPosition: Int, i: Int) {
         if (i == ItemTouchHelper.START) {
             // TODO
