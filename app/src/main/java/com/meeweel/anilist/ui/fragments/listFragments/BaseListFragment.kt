@@ -26,7 +26,7 @@ import com.meeweel.anilist.domain.AppState
 import com.meeweel.anilist.domain.ListFilterSet.Genre
 import com.meeweel.anilist.domain.ListFilterSet.Sort
 import com.meeweel.anilist.domain.models.ShortAnime
-import com.meeweel.anilist.newPresentation.mainFragment.ListState
+import com.meeweel.anilist.domain.enums.ListState
 import com.meeweel.anilist.ui.MainActivity
 import javax.inject.Inject
 

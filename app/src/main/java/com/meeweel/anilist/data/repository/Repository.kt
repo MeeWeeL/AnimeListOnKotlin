@@ -5,7 +5,7 @@ import com.meeweel.anilist.domain.models.Anime
 import com.meeweel.anilist.domain.models.ShortAnime
 import com.meeweel.anilist.model.data.AnimeResponse
 import com.meeweel.anilist.model.data.MaxIdResponse
-import com.meeweel.anilist.newPresentation.mainFragment.ListState
+import com.meeweel.anilist.domain.enums.ListState
 import io.reactivex.rxjava3.core.Single
 
 interface Repository {
