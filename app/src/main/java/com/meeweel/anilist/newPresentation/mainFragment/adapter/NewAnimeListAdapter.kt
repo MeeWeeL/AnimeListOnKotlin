@@ -23,7 +23,7 @@ class NewAnimeListAdapter : ListAdapter<ShortAnime, BaseViewHolder>(DiffCallback
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        return when (viewType - 1) {
+        return when (viewType) {
             ListState.MAIN.int -> NewMainViewHolder(
                 MainRecyclerItemBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
@@ -63,7 +63,7 @@ class NewAnimeListAdapter : ListAdapter<ShortAnime, BaseViewHolder>(DiffCallback
     }
 
     override fun getItemViewType(position: Int): Int {
-        return currentList[position].list - 1
+        return currentList[position].list
     }
 
     fun onItemSwipe(viewHolderPosition: Int, i: Int) {
