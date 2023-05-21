@@ -1,6 +1,5 @@
 package com.meeweel.anilist.newPresentation.mainFragment.adapter.viewHolders
 
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
 import com.meeweel.anilist.app.App
@@ -8,9 +7,9 @@ import com.meeweel.anilist.databinding.WatchedRecyclerItemBinding
 import com.meeweel.anilist.domain.models.ShortAnime
 
 class WatchedViewHolder(private val binding: WatchedRecyclerItemBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+    BaseViewHolder(binding.root) {
 
-    fun bind(anime: ShortAnime) {
+    override fun bind(anime: ShortAnime) {
         binding.apply {
             watchedFragmentRecyclerItemTextView.text =
                 if (App.ContextHolder.context.resources.getBoolean(R.bool.isRussian)) anime.ruTitle else anime.enTitle
