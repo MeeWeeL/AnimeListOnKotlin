@@ -1,4 +1,4 @@
-package com.meeweel.anilist.newUI
+package com.meeweel.anilist.newPresentation.mainFragment.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import com.meeweel.anilist.databinding.MainRecyclerItemBinding
 import com.meeweel.anilist.domain.models.ShortAnime
+import com.meeweel.anilist.newPresentation.mainFragment.adapter.viewHolders.NewMainViewHolder
 
 class NewAnimeListAdapter: ListAdapter<ShortAnime, NewMainViewHolder>(DiffCallback) {
 

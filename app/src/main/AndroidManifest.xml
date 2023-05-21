@@ -21,7 +21,7 @@
             android:value="ca-app-pub-1316488884400350~1212162289" />
 
         <activity
-            android:name=".newUI.NewMainActivity"
+            android:name=".newPresentation.NewMainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

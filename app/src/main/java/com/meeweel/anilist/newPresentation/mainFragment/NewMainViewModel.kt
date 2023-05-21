@@ -1,4 +1,4 @@
-package com.meeweel.anilist.newUI
+package com.meeweel.anilist.newPresentation.mainFragment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

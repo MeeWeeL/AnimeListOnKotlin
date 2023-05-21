@@ -9,9 +9,7 @@ import com.meeweel.anilist.app.App
 import com.meeweel.anilist.data.repository.Repository
 import com.meeweel.anilist.databinding.MainRecyclerItemBinding
 import com.meeweel.anilist.domain.models.ShortAnime
-import com.meeweel.anilist.newUI.ListState
-import com.meeweel.anilist.ui.MainActivity.Companion.NOT_WATCHED
-import com.meeweel.anilist.ui.MainActivity.Companion.WATCHED
+import com.meeweel.anilist.newPresentation.mainFragment.ListState
 import com.meeweel.anilist.ui.fragments.listFragments.BaseFragmentAdapter
 import com.meeweel.anilist.ui.fragments.listFragments.BaseViewHolder
 

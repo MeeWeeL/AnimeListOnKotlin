@@ -1,4 +1,4 @@
-package com.meeweel.anilist.newUI
+package com.meeweel.anilist.newPresentation.mainFragment.adapter
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView

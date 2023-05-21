@@ -1,4 +1,4 @@
-package com.meeweel.anilist.newUI
+package com.meeweel.anilist.newPresentation.mainFragment
 
 enum class ListState(val int: Int) {
     MAIN(1),

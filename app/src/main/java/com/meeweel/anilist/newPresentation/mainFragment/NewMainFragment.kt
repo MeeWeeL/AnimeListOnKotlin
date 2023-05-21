@@ -1,4 +1,4 @@
-package com.meeweel.anilist.newUI
+package com.meeweel.anilist.newPresentation.mainFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.NewFragmentMainBinding
 import com.meeweel.anilist.domain.AppState
+import com.meeweel.anilist.newPresentation.NewMainActivity
+import com.meeweel.anilist.newPresentation.mainFragment.adapter.NewAnimeListAdapter
+import com.meeweel.anilist.newPresentation.mainFragment.adapter.NewMainItemTouchHelper
 
 class NewMainFragment : Fragment() {
 

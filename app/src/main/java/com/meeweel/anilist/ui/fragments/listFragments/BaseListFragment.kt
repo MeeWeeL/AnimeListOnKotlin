@@ -26,13 +26,8 @@ import com.meeweel.anilist.domain.AppState
 import com.meeweel.anilist.domain.ListFilterSet.Genre
 import com.meeweel.anilist.domain.ListFilterSet.Sort
 import com.meeweel.anilist.domain.models.ShortAnime
-import com.meeweel.anilist.newUI.ListState
+import com.meeweel.anilist.newPresentation.mainFragment.ListState
 import com.meeweel.anilist.ui.MainActivity
-import com.meeweel.anilist.ui.MainActivity.Companion.MAIN
-import com.meeweel.anilist.ui.MainActivity.Companion.NOT_WATCHED
-import com.meeweel.anilist.ui.MainActivity.Companion.UNWANTED
-import com.meeweel.anilist.ui.MainActivity.Companion.WANTED
-import com.meeweel.anilist.ui.MainActivity.Companion.WATCHED
 import javax.inject.Inject
 
 abstract class BaseListFragment : Fragment() {

@@ -1,4 +1,4 @@
-package com.meeweel.anilist.newUI
+package com.meeweel.anilist.newPresentation.mainFragment.adapter.viewHolders
 
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide

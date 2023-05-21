@@ -8,7 +8,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.internal.BaselineLayout
 import com.meeweel.anilist.EspressoUtils
 import com.meeweel.anilist.R
-import com.meeweel.anilist.newUI.NewMainActivity
+import com.meeweel.anilist.newPresentation.NewMainActivity
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
