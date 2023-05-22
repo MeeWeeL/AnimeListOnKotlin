@@ -1,12 +1,20 @@
 package com.meeweel.anilist.newPresentation.mainFragment.adapter.viewHolders
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
 import com.meeweel.anilist.app.App
 import com.meeweel.anilist.databinding.WantedRecyclerItemBinding
 import com.meeweel.anilist.domain.models.ShortAnime
 
-class WantedViewHolder(private val binding: WantedRecyclerItemBinding) :
+class WantedViewHolder(
+    private val parent: ViewGroup,
+    private val binding: WantedRecyclerItemBinding =
+        WantedRecyclerItemBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
+) :
     BaseViewHolder(binding.root) {
 
     override fun bind(anime: ShortAnime) {
