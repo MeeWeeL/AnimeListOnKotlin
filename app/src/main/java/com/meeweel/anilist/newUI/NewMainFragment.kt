@@ -37,14 +37,14 @@ class NewMainFragment : Fragment() {
             when (it) {
                 is AppState.Success -> {
                     adapter.submitList(it.animeData) {
-                        (requireActivity() as NewMainActivity).turnLoading(false)
+                        turnLoading(false)
                     }
                 }
                 is AppState.Error -> TODO()
-                AppState.Loading -> (requireActivity() as NewMainActivity).turnLoading(true)
+                AppState.Loading -> turnLoading(true)
             }
         }
-        (requireActivity() as NewMainActivity).getNavBar().apply {
+        binding.navBar.apply {
             selectedItemId = R.id.main_fragment_nav
             setOnItemSelectedListener {
                 when (it.itemId) {
@@ -58,6 +58,11 @@ class NewMainFragment : Fragment() {
             }
         }
     }
+
+    private fun turnLoading(isLoading: Boolean) {
+        binding.loadingLayout.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
