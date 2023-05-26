@@ -9,7 +9,7 @@ import com.meeweel.anilist.EspressoUtils.findViewById
 import com.meeweel.anilist.EspressoUtils.insertDB
 import com.meeweel.anilist.EspressoUtils.isVisible
 import com.meeweel.anilist.R
-import com.meeweel.anilist.newUI.NewMainActivity
+import com.meeweel.anilist.newPresentation.NewMainActivity
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
