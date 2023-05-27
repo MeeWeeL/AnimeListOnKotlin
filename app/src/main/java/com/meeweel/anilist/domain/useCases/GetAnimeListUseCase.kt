@@ -8,7 +8,7 @@ import com.meeweel.anilist.data.retrofit.RetrofitImpl
 import com.meeweel.anilist.data.room.EntityDataBase
 import com.meeweel.anilist.di.RepositoryModule
 import com.meeweel.anilist.domain.models.ShortAnime
-import com.meeweel.anilist.newUI.ListState
+import com.meeweel.anilist.domain.enums.ListState
 
 class GetAnimeListUseCase(
     private val repository: Repository = RepositoryImpl(

@@ -5,7 +5,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.meeweel.anilist.EspressoUtils.findViewById
 import com.meeweel.anilist.R
-import com.meeweel.anilist.newUI.NewMainActivity
+import com.meeweel.anilist.newPresentation.NewMainActivity
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

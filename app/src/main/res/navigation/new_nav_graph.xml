@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/newMainFragment"
-        android:name="com.meeweel.anilist.newUI.NewMainFragment"
+        android:name="com.meeweel.anilist.newPresentation.mainFragment.NewMainFragment"
         android:label="NewMainFragment"
         tools:layout="@layout/new_activity_main"/>
 </navigation>

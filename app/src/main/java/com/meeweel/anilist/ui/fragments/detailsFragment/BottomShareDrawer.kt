@@ -9,7 +9,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.meeweel.anilist.R
 import com.meeweel.anilist.data.repository.Repository
 import com.meeweel.anilist.databinding.BottomShareDrawerBinding
-import com.meeweel.anilist.newUI.ListState
+import com.meeweel.anilist.domain.enums.ListState
 
 class BottomShareDrawer(private val repository: Repository) : BottomSheetDialogFragment() {
 

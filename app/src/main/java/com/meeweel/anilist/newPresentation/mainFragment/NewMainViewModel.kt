@@ -1,10 +1,11 @@
-package com.meeweel.anilist.newUI
+package com.meeweel.anilist.newPresentation.mainFragment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.meeweel.anilist.domain.AppState
+import com.meeweel.anilist.domain.enums.ListState
 import com.meeweel.anilist.domain.models.ShortAnime
 import com.meeweel.anilist.domain.useCases.ChangeAnimeStateUseCase
 import com.meeweel.anilist.domain.useCases.GetAnimeListUseCase
