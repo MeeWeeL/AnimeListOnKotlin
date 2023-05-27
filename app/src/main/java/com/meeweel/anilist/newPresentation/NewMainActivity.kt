@@ -1,10 +1,8 @@
 package com.meeweel.anilist.newPresentation
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
-import com.google.android.material.navigation.NavigationBarView
 import com.meeweel.anilist.R
 import com.meeweel.anilist.app.App
 import com.meeweel.anilist.data.retrofit.AnimeSynchronizer
@@ -29,9 +27,5 @@ class NewMainActivity : AppCompatActivity() {
         return Navigation.findNavController(this, R.id.hostFragment).navigateUp()
     }
 
-    fun turnLoading(isLoading: Boolean) {
-        binding.loadingLayout.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
 
-    fun getNavBar(): NavigationBarView = binding.navBar
 }
