@@ -11,7 +11,6 @@ import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.NewFragmentMainBinding
 import com.meeweel.anilist.domain.AppState
 import com.meeweel.anilist.domain.enums.ListState
-import com.meeweel.anilist.newPresentation.NewMainActivity
 import com.meeweel.anilist.newPresentation.mainFragment.adapter.NewAnimeListAdapter
 import com.meeweel.anilist.newPresentation.mainFragment.adapter.NewMainItemTouchHelper
 
@@ -19,10 +18,11 @@ class NewMainFragment : Fragment() {
 
     private var _binding: NewFragmentMainBinding? = null
     private val binding get() = _binding!!
-    private val adapter: NewAnimeListAdapter = NewAnimeListAdapter()
     private val viewModel: NewMainViewModel by lazy {
         ViewModelProvider(this)[NewMainViewModel::class.java]
     }
+    private val adapter: NewAnimeListAdapter =
+        NewAnimeListAdapter { id, state -> viewModel.changeAnimeState(id, state) }
 
     override fun onCreateView(
         inflater: LayoutInflater,

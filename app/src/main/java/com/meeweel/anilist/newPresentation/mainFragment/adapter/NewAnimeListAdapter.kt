@@ -1,14 +1,9 @@
 package com.meeweel.anilist.newPresentation.mainFragment.adapter
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
-import com.meeweel.anilist.databinding.MainRecyclerItemBinding
-import com.meeweel.anilist.databinding.NotWatchedRecyclerItemBinding
-import com.meeweel.anilist.databinding.WantedRecyclerItemBinding
-import com.meeweel.anilist.databinding.WatchedRecyclerItemBinding
 import com.meeweel.anilist.domain.enums.ListState
 import com.meeweel.anilist.domain.models.ShortAnime
 import com.meeweel.anilist.newPresentation.mainFragment.adapter.viewHolders.BaseViewHolder
@@ -18,18 +13,18 @@ import com.meeweel.anilist.newPresentation.mainFragment.adapter.viewHolders.Unwa
 import com.meeweel.anilist.newPresentation.mainFragment.adapter.viewHolders.WantedViewHolder
 import com.meeweel.anilist.newPresentation.mainFragment.adapter.viewHolders.WatchedViewHolder
 
-class NewAnimeListAdapter : ListAdapter<ShortAnime, BaseViewHolder>(DiffCallback) {
-
+class NewAnimeListAdapter(private val callback: (id: Int, State: ListState) -> Unit) :
+    ListAdapter<ShortAnime, BaseViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
-            ListState.MAIN.int -> NewMainViewHolder(parent)
+            ListState.MAIN.int -> NewMainViewHolder(parent, callback = callback)
 
             ListState.UNWANTED.int -> UnwantedViewHolder(parent)
 
-            ListState.WANTED.int -> WantedViewHolder(parent)
+            ListState.WANTED.int -> WantedViewHolder(parent, callback = callback)
 
-            ListState.NOT_WATCHED.int -> NotWatchedViewHolder(parent)
+            ListState.NOT_WATCHED.int -> NotWatchedViewHolder(parent, callback = callback)
 
             ListState.WATCHED.int -> WatchedViewHolder(parent)
 
