@@ -15,7 +15,7 @@ class NotWatchedViewHolder(
         NotWatchedRecyclerItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         ),
-    private val callback: (id: Int, State: ListState) -> Unit,
+    private val stateCallBack: (id: Int, State: ListState) -> Unit,
 ) : BaseViewHolder(binding.root) {
     override fun bind(anime: ShortAnime) {
         binding.apply {
@@ -29,11 +29,14 @@ class NotWatchedViewHolder(
 
             itemData.text = anime.data
             unwantedBtn.setOnClickListener {
-                callback(anime.id, ListState.UNWANTED)
+
+                stateCallBack(anime.id, ListState.UNWANTED)
             }
             wantedBtn.setOnClickListener {
-                callback(anime.id, ListState.WANTED)
+                stateCallBack(anime.id, ListState.WANTED)
             }
+
+
         }
     }
 }

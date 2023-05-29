@@ -15,7 +15,7 @@ class WantedViewHolder(
         WantedRecyclerItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         ),
-    private val callback: (id: Int, State: ListState) -> Unit,
+    private val stateCallBack: (id: Int, State: ListState) -> Unit,
 ) :
     BaseViewHolder(binding.root) {
 
@@ -31,7 +31,7 @@ class WantedViewHolder(
 
             itemData.text = anime.data
             watchedBtnOnWanted.setOnClickListener {
-                callback(anime.id, ListState.WATCHED)
+                stateCallBack(anime.id, ListState.WATCHED)
             }
         }
     }

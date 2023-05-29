@@ -16,7 +16,7 @@ class NewMainViewHolder(
         MainRecyclerItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         ),
-    private val callback: (id: Int, State: ListState) -> Unit
+    private val stateCallBack: (id: Int, State: ListState) -> Unit
 ) : BaseViewHolder(binding.root) {
     override fun bind(anime: ShortAnime) {
         binding.apply {
@@ -30,10 +30,10 @@ class NewMainViewHolder(
 
             itemData.text = anime.data
             notWatchedBtn.setOnClickListener {
-                callback(anime.id, ListState.NOT_WATCHED)
+                stateCallBack(anime.id, ListState.NOT_WATCHED)
             }
             watchedBtn.setOnClickListener {
-                callback(anime.id, ListState.WATCHED)
+                stateCallBack(anime.id, ListState.WATCHED)
             }
         }
     }
