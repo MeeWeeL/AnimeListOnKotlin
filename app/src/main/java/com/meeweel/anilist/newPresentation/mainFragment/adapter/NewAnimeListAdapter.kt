@@ -45,22 +45,22 @@ class NewAnimeListAdapter(private val stateCallBack: (id: Int, State: ListState)
         val viewType = getItemViewType(viewHolderPosition)
         if (i == ItemTouchHelper.START) {
             when (viewType) {
-                ListState.MAIN.int -> callback(position, ListState.NOT_WATCHED)
+                ListState.MAIN.int -> stateCallBack(position, ListState.NOT_WATCHED)
 
-                ListState.NOT_WATCHED.int -> callback(position, ListState.UNWANTED)
+                ListState.NOT_WATCHED.int -> stateCallBack(position, ListState.UNWANTED)
 
-                ListState.WANTED.int -> callback(position, ListState.WATCHED)
+                ListState.WANTED.int -> stateCallBack(position, ListState.WATCHED)
 
                 else -> notifyItemChanged(viewHolderPosition)
             }
         }
         if (i == ItemTouchHelper.END) {
             when (viewType) {
-                ListState.MAIN.int -> callback(position, ListState.WATCHED)
+                ListState.MAIN.int -> stateCallBack(position, ListState.WATCHED)
 
-                ListState.NOT_WATCHED.int -> callback(position, ListState.WANTED)
+                ListState.NOT_WATCHED.int -> stateCallBack(position, ListState.WANTED)
 
-                ListState.WANTED.int -> callback(position, ListState.WATCHED)
+                ListState.WANTED.int -> stateCallBack(position, ListState.WATCHED)
 
                 else -> notifyItemChanged(viewHolderPosition)
             }
