@@ -41,26 +41,26 @@ class NewAnimeListAdapter(private val stateCallBack: (id: Int, State: ListState)
     }
 
     fun onItemSwipe(viewHolderPosition: Int, i: Int) {
-        val position = getItem(viewHolderPosition).id
+        val id = getItem(viewHolderPosition).id
         val viewType = getItemViewType(viewHolderPosition)
         if (i == ItemTouchHelper.START) {
             when (viewType) {
-                ListState.MAIN.int -> stateCallBack(position, ListState.NOT_WATCHED)
+                ListState.MAIN.int -> stateCallBack(id, ListState.NOT_WATCHED)
 
-                ListState.NOT_WATCHED.int -> stateCallBack(position, ListState.UNWANTED)
+                ListState.NOT_WATCHED.int -> stateCallBack(id, ListState.UNWANTED)
 
-                ListState.WANTED.int -> stateCallBack(position, ListState.WATCHED)
+                ListState.WANTED.int -> stateCallBack(id, ListState.WATCHED)
 
                 else -> notifyItemChanged(viewHolderPosition)
             }
         }
         if (i == ItemTouchHelper.END) {
             when (viewType) {
-                ListState.MAIN.int -> stateCallBack(position, ListState.WATCHED)
+                ListState.MAIN.int -> stateCallBack(id, ListState.WATCHED)
 
-                ListState.NOT_WATCHED.int -> stateCallBack(position, ListState.WANTED)
+                ListState.NOT_WATCHED.int -> stateCallBack(id, ListState.WANTED)
 
-                ListState.WANTED.int -> stateCallBack(position, ListState.WATCHED)
+                ListState.WANTED.int -> stateCallBack(id, ListState.WATCHED)
 
                 else -> notifyItemChanged(viewHolderPosition)
             }
