@@ -12,11 +12,11 @@ import com.meeweel.anilist.newPresentation.mainFragment.NewMainViewModel
 
 class NewMainViewHolder(
     private val parent: ViewGroup,
+    private val stateCallBack: (id: Int, State: ListState) -> Unit,
     private val binding: MainRecyclerItemBinding =
         MainRecyclerItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         ),
-    private val stateCallBack: (id: Int, State: ListState) -> Unit,
 ) : BaseViewHolder(binding.root) {
     override fun bind(anime: ShortAnime) {
         binding.apply {

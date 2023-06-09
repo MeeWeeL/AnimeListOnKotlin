@@ -15,15 +15,14 @@ import com.meeweel.anilist.newPresentation.mainFragment.adapter.viewHolders.Watc
 
 class NewAnimeListAdapter(
     private val stateCallBack: (id: Int, State: ListState) -> Unit,
-) :
-    ListAdapter<ShortAnime, BaseViewHolder>(DiffCallback) {
+) : ListAdapter<ShortAnime, BaseViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
-            ListState.MAIN.int -> NewMainViewHolder(parent = parent, stateCallBack = stateCallBack)
+            ListState.MAIN.int -> NewMainViewHolder(parent, stateCallBack)
             ListState.UNWANTED.int -> UnwantedViewHolder(parent)
-            ListState.WANTED.int -> WantedViewHolder(parent = parent, stateCallBack = stateCallBack)
-            ListState.NOT_WATCHED.int -> NotWatchedViewHolder(parent = parent, stateCallBack = stateCallBack)
+            ListState.WANTED.int -> WantedViewHolder(parent, stateCallBack)
+            ListState.NOT_WATCHED.int -> NotWatchedViewHolder(parent, stateCallBack)
             ListState.WATCHED.int -> WatchedViewHolder(parent)
             else -> throw IllegalArgumentException("Invalid view type")
         }

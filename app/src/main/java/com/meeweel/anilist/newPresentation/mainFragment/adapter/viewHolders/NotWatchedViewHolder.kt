@@ -11,11 +11,11 @@ import com.meeweel.anilist.domain.models.ShortAnime
 
 class NotWatchedViewHolder(
     private val parent: ViewGroup,
+    private val stateCallBack: (id: Int, State: ListState) -> Unit,
     private val binding: NotWatchedRecyclerItemBinding =
         NotWatchedRecyclerItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         ),
-    private val stateCallBack: (id: Int, State: ListState) -> Unit,
 ) : BaseViewHolder(binding.root) {
     override fun bind(anime: ShortAnime) {
         binding.apply {
