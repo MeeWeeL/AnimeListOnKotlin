@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.NewFragmentMainBinding
@@ -14,12 +16,13 @@ import com.meeweel.anilist.domain.enums.ListState
 import com.meeweel.anilist.newPresentation.NewMainActivity
 import com.meeweel.anilist.newPresentation.mainFragment.adapter.NewAnimeListAdapter
 import com.meeweel.anilist.newPresentation.mainFragment.adapter.NewMainItemTouchHelper
+import com.meeweel.anilist.ui.MainActivity
 
 class NewMainFragment : Fragment() {
 
     private var _binding: NewFragmentMainBinding? = null
     private val binding get() = _binding!!
-    private val adapter: NewAnimeListAdapter = NewAnimeListAdapter()
+    private val adapter: NewAnimeListAdapter = NewAnimeListAdapter{animeId -> navigateFragmentToDetails(animeId)}
     private val viewModel: NewMainViewModel by lazy {
         ViewModelProvider(this)[NewMainViewModel::class.java]
     }
@@ -61,6 +64,14 @@ class NewMainFragment : Fragment() {
                 return@setOnItemSelectedListener true
             }
         }
+    }
+
+    private fun navigateFragmentToDetails(animeId: Int){
+        findNavController().navigate(
+            R.id.action_newMainFragment_to_detailsFragment2, bundleOf(
+                MainActivity.ARG_ANIME_ID to animeId
+            )
+        )
     }
 
     private fun turnLoading(isLoading: Boolean) {

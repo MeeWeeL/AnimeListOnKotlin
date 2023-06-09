@@ -11,12 +11,12 @@ import com.meeweel.anilist.domain.models.ShortAnime
 
 class NewMainViewHolder(
     private val parent: ViewGroup,
+    private val onItemClickCallback: (Int) -> Unit,
     private val binding: MainRecyclerItemBinding =
         MainRecyclerItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         ),
 ) : BaseViewHolder(binding.root) {
-
         override fun bind(anime: ShortAnime) {
             binding.apply {
                 mainFragmentRecyclerItemTextView.text =
@@ -28,6 +28,10 @@ class NewMainViewHolder(
                     .into(this.mainFragmentRecyclerItemImageView)
 
                 itemData.text = anime.data
+
+                binding.root.setOnClickListener {
+                    onItemClickCallback(anime.id)
+                }
             }
         }
 }
