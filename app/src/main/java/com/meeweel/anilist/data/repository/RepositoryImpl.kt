@@ -83,8 +83,8 @@ class RepositoryImpl(
         )
     }
 
-    override fun getAnimeByIdLocal(id: Int): Single<Anime> {
-        return localDataSource.getEntityById(id).map { it.toModel() }
+    override suspend fun getAnimeByIdLocal(id: Int): Anime {
+        return localDataSource.getEntityById(id).toModel()
     }
 
     override fun updateRateLocal(id: Int, score: Int) {

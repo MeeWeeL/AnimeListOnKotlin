@@ -44,7 +44,7 @@ interface EntityDao {
     fun updateRate(id: Int, score: Int)
 
     @Query("SELECT * FROM Entity WHERE id LIKE :id")
-    fun getEntityById(id: Int): Single<Entity>
+    suspend fun getEntityById(id: Int): Entity
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(entity: Entity)

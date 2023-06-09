@@ -6,11 +6,7 @@ import com.meeweel.anilist.data.repository.Repository
 import com.meeweel.anilist.data.repository.RepositoryImpl
 import com.meeweel.anilist.data.retrofit.RetrofitImpl
 import com.meeweel.anilist.data.room.EntityDataBase
-import com.meeweel.anilist.di.RepositoryModule
 import com.meeweel.anilist.domain.models.Anime
-import com.meeweel.anilist.model.data.AnimeResponse
-import io.reactivex.rxjava3.core.Single
-import retrofit2.Response
 
 class GetAnimeByIdUseCase(
     private val repository: Repository = RepositoryImpl(
@@ -18,11 +14,11 @@ class GetAnimeByIdUseCase(
         Room.databaseBuilder(
             App.ContextHolder.context,
             EntityDataBase::class.java,
-            RepositoryModule.DB_NAME
+            "Repository.db"
         ).allowMainThreadQueries().build().entityDao()
     ),
 ) {
-    suspend operator fun invoke(animeId: Int) : AnimeResponse {
-        return repository.getAnimeByIdRemote(animeId)
+    suspend operator fun invoke(animeId: Int) : Anime {
+        return repository.getAnimeByIdLocal(animeId)
     }
 }

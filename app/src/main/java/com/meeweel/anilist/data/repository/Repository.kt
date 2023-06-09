@@ -7,9 +7,9 @@ import com.meeweel.anilist.model.data.AnimeResponse
 import com.meeweel.anilist.model.data.MaxIdResponse
 import com.meeweel.anilist.domain.enums.ListState
 import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.Deferred
 
 interface Repository {
-
 
     // RxJava
     fun getAnimeQuantityLocal(): Single<Int>
@@ -22,7 +22,7 @@ interface Repository {
     fun insertEntityLocal(entity: Entity)
     fun updateEntityLocal(aniId: Int, animeState: ListState)
     fun updateFromNetworkLocal(anime: AnimeResponse, id: Int)
-    fun getAnimeByIdLocal(id: Int): Single<Anime>
+    suspend fun getAnimeByIdLocal(id: Int): Anime
     fun updateRateLocal(id: Int, score: Int)
     fun insertEntityLocal(entityList: List<Entity>)
 

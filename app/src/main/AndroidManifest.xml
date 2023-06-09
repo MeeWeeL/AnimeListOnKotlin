@@ -21,9 +21,9 @@
             android:value="ca-app-pub-1316488884400350~1212162289" />
 
         <activity
-            android:name=".newPresentation.NewMainActivity"
+            android:name=".presentation.NewMainActivity"
             android:exported="true"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,5 +31,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
