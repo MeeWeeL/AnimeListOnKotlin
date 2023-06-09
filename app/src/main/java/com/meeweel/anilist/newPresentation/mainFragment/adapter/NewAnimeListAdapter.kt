@@ -1,14 +1,9 @@
 package com.meeweel.anilist.newPresentation.mainFragment.adapter
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
-import com.meeweel.anilist.databinding.MainRecyclerItemBinding
-import com.meeweel.anilist.databinding.NotWatchedRecyclerItemBinding
-import com.meeweel.anilist.databinding.WantedRecyclerItemBinding
-import com.meeweel.anilist.databinding.WatchedRecyclerItemBinding
 import com.meeweel.anilist.domain.enums.ListState
 import com.meeweel.anilist.domain.models.ShortAnime
 import com.meeweel.anilist.newPresentation.mainFragment.adapter.viewHolders.BaseViewHolder
@@ -18,21 +13,17 @@ import com.meeweel.anilist.newPresentation.mainFragment.adapter.viewHolders.Unwa
 import com.meeweel.anilist.newPresentation.mainFragment.adapter.viewHolders.WantedViewHolder
 import com.meeweel.anilist.newPresentation.mainFragment.adapter.viewHolders.WatchedViewHolder
 
-class NewAnimeListAdapter : ListAdapter<ShortAnime, BaseViewHolder>(DiffCallback) {
-
+class NewAnimeListAdapter(
+    private val stateCallBack: (id: Int, State: ListState) -> Unit,
+) : ListAdapter<ShortAnime, BaseViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
-            ListState.MAIN.int -> NewMainViewHolder(parent)
-
+            ListState.MAIN.int -> NewMainViewHolder(parent, stateCallBack)
             ListState.UNWANTED.int -> UnwantedViewHolder(parent)
-
-            ListState.WANTED.int -> WantedViewHolder(parent)
-
-            ListState.NOT_WATCHED.int -> NotWatchedViewHolder(parent)
-
+            ListState.WANTED.int -> WantedViewHolder(parent, stateCallBack)
+            ListState.NOT_WATCHED.int -> NotWatchedViewHolder(parent, stateCallBack)
             ListState.WATCHED.int -> WatchedViewHolder(parent)
-
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
@@ -46,11 +37,23 @@ class NewAnimeListAdapter : ListAdapter<ShortAnime, BaseViewHolder>(DiffCallback
     }
 
     fun onItemSwipe(viewHolderPosition: Int, i: Int) {
+        val id = getItem(viewHolderPosition).id
+        val viewType = getItemViewType(viewHolderPosition)
         if (i == ItemTouchHelper.START) {
-            // TODO
+            when (viewType) {
+                ListState.MAIN.int -> stateCallBack(id, ListState.NOT_WATCHED)
+                ListState.NOT_WATCHED.int -> stateCallBack(id, ListState.UNWANTED)
+                ListState.WANTED.int -> stateCallBack(id, ListState.WATCHED)
+                else -> notifyItemChanged(viewHolderPosition)
+            }
         }
         if (i == ItemTouchHelper.END) {
-            // TODO
+            when (viewType) {
+                ListState.MAIN.int -> stateCallBack(id, ListState.WATCHED)
+                ListState.NOT_WATCHED.int -> stateCallBack(id, ListState.WANTED)
+                ListState.WANTED.int -> stateCallBack(id, ListState.WATCHED)
+                else -> notifyItemChanged(viewHolderPosition)
+            }
         }
     }
 
