@@ -12,7 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.meeweel.anilist.R
 import com.meeweel.anilist.app.App
-import com.meeweel.anilist.data.repository.Repository
+import com.meeweel.anilist.domain.repository.Repository
 import com.meeweel.anilist.databinding.DetailsFragmentBinding
 import com.meeweel.anilist.databinding.RateBottomSheetLayoutBinding
 import com.meeweel.anilist.domain.models.Anime

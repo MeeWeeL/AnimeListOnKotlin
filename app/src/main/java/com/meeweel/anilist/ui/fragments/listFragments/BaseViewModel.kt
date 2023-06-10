@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.meeweel.anilist.app.App
-import com.meeweel.anilist.data.repository.Repository
+import com.meeweel.anilist.domain.repository.Repository
 import com.meeweel.anilist.domain.AppState
 import com.meeweel.anilist.domain.ListFilterSet
 import com.meeweel.anilist.domain.models.ShortAnime

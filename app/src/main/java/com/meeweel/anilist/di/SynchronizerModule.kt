@@ -1,6 +1,6 @@
 package com.meeweel.anilist.di
 
-import com.meeweel.anilist.data.repository.Repository
+import com.meeweel.anilist.domain.repository.Repository
 import com.meeweel.anilist.data.retrofit.AnimeSynchronizer
 import dagger.Module
 import dagger.Provides
