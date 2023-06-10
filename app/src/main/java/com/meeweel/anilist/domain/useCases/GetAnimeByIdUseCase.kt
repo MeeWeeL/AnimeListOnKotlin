@@ -3,6 +3,7 @@ package com.meeweel.anilist.domain.useCases
 import androidx.room.Room
 import com.meeweel.anilist.app.App
 import com.meeweel.anilist.data.repository.Repository
+import com.meeweel.anilist.data.repository.RepositoryConst
 import com.meeweel.anilist.data.repository.RepositoryImpl
 import com.meeweel.anilist.data.retrofit.RetrofitImpl
 import com.meeweel.anilist.data.room.EntityDataBase
@@ -14,7 +15,7 @@ class GetAnimeByIdUseCase(
         Room.databaseBuilder(
             App.ContextHolder.context,
             EntityDataBase::class.java,
-            "Repository.db"
+            RepositoryConst.DB_NAME
         ).allowMainThreadQueries().build().entityDao()
     ),
 ) {

@@ -12,15 +12,16 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.NewFragmentMainBinding
 import com.meeweel.anilist.domain.enums.ListState
+import com.meeweel.anilist.presentation.NewMainActivity
 import com.meeweel.anilist.presentation.mainFragment.adapter.NewAnimeListAdapter
 import com.meeweel.anilist.presentation.mainFragment.adapter.NewMainItemTouchHelper
-import com.meeweel.anilist.ui.MainActivity
 
 class NewMainFragment : Fragment() {
 
     private var _binding: NewFragmentMainBinding? = null
     private val binding get() = _binding!!
-    private val adapter: NewAnimeListAdapter = NewAnimeListAdapter{animeId -> navigateFragmentToDetails(animeId)}
+    private val adapter: NewAnimeListAdapter =
+        NewAnimeListAdapter { animeId -> navigateFragmentToDetails(animeId) }
     private val viewModel: NewMainViewModel by lazy {
         ViewModelProvider(this)[NewMainViewModel::class.java]
     }
@@ -28,7 +29,7 @@ class NewMainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = NewFragmentMainBinding.inflate(inflater, container, false)
         return binding.root
@@ -45,6 +46,7 @@ class NewMainFragment : Fragment() {
                         turnLoading(false)
                     }
                 }
+
                 is AnimeListState.Error -> TODO()
                 AnimeListState.Loading -> turnLoading(true)
             }
@@ -64,10 +66,10 @@ class NewMainFragment : Fragment() {
         }
     }
 
-    private fun navigateFragmentToDetails(animeId: Int){
+    private fun navigateFragmentToDetails(animeId: Int) {
         findNavController().navigate(
             R.id.action_newMainFragment_to_detailsFragment2, bundleOf(
-                MainActivity.ARG_ANIME_ID to animeId
+                NewMainActivity.ARG_ANIME_ID to animeId
             )
         )
     }

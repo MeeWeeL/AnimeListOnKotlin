@@ -10,6 +10,7 @@ import com.meeweel.anilist.domain.models.ShortAnime
 
 class UnwantedViewHolder(
     private val parent: ViewGroup,
+    private val onItemClickCallback: (Int) -> Unit,
     private val binding: UnwantedRecyclerItemBinding =
         UnwantedRecyclerItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
@@ -28,6 +29,9 @@ class UnwantedViewHolder(
                 .into(this.unwantedFragmentRecyclerItemImageView)
 
             itemData.text = anime.data
+            binding.root.setOnClickListener {
+                onItemClickCallback(anime.id)
+            }
         }
     }
 }

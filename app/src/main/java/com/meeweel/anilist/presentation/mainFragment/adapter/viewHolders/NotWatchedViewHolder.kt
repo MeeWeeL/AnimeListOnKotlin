@@ -10,6 +10,7 @@ import com.meeweel.anilist.domain.models.ShortAnime
 
 class NotWatchedViewHolder(
     private val parent: ViewGroup,
+    private val onItemClickCallback: (Int) -> Unit,
     private val binding: NotWatchedRecyclerItemBinding =
         NotWatchedRecyclerItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
@@ -26,6 +27,9 @@ class NotWatchedViewHolder(
                 .into(this.notWatchedFragmentRecyclerItemImageView)
 
             itemData.text = anime.data
+            binding.root.setOnClickListener {
+                onItemClickCallback(anime.id)
+            }
         }
     }
 }

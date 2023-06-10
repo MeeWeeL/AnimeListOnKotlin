@@ -19,17 +19,20 @@ class NewAnimeListAdapter(private val itemClickListener: (Int) -> Unit) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
-            ListState.MAIN.int -> NewMainViewHolder(
-                parent,
+            ListState.MAIN.int -> NewMainViewHolder(parent,
                 { animeId -> itemClickListener(animeId) })
 
-            ListState.UNWANTED.int -> UnwantedViewHolder(parent)
+            ListState.UNWANTED.int -> UnwantedViewHolder(parent,
+                { animeId -> itemClickListener(animeId) })
 
-            ListState.WANTED.int -> WantedViewHolder(parent)
+            ListState.WANTED.int -> WantedViewHolder(parent,
+                { animeId -> itemClickListener(animeId) })
 
-            ListState.NOT_WATCHED.int -> NotWatchedViewHolder(parent)
+            ListState.NOT_WATCHED.int -> NotWatchedViewHolder(
+                parent, { animeId -> itemClickListener(animeId) })
 
-            ListState.WATCHED.int -> WatchedViewHolder(parent)
+            ListState.WATCHED.int -> WatchedViewHolder(
+                parent, { animeId -> itemClickListener(animeId) })
 
             else -> throw IllegalArgumentException("Invalid view type")
         }
