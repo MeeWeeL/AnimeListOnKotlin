@@ -18,3 +18,4 @@ local.properties
 
 ### Google services ###
 .google-services
+google-services.json
