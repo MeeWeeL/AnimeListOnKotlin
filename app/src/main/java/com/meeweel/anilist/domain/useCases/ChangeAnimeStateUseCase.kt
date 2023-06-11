@@ -20,7 +20,7 @@ class ChangeAnimeStateUseCase(
     ),
 ) {
 
-    suspend operator fun invoke(animeId: Int, newState: ListState) {
+    operator fun invoke(animeId: Int, newState: ListState) {
         repository.updateEntityLocal(animeId, newState)
     }
 }

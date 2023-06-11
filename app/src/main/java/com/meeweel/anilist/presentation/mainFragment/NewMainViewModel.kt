@@ -35,6 +35,7 @@ class NewMainViewModel(
     fun changeAnimeState(animeID: Int, newState: ListState) {
         viewModelScope.launch(Dispatchers.IO) {
             changeAnimeStateUseCase(animeID, newState)
+            loadAnimeList()
         }
     }
 

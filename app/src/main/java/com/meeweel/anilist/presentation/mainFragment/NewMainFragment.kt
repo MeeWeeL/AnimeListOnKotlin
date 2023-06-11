@@ -20,11 +20,13 @@ class NewMainFragment : Fragment() {
 
     private var _binding: NewFragmentMainBinding? = null
     private val binding get() = _binding!!
-    private val adapter: NewAnimeListAdapter =
-        NewAnimeListAdapter { animeId -> navigateFragmentToDetails(animeId) }
     private val viewModel: NewMainViewModel by lazy {
         ViewModelProvider(this)[NewMainViewModel::class.java]
     }
+    private val adapter: NewAnimeListAdapter =
+        NewAnimeListAdapter(
+            { animeId -> navigateFragmentToDetails(animeId) },
+            { id, state -> viewModel.changeAnimeState(id, state) })
 
     override fun onCreateView(
         inflater: LayoutInflater,

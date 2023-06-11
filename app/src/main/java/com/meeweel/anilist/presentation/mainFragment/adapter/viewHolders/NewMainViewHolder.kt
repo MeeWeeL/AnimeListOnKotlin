@@ -6,11 +6,13 @@ import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
 import com.meeweel.anilist.app.App
 import com.meeweel.anilist.databinding.MainRecyclerItemBinding
+import com.meeweel.anilist.domain.enums.ListState
 import com.meeweel.anilist.domain.models.ShortAnime
 
 class NewMainViewHolder(
     private val parent: ViewGroup,
     private val onItemClickCallback: (Int) -> Unit,
+    private val stateCallBack: (id: Int, State: ListState) -> Unit,
     private val binding: MainRecyclerItemBinding =
         MainRecyclerItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
@@ -31,6 +33,12 @@ class NewMainViewHolder(
                 binding.root.setOnClickListener {
                     onItemClickCallback(anime.id)
                 }
+                notWatchedBtn.setOnClickListener {
+                    stateCallBack(anime.id, ListState.NOT_WATCHED)
+                }
+                watchedBtn.setOnClickListener {
+                    stateCallBack(anime.id, ListState.WATCHED)
+                }
             }
-        }
+    }
 }

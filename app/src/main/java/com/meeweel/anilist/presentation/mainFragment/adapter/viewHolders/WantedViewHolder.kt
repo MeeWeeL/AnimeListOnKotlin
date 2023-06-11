@@ -6,15 +6,17 @@ import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
 import com.meeweel.anilist.app.App
 import com.meeweel.anilist.databinding.WantedRecyclerItemBinding
+import com.meeweel.anilist.domain.enums.ListState
 import com.meeweel.anilist.domain.models.ShortAnime
 
 class WantedViewHolder(
     private val parent: ViewGroup,
     private val onItemClickCallback: (Int) -> Unit,
+    private val stateCallBack: (id: Int, State: ListState) -> Unit,
     private val binding: WantedRecyclerItemBinding =
         WantedRecyclerItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
-        )
+        ),
 ) :
     BaseViewHolder(binding.root) {
 
@@ -31,6 +33,9 @@ class WantedViewHolder(
             itemData.text = anime.data
             binding.root.setOnClickListener {
                 onItemClickCallback(anime.id)
+                watchedBtnOnWanted.setOnClickListener {
+                    stateCallBack(anime.id, ListState.WATCHED)
+                }
             }
         }
     }
