@@ -9,7 +9,6 @@ import com.meeweel.anilist.domain.models.ShortAnime
 import com.meeweel.anilist.model.data.AnimeResponse
 import com.meeweel.anilist.model.data.MaxIdResponse
 import com.meeweel.anilist.domain.enums.ListState
-import com.meeweel.anilist.domain.repository.Repository
 import io.reactivex.rxjava3.core.Single
 
 class RepositoryImpl(

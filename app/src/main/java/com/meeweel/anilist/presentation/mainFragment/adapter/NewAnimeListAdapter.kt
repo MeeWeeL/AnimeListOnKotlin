@@ -13,23 +13,26 @@ import com.meeweel.anilist.presentation.mainFragment.adapter.viewHolders.Unwante
 import com.meeweel.anilist.presentation.mainFragment.adapter.viewHolders.WantedViewHolder
 import com.meeweel.anilist.presentation.mainFragment.adapter.viewHolders.WatchedViewHolder
 
-class NewAnimeListAdapter(private val itemClickListener: (Int) -> Unit) :
+class NewAnimeListAdapter(
+    private val itemClickListener: (Int) -> Unit,
+    private val stateCallBack: (id: Int, State: ListState) -> Unit,
+) :
     ListAdapter<ShortAnime, BaseViewHolder>(DiffCallback) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
             ListState.MAIN.int -> NewMainViewHolder(parent,
-                { animeId -> itemClickListener(animeId) })
+                { animeId -> itemClickListener(animeId) }, stateCallBack)
 
             ListState.UNWANTED.int -> UnwantedViewHolder(parent,
                 { animeId -> itemClickListener(animeId) })
 
             ListState.WANTED.int -> WantedViewHolder(parent,
-                { animeId -> itemClickListener(animeId) })
+                { animeId -> itemClickListener(animeId) }, stateCallBack)
 
             ListState.NOT_WATCHED.int -> NotWatchedViewHolder(
-                parent, { animeId -> itemClickListener(animeId) })
+                parent, { animeId -> itemClickListener(animeId) }, stateCallBack)
 
             ListState.WATCHED.int -> WatchedViewHolder(
                 parent, { animeId -> itemClickListener(animeId) })
@@ -48,11 +51,23 @@ class NewAnimeListAdapter(private val itemClickListener: (Int) -> Unit) :
     }
 
     fun onItemSwipe(viewHolderPosition: Int, i: Int) {
+        val id = getItem(viewHolderPosition).id
+        val viewType = getItemViewType(viewHolderPosition)
         if (i == ItemTouchHelper.START) {
-            // TODO
+            when (viewType) {
+                ListState.MAIN.int -> stateCallBack(id, ListState.NOT_WATCHED)
+                ListState.NOT_WATCHED.int -> stateCallBack(id, ListState.UNWANTED)
+                ListState.WANTED.int -> stateCallBack(id, ListState.WATCHED)
+                else -> notifyItemChanged(viewHolderPosition)
+            }
         }
         if (i == ItemTouchHelper.END) {
-            // TODO
+            when (viewType) {
+                ListState.MAIN.int -> stateCallBack(id, ListState.WATCHED)
+                ListState.NOT_WATCHED.int -> stateCallBack(id, ListState.WANTED)
+                ListState.WANTED.int -> stateCallBack(id, ListState.WATCHED)
+                else -> notifyItemChanged(viewHolderPosition)
+            }
         }
     }
 
