@@ -1,4 +1,4 @@
-package com.meeweel.anilist.data.repository
+package com.meeweel.anilist.domain.repository
 
 import com.meeweel.anilist.data.room.Entity
 import com.meeweel.anilist.domain.models.Anime

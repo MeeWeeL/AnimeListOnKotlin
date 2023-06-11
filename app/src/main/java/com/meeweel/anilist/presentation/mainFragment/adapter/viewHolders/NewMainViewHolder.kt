@@ -11,8 +11,8 @@ import com.meeweel.anilist.domain.models.ShortAnime
 
 class NewMainViewHolder(
     private val parent: ViewGroup,
-    private val onItemClickCallback: (Int) -> Unit,
-    private val stateCallBack: (id: Int, State: ListState) -> Unit,
+    private val onItemClick: (Int) -> Unit,
+    private val onItemStateChange: (id: Int, State: ListState) -> Unit,
     private val binding: MainRecyclerItemBinding =
         MainRecyclerItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
@@ -31,13 +31,13 @@ class NewMainViewHolder(
                 itemData.text = anime.data
 
                 binding.root.setOnClickListener {
-                    onItemClickCallback(anime.id)
+                    onItemClick(anime.id)
                 }
                 notWatchedBtn.setOnClickListener {
-                    stateCallBack(anime.id, ListState.NOT_WATCHED)
+                    onItemStateChange(anime.id, ListState.NOT_WATCHED)
                 }
                 watchedBtn.setOnClickListener {
-                    stateCallBack(anime.id, ListState.WATCHED)
+                    onItemStateChange(anime.id, ListState.WATCHED)
                 }
             }
     }

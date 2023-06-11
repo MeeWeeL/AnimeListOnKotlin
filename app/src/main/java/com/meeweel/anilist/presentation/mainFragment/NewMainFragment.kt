@@ -70,9 +70,8 @@ class NewMainFragment : Fragment() {
 
     private fun navigateFragmentToDetails(animeId: Int) {
         findNavController().navigate(
-            R.id.action_newMainFragment_to_detailsFragment2, bundleOf(
-                NewMainActivity.ARG_ANIME_ID to animeId
-            )
+            R.id.action_newMainFragment_to_detailsFragment2,
+            bundleOf(NewMainActivity.ARG_ANIME_ID to animeId)
         )
     }
 

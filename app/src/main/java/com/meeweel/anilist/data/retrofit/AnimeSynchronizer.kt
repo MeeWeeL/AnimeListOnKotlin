@@ -2,7 +2,7 @@ package com.meeweel.anilist.data.retrofit
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.meeweel.anilist.data.repository.Repository
+import com.meeweel.anilist.domain.repository.Repository
 import com.meeweel.anilist.data.room.toEntityList
 import com.meeweel.anilist.model.data.AnimeResponse
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
