@@ -7,7 +7,18 @@
 
     <fragment
         android:id="@+id/newMainFragment"
-        android:name="com.meeweel.anilist.newPresentation.mainFragment.NewMainFragment"
-        android:label="NewMainFragment"
-        tools:layout="@layout/new_activity_main"/>
+        android:name="com.meeweel.anilist.presentation.mainFragment.NewMainFragment"
+        android:label="NewMainFragment">
+        <action
+            android:id="@+id/action_newMainFragment_to_detailsFragment2"
+            app:destination="@id/newDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newDetailsFragment"
+        android:name="com.meeweel.anilist.presentation.detailsFragment.DetailsFragment"
+        android:label="newDetailsFragment">
+        <action
+            android:id="@+id/action_detailsFragment2_to_newMainFragment"
+            app:destination="@id/newMainFragment" />
+    </fragment>
 </navigation>

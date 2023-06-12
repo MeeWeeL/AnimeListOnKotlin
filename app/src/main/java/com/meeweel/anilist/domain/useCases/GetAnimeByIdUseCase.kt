@@ -7,10 +7,9 @@ import com.meeweel.anilist.data.room.RepositoryConst
 import com.meeweel.anilist.data.repository.RepositoryImpl
 import com.meeweel.anilist.data.retrofit.RetrofitImpl
 import com.meeweel.anilist.data.room.EntityDataBase
-import com.meeweel.anilist.domain.models.ShortAnime
-import com.meeweel.anilist.domain.enums.ListState
+import com.meeweel.anilist.domain.models.Anime
 
-class GetAnimeListUseCase(
+class GetAnimeByIdUseCase(
     private val repository: Repository = RepositoryImpl(
         RetrofitImpl.getService(),
         Room.databaseBuilder(
@@ -20,8 +19,7 @@ class GetAnimeListUseCase(
         ).allowMainThreadQueries().build().entityDao()
     ),
 ) {
-
-    suspend operator fun invoke(state: ListState): List<ShortAnime> {
-        return repository.getAnimeListLocal(state).sortedBy(ShortAnime::ruTitle)
+    suspend operator fun invoke(animeId: Int) : Anime {
+        return repository.getAnimeByIdLocal(animeId)
     }
 }
