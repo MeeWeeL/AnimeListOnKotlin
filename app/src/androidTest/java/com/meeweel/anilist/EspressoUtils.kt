@@ -13,9 +13,13 @@ import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.withChild
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withParent
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.platform.app.InstrumentationRegistry
 import org.hamcrest.Matcher
+import org.hamcrest.Matchers
 import java.io.*
 import java.nio.channels.FileChannel
 
@@ -69,6 +73,17 @@ object EspressoUtils {
     fun findCardByText(text: String): ViewInteraction {
         scrollToCardByText(text)
         return Espresso.onView(ViewMatchers.withText(text))
+    }
+
+    fun findCardButtonByAnimeTitleAndId(
+        animeTitle: String,
+        buttonId: Int
+    ): ViewInteraction {
+        scrollToCardByText(animeTitle)
+        return Espresso.onView(Matchers.allOf(
+            withParent(withChild(withText(animeTitle))),
+            withId(buttonId)
+        ))
     }
 
     /** Найти вью по тексту */
