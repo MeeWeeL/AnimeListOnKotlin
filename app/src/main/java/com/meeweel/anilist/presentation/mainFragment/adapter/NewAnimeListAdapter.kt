@@ -30,7 +30,8 @@ class NewAnimeListAdapter(
             )
             ListState.WANTED.int -> WantedViewHolder(
                 parent,
-                { animeId -> onItemClick(animeId) }, onItemStateChange
+                { animeId -> onItemClick(animeId) },
+                onItemStateChange
             )
             ListState.NOT_WATCHED.int -> NotWatchedViewHolder(
                 parent,

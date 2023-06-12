@@ -3,7 +3,7 @@ package com.meeweel.anilist.domain.useCases
 import androidx.room.Room
 import com.meeweel.anilist.app.App
 import com.meeweel.anilist.domain.repository.Repository
-import com.meeweel.anilist.domain.repository.RepositoryConst
+import com.meeweel.anilist.data.room.RepositoryConst
 import com.meeweel.anilist.data.repository.RepositoryImpl
 import com.meeweel.anilist.data.retrofit.RetrofitImpl
 import com.meeweel.anilist.data.room.EntityDataBase
