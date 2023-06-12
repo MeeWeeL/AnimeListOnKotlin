@@ -1,9 +1,5 @@
 package com.meeweel.anilist.domain.models
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-
-@Parcelize
 data class Anime(
     val id: Int,
     val ruTitle: String,
@@ -19,4 +15,4 @@ data class Anime(
     val seriesQuantity: Int,
     val ratingCheck: Int,
     var list: Int
-) : Parcelable
+)

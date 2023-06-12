@@ -94,7 +94,7 @@ class RepositoryImpl(
 
     // Coroutines
     override suspend fun getAnimeListLocal(listState: ListState): List<ShortAnime> {
-        return localDataSource.getAnimeList(listState.int)
+        return localDataSource.getAnimeList(listState.int).map { it }
     }
 
 

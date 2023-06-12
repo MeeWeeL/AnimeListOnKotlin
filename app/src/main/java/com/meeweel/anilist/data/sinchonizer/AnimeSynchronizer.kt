@@ -1,4 +1,4 @@
-package com.meeweel.anilist.data.retrofit
+package com.meeweel.anilist.data.sinchonizer
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,10 +10,9 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
 
-class AnimeSynchronizer constructor(
-    private val repository: Repository
-) {
+class AnimeSynchronizer @Inject constructor(private val repository: Repository) {
 
     var appVersion = "" // Установленная версия приложения
     private var actualQuantity = 0 // Количество сериалов, имеющихся на сервере
