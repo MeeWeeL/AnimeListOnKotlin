@@ -1,4 +1,4 @@
-package com.meeweel.anilist.uiAutoTest.tests
+package com.meeweel.anilist.uiAutoTest.mainFragment.tests
 
 import android.view.View
 import androidx.core.view.children
@@ -19,7 +19,7 @@ import org.junit.runner.RunWith
  *  У всех кнопок навигации должен быть виден текст (label).
  */
 @RunWith(AndroidJUnit4::class)
-class Test2003 {
+class NavButtonsLabelsVisibility {
 
     private lateinit var scenario: ActivityScenario<NewMainActivity>
 

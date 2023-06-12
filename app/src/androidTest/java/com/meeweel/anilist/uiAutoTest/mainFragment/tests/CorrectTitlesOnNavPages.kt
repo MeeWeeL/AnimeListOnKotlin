@@ -1,4 +1,4 @@
-package com.meeweel.anilist.uiAutoTest.tests
+package com.meeweel.anilist.uiAutoTest.mainFragment.tests
 
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -17,8 +17,11 @@ import org.junit.runner.RunWith
 import java.io.*
 
 
+/**
+ * Правильные ли итемы отображаются на вкладках главного экрана.
+ */
 @RunWith(AndroidJUnit4::class)
-class Test2002 {
+class CorrectTitlesOnNavPages {
 
     private lateinit var scenario: ActivityScenario<NewMainActivity>
 
@@ -61,7 +64,6 @@ class Test2002 {
 
     @After
     fun close() {
-        deleteDB()
         scenario.close()
     }
 }
