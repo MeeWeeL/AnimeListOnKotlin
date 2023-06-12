@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitImpl {
 
-    fun getService(): AnimeApi {
+    private fun getService(): AnimeApi {
         return createRetrofit(BaseInterceptor.interceptor).create(AnimeApi::class.java)
     }
 

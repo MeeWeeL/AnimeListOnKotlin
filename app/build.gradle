@@ -1,8 +1,8 @@
 plugins {
     id 'com.android.application'
-    id 'kotlin-android'
+    id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-    id 'kotlin-parcelize'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -19,20 +19,6 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
-//    flavorDimensions "default"
-//    productFlavors {
-//        fake {
-//            applicationIdSuffix ".fake"
-//            versionNameSuffix "-fake"
-//            buildConfigField "String", "TYPE", '"FAKE"'
-//        }
-//        real {
-//            applicationIdSuffix ".real"
-//            versionNameSuffix "-real"
-//            buildConfigField "String", "TYPE", '"REAL"'
-//        }
-//    }
 
     buildTypes {
         release {
@@ -59,6 +45,7 @@ android {
     }
     kapt {
         generateStubs = true
+        correctErrorTypes true
     }
     buildFeatures {
         viewBinding true
@@ -73,10 +60,6 @@ android {
 }
 
 dependencies {
-
-    // Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1"
 
     // ADS
     implementation 'com.google.android.gms:play-services-ads:21.5.0'
@@ -101,9 +84,17 @@ dependencies {
     // Json
     implementation 'com.google.code.gson:gson:2.10'
 
+    // Dagger Hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
     // RxJava 3
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1"
 
     //Room
     implementation 'androidx.room:room-runtime:2.5.0'

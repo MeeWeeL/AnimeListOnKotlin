@@ -8,12 +8,15 @@ import com.meeweel.anilist.domain.enums.ListState
 import com.meeweel.anilist.domain.models.ShortAnime
 import com.meeweel.anilist.domain.useCases.ChangeAnimeStateUseCase
 import com.meeweel.anilist.domain.useCases.GetAnimeListUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NewMainViewModel(
-    private val getAnimeListUseCase: GetAnimeListUseCase = GetAnimeListUseCase(),
-    private val changeAnimeStateUseCase: ChangeAnimeStateUseCase = ChangeAnimeStateUseCase()
+@HiltViewModel
+class NewMainViewModel @Inject constructor(
+    private val getAnimeListUseCase: GetAnimeListUseCase,
+    private val changeAnimeStateUseCase: ChangeAnimeStateUseCase
 ) : ViewModel() {
 
     private var currentState = ListState.MAIN
