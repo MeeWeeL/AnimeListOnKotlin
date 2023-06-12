@@ -25,7 +25,7 @@ import java.nio.channels.FileChannel
 
 object EspressoUtils {
 
-    private const val CLICK_DELAY = 0L
+    private const val CLICK_DELAY = 1000L
 
     // Constants
     const val DB_NAME = "Repository.db"
@@ -61,7 +61,7 @@ object EspressoUtils {
     /** Нажать */
     fun ViewInteraction.click() {
         perform(ViewActions.click())
-//        delay(CLICK_DELAY)
+        delay(CLICK_DELAY)
     }
 
     /** Найти вью по id */
