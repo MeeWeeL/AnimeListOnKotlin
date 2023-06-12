@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -15,18 +16,20 @@ import com.meeweel.anilist.domain.enums.ListState
 import com.meeweel.anilist.presentation.NewMainActivity
 import com.meeweel.anilist.presentation.mainFragment.adapter.NewAnimeListAdapter
 import com.meeweel.anilist.presentation.mainFragment.adapter.NewMainItemTouchHelper
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NewMainFragment : Fragment() {
 
     private var _binding: NewFragmentMainBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: NewMainViewModel by lazy {
-        ViewModelProvider(this)[NewMainViewModel::class.java]
-    }
-    private val adapter: NewAnimeListAdapter =
+    private val viewModel: NewMainViewModel by viewModels()
+    private val adapter: NewAnimeListAdapter by lazy {
         NewAnimeListAdapter(
             { animeId -> navigateFragmentToDetails(animeId) },
-            { id, state -> viewModel.changeAnimeState(id, state) })
+            { id, state -> viewModel.changeAnimeState(id, state) }
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

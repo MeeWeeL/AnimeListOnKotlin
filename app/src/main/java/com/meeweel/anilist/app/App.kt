@@ -6,7 +6,9 @@ import android.content.Context
 import com.meeweel.anilist.BuildConfig.API_key
 import com.yandex.metrica.YandexMetrica
 import com.yandex.metrica.YandexMetricaConfig
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class App : Application() {
 
     @SuppressLint("StaticFieldLeak")
