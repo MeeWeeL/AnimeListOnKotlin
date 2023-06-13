@@ -2,8 +2,8 @@
 buildscript {
 
     ext.hilt_version = "2.44.2"
-    ext.kotlin_version = "1.7.20"
-    ext.gradle_version = "8.0.0"
+    ext.kotlin_version = "1.8.22"
+    ext.gradle_version = '8.0.2'
     repositories {
         google()
         mavenCentral()
