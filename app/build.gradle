@@ -82,7 +82,6 @@ dependencies {
 
     // AppMetrica SDK.
     implementation 'com.yandex.android:mobmetricalib:5.0.1'
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
     // Glide
     kapt "com.github.bumptech.glide:compiler:4.12.0"
@@ -124,6 +123,9 @@ dependencies {
     // LifeCycle
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+
+    // SwipeRefresh
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
     // UiAutomator
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
