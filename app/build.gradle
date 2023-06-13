@@ -82,6 +82,7 @@ dependencies {
 
     // AppMetrica SDK.
     implementation 'com.yandex.android:mobmetricalib:5.0.1'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
     // Glide
     kapt "com.github.bumptech.glide:compiler:4.12.0"
