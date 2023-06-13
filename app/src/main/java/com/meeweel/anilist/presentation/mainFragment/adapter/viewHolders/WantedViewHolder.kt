@@ -33,9 +33,9 @@ class WantedViewHolder(
             itemData.text = anime.data
             binding.root.setOnClickListener {
                 onItemClick(anime.id)
-                watchedBtnOnWanted.setOnClickListener {
-                    onItemStateChange(anime.id, ListState.WATCHED)
-                }
+            }
+            watchedBtnOnWanted.setOnClickListener {
+                onItemStateChange(anime.id, ListState.WATCHED)
             }
         }
     }
