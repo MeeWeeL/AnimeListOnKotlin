@@ -25,7 +25,7 @@ import java.nio.channels.FileChannel
 
 object EspressoUtils {
 
-    private const val CLICK_DELAY = 1000L
+    private const val CLICK_DELAY = 100L
 
     // Constants
     const val DB_NAME = "Repository.db"
