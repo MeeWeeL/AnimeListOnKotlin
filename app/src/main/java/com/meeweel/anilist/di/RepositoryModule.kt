@@ -1,6 +1,8 @@
 package com.meeweel.anilist.di
 
+import com.meeweel.anilist.BuildConfig
 import com.meeweel.anilist.data.repository.RepositoryImpl
+import com.meeweel.anilist.data.repository.TestRepositoryImpl
 import com.meeweel.anilist.data.retrofit.AnimeApi
 import com.meeweel.anilist.data.room.EntityDao
 import com.meeweel.anilist.domain.repository.Repository
@@ -16,6 +18,6 @@ object RepositoryModule {
     @Singleton
     @Provides
     fun provideRepository(api: AnimeApi, room: EntityDao): Repository {
-        return RepositoryImpl(api, room)
+        return if (BuildConfig.DEBUG) TestRepositoryImpl(api) else RepositoryImpl(api, room)
     }
 }
