@@ -1,5 +1,6 @@
 package com.meeweel.anilist.presentation.mainFragment.adapter
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -16,32 +17,43 @@ import com.meeweel.anilist.presentation.mainFragment.adapter.viewHolders.Watched
 class NewAnimeListAdapter(
     private val onItemClick: (Int) -> Unit,
     private val onItemStateChange: (id: Int, State: ListState) -> Unit,
+    private val onLongItemClick: (id: Int, view: View, listState: ListState) -> Unit,
 ) : ListAdapter<ShortAnime, BaseViewHolder>(DiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
             ListState.MAIN.int -> NewMainViewHolder(
                 parent,
                 { animeId -> onItemClick(animeId) },
-                onItemStateChange
+                onItemStateChange,
+                { animeId, view -> onLongItemClick(animeId, view, ListState.MAIN) },
             )
+
             ListState.UNWANTED.int -> UnwantedViewHolder(
                 parent,
-                { animeId -> onItemClick(animeId) }
+                { animeId -> onItemClick(animeId) },
+                { animeId, view -> onLongItemClick(animeId, view, ListState.UNWANTED) },
             )
+
             ListState.WANTED.int -> WantedViewHolder(
                 parent,
                 { animeId -> onItemClick(animeId) },
-                onItemStateChange
+                onItemStateChange,
+                { animeId, view -> onLongItemClick(animeId, view, ListState.WANTED) },
             )
+
             ListState.NOT_WATCHED.int -> NotWatchedViewHolder(
                 parent,
                 { animeId -> onItemClick(animeId) },
-                onItemStateChange
+                onItemStateChange,
+                { animeId, view -> onLongItemClick(animeId, view, ListState.NOT_WATCHED) },
             )
+
             ListState.WATCHED.int -> WatchedViewHolder(
                 parent,
-                { animeId -> onItemClick(animeId) }
+                { animeId -> onItemClick(animeId) },
+                { animeId, view -> onLongItemClick(animeId, view, ListState.WATCHED) }
             )
+
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
@@ -57,6 +69,7 @@ class NewAnimeListAdapter(
 
     fun onItemSwipe(viewHolderPosition: Int, i: Int) {
         val id = getItem(viewHolderPosition).id
+
         val viewType = getItemViewType(viewHolderPosition)
         if (i == ItemTouchHelper.START) {
             when (viewType) {

@@ -1,6 +1,7 @@
 package com.meeweel.anilist.presentation.mainFragment.adapter.viewHolders
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
@@ -11,13 +12,10 @@ import com.meeweel.anilist.domain.models.ShortAnime
 class WatchedViewHolder(
     private val parent: ViewGroup,
     private val onItemClick: (Int) -> Unit,
+    private val onLongItemClick: (id: Int, view: View) -> Unit,
     private val binding: WatchedRecyclerItemBinding =
-        WatchedRecyclerItemBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
-        ),
-) :
-    BaseViewHolder(binding.root) {
-
+        WatchedRecyclerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+) : BaseViewHolder(binding.root) {
     override fun bind(anime: ShortAnime) {
         binding.apply {
             watchedFragmentRecyclerItemTextView.text =
@@ -31,6 +29,10 @@ class WatchedViewHolder(
             itemData.text = anime.data
             binding.root.setOnClickListener {
                 onItemClick(anime.id)
+            }
+            binding.root.setOnLongClickListener {
+                onLongItemClick(anime.id, it)
+                return@setOnLongClickListener true
             }
         }
     }

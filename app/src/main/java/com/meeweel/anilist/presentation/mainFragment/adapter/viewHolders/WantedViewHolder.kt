@@ -1,6 +1,7 @@
 package com.meeweel.anilist.presentation.mainFragment.adapter.viewHolders
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
@@ -13,13 +14,10 @@ class WantedViewHolder(
     private val parent: ViewGroup,
     private val onItemClick: (Int) -> Unit,
     private val onItemStateChange: (id: Int, State: ListState) -> Unit,
+    private val onLongItemClick: (id: Int, view: View) -> Unit,
     private val binding: WantedRecyclerItemBinding =
-        WantedRecyclerItemBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
-        ),
-) :
-    BaseViewHolder(binding.root) {
-
+        WantedRecyclerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+) : BaseViewHolder(binding.root) {
     override fun bind(anime: ShortAnime) {
         binding.apply {
             wantedFragmentRecyclerItemTextView.text =
@@ -36,6 +34,10 @@ class WantedViewHolder(
             }
             watchedBtnOnWanted.setOnClickListener {
                 onItemStateChange(anime.id, ListState.WATCHED)
+            }
+            binding.root.setOnLongClickListener {
+                onLongItemClick(anime.id, it)
+                return@setOnLongClickListener true
             }
         }
     }
