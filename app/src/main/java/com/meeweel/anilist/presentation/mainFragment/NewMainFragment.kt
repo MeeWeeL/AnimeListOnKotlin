@@ -1,13 +1,14 @@
 package com.meeweel.anilist.presentation.mainFragment
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.PopupMenu
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.meeweel.anilist.R
@@ -20,14 +21,14 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class NewMainFragment : Fragment() {
-
     private var _binding: NewFragmentMainBinding? = null
     private val binding get() = _binding!!
     private val viewModel: NewMainViewModel by viewModels()
     private val adapter: NewAnimeListAdapter by lazy {
         NewAnimeListAdapter(
             { animeId -> navigateFragmentToDetails(animeId) },
-            { id, state -> viewModel.changeAnimeState(id, state) }
+            { id, state -> viewModel.changeAnimeState(id, state) },
+            { id, view, listState -> showPopupMenu(id, view, listState) },
         )
     }
 
@@ -70,6 +71,30 @@ class NewMainFragment : Fragment() {
             }
         }
     }
+
+    private fun showPopupMenu(animeId: Int, view: View, listState: ListState) {
+        val popupMenu = PopupMenu(requireContext(), view, Gravity.END)
+        when (listState) {
+            ListState.MAIN -> popupMenu.inflate(R.menu.main_popup_menu)
+            ListState.WATCHED -> popupMenu.inflate(R.menu.watched_popup_menu)
+            ListState.NOT_WATCHED -> popupMenu.inflate(R.menu.not_watched_popup_menu)
+            ListState.WANTED -> popupMenu.inflate(R.menu.wanted_popup_menu)
+            ListState.UNWANTED -> popupMenu.inflate(R.menu.unwanted_popup_menu)
+        }
+        popupMenu.setForceShowIcon(true)
+        popupMenu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.to_main -> viewModel.changeAnimeState(animeId, ListState.MAIN)
+                R.id.to_watched -> viewModel.changeAnimeState(animeId, ListState.WATCHED)
+                R.id.to_not_watched -> viewModel.changeAnimeState(animeId, ListState.NOT_WATCHED)
+                R.id.to_wanted -> viewModel.changeAnimeState(animeId, ListState.WANTED)
+                R.id.to_unwanted -> viewModel.changeAnimeState(animeId, ListState.UNWANTED)
+            }
+            return@setOnMenuItemClickListener true
+        }
+        popupMenu.show()
+    }
+
 
     private fun navigateFragmentToDetails(animeId: Int) {
         findNavController().navigate(

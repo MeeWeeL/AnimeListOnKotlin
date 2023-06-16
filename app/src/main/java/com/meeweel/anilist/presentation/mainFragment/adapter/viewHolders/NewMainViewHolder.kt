@@ -1,6 +1,7 @@
 package com.meeweel.anilist.presentation.mainFragment.adapter.viewHolders
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
@@ -14,6 +15,7 @@ class NewMainViewHolder(
     private val parent: ViewGroup,
     private val onItemClick: (Int) -> Unit,
     private val onItemStateChange: (id: Int, State: ListState) -> Unit,
+    private val onLongItemClick: (id: Int, view: View) -> Unit,
     private val binding: MainRecyclerItemBinding =
         MainRecyclerItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
@@ -39,6 +41,10 @@ class NewMainViewHolder(
 
                 binding.root.setOnClickListener {
                     onItemClick(anime.id)
+                }
+                binding.root.setOnLongClickListener{
+                    onLongItemClick(anime.id, it)
+                    return@setOnLongClickListener true
                 }
                 notWatchedBtn.setOnClickListener {
                     onItemStateChange(anime.id, ListState.NOT_WATCHED)

@@ -1,6 +1,7 @@
 package com.meeweel.anilist.presentation.mainFragment.adapter.viewHolders
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
@@ -12,13 +13,12 @@ import com.meeweel.anilist.domain.models.ShortAnime
 class UnwantedViewHolder(
     private val parent: ViewGroup,
     private val onItemClick: (Int) -> Unit,
+    private val onLongItemClick: (id: Int, view: View) -> Unit,
     private val binding: UnwantedRecyclerItemBinding =
         UnwantedRecyclerItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         ),
 ) : BaseViewHolder(binding.root) {
-
-
     override fun bind(anime: ShortAnime) {
         binding.apply {
 
@@ -39,6 +39,10 @@ class UnwantedViewHolder(
             itemData.text = anime.data
             binding.root.setOnClickListener {
                 onItemClick(anime.id)
+            }
+            binding.root.setOnLongClickListener{
+                onLongItemClick(anime.id, it)
+                return@setOnLongClickListener true
             }
         }
     }
