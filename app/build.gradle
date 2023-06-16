@@ -116,6 +116,9 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
 
+    // SwipeRefresh
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
     // UiAutomator
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
 
