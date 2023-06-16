@@ -11,13 +11,13 @@
             tools:ignore="MissingConstraints">
 
             <ImageView
-                android:id="@+id/not_watched_fragment_recycler_item_image_view"
+                android:id="@+id/not_watched_card_image"
                 style="@style/imageCardViewNotWatchedStyle"
                 tools:ignore="ContentDescription" />
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/notWatchedFragmentRecyclerItemTextView"
+            android:id="@+id/not_watched_card_title"
             style="@style/titleCardViewNotWatchedStyle"
             tools:ignore="MissingConstraints" />
 

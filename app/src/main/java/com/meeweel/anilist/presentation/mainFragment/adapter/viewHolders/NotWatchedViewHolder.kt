@@ -1,21 +1,17 @@
 package com.meeweel.anilist.presentation.mainFragment.adapter.viewHolders
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
-import com.meeweel.anilist.app.App
 import com.meeweel.anilist.databinding.NotWatchedRecyclerItemBinding
 import com.meeweel.anilist.domain.enums.ListState
 import com.meeweel.anilist.domain.models.ShortAnime
+import com.meeweel.anilist.presentation.mainFragment.adapter.NewAnimeListAdapter.AdapterCallback
 
 class NotWatchedViewHolder(
     private val parent: ViewGroup,
-    private val onItemClick: (Int) -> Unit,
-    private val onItemStateChange: (id: Int, State: ListState) -> Unit,
-    private val onLongItemClick: (id: Int, view: View) -> Unit,
+    private val callback: AdapterCallback,
     private val binding: NotWatchedRecyclerItemBinding =
         NotWatchedRecyclerItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
@@ -23,32 +19,28 @@ class NotWatchedViewHolder(
 ) : BaseViewHolder(binding.root) {
     override fun bind(anime: ShortAnime) {
         binding.apply {
+            notWatchedCardTitle.text =
+                if (root.context.resources.getBoolean(R.bool.isRussian)) anime.ruTitle else anime.enTitle
 
-            val circularProgressDrawable = CircularProgressDrawable(this.notWatchedFragmentRecyclerItemImageView.context)
-            circularProgressDrawable.strokeWidth = 5f
-            circularProgressDrawable.centerRadius = 30f
-            circularProgressDrawable.start()
-
-            notWatchedFragmentRecyclerItemTextView.text =
-                if (App.ContextHolder.context.resources.getBoolean(R.bool.isRussian)) anime.ruTitle else anime.enTitle
-            Glide.with(this.notWatchedFragmentRecyclerItemImageView.context)
+            Glide.with(notWatchedCardImage.context)
                 .load(anime.image)
-                .error(circularProgressDrawable)
-                .placeholder(circularProgressDrawable)
-                .into(this.notWatchedFragmentRecyclerItemImageView)
+                .error(progressDrawable)
+                .placeholder(progressDrawable)
+                .into(notWatchedCardImage)
 
             itemData.text = anime.data
+
             binding.root.setOnClickListener {
-                onItemClick(anime.id)
+                callback.onItemClick(anime.id)
             }
             unwantedBtn.setOnClickListener {
-                onItemStateChange(anime.id, ListState.UNWANTED)
+                callback.onItemStateChange(anime.id, ListState.UNWANTED)
             }
             wantedBtn.setOnClickListener {
-                onItemStateChange(anime.id, ListState.WANTED)
+                callback.onItemStateChange(anime.id, ListState.WANTED)
             }
             binding.root.setOnLongClickListener {
-                onLongItemClick(anime.id, it)
+                callback.onLongItemClick(anime.id, it, ListState.NOT_WATCHED)
                 return@setOnLongClickListener true
             }
         }
