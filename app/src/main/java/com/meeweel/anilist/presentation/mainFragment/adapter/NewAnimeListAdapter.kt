@@ -15,49 +15,18 @@ import com.meeweel.anilist.presentation.mainFragment.adapter.viewHolders.WantedV
 import com.meeweel.anilist.presentation.mainFragment.adapter.viewHolders.WatchedViewHolder
 
 class NewAnimeListAdapter(
-    private val onItemClick: (Int) -> Unit,
-    private val onItemStateChange: (id: Int, State: ListState) -> Unit,
-    private val onLongItemClick: (id: Int, view: View, listState: ListState) -> Unit,
+    private val callback: AdapterCallback,
 ) : ListAdapter<ShortAnime, BaseViewHolder>(DiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
-            ListState.MAIN.int -> NewMainViewHolder(
-                parent,
-                { animeId -> onItemClick(animeId) },
-                onItemStateChange,
-                { animeId, view -> onLongItemClick(animeId, view, ListState.MAIN) },
-            )
-
-            ListState.UNWANTED.int -> UnwantedViewHolder(
-                parent,
-                { animeId -> onItemClick(animeId) },
-                { animeId, view -> onLongItemClick(animeId, view, ListState.UNWANTED) },
-            )
-
-            ListState.WANTED.int -> WantedViewHolder(
-                parent,
-                { animeId -> onItemClick(animeId) },
-                onItemStateChange,
-                { animeId, view -> onLongItemClick(animeId, view, ListState.WANTED) },
-            )
-
-            ListState.NOT_WATCHED.int -> NotWatchedViewHolder(
-                parent,
-                { animeId -> onItemClick(animeId) },
-                onItemStateChange,
-                { animeId, view -> onLongItemClick(animeId, view, ListState.NOT_WATCHED) },
-            )
-
-            ListState.WATCHED.int -> WatchedViewHolder(
-                parent,
-                { animeId -> onItemClick(animeId) },
-                { animeId, view -> onLongItemClick(animeId, view, ListState.WATCHED) }
-            )
-
+            ListState.MAIN.int -> NewMainViewHolder(parent, callback)
+            ListState.UNWANTED.int -> UnwantedViewHolder(parent, callback)
+            ListState.WANTED.int -> WantedViewHolder(parent, callback)
+            ListState.NOT_WATCHED.int -> NotWatchedViewHolder(parent, callback)
+            ListState.WATCHED.int -> WatchedViewHolder(parent, callback)
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
-
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         holder.bind(getItem(position))
@@ -73,23 +42,29 @@ class NewAnimeListAdapter(
         val viewType = getItemViewType(viewHolderPosition)
         if (i == ItemTouchHelper.START) {
             when (viewType) {
-                ListState.MAIN.int -> onItemStateChange(id, ListState.NOT_WATCHED)
-                ListState.NOT_WATCHED.int -> onItemStateChange(id, ListState.UNWANTED)
-                ListState.WANTED.int -> onItemStateChange(id, ListState.WATCHED)
+                ListState.MAIN.int -> callback.onItemStateChange(id, ListState.NOT_WATCHED)
+                ListState.NOT_WATCHED.int -> callback.onItemStateChange(id, ListState.UNWANTED)
+                ListState.WANTED.int -> callback.onItemStateChange(id, ListState.WATCHED)
                 else -> notifyItemChanged(viewHolderPosition)
             }
         }
         if (i == ItemTouchHelper.END) {
             when (viewType) {
-                ListState.MAIN.int -> onItemStateChange(id, ListState.WATCHED)
-                ListState.NOT_WATCHED.int -> onItemStateChange(id, ListState.WANTED)
-                ListState.WANTED.int -> onItemStateChange(id, ListState.WATCHED)
+                ListState.MAIN.int -> callback.onItemStateChange(id, ListState.WATCHED)
+                ListState.NOT_WATCHED.int -> callback.onItemStateChange(id, ListState.WANTED)
+                ListState.WANTED.int -> callback.onItemStateChange(id, ListState.WATCHED)
                 else -> notifyItemChanged(viewHolderPosition)
             }
         }
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<ShortAnime>() {
+    interface AdapterCallback {
+        fun onItemClick(id: Int)
+        fun onItemStateChange(id: Int, state: ListState)
+        fun onLongItemClick(id: Int, view: View, listState: ListState)
+    }
+
+    private companion object DiffCallback : DiffUtil.ItemCallback<ShortAnime>() {
 
         override fun areItemsTheSame(oldItem: ShortAnime, newItem: ShortAnime): Boolean {
             return oldItem == newItem

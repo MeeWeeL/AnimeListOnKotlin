@@ -1,45 +1,38 @@
 package com.meeweel.anilist.presentation.mainFragment.adapter.viewHolders
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
-import com.meeweel.anilist.app.App
 import com.meeweel.anilist.databinding.WatchedRecyclerItemBinding
+import com.meeweel.anilist.domain.enums.ListState
 import com.meeweel.anilist.domain.models.ShortAnime
+import com.meeweel.anilist.presentation.mainFragment.adapter.NewAnimeListAdapter.AdapterCallback
 
 class WatchedViewHolder(
     private val parent: ViewGroup,
-    private val onItemClick: (Int) -> Unit,
-    private val onLongItemClick: (id: Int, view: View) -> Unit,
+    private val callback: AdapterCallback,
     private val binding: WatchedRecyclerItemBinding =
         WatchedRecyclerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),
 ) : BaseViewHolder(binding.root) {
     override fun bind(anime: ShortAnime) {
         binding.apply {
+            watchedCardTitle.text =
+                if (root.context.resources.getBoolean(R.bool.isRussian)) anime.ruTitle else anime.enTitle
 
-            val circularProgressDrawable = CircularProgressDrawable(this.watchedFragmentRecyclerItemImageView.context)
-            circularProgressDrawable.strokeWidth = 5f
-            circularProgressDrawable.centerRadius = 30f
-            circularProgressDrawable.start()
-
-
-            watchedFragmentRecyclerItemTextView.text =
-                if (App.ContextHolder.context.resources.getBoolean(R.bool.isRussian)) anime.ruTitle else anime.enTitle
-            Glide.with(this.watchedFragmentRecyclerItemImageView.context)
+            Glide.with(watchedCardImage.context)
                 .load(anime.image)
-                .error(circularProgressDrawable)
-                .placeholder(circularProgressDrawable)
-                .into(this.watchedFragmentRecyclerItemImageView)
+                .error(progressDrawable)
+                .placeholder(progressDrawable)
+                .into(watchedCardImage)
 
             itemData.text = anime.data
+
             binding.root.setOnClickListener {
-                onItemClick(anime.id)
+                callback.onItemClick(anime.id)
             }
             binding.root.setOnLongClickListener {
-                onLongItemClick(anime.id, it)
+                callback.onLongItemClick(anime.id, it, ListState.WATCHED)
                 return@setOnLongClickListener true
             }
         }
