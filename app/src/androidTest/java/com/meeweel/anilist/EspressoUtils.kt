@@ -25,7 +25,7 @@ import java.nio.channels.FileChannel
 
 object EspressoUtils {
 
-    private const val CLICK_DELAY = 100L
+    private const val CLICK_DELAY = 150L
 
     // Constants
     const val DB_NAME = "Repository.db"
@@ -72,7 +72,7 @@ object EspressoUtils {
     /** Найти по тексту карточку в RecyclerView с прокруткой */
     fun findCardByText(text: String): ViewInteraction {
         scrollToCardByText(text)
-        return Espresso.onView(ViewMatchers.withText(text))
+        return Espresso.onView(withChild(withChild(withText(text))))
     }
 
     fun findCardButtonByAnimeTitleAndId(
