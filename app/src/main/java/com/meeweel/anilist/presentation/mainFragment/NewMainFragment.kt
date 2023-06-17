@@ -2,9 +2,7 @@ package com.meeweel.anilist.presentation.mainFragment
 
 import android.os.Bundle
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -20,29 +18,15 @@ import com.meeweel.anilist.presentation.mainFragment.adapter.NewMainItemTouchHel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NewMainFragment : Fragment() {
+class NewMainFragment : Fragment(R.layout.new_fragment_main) {
     private var _binding: NewFragmentMainBinding? = null
     private val binding get() = _binding!!
     private val viewModel: NewMainViewModel by viewModels()
-    private val adapter: NewAnimeListAdapter by lazy {
-        NewAnimeListAdapter(
-            { animeId -> navigateFragmentToDetails(animeId) },
-            { id, state -> viewModel.changeAnimeState(id, state) },
-            { id, view, listState -> showPopupMenu(id, view, listState) },
-        )
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        _binding = NewFragmentMainBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    private val adapter: NewAnimeListAdapter by lazy { createAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _binding = NewFragmentMainBinding.bind(view)
         ItemTouchHelper(NewMainItemTouchHelper(adapter)).attachToRecyclerView(binding.mainFragmentRecyclerView)
         binding.mainFragmentRecyclerView.adapter = adapter
         viewModel.listToObserve.observe(viewLifecycleOwner) {
@@ -95,6 +79,21 @@ class NewMainFragment : Fragment() {
         popupMenu.show()
     }
 
+    private fun createAdapter(): NewAnimeListAdapter {
+        return NewAnimeListAdapter(object : NewAnimeListAdapter.AdapterCallback {
+            override fun onItemClick(id: Int) {
+                navigateFragmentToDetails(id)
+            }
+
+            override fun onItemStateChange(id: Int, state: ListState) {
+                viewModel.changeAnimeState(id, state)
+            }
+
+            override fun onLongItemClick(id: Int, view: View, listState: ListState) {
+                showPopupMenu(id, view, listState)
+            }
+        })
+    }
 
     private fun navigateFragmentToDetails(animeId: Int) {
         findNavController().navigate(

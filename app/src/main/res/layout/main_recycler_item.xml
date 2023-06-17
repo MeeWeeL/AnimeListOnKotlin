@@ -11,13 +11,13 @@
             tools:ignore="MissingConstraints">
 
             <ImageView
-                android:id="@+id/main_fragment_recycler_item_image_view"
+                android:id="@+id/main_card_image"
                 style="@style/imageCardViewMainStyle"
                 tools:ignore="ContentDescription" />
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/mainFragmentRecyclerItemTextView"
+            android:id="@+id/main_card_title"
             style="@style/titleCardViewMainStyle"
             tools:ignore="MissingConstraints" />
 

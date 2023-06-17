@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/cardViewWatchedStyle">
 
     <androidx.constraintlayout.widget.ConstraintLayout style="@style/constraintOfCardViewStyle">
@@ -12,7 +11,7 @@
             tools:ignore="MissingConstraints">
 
             <ImageView
-                android:id="@+id/watched_fragment_recycler_item_image_view"
+                android:id="@+id/watched_card_image"
                 style="@style/imageCardViewWatchedStyle"
                 tools:ignore="ContentDescription" />
         </androidx.cardview.widget.CardView>
@@ -20,10 +19,11 @@
         <ImageView
             android:id="@+id/attention"
             style="@style/attentionIconCardViewWantedStyle"
+            android:importantForAccessibility="no"
             tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/watchedFragmentRecyclerItemTextView"
+            android:id="@+id/watched_card_title"
             style="@style/titleCardViewWatchedStyle"
             tools:ignore="MissingConstraints" />
 

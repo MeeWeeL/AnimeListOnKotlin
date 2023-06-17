@@ -117,7 +117,7 @@
     <!--  On Main Card View  -->
     <!--  CardView  -->
     <style name="imageCardViewCardViewMainStyle" parent="imageCardViewCardViewBaseStyle">
-        <item name="layout_constraintEnd_toStartOf">@+id/mainFragmentRecyclerItemTextView</item>
+        <item name="layout_constraintEnd_toStartOf">@+id/main_card_title</item>
         <item name="layout_constraintBottom_toTopOf">@id/not_watched_btn</item>
     </style>
     <!--  Image  -->
@@ -138,7 +138,7 @@
     <!--  CardView  -->
     <style name="imageCardViewCardViewNotWatchedStyle" parent="imageCardViewCardViewBaseStyle">
         <item name="layout_constraintBottom_toTopOf">@+id/unwanted_btn</item>
-        <item name="layout_constraintEnd_toStartOf">@+id/notWatchedFragmentRecyclerItemTextView</item>
+        <item name="layout_constraintEnd_toStartOf">@+id/not_watched_card_title</item>
     </style>
     <!--  Image  -->
     <style name="imageCardViewNotWatchedStyle" parent="imageCardViewBaseStyle">
@@ -201,7 +201,7 @@
     <!--  On Unwanted Card View  -->
     <!--  CardView  -->
     <style name="imageCardViewCardViewUnwantedStyle" parent="imageCardViewCardViewBaseStyle">
-        <item name="layout_constraintEnd_toStartOf">@+id/unwantedFragmentRecyclerItemTextView</item>
+        <item name="layout_constraintEnd_toStartOf">@+id/unwanted_card_title</item>
         <item name="layout_constraintBottom_toBottomOf">parent</item>
         <item name="android:layout_marginBottom">5dp</item>
     </style>
