@@ -44,7 +44,6 @@ class NewAnimeListAdapter(
             when (viewType) {
                 ListState.MAIN.int -> callback.onItemStateChange(id, ListState.NOT_WATCHED)
                 ListState.NOT_WATCHED.int -> callback.onItemStateChange(id, ListState.UNWANTED)
-                ListState.WANTED.int -> callback.onItemStateChange(id, ListState.WATCHED)
                 else -> notifyItemChanged(viewHolderPosition)
             }
         }
