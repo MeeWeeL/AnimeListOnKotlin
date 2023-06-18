@@ -16,7 +16,10 @@ import com.meeweel.anilist.presentation.mainFragment.adapter.viewHolders.Watched
 
 class NewAnimeListAdapter(
     private val callback: AdapterCallback,
+    private val filter: ListFilterSet = ListFilterSet()
 ) : ListAdapter<ShortAnime, BaseViewHolder>(DiffCallback) {
+    private var originalList: List<ShortAnime>? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
             ListState.MAIN.int -> NewMainViewHolder(parent, callback)
@@ -34,6 +37,21 @@ class NewAnimeListAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return currentList[position].list
+    }
+
+    override fun submitList(list: List<ShortAnime>?) {
+        originalList = list
+        super.submitList(filter.filter(originalList!!))
+    }
+
+    override fun submitList(list: List<ShortAnime>?, commitCallback: Runnable?) {
+        originalList = list
+        super.submitList(filter.filter(originalList!!), commitCallback)
+    }
+
+    fun setSearchText(text: String, commitCallback: Runnable?) {
+        filter.setTitleText(text)
+        submitList(originalList, commitCallback)
     }
 
     fun onItemSwipe(viewHolderPosition: Int, i: Int) {

@@ -1,4 +1,4 @@
-package com.meeweel.anilist.domain
+package com.meeweel.anilist.presentation.mainFragment.adapter
 
 import com.meeweel.anilist.R
 import com.meeweel.anilist.app.App
