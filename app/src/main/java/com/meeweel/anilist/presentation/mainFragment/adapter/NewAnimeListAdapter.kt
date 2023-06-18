@@ -16,9 +16,9 @@ import com.meeweel.anilist.presentation.mainFragment.adapter.viewHolders.Watched
 
 class NewAnimeListAdapter(
     private val callback: AdapterCallback,
-    private val filter: ListFilterSet = ListFilterSet()
 ) : ListAdapter<ShortAnime, BaseViewHolder>(DiffCallback) {
     private var originalList: List<ShortAnime>? = null
+    private val filter: ListFilterSet = ListFilterSet()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
