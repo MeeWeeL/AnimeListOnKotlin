@@ -75,6 +75,19 @@ object EspressoUtils {
         return Espresso.onView(withChild(withChild(withText(text))))
     }
 
+    /**
+     * Найти итем PopupMenu по тексту
+     */
+    fun findPopupItemByText(text: String) : ViewInteraction {
+        return Espresso.onView(
+            Matchers.allOf(
+                withText(text),
+                withId(com.google.android.material.R.id.title),
+                withParent(withParent(withId(androidx.appcompat.R.id.content)))
+            )
+        )
+    }
+
     fun findCardButtonByAnimeTitleAndId(
         animeTitle: String,
         buttonId: Int

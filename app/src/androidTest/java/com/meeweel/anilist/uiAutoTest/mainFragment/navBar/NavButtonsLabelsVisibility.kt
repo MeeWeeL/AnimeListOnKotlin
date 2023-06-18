@@ -1,4 +1,4 @@
-package com.meeweel.anilist.uiAutoTest.mainFragment.tests
+package com.meeweel.anilist.uiAutoTest.mainFragment.navBar
 
 import android.view.View
 import androidx.core.view.children

@@ -1,4 +1,4 @@
-package com.meeweel.anilist.uiAutoTest.mainFragment.tests
+package com.meeweel.anilist.uiAutoTest.mainFragment.cards
 
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.ViewInteraction

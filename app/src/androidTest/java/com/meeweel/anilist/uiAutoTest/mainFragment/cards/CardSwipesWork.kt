@@ -1,15 +1,12 @@
-package com.meeweel.anilist.uiAutoTest.mainFragment.tests
+package com.meeweel.anilist.uiAutoTest.mainFragment.cards
 
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.action.ViewActions.swipeLeft
-import androidx.test.espresso.action.ViewActions.swipeRight
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.meeweel.anilist.EspressoUtils
 import com.meeweel.anilist.EspressoUtils.click
 import com.meeweel.anilist.EspressoUtils.findCardByText
-import com.meeweel.anilist.EspressoUtils.isNotVisible
 import com.meeweel.anilist.EspressoUtils.isVisible
 import com.meeweel.anilist.R
 import com.meeweel.anilist.presentation.NewMainActivity
