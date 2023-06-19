@@ -17,7 +17,7 @@ import com.meeweel.anilist.databinding.FilterLayoutBinding
 import com.meeweel.anilist.databinding.NewFragmentMainBinding
 import com.meeweel.anilist.domain.enums.ListState
 import com.meeweel.anilist.presentation.NewMainActivity
-import com.meeweel.anilist.presentation.mainFragment.adapter.ListFilterSet
+import com.meeweel.anilist.presentation.mainFragment.adapter.AnimeListFilter
 import com.meeweel.anilist.presentation.mainFragment.adapter.NewAnimeListAdapter
 import com.meeweel.anilist.presentation.mainFragment.adapter.NewMainItemTouchHelper
 import dagger.hilt.android.AndroidEntryPoint
@@ -123,10 +123,10 @@ class NewMainFragment : Fragment(R.layout.new_fragment_main) {
         val dialog = BottomSheetDialog(requireContext())
         val filterBinding = FilterLayoutBinding.inflate(layoutInflater)
         dialog.setContentView(filterBinding.root)
-        val genres = ListFilterSet.Genre.values()
-        val genresList = genres.map(ListFilterSet.Genre::textName).toMutableList()
-        val sorts = ListFilterSet.Sort.values()
-        val sortsList = sorts.map(ListFilterSet.Sort::textName).toMutableList()
+        val genres = AnimeListFilter.Genre.values()
+        val genresList = genres.map(AnimeListFilter.Genre::textName).toMutableList()
+        val sorts = AnimeListFilter.Sort.values()
+        val sortsList = sorts.map(AnimeListFilter.Sort::textName).toMutableList()
         filterBinding.genreSpinner.adapter = ArrayAdapter(
             requireContext(), android.R.layout.simple_spinner_dropdown_item, genresList
         )

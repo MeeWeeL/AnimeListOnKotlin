@@ -18,7 +18,7 @@ class NewAnimeListAdapter(
     private val callback: AdapterCallback,
 ) : ListAdapter<ShortAnime, BaseViewHolder>(DiffCallback) {
     private var originalList: List<ShortAnime>? = null
-    private val filter: ListFilterSet = ListFilterSet()
+    private val filter: AnimeListFilter = AnimeListFilter()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
@@ -54,12 +54,12 @@ class NewAnimeListAdapter(
         submitList(originalList, commitCallback)
     }
 
-    fun getGenre(): ListFilterSet.Genre = filter.getGenre()
+    fun getGenre(): AnimeListFilter.Genre = filter.getGenre()
     fun getYearFrom(): Int = filter.getYearFrom()
     fun getYearTo(): Int = filter.getYearTo()
-    fun getSort(): ListFilterSet.Sort = filter.getSort()
+    fun getSort(): AnimeListFilter.Sort = filter.getSort()
 
-    fun setFilters(sort: ListFilterSet.Sort, genre: ListFilterSet.Genre, yearFrom: Int, yearTo: Int, commitCallback: Runnable?) {
+    fun setFilters(sort: AnimeListFilter.Sort, genre: AnimeListFilter.Genre, yearFrom: Int, yearTo: Int, commitCallback: Runnable?) {
         filter.setSort(sort)
         filter.setGenre(genre)
         filter.setYears(yearFrom, yearTo)
