@@ -3,6 +3,7 @@ package com.meeweel.anilist.presentation.mainFragment
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
@@ -10,10 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.meeweel.anilist.R
+import com.meeweel.anilist.databinding.FilterLayoutBinding
 import com.meeweel.anilist.databinding.NewFragmentMainBinding
 import com.meeweel.anilist.domain.enums.ListState
 import com.meeweel.anilist.presentation.NewMainActivity
+import com.meeweel.anilist.presentation.mainFragment.adapter.ListFilterSet
 import com.meeweel.anilist.presentation.mainFragment.adapter.NewAnimeListAdapter
 import com.meeweel.anilist.presentation.mainFragment.adapter.NewMainItemTouchHelper
 import dagger.hilt.android.AndroidEntryPoint
@@ -110,10 +114,47 @@ class NewMainFragment : Fragment(R.layout.new_fragment_main) {
             }
         })
         binding.toolbar.menu.findItem(R.id.filter_app_bar).setOnMenuItemClickListener {
-            // TODO: Open filter
+            showFilterDialog()
             return@setOnMenuItemClickListener true
         }
     }
+
+    private fun showFilterDialog() {
+        val dialog = BottomSheetDialog(requireContext())
+        val filterBinding = FilterLayoutBinding.inflate(layoutInflater)
+        dialog.setContentView(filterBinding.root)
+        val genres = ListFilterSet.Genre.values()
+        val genresList = genres.map(ListFilterSet.Genre::textName).toMutableList()
+        val sorts = ListFilterSet.Sort.values()
+        val sortsList = sorts.map(ListFilterSet.Sort::textName).toMutableList()
+        filterBinding.genreSpinner.adapter = ArrayAdapter(
+            requireContext(), android.R.layout.simple_spinner_dropdown_item, genresList
+        )
+        filterBinding.genreSpinner.setSelection(adapter.getGenre().ordinal)
+        filterBinding.sortSpinner.adapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, sortsList)
+        filterBinding.sortSpinner.setSelection(adapter.getSort().ordinal)
+        filterBinding.yearsRangeSlider.values =
+            listOf(adapter.getYearFrom().toFloat(), adapter.getYearTo().toFloat())
+        dialog.show()
+
+        filterBinding.clearButton.setOnClickListener {
+            adapter.clear { binding.recyclerView.scrollToPosition(0) }
+            dialog.cancel()
+        }
+        filterBinding.okButton.setOnClickListener {
+            adapter.setFilters(
+                sorts[filterBinding.sortSpinner.selectedItemPosition],
+                genres[filterBinding.genreSpinner.selectedItemPosition],
+                filterBinding.yearsRangeSlider.values[0].toInt(),
+                filterBinding.yearsRangeSlider.values[1].toInt(),
+            ) {
+                binding.recyclerView.scrollToPosition(0)
+            }
+            dialog.cancel()
+        }
+    }
+
 
     private fun navigateFragmentToDetails(animeId: Int) {
         findNavController().navigate(

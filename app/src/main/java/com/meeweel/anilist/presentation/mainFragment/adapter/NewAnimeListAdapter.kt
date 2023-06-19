@@ -54,6 +54,23 @@ class NewAnimeListAdapter(
         submitList(originalList, commitCallback)
     }
 
+    fun getGenre(): ListFilterSet.Genre = filter.getGenre()
+    fun getYearFrom(): Int = filter.getYearFrom()
+    fun getYearTo(): Int = filter.getYearTo()
+    fun getSort(): ListFilterSet.Sort = filter.getSort()
+
+    fun setFilters(sort: ListFilterSet.Sort, genre: ListFilterSet.Genre, yearFrom: Int, yearTo: Int, commitCallback: Runnable?) {
+        filter.setSort(sort)
+        filter.setGenre(genre)
+        filter.setYears(yearFrom, yearTo)
+        submitList(originalList, commitCallback)
+    }
+
+    fun clear(commitCallback: Runnable?){
+        filter.clear()
+        submitList(originalList, commitCallback)
+    }
+
     fun onItemSwipe(viewHolderPosition: Int, i: Int) {
         val id = getItem(viewHolderPosition).id
 
