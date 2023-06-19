@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import androidx.appcompat.widget.PopupMenu
+import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -27,8 +28,8 @@ class NewMainFragment : Fragment(R.layout.new_fragment_main) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = NewFragmentMainBinding.bind(view)
-        ItemTouchHelper(NewMainItemTouchHelper(adapter)).attachToRecyclerView(binding.mainFragmentRecyclerView)
-        binding.mainFragmentRecyclerView.adapter = adapter
+        ItemTouchHelper(NewMainItemTouchHelper(adapter)).attachToRecyclerView(binding.recyclerView)
+        binding.recyclerView.adapter = adapter
         viewModel.listToObserve.observe(viewLifecycleOwner) {
             when (it) {
                 is AnimeListState.Success -> {
@@ -54,6 +55,7 @@ class NewMainFragment : Fragment(R.layout.new_fragment_main) {
                 return@setOnItemSelectedListener true
             }
         }
+        setAppBarListeners()
     }
 
     private fun showPopupMenu(animeId: Int, view: View, listState: ListState) {
@@ -95,6 +97,24 @@ class NewMainFragment : Fragment(R.layout.new_fragment_main) {
         })
     }
 
+    private fun setAppBarListeners() {
+        val searchView = binding.toolbar.menu.findItem(R.id.search_app_bar).actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.setSearchText(newText!!) { binding.recyclerView.scrollToPosition(0) }
+                return false
+            }
+        })
+        binding.toolbar.menu.findItem(R.id.filter_app_bar).setOnMenuItemClickListener {
+            // TODO: Open filter
+            return@setOnMenuItemClickListener true
+        }
+    }
+
     private fun navigateFragmentToDetails(animeId: Int) {
         findNavController().navigate(
             R.id.action_newMainFragment_to_detailsFragment2,
@@ -105,7 +125,6 @@ class NewMainFragment : Fragment(R.layout.new_fragment_main) {
     private fun turnLoading(isLoading: Boolean) {
         binding.loadingLayout.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
-
 
     override fun onDestroy() {
         super.onDestroy()
