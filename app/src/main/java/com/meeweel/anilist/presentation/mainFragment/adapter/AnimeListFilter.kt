@@ -77,6 +77,13 @@ class AnimeListFilter {
         sort = DEFAULT_SORT
     }
 
+    fun clearFilter() {
+        genre = DEFAULT_GENRE_TEXT
+        yearFrom = DEFAULT_YEAR_FROM
+        yearTo = DEFAULT_YEAR_TO
+        sort = DEFAULT_SORT
+    }
+
     fun setSort(sort: Sort) {
         this.sort = sort
     }

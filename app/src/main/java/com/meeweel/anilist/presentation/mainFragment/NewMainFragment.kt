@@ -120,6 +120,7 @@ class NewMainFragment : Fragment(R.layout.new_fragment_main) {
     }
 
     private fun showFilterDialog() {
+        val filter = adapter.filter
         val dialog = BottomSheetDialog(requireContext())
         val filterBinding = FilterLayoutBinding.inflate(layoutInflater)
         dialog.setContentView(filterBinding.root)
@@ -130,16 +131,16 @@ class NewMainFragment : Fragment(R.layout.new_fragment_main) {
         filterBinding.genreSpinner.adapter = ArrayAdapter(
             requireContext(), android.R.layout.simple_spinner_dropdown_item, genresList
         )
-        filterBinding.genreSpinner.setSelection(adapter.getGenre().ordinal)
+        filterBinding.genreSpinner.setSelection(filter.getGenre().ordinal)
         filterBinding.sortSpinner.adapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, sortsList)
-        filterBinding.sortSpinner.setSelection(adapter.getSort().ordinal)
+        filterBinding.sortSpinner.setSelection(filter.getSort().ordinal)
         filterBinding.yearsRangeSlider.values =
-            listOf(adapter.getYearFrom().toFloat(), adapter.getYearTo().toFloat())
+            listOf(filter.getYearFrom().toFloat(), filter.getYearTo().toFloat())
         dialog.show()
 
         filterBinding.clearButton.setOnClickListener {
-            adapter.clear { binding.recyclerView.scrollToPosition(0) }
+            adapter.clearFilter { binding.recyclerView.scrollToPosition(0) }
             dialog.cancel()
         }
         filterBinding.okButton.setOnClickListener {
@@ -154,7 +155,6 @@ class NewMainFragment : Fragment(R.layout.new_fragment_main) {
             dialog.cancel()
         }
     }
-
 
     private fun navigateFragmentToDetails(animeId: Int) {
         findNavController().navigate(

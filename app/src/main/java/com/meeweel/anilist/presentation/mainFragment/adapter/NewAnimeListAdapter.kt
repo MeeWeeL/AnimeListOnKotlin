@@ -2,11 +2,13 @@ package com.meeweel.anilist.presentation.mainFragment.adapter
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import com.meeweel.anilist.domain.enums.ListState
 import com.meeweel.anilist.domain.models.ShortAnime
+import com.meeweel.anilist.presentation.mainFragment.AnimeListState
 import com.meeweel.anilist.presentation.mainFragment.adapter.viewHolders.BaseViewHolder
 import com.meeweel.anilist.presentation.mainFragment.adapter.viewHolders.NewMainViewHolder
 import com.meeweel.anilist.presentation.mainFragment.adapter.viewHolders.NotWatchedViewHolder
@@ -18,7 +20,8 @@ class NewAnimeListAdapter(
     private val callback: AdapterCallback,
 ) : ListAdapter<ShortAnime, BaseViewHolder>(DiffCallback) {
     private var originalList: List<ShortAnime>? = null
-    private val filter: AnimeListFilter = AnimeListFilter()
+    val filter: AnimeListFilter = AnimeListFilter()
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
@@ -54,11 +57,6 @@ class NewAnimeListAdapter(
         submitList(originalList, commitCallback)
     }
 
-    fun getGenre(): AnimeListFilter.Genre = filter.getGenre()
-    fun getYearFrom(): Int = filter.getYearFrom()
-    fun getYearTo(): Int = filter.getYearTo()
-    fun getSort(): AnimeListFilter.Sort = filter.getSort()
-
     fun setFilters(sort: AnimeListFilter.Sort, genre: AnimeListFilter.Genre, yearFrom: Int, yearTo: Int, commitCallback: Runnable?) {
         filter.setSort(sort)
         filter.setGenre(genre)
@@ -66,8 +64,8 @@ class NewAnimeListAdapter(
         submitList(originalList, commitCallback)
     }
 
-    fun clear(commitCallback: Runnable?){
-        filter.clear()
+    fun clearFilter(commitCallback: Runnable?){
+        filter.clearFilter()
         submitList(originalList, commitCallback)
     }
 
