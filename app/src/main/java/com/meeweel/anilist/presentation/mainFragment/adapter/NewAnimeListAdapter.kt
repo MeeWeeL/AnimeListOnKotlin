@@ -2,13 +2,11 @@ package com.meeweel.anilist.presentation.mainFragment.adapter
 
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import com.meeweel.anilist.domain.enums.ListState
 import com.meeweel.anilist.domain.models.ShortAnime
-import com.meeweel.anilist.presentation.mainFragment.AnimeListState
 import com.meeweel.anilist.presentation.mainFragment.adapter.viewHolders.BaseViewHolder
 import com.meeweel.anilist.presentation.mainFragment.adapter.viewHolders.NewMainViewHolder
 import com.meeweel.anilist.presentation.mainFragment.adapter.viewHolders.NotWatchedViewHolder
@@ -57,17 +55,9 @@ class NewAnimeListAdapter(
         submitList(originalList, commitCallback)
     }
 
-    fun setFilters(sort: AnimeListFilter.Sort, genre: AnimeListFilter.Genre, yearFrom: Int, yearTo: Int, commitCallback: Runnable?) {
-        filter.setSort(sort)
-        filter.setGenre(genre)
-        filter.setYears(yearFrom, yearTo)
+    fun submitFilter(commitCallback: Runnable?) =
         submitList(originalList, commitCallback)
-    }
 
-    fun clearFilter(commitCallback: Runnable?){
-        filter.clearFilter()
-        submitList(originalList, commitCallback)
-    }
 
     fun onItemSwipe(viewHolderPosition: Int, i: Int) {
         val id = getItem(viewHolderPosition).id
