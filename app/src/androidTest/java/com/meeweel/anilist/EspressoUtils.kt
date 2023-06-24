@@ -108,7 +108,7 @@ object EspressoUtils {
      *  Прокрутить Recycler до карточки с заданным текстом
      */
     fun scrollToCardByText(text: String) {
-        Espresso.onView(withId(R.id.mainFragmentRecyclerView))
+        Espresso.onView(withId(R.id.recycler_view))
             .perform(
                 RecyclerViewActions.scrollTo<RecyclerView.ViewHolder>(
                     ViewMatchers.hasDescendant(
