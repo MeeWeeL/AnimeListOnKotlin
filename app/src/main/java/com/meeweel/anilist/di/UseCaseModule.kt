@@ -2,7 +2,7 @@ package com.meeweel.anilist.di
 
 import com.meeweel.anilist.domain.repository.Repository
 import com.meeweel.anilist.domain.useCases.ChangeAnimeStateUseCase
-import com.meeweel.anilist.domain.useCases.GetAnimeByIdUseCase
+import com.meeweel.anilist.domain.useCases.GetAnimeUseCase
 import com.meeweel.anilist.domain.useCases.GetAnimeListUseCase
 import dagger.Module
 import dagger.Provides
@@ -28,7 +28,7 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun provideGetAnimeByIdUseCase(repository: Repository): GetAnimeByIdUseCase {
-        return GetAnimeByIdUseCase(repository)
+    fun provideGetAnimeByIdUseCase(repository: Repository): GetAnimeUseCase {
+        return GetAnimeUseCase(repository)
     }
 }

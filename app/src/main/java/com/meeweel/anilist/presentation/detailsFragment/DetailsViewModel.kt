@@ -5,13 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.meeweel.anilist.domain.models.Anime
-import com.meeweel.anilist.domain.useCases.GetAnimeByIdUseCase
+import com.meeweel.anilist.domain.useCases.GetAnimeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 @HiltViewModel
-class DetailsViewModel @Inject constructor(private val getAnimeByIdUseCase: GetAnimeByIdUseCase) :
+class DetailsViewModel @Inject constructor(private val getAnimeUseCase: GetAnimeUseCase) :
     ViewModel() {
 
     private lateinit var currentAnime: Anime
@@ -20,7 +21,7 @@ class DetailsViewModel @Inject constructor(private val getAnimeByIdUseCase: GetA
 
     fun getAnimeById(animeId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            currentAnime = getAnimeByIdUseCase(animeId)
+            currentAnime = getAnimeUseCase(animeId)
             _listToObserve.postValue(AnimeState.Success(currentAnime))
         }
     }
