@@ -18,7 +18,8 @@ class NewAnimeListAdapter(
     private val callback: AdapterCallback,
 ) : ListAdapter<ShortAnime, BaseViewHolder>(DiffCallback) {
     private var originalList: List<ShortAnime>? = null
-    private val filter: ListFilterSet = ListFilterSet()
+    val filter: AnimeListFilter = AnimeListFilter()
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
@@ -53,6 +54,10 @@ class NewAnimeListAdapter(
         filter.setTitleText(text)
         submitList(originalList, commitCallback)
     }
+
+    fun submitFilter(commitCallback: Runnable?) =
+        submitList(originalList, commitCallback)
+
 
     fun onItemSwipe(viewHolderPosition: Int, i: Int) {
         val id = getItem(viewHolderPosition).id

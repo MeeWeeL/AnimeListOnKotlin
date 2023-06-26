@@ -4,7 +4,7 @@ import com.meeweel.anilist.R
 import com.meeweel.anilist.app.App
 import com.meeweel.anilist.domain.models.ShortAnime
 
-class ListFilterSet {
+class AnimeListFilter {
 
     private val isRu = App.ContextHolder.context.resources.getBoolean(R.bool.isRussian)
     private var titleText = DEFAULT_TITLE_TEXT
@@ -71,6 +71,13 @@ class ListFilterSet {
 
     fun clear() {
         titleText = DEFAULT_TITLE_TEXT
+        genre = DEFAULT_GENRE_TEXT
+        yearFrom = DEFAULT_YEAR_FROM
+        yearTo = DEFAULT_YEAR_TO
+        sort = DEFAULT_SORT
+    }
+
+    fun clearFilter() {
         genre = DEFAULT_GENRE_TEXT
         yearFrom = DEFAULT_YEAR_FROM
         yearTo = DEFAULT_YEAR_TO

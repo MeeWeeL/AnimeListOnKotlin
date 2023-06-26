@@ -16,6 +16,7 @@ import com.meeweel.anilist.domain.enums.ListState
 import com.meeweel.anilist.presentation.NewMainActivity
 import com.meeweel.anilist.presentation.mainFragment.adapter.NewAnimeListAdapter
 import com.meeweel.anilist.presentation.mainFragment.adapter.NewMainItemTouchHelper
+import com.meeweel.anilist.presentation.mainFragment.dialogs.FilterBottomDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,6 +25,13 @@ class NewMainFragment : Fragment(R.layout.new_fragment_main) {
     private val binding get() = _binding!!
     private val viewModel: NewMainViewModel by viewModels()
     private val adapter: NewAnimeListAdapter by lazy { createAdapter() }
+    private val filterDialog: FilterBottomDialog by lazy {
+        FilterBottomDialog(requireContext(), adapter.filter) {
+            adapter.submitFilter {
+                binding.recyclerView.scrollToPosition(0)
+            }
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -110,7 +118,8 @@ class NewMainFragment : Fragment(R.layout.new_fragment_main) {
             }
         })
         binding.toolbar.menu.findItem(R.id.filter_app_bar).setOnMenuItemClickListener {
-            // TODO: Open filter
+            filterDialog.setDialogFilters()
+            filterDialog.show()
             return@setOnMenuItemClickListener true
         }
     }
