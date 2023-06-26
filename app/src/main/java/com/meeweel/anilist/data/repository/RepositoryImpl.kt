@@ -84,7 +84,7 @@ class RepositoryImpl(
         )
     }
 
-    override suspend fun getAnimeByIdLocal(id: Int): Anime {
+    override suspend fun getAnimeLocal(id: Int): Anime {
         return localDataSource.getEntityById(id).toModel()
     }
 

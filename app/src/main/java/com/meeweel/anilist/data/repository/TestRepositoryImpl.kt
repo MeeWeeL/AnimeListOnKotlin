@@ -1,6 +1,5 @@
 package com.meeweel.anilist.data.repository
 
-import android.content.Context
 import androidx.room.Room
 import com.meeweel.anilist.app.App
 import com.meeweel.anilist.data.retrofit.AnimeApi
@@ -94,7 +93,7 @@ class TestRepositoryImpl(
         )
     }
 
-    override suspend fun getAnimeByIdLocal(id: Int): Anime {
+    override suspend fun getAnimeLocal(id: Int): Anime {
         return localDataSource.getEntityById(id).toModel()
     }
 

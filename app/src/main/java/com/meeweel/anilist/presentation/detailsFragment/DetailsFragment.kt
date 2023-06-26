@@ -6,20 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.NewDetailsFragmentBinding
 import com.meeweel.anilist.domain.models.Anime
 import com.meeweel.anilist.presentation.NewMainActivity
+import dagger.hilt.android.AndroidEntryPoint
 
-class DetailsFragment : Fragment() {
+@AndroidEntryPoint
+class DetailsFragment : Fragment(R.layout.new_details_fragment) {
     private var animeId: Int? = null
     private var _binding: NewDetailsFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: DetailsViewModel by lazy {
-        ViewModelProvider(this)[DetailsViewModel::class.java]
-    }
+    private val viewModel: DetailsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
