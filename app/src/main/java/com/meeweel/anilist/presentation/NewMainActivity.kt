@@ -13,7 +13,8 @@ import javax.inject.Inject
 class NewMainActivity : AppCompatActivity() {
 
     private lateinit var binding: NewActivityMainBinding
-    @Inject lateinit var syncer: AnimeSynchronizer
+    @Inject
+    lateinit var syncer: AnimeSynchronizer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

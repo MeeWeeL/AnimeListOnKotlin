@@ -41,6 +41,7 @@ class DetailsFragment : Fragment(R.layout.new_details_fragment) {
                     populateData(data)
                     turnLoading(false)
                 }
+
                 is AnimeState.Error -> TODO()
                 AnimeState.Loading -> turnLoading(true)
             }

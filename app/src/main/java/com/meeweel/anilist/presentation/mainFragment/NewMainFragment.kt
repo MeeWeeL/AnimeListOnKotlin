@@ -25,13 +25,6 @@ class NewMainFragment : Fragment(R.layout.new_fragment_main) {
     private val binding get() = _binding!!
     private val viewModel: NewMainViewModel by viewModels()
     private val adapter: NewAnimeListAdapter by lazy { createAdapter() }
-    private val filterDialog: FilterBottomDialog by lazy {
-        FilterBottomDialog(requireContext(), adapter.filter) {
-            adapter.submitFilter {
-                binding.recyclerView.scrollToPosition(0)
-            }
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -118,8 +111,9 @@ class NewMainFragment : Fragment(R.layout.new_fragment_main) {
             }
         })
         binding.toolbar.menu.findItem(R.id.filter_app_bar).setOnMenuItemClickListener {
-            filterDialog.setDialogFilters()
-            filterDialog.show()
+            FilterBottomDialog(requireContext(), adapter.getFilter()) { filter ->
+                adapter.submitFilter(filter) { binding.recyclerView.scrollToPosition(0) }
+            }.show()
             return@setOnMenuItemClickListener true
         }
     }

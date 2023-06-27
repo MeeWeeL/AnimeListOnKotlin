@@ -18,7 +18,7 @@ class NewAnimeListAdapter(
     private val callback: AdapterCallback,
 ) : ListAdapter<ShortAnime, BaseViewHolder>(DiffCallback) {
     private var originalList: List<ShortAnime>? = null
-    val filter: AnimeListFilter = AnimeListFilter()
+    private var filter: AnimeListFilter = AnimeListFilter()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -50,18 +50,21 @@ class NewAnimeListAdapter(
         super.submitList(filter.filter(originalList!!), commitCallback)
     }
 
+    fun getFilter(): AnimeListFilter = filter.copy()
+
     fun setSearchText(text: String, commitCallback: Runnable?) {
         filter.setTitleText(text)
         submitList(originalList, commitCallback)
     }
 
-    fun submitFilter(commitCallback: Runnable?) =
+    fun submitFilter(filter: AnimeListFilter, commitCallback: Runnable?) {
+        this.filter = filter
         submitList(originalList, commitCallback)
+    }
 
 
     fun onItemSwipe(viewHolderPosition: Int, i: Int) {
         val id = getItem(viewHolderPosition).id
-
         val viewType = getItemViewType(viewHolderPosition)
         if (i == ItemTouchHelper.START) {
             when (viewType) {
