@@ -1,7 +1,9 @@
 package com.meeweel.anilist.presentation
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.Navigation
 import com.meeweel.anilist.R
 import com.meeweel.anilist.data.sinchonizer.AnimeSynchronizer

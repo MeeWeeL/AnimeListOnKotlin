@@ -16,13 +16,15 @@ import javax.inject.Inject
 @HiltViewModel
 class NewMainViewModel @Inject constructor(
     private val getAnimeListUseCase: GetAnimeListUseCase,
-    private val changeAnimeStateUseCase: ChangeAnimeStateUseCase
+    private val changeAnimeStateUseCase: ChangeAnimeStateUseCase,
 ) : ViewModel() {
 
     private var currentState = ListState.MAIN
     private var currentList: MutableList<ShortAnime> = mutableListOf()
     private var _listToObserve: MutableLiveData<AnimeListState> = MutableLiveData()
     val listToObserve: LiveData<AnimeListState> get() = _listToObserve
+    private var _animeListMapToObserve: MutableLiveData<AnimeMapState> = MutableLiveData()
+    val animeListMapToObserve: LiveData<AnimeMapState> get() = _animeListMapToObserve
 
     init {
         loadAnimeList()
@@ -39,6 +41,17 @@ class NewMainViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             changeAnimeStateUseCase(animeID, newState)
             loadAnimeList()
+        }
+    }
+
+    fun getAnimeMapList() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _animeListMapToObserve.postValue(AnimeMapState.Loading) //AnimeMapState
+            val animeMap = mutableMapOf<ListState, MutableList<ShortAnime>>()
+            for (state in ListState.values()) {
+                animeMap[state] = getAnimeListUseCase(state).toMutableList()
+            }
+            _animeListMapToObserve.postValue(AnimeMapState.Success(animeMap))
         }
     }
 
