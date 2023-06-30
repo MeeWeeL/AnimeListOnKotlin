@@ -10,17 +10,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class NewMainActivity : AppCompatActivity() {
+class NewMainActivity : AppCompatActivity(R.layout.new_activity_main) {
 
-    private lateinit var binding: NewActivityMainBinding
     @Inject
     lateinit var syncer: AnimeSynchronizer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = NewActivityMainBinding.inflate(layoutInflater)
         syncer.synchronize()
-        setContentView(binding.root)
     }
 
     override fun onSupportNavigateUp(): Boolean {
