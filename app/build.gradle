@@ -24,13 +24,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            Properties _properties = new Properties()
-            _properties.load(project.rootProject.file("local.properties").newDataInputStream())
-            def appKey = _properties.getProperty("API_key", "")
-            buildConfigField "String", "API_key", appKey
+//            Properties _properties = new Properties()
+//            _properties.load(project.rootProject.file("local.properties").newDataInputStream())
+//            def appKey = _properties.getProperty("API_key", "")
+//            buildConfigField "String", "API_key", appKey
         }
         debug {
-            buildConfigField "String", "API_key", '"123"'
+//            buildConfigField "String", "API_key", '"123"'
         }
     }
     testOptions {
