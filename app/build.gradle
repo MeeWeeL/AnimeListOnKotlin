@@ -24,6 +24,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            Properties _properties = new Properties()
+//            _properties.load(project.rootProject.file("local.properties").newDataInputStream())
+//            def appKey = _properties.getProperty("API_key", "")
+//            buildConfigField "String", "API_key", appKey
+        }
+        debug {
+//            buildConfigField "String", "API_key", '"123"'
         }
     }
     testOptions {
@@ -50,12 +57,25 @@ android {
     buildFeatures {
         viewBinding true
     }
-    buildTypes.each {
-        Properties _properties = new Properties()
-
-        _properties.load(project.rootProject.file("local.properties").newDataInputStream())
-        def appKey = _properties.getProperty("API_key", "")
-        it.buildConfigField "String", "API_key", appKey
+    lint {
+        // Turns off checks for the issue IDs you specify.
+        disable 'TypographyFractions','TypographyQuotes'
+        // Turns on checks for the issue IDs you specify. These checks are in
+        // addition to the default lint checks.
+        enable 'RtlHardcoded','RtlCompat', 'RtlEnabled'
+        // To enable checks for only a subset of issue IDs and ignore all others,
+        // list the issue IDs with the 'check' property instead. This property overrides
+        // any issue IDs you enable or disable using the properties above.
+        checkOnly 'NewApi', 'InlinedApi'
+        // If set to true, turns off analysis progress reporting by lint.
+        quiet true
+        // If set to true (default), stops the build if errors are found.
+        abortOnError false
+        // If set to true, lint only reports errors.
+        ignoreWarnings true
+        // If set to true, lint also checks all dependencies as part of its analysis.
+        // Recommended for projects consisting of an app with library dependencies.
+        checkDependencies true
     }
 }
 
@@ -65,11 +85,11 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads:22.1.0'
 
     // AppMetrica SDK.
-    implementation 'com.yandex.android:mobmetricalib:5.0.1'
+    implementation 'com.yandex.android:mobmetricalib:5.3.0'
 
     // Glide
-    kapt "com.github.bumptech.glide:compiler:4.14.1"
-    implementation "com.github.bumptech.glide:glide:4.14.1"
+    kapt 'com.github.bumptech.glide:compiler:4.15.1'
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
 
     // Constraint
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -82,32 +102,32 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:2.6.0"
 
     // Json
-    implementation 'com.google.code.gson:gson:2.10'
+    implementation 'com.google.code.gson:gson:2.10.1'
 
     // Dagger Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
     // RxJava 3
-    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
-    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.6'
 
     // Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2'
 
     //Room
-    implementation 'androidx.room:room-runtime:2.5.1'
-    implementation 'androidx.room:room-ktx:2.5.1'
-    implementation 'androidx.room:room-rxjava3:2.5.1'
-    kapt 'androidx.room:room-compiler:2.5.1'
+    implementation 'androidx.room:room-runtime:2.5.2'
+    implementation 'androidx.room:room-ktx:2.5.2'
+    implementation 'androidx.room:room-rxjava3:2.5.2'
+    kapt 'androidx.room:room-compiler:2.5.2'
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
-    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.11'
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11'
 
     // AppCompat
     implementation 'androidx.appcompat:appcompat:1.6.1'
