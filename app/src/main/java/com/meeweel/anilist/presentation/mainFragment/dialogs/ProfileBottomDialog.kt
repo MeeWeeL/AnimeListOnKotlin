@@ -59,6 +59,7 @@ class ProfileBottomDialog(
 
     private fun Map<ListState, MutableList<ShortAnime>>.copy(state: ListState) {
         val copyList = StringBuilder()
+        this[state]?.sortBy { if (isRussian) it.ruTitle else it.enTitle }
         this[state]?.forEachIndexed { index, item ->
             val title = if (isRussian) item.ruTitle else item.enTitle
             copyList.append("$index) $title (${item.data})\n")
