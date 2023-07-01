@@ -2,8 +2,6 @@
 <MotionScene xmlns:motion="http://schemas.android.com/apk/res-auto">
 
     <Transition
-        motion:constraintSetEnd="@layout/details_fragment_zoom"
-        motion:constraintSetStart="@layout/details_fragment"
         motion:duration="500"
         motion:motionInterpolator="easeInOut">
 
