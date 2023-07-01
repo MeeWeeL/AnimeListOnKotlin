@@ -69,26 +69,24 @@ class NewMainFragment : Fragment(R.layout.new_fragment_main) {
         }
         setAppBarListeners()
         binding.toolbar.setNavigationOnClickListener {
+            val profileDialog =
+                ProfileBottomDialog(requireContext()) { text -> clipboardCopy(text) }
             viewModel.getAnimeMapList()
             viewModel.animeListMapToObserve.observe(viewLifecycleOwner) {
                 when (it) {
-                    is AnimeMapState.Success -> {
-                        val profileDialog = ProfileBottomDialog(requireContext(), it.animeData) {text -> clipboardCopy(text)}
-                        profileDialog.show()
-                    }
-                    AnimeMapState.Loading -> Toast.makeText(context, "Загрузка...", Toast.LENGTH_SHORT) //temporarily
-                        .show()
+                    is AnimeMapState.Success -> profileDialog.pasteData(it.animeData)
                 }
             }
+            profileDialog.show()
         }
-
     }
+
     private fun clipboardCopy(text: String) {
         val clipboard =
             requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
         val clip = ClipData.newPlainText("TAG", text)
         clipboard.setPrimaryClip(clip)
-        Toast.makeText(context, "Скопированно", Toast.LENGTH_SHORT).show() //temporarily
+        Toast.makeText(context, getString(R.string.copied), Toast.LENGTH_SHORT).show() 
     }
 
     private fun showPopupMenu(animeId: Int, view: View, listState: ListState) {

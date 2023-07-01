@@ -5,5 +5,4 @@ import com.meeweel.anilist.domain.models.ShortAnime
 
 sealed class AnimeMapState {
     data class Success(val animeData: Map<ListState, MutableList<ShortAnime>>) : AnimeMapState()
-    object Loading : AnimeMapState()
 }

@@ -46,7 +46,6 @@ class NewMainViewModel @Inject constructor(
 
     fun getAnimeMapList() {
         viewModelScope.launch(Dispatchers.IO) {
-            _animeListMapToObserve.postValue(AnimeMapState.Loading) //AnimeMapState
             val animeMap = mutableMapOf<ListState, MutableList<ShortAnime>>()
             for (state in ListState.values()) {
                 animeMap[state] = getAnimeListUseCase(state).toMutableList()
