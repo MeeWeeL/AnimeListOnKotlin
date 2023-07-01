@@ -3,7 +3,8 @@ package com.meeweel.anilist.presentation.mainFragment.dialogs
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.meeweel.anilist.data.room.isRussian
+import com.meeweel.anilist.R
+import com.meeweel.anilist.app.App
 import com.meeweel.anilist.databinding.ProfileLayoutBinding
 import com.meeweel.anilist.domain.enums.ListState
 import com.meeweel.anilist.domain.models.ShortAnime
@@ -12,6 +13,7 @@ class ProfileBottomDialog(
     context: Context,
     val clipboardCopy: (String) -> (Unit),
 ) : BottomSheetDialog(context) {
+    private val isRussian = App.ContextHolder.context.resources.getBoolean(R.bool.isRussian)
     private val binding = ProfileLayoutBinding.inflate(layoutInflater)
 
     init {
