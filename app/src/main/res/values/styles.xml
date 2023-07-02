@@ -457,6 +457,47 @@
     <!--  Age Rate  -->
     <!--  Genre  -->
     <!--  Description Background Image  -->
+
+    <style name="newBaseDetailsData">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/_15dp</item>
+
+    </style>
+
+    <style name="detailsData" parent="newBaseDetailsData">
+        <item name="android:gravity">center</item>
+
+    </style>
+    <!--  Date  -->
+    <!--  Author  -->
+    <!--  Rating  -->
+    <!--  Age Rate  -->
+    <!--  Genre  -->
+    <!--  Episodes  -->
+
+    <style name="detailsTitle" parent="newBaseDetailsData">
+        <item name="android:textSize">@dimen/_30sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+
+    </style>
+    <!--  Title  -->
+
+    <style name="detailsOriginalTitle" parent="detailsTitle">
+        <item name="android:textSize">@dimen/_20sp</item>
+
+    </style>
+    <!--  Original title  -->
+
+    <style name="detailsDesc" parent="newBaseDetailsData">
+        <item name="android:textSize">@dimen/_20sp</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+    <!--  Description -->
+
+
     <!--******************************************************-->
 
 

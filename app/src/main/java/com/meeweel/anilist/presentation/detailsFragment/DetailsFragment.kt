@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
+import com.meeweel.anilist.app.App
 import com.meeweel.anilist.databinding.NewDetailsFragmentBinding
 import com.meeweel.anilist.domain.models.Anime
 import com.meeweel.anilist.presentation.NewMainActivity
@@ -50,30 +51,29 @@ class DetailsFragment : Fragment(R.layout.new_details_fragment) {
 
     @SuppressLint("SetTextI18n")
     private fun populateData(animeData: Anime) {
+        val isRussian = App.ContextHolder.context.resources.getBoolean(R.bool.isRussian)
         with(binding) {
-            Glide.with(this.detailsDescriptionImage.context)
-                .load(animeData.image)
-                .error(R.drawable.anig)
-                .into(this.detailsDescriptionImage)
             Glide.with(this.animeImage.context)
                 .load(animeData.image)
                 .error(R.drawable.anig)
                 .into(this.animeImage)
             originalTitle.text = animeData.originalTitle
-            englishTitle.text = animeData.enTitle
-            englishTitle.visibility = View.GONE
-            russianTitle.text = animeData.ruTitle
-            russianTitle.visibility = View.VISIBLE // if (isRussian) View.VISIBLE else View.GONE
-            descriptionValue.text = animeData.description
-            releaseAuthor.text = "${getText(R.string.author)}: ${animeData.author}"
-            releaseGenre.text = "${getText(R.string.genre)}: ${animeData.genre}"
-            releaseData.text = "${getText(R.string.data)}: ${animeData.data}"
+            title.text = if(isRussian) animeData.ruTitle else animeData.enTitle
+            description.text = animeData.description
+            author.text = "${getText(R.string.author)}: ${animeData.author}"
+            genre.text = "${getText(R.string.genre)}: ${animeData.genre}"
+            releaseDate.text = "${getText(R.string.data)}: ${animeData.data}"
             var ratingText = "${getText(R.string.rating)}: ${animeData.rating}%"
             if (animeData.ratingCheck != 0) ratingText += "\n(${getText(R.string.my_rate)}: ${animeData.ratingCheck})"
-            releaseRating.text = ratingText
+            rating.text = ratingText
             seriesQuantity.text =
                 "${getText(R.string.seriesQuantity)}: ${animeData.seriesQuantity}"
-            releaseAgeRate.text = "${getText(R.string.age_rating)}: ${animeData.ageRating}+"
+            ageRate.text = "${getText(R.string.age_rating)}: ${animeData.ageRating}+"
+            Glide.with(this.descriptionImage.context)
+                .load(animeData.image)
+                .override(description.measuredWidth,description.measuredHeight)
+                .error(R.drawable.anig)
+                .into(this.descriptionImage)
         }
     }
 

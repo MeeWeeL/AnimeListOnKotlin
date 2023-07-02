@@ -1,175 +1,106 @@
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.detailsFragment.DetailsFragment">
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:id="@+id/details_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_50dp">
 
-        <androidx.constraintlayout.motion.widget.MotionLayout
-            android:id="@+id/main"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/_50dp"
-            app:layoutDescription="@xml/details_zoom">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/original_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10dp"
-                android:layout_marginBottom="@dimen/_10dp"
-                android:gravity="center"
+                style="@style/detailsOriginalTitle"
                 android:textSize="@dimen/_20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/anime_image"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Dragon’s Dogma" />
+                tools:text="Original title" />
 
-            <ImageView
-                android:id="@+id/anime_image"
-                style="@style/detailsEnImage"
-                tools:layout_editor_absoluteX="20dp"
-                tools:layout_editor_absoluteY="47dp" />
-
-            <TextView
-                android:id="@+id/release_Data"
-                style="@style/detailsEnData"
-                tools:text="data" />
-
-            <TextView
-                android:id="@+id/release_Author"
-                style="@style/parameters"
-                android:layout_width="@dimen/_0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@id/release_rating"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="2"
-                app:layout_constraintStart_toEndOf="@id/anime_image"
-                app:layout_constraintTop_toBottomOf="@id/release_Data"
-                tools:text="author" />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/anime_image"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:layout_marginStart="@dimen/_10dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/anig" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/release_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="@dimen/_15dp"
+                        tools:text="release date" />
+
+                    <TextView
+                        android:id="@+id/author"
+                        style="@style/detailsData"
+                        tools:text="author" />
+
+                    <TextView
+                        android:id="@+id/rating"
+                        style="@style/detailsData"
+                        tools:text="rating" />
+
+                    <TextView
+                        android:id="@+id/age_rate"
+                        style="@style/detailsData"
+                        tools:text="age rate" />
+
+                    <TextView
+                        android:id="@+id/series_quantity"
+                        style="@style/detailsData"
+                        tools:text="series quantity" />
+                </LinearLayout>
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/release_rating"
-                style="@style/parameters"
-                android:layout_width="@dimen/_0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@id/release_age_rate"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="2"
-                app:layout_constraintStart_toEndOf="@id/anime_image"
-                app:layout_constraintTop_toBottomOf="@id/release_Author"
-                tools:text="rating" />
-
-            <TextView
-                android:id="@+id/release_age_rate"
-                style="@style/parameters"
-                android:layout_width="@dimen/_0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@id/series_quantity"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="2"
-                app:layout_constraintStart_toEndOf="@id/anime_image"
-                app:layout_constraintTop_toBottomOf="@id/release_rating"
-                tools:text="age rate" />
-
-            <TextView
-                android:id="@+id/series_quantity"
-                style="@style/parameters"
-                android:layout_width="@dimen/_0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@id/release_Genre"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="2"
-                app:layout_constraintStart_toEndOf="@id/anime_image"
-                app:layout_constraintTop_toBottomOf="@+id/release_age_rate"
-                tools:text="episodes" />
-
-            <TextView
-                android:id="@+id/release_Genre"
-                style="@style/parameters"
-                android:layout_width="@dimen/_0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@id/english_title"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/release_age_rate"
+                android:id="@+id/genre"
+                style="@style/detailsData"
                 tools:text="genre" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_begin="@dimen/_250dp" />
-
-            <ImageView
-                android:id="@+id/details_description_image"
-                android:layout_width="@dimen/_0dp"
-                android:layout_height="@dimen/_0dp"
-                android:layout_marginTop="@dimen/_10dp"
-                android:alpha="0.1"
-                android:scaleType="centerCrop"
-                android:src="@drawable/anibackground"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/release_Genre" />
-
             <TextView
-                android:id="@+id/english_title"
+                android:id="@+id/title"
+                style="@style/detailsTitle"
+                tools:text="Title" />
+
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20dp"
-                android:gravity="center"
-                android:textSize="@dimen/_30sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/russian_title"
-                app:layout_constraintTop_toBottomOf="@id/release_Genre"
-                tools:text="English title" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/russian_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10dp"
-                android:gravity="center"
-                android:textSize="@dimen/_30sp"
-                android:textStyle="bold"
-                android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@+id/descriptionLabel"
-                app:layout_constraintTop_toBottomOf="@id/english_title"
-                tools:text="Russian title" />
+                <ImageView
+                    android:id="@+id/description_image"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:alpha="0.1"
+                    android:src="@drawable/anig" />
 
-            <TextView
-                android:id="@+id/descriptionLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_15_dp"
-                android:text="@string/description"
-                app:layout_constraintBottom_toTopOf="@id/description_value"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/russian_title" />
-
-
-            <TextView
-                android:id="@+id/description_value"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_10dp"
-                android:paddingBottom="@dimen/_10dp"
-                android:text="@string/default_description"
-                android:textSize="@dimen/_20sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/descriptionLabel" />
-        </androidx.constraintlayout.motion.widget.MotionLayout>
-    </androidx.core.widget.NestedScrollView>
+                <TextView
+                    android:id="@+id/description"
+                    style="@style/detailsDesc"
+                    tools:text="@string/default_description"/>
+            </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
 
     <FrameLayout
         android:id="@+id/loadingLayout"
@@ -179,12 +110,10 @@
         app:layout_anchor="@+id/details_scroll_view"
         app:layout_anchorGravity="center"
         tools:visibility="visible">
-
         <ProgressBar
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
     </FrameLayout>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
