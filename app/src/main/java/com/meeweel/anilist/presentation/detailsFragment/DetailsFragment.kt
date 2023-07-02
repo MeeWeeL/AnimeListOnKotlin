@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
@@ -58,7 +59,7 @@ class DetailsFragment : Fragment(R.layout.new_details_fragment) {
                 .error(R.drawable.anig)
                 .into(this.animeImage)
             originalTitle.text = animeData.originalTitle
-            title.text = if(isRussian) animeData.ruTitle else animeData.enTitle
+            title.text = if (isRussian) animeData.ruTitle else animeData.enTitle
             description.text = animeData.description
             author.text = "${getText(R.string.author)}: ${animeData.author}"
             genre.text = "${getText(R.string.genre)}: ${animeData.genre}"
@@ -69,13 +70,22 @@ class DetailsFragment : Fragment(R.layout.new_details_fragment) {
             seriesQuantity.text =
                 "${getText(R.string.seriesQuantity)}: ${animeData.seriesQuantity}"
             ageRate.text = "${getText(R.string.age_rating)}: ${animeData.ageRating}+"
-            Glide.with(this.descriptionImage.context)
-                .load(animeData.image)
-                .override(description.measuredWidth,description.measuredHeight)
-                .error(R.drawable.anig)
-                .into(this.descriptionImage)
+
+            description.viewTreeObserver.addOnGlobalLayoutListener(object :
+                ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    description.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    descriptionImage.layoutParams.width = description.width
+                    descriptionImage.layoutParams.height = description.height
+                    Glide.with(descriptionImage.context)
+                        .load(animeData.image)
+                        .error(R.drawable.anig)
+                        .into(descriptionImage)
+                }
+            })
         }
     }
+
 
     private fun turnLoading(isLoading: Boolean) {
         binding.loadingLayout.visibility = if (isLoading) View.VISIBLE else View.GONE
