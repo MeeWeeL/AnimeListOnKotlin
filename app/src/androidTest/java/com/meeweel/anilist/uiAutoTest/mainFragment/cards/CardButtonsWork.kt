@@ -31,7 +31,7 @@ class CardButtonsWork {
     fun checkButton_WatchedFromMain_Visible() {
         checkButtonVisibility(
             R.id.main_fragment_nav,
-            "Бек: Восточная ударная группа",
+            if (EspressoUtils.isRu) "Бек: Восточная ударная группа" else "Beck: Mongolian Chop Squad",
             R.id.watched_btn
         )
     }
@@ -40,7 +40,7 @@ class CardButtonsWork {
     fun checkButton_WatchedFromMain_WorkCorrect() {
         checkButtonWork(
             R.id.main_fragment_nav,
-            "Бек: Восточная ударная группа",
+            if (EspressoUtils.isRu) "Бек: Восточная ударная группа" else "Beck: Mongolian Chop Squad",
             R.id.watched_btn,
             R.id.watched_fragment_nav
         )
@@ -50,7 +50,7 @@ class CardButtonsWork {
     fun checkButton_WatchedFromWanted_Visible() {
         checkButtonVisibility(
             R.id.wanted_fragment_nav,
-            "Крутой учитель Онидзука",
+            if (EspressoUtils.isRu) "Крутой учитель Онидзука" else "GTO: Great Teacher Onizuka",
             R.id.watched_btn_on_wanted
         )
     }
@@ -59,7 +59,7 @@ class CardButtonsWork {
     fun checkButton_WatchedFromWanted_WorkCorrect() {
         checkButtonWork(
             R.id.wanted_fragment_nav,
-            "Крутой учитель Онидзука",
+            if (EspressoUtils.isRu) "Крутой учитель Онидзука" else "GTO: Great Teacher Onizuka",
             R.id.watched_btn_on_wanted,
             R.id.watched_fragment_nav
         )
@@ -69,7 +69,7 @@ class CardButtonsWork {
     fun checkButton_NotWatched_Visible() {
         checkButtonVisibility(
             R.id.main_fragment_nav,
-            "Бек: Восточная ударная группа",
+            if (EspressoUtils.isRu) "Бек: Восточная ударная группа" else "Beck: Mongolian Chop Squad",
             R.id.not_watched_btn
         )
     }
@@ -78,7 +78,7 @@ class CardButtonsWork {
     fun checkButton_NotWatched_WorkCorrect() {
         checkButtonWork(
             R.id.main_fragment_nav,
-            "Бек: Восточная ударная группа",
+            if (EspressoUtils.isRu) "Бек: Восточная ударная группа" else "Beck: Mongolian Chop Squad",
             R.id.not_watched_btn,
             R.id.not_watched_fragment_nav
         )
@@ -88,7 +88,7 @@ class CardButtonsWork {
     fun checkButton_Wanted_Visible() {
         checkButtonVisibility(
             R.id.not_watched_fragment_nav,
-            "Вайолет Эвергарден",
+            if (EspressoUtils.isRu) "Вайолет Эвергарден" else "Violet Evergarden",
             R.id.wanted_btn
         )
     }
@@ -97,7 +97,7 @@ class CardButtonsWork {
     fun checkButton_Wanted_WorkCorrect() {
         checkButtonWork(
             R.id.not_watched_fragment_nav,
-            "Вайолет Эвергарден",
+            if (EspressoUtils.isRu) "Вайолет Эвергарден" else "Violet Evergarden",
             R.id.wanted_btn,
             R.id.wanted_fragment_nav
         )
@@ -107,7 +107,7 @@ class CardButtonsWork {
     fun checkButton_Unwanted_Visible() {
         checkButtonVisibility(
             R.id.not_watched_fragment_nav,
-            "Вайолет Эвергарден",
+            if (EspressoUtils.isRu) "Вайолет Эвергарден" else "Violet Evergarden",
             R.id.unwanted_btn
         )
     }
@@ -116,7 +116,7 @@ class CardButtonsWork {
     fun checkButton_Unwanted_WorkCorrect() {
         checkButtonWork(
             R.id.not_watched_fragment_nav,
-            "Вайолет Эвергарден",
+            if (EspressoUtils.isRu) "Вайолет Эвергарден" else "Violet Evergarden",
             R.id.unwanted_btn,
             R.id.unwanted_fragment_nav
         )

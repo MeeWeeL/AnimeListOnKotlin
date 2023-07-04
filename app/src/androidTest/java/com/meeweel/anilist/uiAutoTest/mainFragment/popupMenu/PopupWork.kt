@@ -2,7 +2,6 @@ package com.meeweel.anilist.uiAutoTest.mainFragment.popupMenu
 
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.matcher.RootMatchers.isPlatformPopup
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.meeweel.anilist.EspressoUtils
 import com.meeweel.anilist.EspressoUtils.click
@@ -14,7 +13,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.lang.Exception
 
 @RunWith(AndroidJUnit4::class)
 class PopupWork {
@@ -31,8 +29,8 @@ class PopupWork {
     fun mainToWanted() {
         checkPopupItems(
             R.id.main_fragment_nav,
-            List.MAIN.title,
-            List.WANTED.text,
+            List.MAIN.titleRU,
+            List.WANTED.listNameRU,
             R.id.wanted_fragment_nav
         )
     }
@@ -41,8 +39,8 @@ class PopupWork {
     fun mainToUnwanted() {
         checkPopupItems(
             R.id.main_fragment_nav,
-            List.MAIN.title,
-            List.UNWANTED.text,
+            List.MAIN.titleRU,
+            List.UNWANTED.listNameRU,
             R.id.unwanted_fragment_nav
         )
     }
@@ -51,8 +49,8 @@ class PopupWork {
     fun mainToWatched() {
         checkPopupItems(
             R.id.main_fragment_nav,
-            List.MAIN.title,
-            List.WATCHED.text,
+            List.MAIN.titleRU,
+            List.WATCHED.listNameRU,
             R.id.watched_fragment_nav
         )
     }
@@ -61,8 +59,8 @@ class PopupWork {
     fun mainToNotWatched() {
         checkPopupItems(
             R.id.main_fragment_nav,
-            List.MAIN.title,
-            List.NOT_WATCHED.text,
+            List.MAIN.titleRU,
+            List.NOT_WATCHED.listNameRU,
             R.id.not_watched_fragment_nav
         )
     }
@@ -71,8 +69,8 @@ class PopupWork {
     fun wantedToMain() {
         checkPopupItems(
             R.id.wanted_fragment_nav,
-            List.WANTED.title,
-            List.MAIN.text,
+            List.WANTED.titleRU,
+            List.MAIN.listNameRU,
             R.id.main_fragment_nav
         )
     }
@@ -81,8 +79,8 @@ class PopupWork {
     fun wantedToWatched() {
         checkPopupItems(
             R.id.wanted_fragment_nav,
-            List.WANTED.title,
-            List.WATCHED.text,
+            List.WANTED.titleRU,
+            List.WATCHED.listNameRU,
             R.id.watched_fragment_nav
         )
     }
@@ -91,8 +89,8 @@ class PopupWork {
     fun wantedToNotWatched() {
         checkPopupItems(
             R.id.wanted_fragment_nav,
-            List.WANTED.title,
-            List.NOT_WATCHED.text,
+            List.WANTED.titleRU,
+            List.NOT_WATCHED.listNameRU,
             R.id.not_watched_fragment_nav
         )
     }
@@ -101,8 +99,8 @@ class PopupWork {
     fun wantedToUnwanted() {
         checkPopupItems(
             R.id.wanted_fragment_nav,
-            List.WANTED.title,
-            List.UNWANTED.text,
+            List.WANTED.titleRU,
+            List.UNWANTED.listNameRU,
             R.id.unwanted_fragment_nav
         )
     }
@@ -111,8 +109,8 @@ class PopupWork {
     fun unwantedToMain() {
         checkPopupItems(
             R.id.unwanted_fragment_nav,
-            List.UNWANTED.title,
-            List.MAIN.text,
+            List.UNWANTED.titleRU,
+            List.MAIN.listNameRU,
             R.id.main_fragment_nav
         )
     }
@@ -121,8 +119,8 @@ class PopupWork {
     fun unwantedToWanted() {
         checkPopupItems(
             R.id.unwanted_fragment_nav,
-            List.UNWANTED.title,
-            List.WANTED.text,
+            List.UNWANTED.titleRU,
+            List.WANTED.listNameRU,
             R.id.wanted_fragment_nav
         )
     }
@@ -131,8 +129,8 @@ class PopupWork {
     fun unwantedToWatched() {
         checkPopupItems(
             R.id.unwanted_fragment_nav,
-            List.UNWANTED.title,
-            List.WATCHED.text,
+            List.UNWANTED.titleRU,
+            List.WATCHED.listNameRU,
             R.id.watched_fragment_nav
         )
     }
@@ -141,8 +139,8 @@ class PopupWork {
     fun unwantedToNotWatched() {
         checkPopupItems(
             R.id.unwanted_fragment_nav,
-            List.UNWANTED.title,
-            List.NOT_WATCHED.text,
+            List.UNWANTED.titleRU,
+            List.NOT_WATCHED.listNameRU,
             R.id.not_watched_fragment_nav
         )
     }
@@ -151,8 +149,8 @@ class PopupWork {
     fun watchedToMain() {
         checkPopupItems(
             R.id.watched_fragment_nav,
-            List.WATCHED.title,
-            List.MAIN.text,
+            List.WATCHED.titleRU,
+            List.MAIN.listNameRU,
             R.id.main_fragment_nav
         )
     }
@@ -161,8 +159,8 @@ class PopupWork {
     fun watchedToNotWatched() {
         checkPopupItems(
             R.id.watched_fragment_nav,
-            List.WATCHED.title,
-            List.NOT_WATCHED.text,
+            List.WATCHED.titleRU,
+            List.NOT_WATCHED.listNameRU,
             R.id.not_watched_fragment_nav
         )
     }
@@ -171,8 +169,8 @@ class PopupWork {
     fun watchedToWanted() {
         checkPopupItems(
             R.id.watched_fragment_nav,
-            List.WATCHED.title,
-            List.WANTED.text,
+            List.WATCHED.titleRU,
+            List.WANTED.listNameRU,
             R.id.wanted_fragment_nav
         )
     }
@@ -181,8 +179,8 @@ class PopupWork {
     fun watchedToUnwanted() {
         checkPopupItems(
             R.id.watched_fragment_nav,
-            List.WATCHED.title,
-            List.UNWANTED.text,
+            List.WATCHED.titleRU,
+            List.UNWANTED.listNameRU,
             R.id.unwanted_fragment_nav
         )
     }
@@ -191,8 +189,8 @@ class PopupWork {
     fun notWatchedToMain() {
         checkPopupItems(
             R.id.not_watched_fragment_nav,
-            List.NOT_WATCHED.title,
-            List.MAIN.text,
+            List.NOT_WATCHED.titleRU,
+            List.MAIN.listNameRU,
             R.id.main_fragment_nav
         )
     }
@@ -201,8 +199,8 @@ class PopupWork {
     fun notWatchedToWatched() {
         checkPopupItems(
             R.id.not_watched_fragment_nav,
-            List.NOT_WATCHED.title,
-            List.WATCHED.text,
+            List.NOT_WATCHED.titleRU,
+            List.WATCHED.listNameRU,
             R.id.watched_fragment_nav
         )
     }
@@ -211,8 +209,8 @@ class PopupWork {
     fun notWatchedToWanted() {
         checkPopupItems(
             R.id.not_watched_fragment_nav,
-            List.NOT_WATCHED.title,
-            List.WANTED.text,
+            List.NOT_WATCHED.titleRU,
+            List.WANTED.listNameRU,
             R.id.wanted_fragment_nav
         )
     }
@@ -221,8 +219,8 @@ class PopupWork {
     fun notWatchedToUnwanted() {
         checkPopupItems(
             R.id.not_watched_fragment_nav,
-            List.NOT_WATCHED.title,
-            List.UNWANTED.text,
+            List.NOT_WATCHED.titleRU,
+            List.UNWANTED.listNameRU,
             R.id.unwanted_fragment_nav
         )
     }

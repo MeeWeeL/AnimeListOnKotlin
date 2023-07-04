@@ -25,6 +25,7 @@ import java.nio.channels.FileChannel
 
 object EspressoUtils {
 
+    val isRu get() = InstrumentationRegistry.getInstrumentation().context.resources.getBoolean(R.bool.isRussian)
     private const val CLICK_DELAY = 150L
 
     // Constants
