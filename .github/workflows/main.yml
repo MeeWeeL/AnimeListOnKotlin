@@ -68,6 +68,16 @@ jobs:
 
   ui_test:
     runs-on: macos-latest
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        api-level:
+          - 21
+          - 24
+          - 26
+          - 29
+    
     steps:
       - uses: actions/checkout@v3
       - name: set up JDK 17
