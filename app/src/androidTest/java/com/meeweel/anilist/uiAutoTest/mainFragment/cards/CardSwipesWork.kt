@@ -4,13 +4,12 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
 import com.meeweel.anilist.EspressoUtils
 import com.meeweel.anilist.EspressoUtils.click
 import com.meeweel.anilist.EspressoUtils.findCardByText
-import com.meeweel.anilist.EspressoUtils.isRu
 import com.meeweel.anilist.EspressoUtils.isVisible
 import com.meeweel.anilist.R
+import com.meeweel.anilist.data.room.isRussian
 import com.meeweel.anilist.presentation.NewMainActivity
 import org.junit.After
 import org.junit.Before
@@ -34,7 +33,7 @@ class CardSwipesWork {
     @Test
     fun mainSwipeRight() {
         checkSwipe(
-            title = if (isRu) "Бек: Восточная ударная группа" else "Beck: Mongolian Chop Squad",
+            title = if (isRussian) "Бек: Восточная ударная группа" else "Beck: Mongolian Chop Squad",
             isRight = true,
             startPage = R.id.main_fragment_nav,
             endPage = R.id.watched_fragment_nav
@@ -44,7 +43,7 @@ class CardSwipesWork {
     @Test
     fun mainSwipeLeft() {
         checkSwipe(
-            title = if (isRu) "Бек: Восточная ударная группа" else "Beck: Mongolian Chop Squad",
+            title = if (isRussian) "Бек: Восточная ударная группа" else "Beck: Mongolian Chop Squad",
             isRight = false,
             startPage = R.id.main_fragment_nav,
             endPage = R.id.not_watched_fragment_nav
@@ -54,7 +53,7 @@ class CardSwipesWork {
     @Test
     fun watchedSwipeRight() {
         checkSwipe(
-            title = if (isRu) "Волчица и чёрный принц" else "WOLF GIRL AND BLACK PRINCE",
+            title = if (isRussian) "Волчица и чёрный принц" else "WOLF GIRL AND BLACK PRINCE",
             isRight = true,
             startPage = R.id.watched_fragment_nav,
             endPage = null
@@ -64,7 +63,7 @@ class CardSwipesWork {
     @Test
     fun watchedSwipeLeft() {
         checkSwipe(
-            title = if (isRu) "Волчица и чёрный принц" else "WOLF GIRL AND BLACK PRINCE",
+            title = if (isRussian) "Волчица и чёрный принц" else "WOLF GIRL AND BLACK PRINCE",
             isRight = false,
             startPage = R.id.watched_fragment_nav,
             endPage = null
@@ -74,7 +73,7 @@ class CardSwipesWork {
     @Test
     fun notWatchedSwipeRight() {
         checkSwipe(
-            title = if (isRu) "Вайолет Эвергарден" else "Violet Evergarden",
+            title = if (isRussian) "Вайолет Эвергарден" else "Violet Evergarden",
             isRight = true,
             startPage = R.id.not_watched_fragment_nav,
             endPage = R.id.wanted_fragment_nav
@@ -84,7 +83,7 @@ class CardSwipesWork {
     @Test
     fun notWatchedSwipeLeft() {
         checkSwipe(
-            title = if (isRu) "Вайолет Эвергарден" else "Violet Evergarden",
+            title = if (isRussian) "Вайолет Эвергарден" else "Violet Evergarden",
             isRight = false,
             startPage = R.id.not_watched_fragment_nav,
             endPage = R.id.unwanted_fragment_nav
@@ -94,7 +93,7 @@ class CardSwipesWork {
     @Test
     fun wantedSwipeRight() {
         checkSwipe(
-            title = if (isRu) "Крутой учитель Онидзука" else "GTO: Great Teacher Onizuka",
+            title = if (isRussian) "Крутой учитель Онидзука" else "GTO: Great Teacher Onizuka",
             isRight = true,
             startPage = R.id.wanted_fragment_nav,
             endPage = R.id.watched_fragment_nav
@@ -104,7 +103,7 @@ class CardSwipesWork {
     @Test
     fun wantedSwipeLeft() {
         checkSwipe(
-            title = if (isRu) "Крутой учитель Онидзука" else "GTO: Great Teacher Onizuka",
+            title = if (isRussian) "Крутой учитель Онидзука" else "GTO: Great Teacher Onizuka",
             isRight = false,
             startPage = R.id.wanted_fragment_nav,
             endPage = null
@@ -114,7 +113,7 @@ class CardSwipesWork {
     @Test
     fun unwantedSwipeRight() {
         checkSwipe(
-            title = if (isRu) "Ковбой Бибоп" else "Cowboy Bebop",
+            title = if (isRussian) "Ковбой Бибоп" else "Cowboy Bebop",
             isRight = true,
             startPage = R.id.unwanted_fragment_nav,
             endPage = null
@@ -124,7 +123,7 @@ class CardSwipesWork {
     @Test
     fun unwantedSwipeLeft() {
         checkSwipe(
-            title = if (isRu) "Ковбой Бибоп" else "Cowboy Bebop",
+            title = if (isRussian) "Ковбой Бибоп" else "Cowboy Bebop",
             isRight = false,
             startPage = R.id.unwanted_fragment_nav,
             endPage = null
