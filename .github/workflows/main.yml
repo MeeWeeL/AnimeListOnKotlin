@@ -5,6 +5,8 @@ on:
 #     branches: '*'
   pull_request:
     branches: '*'
+    paths-ignore:
+      - '**.md'
 
 jobs:
   build:
@@ -73,7 +75,6 @@ jobs:
       fail-fast: false
       matrix:
         api-level:
-          - 21
           - 24
           - 26
           - 29
