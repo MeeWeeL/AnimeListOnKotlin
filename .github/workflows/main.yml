@@ -74,11 +74,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        api-level:
-          - 24
-          - 26
-          - 29
-          - 33
+        api-level: [ 23, 24, 26 29 ]
     
     steps:
       - uses: actions/checkout@v3
@@ -102,4 +98,5 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: ./gradlew connectedCheck --stacktrace
+          emulator-build: 6110076
+          script: ./gradlew connectedCheck
