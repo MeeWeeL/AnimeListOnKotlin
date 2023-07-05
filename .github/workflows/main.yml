@@ -70,12 +70,9 @@ jobs:
 
   ui_test:
     runs-on: macos-latest
-    
     strategy:
-      fail-fast: false
       matrix:
-        api-level: [ 31, 32, 33, 34 ]
-    
+        api-level: [ 23, 24, 26, 29 ]
     steps:
       - uses: actions/checkout@v3
       - name: set up JDK 17
@@ -92,8 +89,5 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
-          arch: x86_64
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: true
           emulator-build: 6110076
           script: ./gradlew connectedCheck
