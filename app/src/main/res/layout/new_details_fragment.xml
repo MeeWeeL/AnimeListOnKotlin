@@ -6,30 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".presentation.detailsFragment.DetailsFragment">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/details_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/_50dp">
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/original_title"
                 style="@style/detailsOriginalTitle"
                 android:textSize="@dimen/_20sp"
                 android:textStyle="bold"
                 tools:text="Original title" />
 
-            <LinearLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/anime_image"
                     android:layout_width="250dp"
                     android:layout_height="250dp"
@@ -37,13 +37,13 @@
                     android:layout_weight="1"
                     android:src="@drawable/anig" />
 
-                <LinearLayout
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:orientation="vertical">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/release_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -51,56 +51,62 @@
                         android:padding="@dimen/_15dp"
                         tools:text="release date" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/author"
                         style="@style/detailsData"
                         tools:text="author" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/rating"
                         style="@style/detailsData"
                         tools:text="rating" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/age_rate"
                         style="@style/detailsData"
                         tools:text="age rate" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/series_quantity"
                         style="@style/detailsData"
                         tools:text="series quantity" />
-                </LinearLayout>
-            </LinearLayout>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/genre"
                 style="@style/detailsData"
                 tools:text="genre" />
 
-            <TextView
-                android:id="@+id/title"
-                style="@style/detailsTitle"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/enTitle"
+                style="@style/detailsOriginalTitle"
+                tools:text="Title" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/ruTitle"
+                android:visibility="gone"
+                style="@style/detailsOriginalTitle"
                 tools:text="Title" />
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/description_image"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:alpha="0.1"
                     android:scaleType="centerCrop" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/description"
                     style="@style/detailsDesc"
                     tools:text="@string/default_description" />
             </FrameLayout>
-        </LinearLayout>
-    </ScrollView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
 
     <FrameLayout
         android:id="@+id/loadingLayout"

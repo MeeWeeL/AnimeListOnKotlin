@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
-import com.meeweel.anilist.app.App
 import com.meeweel.anilist.databinding.NewDetailsFragmentBinding
 import com.meeweel.anilist.domain.models.Anime
 import com.meeweel.anilist.presentation.NewMainActivity
@@ -52,14 +51,16 @@ class DetailsFragment : Fragment(R.layout.new_details_fragment) {
 
     @SuppressLint("SetTextI18n")
     private fun populateData(animeData: Anime) {
-        val isRussian = App.ContextHolder.context.resources.getBoolean(R.bool.isRussian)
+        val isRussian = context?.resources?.getBoolean(R.bool.isRussian) ?: false
         with(binding) {
             Glide.with(this.animeImage.context)
                 .load(animeData.image)
                 .error(R.drawable.anig)
                 .into(this.animeImage)
             originalTitle.text = animeData.originalTitle
-            title.text = if (isRussian) animeData.ruTitle else animeData.enTitle
+            ruTitle.text = animeData.ruTitle
+            enTitle.text = animeData.enTitle
+            if (isRussian) ruTitle.visibility = View.VISIBLE
             description.text = animeData.description
             author.text = "${getText(R.string.author)}: ${animeData.author}"
             genre.text = "${getText(R.string.genre)}: ${animeData.genre}"
