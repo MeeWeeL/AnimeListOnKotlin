@@ -12,8 +12,8 @@ import com.meeweel.anilist.domain.enums.ListState
 import com.meeweel.anilist.domain.models.Anime
 import com.meeweel.anilist.domain.models.ShortAnime
 import com.meeweel.anilist.domain.repository.Repository
-import com.meeweel.anilist.model.data.AnimeResponse
-import com.meeweel.anilist.model.data.MaxIdResponse
+import com.meeweel.anilist.data.retrofit.AnimeResponse
+import com.meeweel.anilist.data.retrofit.MaxIdResponse
 import io.reactivex.rxjava3.core.Single
 
 class TestRepositoryImpl(
@@ -28,7 +28,7 @@ class TestRepositoryImpl(
 
     // LOCAL
     // RxJava
-    override fun getAnimeQuantityLocal(): Single<Int> {
+    override fun getAnimeQuantityLocal(): Int {
         return localDataSource.getQuantity()
     }
 
@@ -116,15 +116,15 @@ class TestRepositoryImpl(
         return remoteDataSource.getAnime(id)
     }
 
-    override fun getAnimeListRemote(id: Int): Single<List<AnimeResponse>> {
+    override suspend fun getAnimeListRemote(id: Int): List<AnimeResponse> {
         return remoteDataSource.getAnimes(id)
     }
 
-    override fun getQuantityRemote(): Single<MaxIdResponse> {
+    override suspend fun getQuantityRemote(): MaxIdResponse {
         return remoteDataSource.getQuantity()
     }
 
-    override fun getActualVersionRemote(): Single<String> {
+    override suspend fun getActualVersionRemote(): String {
         return remoteDataSource.getActualVersion()
     }
 
