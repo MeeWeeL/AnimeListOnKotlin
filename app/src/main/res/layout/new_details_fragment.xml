@@ -32,7 +32,7 @@
             <ImageView
                 android:id="@+id/anime_image"
                 style="@style/detailsEnImage"
-                android:contentDescription="@string/animeCover_cd"
+                android:contentDescription="@string/animeCoverСontentDescription"
                 tools:layout_editor_absoluteX="20dp"
                 tools:layout_editor_absoluteY="47dp" />
 
@@ -114,7 +114,7 @@
                 android:layout_height="@dimen/_0dp"
                 android:layout_marginTop="@dimen/_10dp"
                 android:alpha="0.1"
-                android:contentDescription="@string/animeCoverBehind_cd"
+                android:contentDescription="@string/animeCoverBehindСontentDescription"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ani_background"
                 app:layout_constraintBottom_toBottomOf="parent"

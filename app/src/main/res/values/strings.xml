@@ -74,12 +74,12 @@
     </string-array>
 
     <!--    Content description    -->
-    <string name="animeCoverBehind_cd">Semi-visible anime cover behind the text</string>
-    <string name="animeCover_cd">Anime cover</string>
+    <string name="animeCoverBehindСontentDescription">Semi-visible anime cover behind the text</string>
+    <string name="animeCoverСontentDescription">Anime cover</string>
     <string name="zero">0</string>
-    <string name="oneStar_cd">One star</string>
-    <string name="twoStar_cd">Two star</string>
-    <string name="threeStar_cd">Three star</string>
-    <string name="fourStar_cd">Four star</string>
-    <string name="fiveStar_cd">Five star</string>
+    <string name="oneStarСontentDescription">One star</string>
+    <string name="twoStarСontentDescription">Two star</string>
+    <string name="threeStarСontentDescription">Three star</string>
+    <string name="fourStarСontentDescription">Four star</string>
+    <string name="fiveStarСontentDescription">Five star</string>
 </resources>

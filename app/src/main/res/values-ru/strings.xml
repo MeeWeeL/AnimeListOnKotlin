@@ -72,12 +72,12 @@
         <item>Pacific Land</item>
     </string-array>
     <string name="night_mode">Тёмная тема</string>
-    <string name="animeCoverBehind_cd">Полувидимая обложка аниме за текстом</string>
+    <string name="animeCoverBehindСontentDescription">Полувидимая обложка аниме за текстом</string>
     <string name="zero">0</string>
-    <string name="oneStar_cd">Одна звезда</string>
-    <string name="animeCover_cd">Обложка аниме</string>
-    <string name="twoStar_cd">Две звезды</string>
-    <string name="threeStar_cd">Три звезды</string>
-    <string name="fourStar_cd">Четыре звезды</string>
-    <string name="fiveStar_cd">Пять звезд</string>
+    <string name="oneStarСontentDescription">Одна звезда</string>
+    <string name="animeCoverСontentDescription">Обложка аниме</string>
+    <string name="twoStarСontentDescription">Две звезды</string>
+    <string name="threeStarСontentDescription">Три звезды</string>
+    <string name="fourStarСontentDescription">Четыре звезды</string>
+    <string name="fiveStarСontentDescription">Пять звезд</string>
 </resources>
