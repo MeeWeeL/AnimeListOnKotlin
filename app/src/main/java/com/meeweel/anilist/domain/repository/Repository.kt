@@ -11,7 +11,7 @@ import io.reactivex.rxjava3.core.Single
 interface Repository {
 
     // RxJava
-    fun getAnimeQuantityLocal(): Int
+    suspend fun getAnimeQuantityLocal(): Int
     fun getAllAnimeLocal(): Single<List<ShortAnime>>
     fun getMainAnimeListLocal(): Single<List<ShortAnime>>
     fun getWatchedAnimeListLocal(): Single<List<ShortAnime>>

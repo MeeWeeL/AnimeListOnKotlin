@@ -28,7 +28,7 @@ class TestRepositoryImpl(
 
     // LOCAL
     // RxJava
-    override fun getAnimeQuantityLocal(): Int {
+    override suspend fun getAnimeQuantityLocal(): Int {
         return localDataSource.getQuantity()
     }
 
