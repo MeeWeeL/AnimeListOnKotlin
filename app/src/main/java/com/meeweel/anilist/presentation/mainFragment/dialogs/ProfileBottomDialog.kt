@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.meeweel.anilist.R
-import com.meeweel.anilist.app.App
 import com.meeweel.anilist.databinding.ProfileLayoutBinding
 import com.meeweel.anilist.domain.enums.ListState
 import com.meeweel.anilist.domain.models.ShortAnime
@@ -13,7 +12,7 @@ class ProfileBottomDialog(
     context: Context,
     val clipboardCopy: (String) -> (Unit),
 ) : BottomSheetDialog(context) {
-    private val isRussian = App.ContextHolder.context.resources.getBoolean(R.bool.isRussian)
+    private val isRussian = context.resources.getBoolean(R.bool.isRussian)
     private val binding = ProfileLayoutBinding.inflate(layoutInflater)
 
     init {
@@ -29,7 +28,6 @@ class ProfileBottomDialog(
                     else AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
                 )
             }
-
         }
     }
 
@@ -64,10 +62,8 @@ class ProfileBottomDialog(
         this[state]?.sortBy { if (isRussian) it.ruTitle else it.enTitle }
         this[state]?.forEachIndexed { index, item ->
             val title = if (isRussian) item.ruTitle else item.enTitle
-            copyList.append("$index) $title (${item.data})\n")
+            copyList.append("${index + 1}) $title (${item.data})\n")
         }
         clipboardCopy(copyList.toString())
     }
 }
-
-
