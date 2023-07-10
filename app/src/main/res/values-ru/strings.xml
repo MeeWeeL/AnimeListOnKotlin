@@ -57,27 +57,15 @@
     <string name="OK">OK</string>
     <string name="sort_by">Сортировать по: </string>
     <string name="cancel">Отмена</string>
-
-    <string-array name="genre_array">
-        <item>Moscow</item>
-        <item>Petersburg</item>
-        <item>Rostov</item>
-        <item>Pacific Land</item>
-    </string-array>
-
-    <string-array name="sort_array">
-        <item>Дата</item>
-        <item>Petersburg</item>
-        <item>Rostov</item>
-        <item>Pacific Land</item>
-    </string-array>
     <string name="night_mode">Тёмная тема</string>
-    <string name="animeCoverBehindСontentDescription">Полувидимая обложка аниме за текстом</string>
     <string name="zero">0</string>
-    <string name="oneStarСontentDescription">Одна звезда</string>
-    <string name="animeCoverСontentDescription">Обложка аниме</string>
-    <string name="twoStarСontentDescription">Две звезды</string>
-    <string name="threeStarСontentDescription">Три звезды</string>
-    <string name="fourStarСontentDescription">Четыре звезды</string>
-    <string name="fiveStarСontentDescription">Пять звезд</string>
+
+    <!--    Content description    -->
+    <string name="animeCoverBehindContentDescription">Полувидимая обложка аниме за текстом</string>
+    <string name="oneStarContentDescription">Одна звезда</string>
+    <string name="animeCoverContentDescription">Обложка аниме</string>
+    <string name="twoStarContentDescription">Две звезды</string>
+    <string name="threeStarContentDescription">Три звезды</string>
+    <string name="fourStarContentDescription">Четыре звезды</string>
+    <string name="fiveStarContentDescription">Пять звезд</string>
 </resources>
