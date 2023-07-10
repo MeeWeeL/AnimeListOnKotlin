@@ -32,8 +32,6 @@ class AnimeSynchronizer @Inject constructor(private val repository: Repository) 
     }
 
     private fun localQuantity() { // Получение количества аниме из БД
-        Log.d("Sync3", "Sync")
-
         coroutineScope.launch {
             localQuantity = try {
                 repository.getAnimeQuantityLocal()
