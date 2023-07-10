@@ -58,5 +58,14 @@
     <string name="OK">OK</string>
     <string name="cancel">Cancel</string>
     <string name="night_mode">Night mode</string>
+    <string name="zero">0</string>
 
+    <!--    Content description    -->
+    <string name="animeCoverBehindContentDescription">Semi-visible anime cover behind the text</string>
+    <string name="animeCoverContentDescription">Anime cover</string>
+    <string name="oneStarContentDescription">One star</string>
+    <string name="twoStarContentDescription">Two star</string>
+    <string name="threeStarContentDescription">Three star</string>
+    <string name="fourStarContentDescription">Four star</string>
+    <string name="fiveStarContentDescription">Five star</string>
 </resources>

@@ -370,8 +370,8 @@
         <item name="android:layout_marginBottom">@dimen/_10dp</item>
         <item name="layout_constraintTop_toBottomOf">@id/original_title</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
-        <item name="layout_constraintEnd_toStartOf">@id/release_Data</item>
-        <item name="layout_constraintBottom_toTopOf">@id/release_Genre</item>
+<!--        <item name="layout_constraintEnd_toStartOf">@id/release_Data</item>
+        <item name="layout_constraintBottom_toTopOf">@id/release_Genre</item>-->
         <item name="layout_constraintHorizontal_weight">2</item>
     </style>
     <!--  Toolbar  -->
@@ -383,7 +383,9 @@
     <style name="detailsBaseData" parent="parameters">
         <item name="android:layout_width">@dimen/_0dp</item>
         <item name="android:layout_height">wrap_content</item>
+<!--
         <item name="layout_constraintBottom_toTopOf">@+id/release_Author</item>
+-->
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintHorizontal_weight">2</item>
         <item name="layout_constraintStart_toEndOf">@id/anime_image</item>
