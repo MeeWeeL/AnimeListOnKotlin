@@ -1,8 +1,11 @@
 package com.meeweel.anilist.presentation.mainFragment
 
+import android.content.ClipData
+import android.content.Context
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
@@ -17,6 +20,7 @@ import com.meeweel.anilist.presentation.NewMainActivity
 import com.meeweel.anilist.presentation.mainFragment.adapter.NewAnimeListAdapter
 import com.meeweel.anilist.presentation.mainFragment.adapter.NewMainItemTouchHelper
 import com.meeweel.anilist.presentation.mainFragment.dialogs.FilterBottomDialog
+import com.meeweel.anilist.presentation.mainFragment.dialogs.ProfileBottomDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -57,6 +61,25 @@ class NewMainFragment : Fragment(R.layout.new_fragment_main) {
             }
         }
         setAppBarListeners()
+        binding.toolbar.setNavigationOnClickListener {
+            val profileDialog =
+                ProfileBottomDialog(requireContext()) { text -> clipboardCopy(text) }
+            viewModel.getAnimeMapList()
+            viewModel.animeListMapToObserve.observe(viewLifecycleOwner) {
+                when (it) {
+                    is AnimeMapState.Success -> profileDialog.pasteData(it.animeData)
+                }
+            }
+            profileDialog.show()
+        }
+    }
+
+    private fun clipboardCopy(text: String) {
+        val clipboard =
+            requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+        val clip = ClipData.newPlainText("TAG", text)
+        clipboard.setPrimaryClip(clip)
+        Toast.makeText(context, getString(R.string.copied), Toast.LENGTH_SHORT).show() 
     }
 
     private fun showPopupMenu(animeId: Int, view: View, listState: ListState) {

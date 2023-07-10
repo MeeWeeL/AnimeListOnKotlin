@@ -58,25 +58,11 @@
     <string name="OK">OK</string>
     <string name="cancel">Cancel</string>
     <string name="night_mode">Night mode</string>
-    <string-array name="genre_array">
-
-        <item>Genre</item>
-        <item>Petersburg</item>
-        <item>Rostov</item>
-        <item>Pacific Land</item>
-    </string-array>
-
-    <string-array name="sort_array">
-        <item>Date</item>
-        <item>Petersburg</item>
-        <item>Rostov</item>
-        <item>Pacific Land</item>
-    </string-array>
+    <string name="zero">0</string>
 
     <!--    Content description    -->
     <string name="animeCoverBehindСontentDescription">Semi-visible anime cover behind the text</string>
     <string name="animeCoverСontentDescription">Anime cover</string>
-    <string name="zero">0</string>
     <string name="oneStarСontentDescription">One star</string>
     <string name="twoStarСontentDescription">Two star</string>
     <string name="threeStarСontentDescription">Three star</string>
