@@ -5,6 +5,5 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [Entity::class], version = 1, exportSchema = false)
 abstract class EntityDataBase : RoomDatabase() {
-
     abstract fun entityDao(): EntityDao
 }

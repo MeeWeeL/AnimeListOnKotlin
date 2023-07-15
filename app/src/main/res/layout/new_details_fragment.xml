@@ -65,6 +65,16 @@
                 app:layout_constraintTop_toBottomOf="@id/release_Author"
                 tools:text="rating" />
 
+            <ImageView
+                android:id="@+id/release_no_rating"
+                android:layout_width="@dimen/_0dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_priority_high_24"
+                tools:layout_editor_absoluteX="337dp"
+                tools:layout_editor_absoluteY="161dp">
+
+            </ImageView>
+
             <TextView
                 android:id="@+id/release_age_rate"
                 style="@style/parameters"
@@ -168,23 +178,23 @@
                 android:textSize="@dimen/_20sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/descriptionLabel" />
+
+            <FrameLayout
+                android:id="@+id/loadingLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="-30dp"
+                tools:visibility="visible">
+
+                <ProgressBar
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+            </FrameLayout>
         </androidx.constraintlayout.motion.widget.MotionLayout>
     </androidx.core.widget.NestedScrollView>
-
-    <FrameLayout
-        android:id="@+id/loadingLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        app:layout_anchor="@+id/details_scroll_view"
-        app:layout_anchorGravity="center"
-        tools:visibility="visible">
-
-        <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-    </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -17,7 +17,6 @@
     <string name="genre">Genre</string>
     <string name="data">Date</string>
     <string name="age_rating">Age rating</string>
-    <string name="rate_this_title">Rate this title</string>
     <string name="move_to">Move to</string>
     <string name="search">Search</string>
     <string name="sort">Sort by</string>
@@ -38,7 +37,6 @@
     <!--  Dialog  -->
     <string name="newVersionAvailable">A newer version is available</string>
     <string name="wannaUpdate">Do you want to update the app?</string>
-    <string name="later">Later</string>
     <string name="yes">Yes</string>
     <string name="copied">Copied</string>
 
@@ -58,6 +56,9 @@
     <string name="OK">OK</string>
     <string name="cancel">Cancel</string>
     <string name="night_mode">Night mode</string>
+    <string name="rate_this_title">Rate this title</string>
+    <string name="later">Later</string>
+    <string name="animestateerror">AnimeStateError</string>
     <string-array name="genre_array">
 
         <item>Genre</item>

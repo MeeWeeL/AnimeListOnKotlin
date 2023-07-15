@@ -5,18 +5,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.NewDetailsFragmentBinding
+import com.meeweel.anilist.domain.enums.ListState
 import com.meeweel.anilist.domain.models.Anime
+import com.meeweel.anilist.domain.useCases.RateAnimeUseCase
 import com.meeweel.anilist.presentation.NewMainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DetailsFragment : Fragment(R.layout.new_details_fragment) {
-    private var animeId: Int? = null
+class DetailsFragment(
+
+) : Fragment(R.layout.new_details_fragment) {
+
+    private val animeId: Int by lazy { requireArguments().getInt(NewMainActivity.ARG_ANIME_ID) }
+
     private var _binding: NewDetailsFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel: DetailsViewModel by viewModels()
@@ -32,18 +40,19 @@ class DetailsFragment : Fragment(R.layout.new_details_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        animeId = requireArguments().getInt(NewMainActivity.ARG_ANIME_ID)
-        animeId?.let { viewModel.getAnimeById(it) }
-        viewModel.listToObserve.observe(viewLifecycleOwner) {
-            when (it) {
+        animeId.let { viewModel.getAnimeById(it) }
+        viewModel.listToObserve.observe(viewLifecycleOwner) { animeState ->
+            when (animeState) {
                 is AnimeState.Success -> {
-                    val data = it.animeData
+                    val data = animeState.animeData
                     populateData(data)
                     turnLoading(false)
                 }
 
-                is AnimeState.Error -> TODO()
-                AnimeState.Loading -> turnLoading(true)
+                is AnimeState.Loading -> turnLoading(true)
+
+                is AnimeState.Error -> Toast.makeText(context, getString(R.string.animestateerror), Toast.LENGTH_LONG)
+                    .show()
             }
         }
     }
@@ -69,6 +78,21 @@ class DetailsFragment : Fragment(R.layout.new_details_fragment) {
             releaseGenre.text = "${getText(R.string.genre)}: ${animeData.genre}"
             releaseData.text = "${getText(R.string.data)}: ${animeData.data}"
             var ratingText = "${getText(R.string.rating)}: ${animeData.rating}%"
+
+            if (animeData.ratingCheck == ListState.RATING_CHECK.int && animeData.list == ListState.WATCHED.int) {
+                ScoreBottomDialogue(
+                    requireContext()
+                ) { rate: Int ->
+                    viewModel.rateAnime(animeId, rate)
+                }.show()
+            } else {
+                ScoreBottomDialogue(
+                    requireContext()
+                ) { rate: Int ->
+                    viewModel.rateAnime(animeId, rate)
+                }.cancel()
+            }
+
             if (animeData.ratingCheck != 0) ratingText += "\n(${getText(R.string.my_rate)}: ${animeData.ratingCheck})"
             releaseRating.text = ratingText
             seriesQuantity.text =

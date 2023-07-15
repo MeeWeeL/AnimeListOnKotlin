@@ -3,8 +3,11 @@ package com.meeweel.anilist.data.retrofit
 import com.meeweel.anilist.model.data.AnimeResponse
 import com.meeweel.anilist.model.data.MaxIdResponse
 import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface AnimeApi {
@@ -30,5 +33,6 @@ interface AnimeApi {
     fun getActualVersion(): Single<String>
 
     @GET("./api.php?q=score")
-    fun rateScore(@Query("score") score: Int, @Query("id") id: Int): Single<String>
+    @Headers("Content-type: application/json")
+    suspend fun rateScore(@Query("score") score: Int, @Query("id") id: Int): Boolean
 }

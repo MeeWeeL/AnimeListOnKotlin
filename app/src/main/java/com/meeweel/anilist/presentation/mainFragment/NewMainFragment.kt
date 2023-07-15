@@ -67,6 +67,7 @@ class NewMainFragment : Fragment(R.layout.new_fragment_main) {
             ListState.NOT_WATCHED -> popupMenu.inflate(R.menu.not_watched_popup_menu)
             ListState.WANTED -> popupMenu.inflate(R.menu.wanted_popup_menu)
             ListState.UNWANTED -> popupMenu.inflate(R.menu.unwanted_popup_menu)
+            else -> {}
         }
         popupMenu.setForceShowIcon(true)
         popupMenu.setOnMenuItemClickListener {

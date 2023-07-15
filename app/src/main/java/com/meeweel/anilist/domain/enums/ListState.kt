@@ -5,5 +5,6 @@ enum class ListState(val int: Int) {
     WATCHED(2),
     NOT_WATCHED(3),
     WANTED(4),
-    UNWANTED(5)
+    UNWANTED(5),
+    RATING_CHECK(2)
 }

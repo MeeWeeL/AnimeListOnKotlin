@@ -17,7 +17,6 @@
     <string name="genre">Жанр</string>
     <string name="data">Дата релиза</string>
     <string name="age_rating">Возрастной рейтинг</string>
-    <string name="rate_this_title">Поставить оценку этому тайтлу</string>
     <string name="move_to">Переместить в</string>
     <string name="search">Поиск</string>
     <string name="sort">Сортировать</string>
@@ -38,7 +37,6 @@
     <!--  Dialog  -->
     <string name="newVersionAvailable">Доступно обновление</string>
     <string name="wannaUpdate">Перейти в Google play?</string>
-    <string name="later">Позже</string>
     <string name="yes">Да</string>
     <string name="copied">Скопировано</string>
 
@@ -72,4 +70,7 @@
         <item>Pacific Land</item>
     </string-array>
     <string name="night_mode">Тёмная тема</string>
+    <string name="rate_this_title">Rate this title</string>
+    <string name="later">Later</string>
+    <string name="animestateerror">AnimeStateError</string>
 </resources>
