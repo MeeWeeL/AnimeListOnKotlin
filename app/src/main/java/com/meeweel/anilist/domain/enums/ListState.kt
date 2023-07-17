@@ -6,5 +6,4 @@ enum class ListState(val int: Int) {
     NOT_WATCHED(3),
     WANTED(4),
     UNWANTED(5),
-    RATING_CHECK(2)
 }

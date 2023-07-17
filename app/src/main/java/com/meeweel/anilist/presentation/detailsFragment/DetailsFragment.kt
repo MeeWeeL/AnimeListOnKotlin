@@ -51,7 +51,11 @@ class DetailsFragment(
 
                 is AnimeState.Loading -> turnLoading(true)
 
-                is AnimeState.Error -> Toast.makeText(context, getString(R.string.animestateerror), Toast.LENGTH_LONG)
+                is AnimeState.Error -> Toast.makeText(
+                    context,
+                    getString(R.string.animestateerror),
+                    Toast.LENGTH_LONG
+                )
                     .show()
             }
         }
@@ -79,18 +83,12 @@ class DetailsFragment(
             releaseData.text = "${getText(R.string.data)}: ${animeData.data}"
             var ratingText = "${getText(R.string.rating)}: ${animeData.rating}%"
 
-            if (animeData.ratingCheck == ListState.RATING_CHECK.int && animeData.list == ListState.WATCHED.int) {
+            if (animeData.ratingCheck == 0 && animeData.list == ListState.WATCHED.int) {
                 ScoreBottomDialogue(
                     requireContext()
                 ) { rate: Int ->
                     viewModel.rateAnime(animeId, rate)
                 }.show()
-            } else {
-                ScoreBottomDialogue(
-                    requireContext()
-                ) { rate: Int ->
-                    viewModel.rateAnime(animeId, rate)
-                }.cancel()
             }
 
             if (animeData.ratingCheck != 0) ratingText += "\n(${getText(R.string.my_rate)}: ${animeData.ratingCheck})"
