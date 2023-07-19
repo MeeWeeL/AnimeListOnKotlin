@@ -1,7 +1,5 @@
 package com.meeweel.anilist.data.retrofit
 
-import com.meeweel.anilist.model.data.AnimeResponse
-import com.meeweel.anilist.model.data.MaxIdResponse
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -19,15 +17,15 @@ interface AnimeApi {
 
     @GET("./api.php?q=posts")
     @Headers("Content-type: application/json")
-    fun getAnimes(@Query("id") id: Int): Single<List<AnimeResponse>>
+    suspend fun getAnimes(@Query("id") id: Int): List<AnimeResponse>
 
     @GET("./api.php?q=maxId")
     @Headers("Content-type: application/json")
-    fun getQuantity(): Single<MaxIdResponse>
+    suspend fun getQuantity(): MaxIdResponse
 
     @GET("./api.php?q=actual_version")
     @Headers("Content-type: application/json")
-    fun getActualVersion(): Single<String>
+    suspend fun getActualVersion(): String
 
     @GET("./api.php?q=score")
     fun rateScore(@Query("score") score: Int, @Query("id") id: Int): Single<String>

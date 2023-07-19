@@ -11,7 +11,7 @@ import io.reactivex.rxjava3.core.Single
 interface EntityDao {
 
     @Query("SELECT MAX(id) AS id FROM Entity")
-    fun getQuantity(): Single<Int>
+    suspend fun getQuantity(): Int
 
     @Query("SELECT id, ruTitle, enTitle, image, data, rating, enGenre, ruGenre, list, ratingCheck FROM Entity")
     fun getAllAnime(): Single<List<ShortAnime>>

@@ -3,7 +3,7 @@ package com.meeweel.anilist.data.room
 import com.meeweel.anilist.R
 import com.meeweel.anilist.app.App
 import com.meeweel.anilist.domain.models.Anime
-import com.meeweel.anilist.model.data.AnimeResponse
+import com.meeweel.anilist.data.retrofit.AnimeResponse
 
 val isRussian: Boolean = App.ContextHolder.context.resources.getBoolean(R.bool.isRussian)
 
