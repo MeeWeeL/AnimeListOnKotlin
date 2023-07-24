@@ -2,9 +2,9 @@ package com.meeweel.anilist.uiAutoTest.mainFragment
 
 import com.meeweel.anilist.uiAutoTest.mainFragment.cards.CardButtonsWork
 import com.meeweel.anilist.uiAutoTest.mainFragment.cards.CardSwipesWork
-import com.meeweel.anilist.uiAutoTest.mainFragment.navBar.StartSelectedNavButton
 import com.meeweel.anilist.uiAutoTest.mainFragment.navBar.CorrectTitlesOnNavPages
 import com.meeweel.anilist.uiAutoTest.mainFragment.navBar.NavButtonsLabelsVisibility
+import com.meeweel.anilist.uiAutoTest.mainFragment.navBar.StartSelectedNavButton
 import com.meeweel.anilist.uiAutoTest.mainFragment.popupMenu.PopupVisibilityCorrect
 import com.meeweel.anilist.uiAutoTest.mainFragment.popupMenu.PopupWork
 import com.meeweel.anilist.uiAutoTest.mainFragment.profile.ProfileTest

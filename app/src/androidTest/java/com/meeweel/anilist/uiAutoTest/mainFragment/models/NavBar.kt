@@ -1,7 +1,6 @@
 package com.meeweel.anilist.uiAutoTest.mainFragment.models
 
 import androidx.test.espresso.ViewInteraction
-import com.meeweel.anilist.EspressoUtils
 import com.meeweel.anilist.EspressoUtils.findViewById
 import com.meeweel.anilist.R
 

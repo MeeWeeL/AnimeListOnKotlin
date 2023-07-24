@@ -1,11 +1,7 @@
 package com.meeweel.anilist.uiAutoTest.mainFragment.popupMenu
 
 import androidx.test.core.app.ActivityScenario
-import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withParent
-import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.meeweel.anilist.EspressoUtils
 import com.meeweel.anilist.EspressoUtils.click
@@ -17,7 +13,6 @@ import com.meeweel.anilist.EspressoUtils.isVisible
 import com.meeweel.anilist.R
 import com.meeweel.anilist.presentation.NewMainActivity
 import com.meeweel.anilist.uiAutoTest.enums.List
-import org.hamcrest.Matchers.allOf
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
