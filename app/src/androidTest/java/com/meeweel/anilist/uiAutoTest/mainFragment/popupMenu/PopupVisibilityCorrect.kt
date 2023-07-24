@@ -23,11 +23,11 @@ class PopupVisibilityCorrect {
     private lateinit var scenario: ActivityScenario<NewMainActivity>
     private val menuItemTextList
         get() = listOf(
-            List.MAIN.text,
-            List.WATCHED.text,
-            List.NOT_WATCHED.text,
-            List.WANTED.text,
-            List.UNWANTED.text,
+            List.MAIN.listNameRU,
+            List.WATCHED.listNameRU,
+            List.NOT_WATCHED.listNameRU,
+            List.WANTED.listNameRU,
+            List.UNWANTED.listNameRU,
         )
 
     @Before
@@ -40,8 +40,8 @@ class PopupVisibilityCorrect {
     fun main() {
         checkPopupItems(
             R.id.main_fragment_nav,
-            List.MAIN.title,
-            List.MAIN.text
+            List.MAIN.titleRU,
+            List.MAIN.listNameRU
         )
     }
 
@@ -49,8 +49,8 @@ class PopupVisibilityCorrect {
     fun wanted() {
         checkPopupItems(
             R.id.wanted_fragment_nav,
-            List.WANTED.title,
-            List.WANTED.text
+            List.WANTED.titleRU,
+            List.WANTED.listNameRU
         )
     }
 
@@ -58,8 +58,8 @@ class PopupVisibilityCorrect {
     fun unwanted() {
         checkPopupItems(
             R.id.unwanted_fragment_nav,
-            List.UNWANTED.title,
-            List.UNWANTED.text
+            List.UNWANTED.titleRU,
+            List.UNWANTED.listNameRU
         )
     }
 
@@ -67,8 +67,8 @@ class PopupVisibilityCorrect {
     fun watched() {
         checkPopupItems(
             R.id.watched_fragment_nav,
-            List.WATCHED.title,
-            List.WATCHED.text
+            List.WATCHED.titleRU,
+            List.WATCHED.listNameRU
         )
     }
 
@@ -76,8 +76,8 @@ class PopupVisibilityCorrect {
     fun notWatched() {
         checkPopupItems(
             R.id.not_watched_fragment_nav,
-            List.NOT_WATCHED.title,
-            List.NOT_WATCHED.text
+            List.NOT_WATCHED.titleRU,
+            List.NOT_WATCHED.listNameRU
         )
     }
 

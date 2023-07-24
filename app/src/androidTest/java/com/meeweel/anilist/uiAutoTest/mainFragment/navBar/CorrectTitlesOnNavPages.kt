@@ -9,6 +9,7 @@ import com.meeweel.anilist.EspressoUtils.insertDB
 import com.meeweel.anilist.EspressoUtils.isVisible
 import com.meeweel.anilist.R
 import com.meeweel.anilist.presentation.NewMainActivity
+import com.meeweel.anilist.uiAutoTest.enums.List
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -34,31 +35,31 @@ class CorrectTitlesOnNavPages {
     fun checkMainNavButton() {
         findViewById(R.id.wanted_fragment_nav).click()
         findViewById(R.id.main_fragment_nav).click()
-        findCardByText("Бек: Восточная ударная группа").isVisible()
+        findCardByText(List.MAIN.titleRU).isVisible()
     }
 
     @Test
     fun checkWatchedNavButton() {
         findViewById(R.id.watched_fragment_nav).click()
-        findCardByText("Волчица и чёрный принц").isVisible()
+        findCardByText(List.WATCHED.titleRU).isVisible()
     }
 
     @Test
     fun checkWantedNavButton() {
         findViewById(R.id.wanted_fragment_nav).click()
-        findCardByText("Крутой учитель Онидзука").isVisible()
+        findCardByText(List.WANTED.titleRU).isVisible()
     }
 
     @Test
     fun checkUnwantedNavButton() {
         findViewById(R.id.unwanted_fragment_nav).click()
-        findCardByText("Дневник будущего").isVisible()
+        findCardByText(List.UNWANTED.titleRU).isVisible()
     }
 
     @Test
     fun checkNotWatchedNavButton() {
         findViewById(R.id.not_watched_fragment_nav).click()
-        findCardByText("Вайолет Эвергарден").isVisible()
+        findCardByText(List.NOT_WATCHED.titleRU).isVisible()
     }
 
     @After
