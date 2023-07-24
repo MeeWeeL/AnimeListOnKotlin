@@ -7,6 +7,7 @@ import com.meeweel.anilist.uiAutoTest.mainFragment.navBar.CorrectTitlesOnNavPage
 import com.meeweel.anilist.uiAutoTest.mainFragment.navBar.NavButtonsLabelsVisibility
 import com.meeweel.anilist.uiAutoTest.mainFragment.popupMenu.PopupVisibilityCorrect
 import com.meeweel.anilist.uiAutoTest.mainFragment.popupMenu.PopupWork
+import com.meeweel.anilist.uiAutoTest.mainFragment.profile.ProfileTest
 import org.junit.runner.RunWith
 import org.junit.runners.Suite
 
@@ -18,6 +19,7 @@ import org.junit.runners.Suite
     CardButtonsWork::class,
     CardSwipesWork::class,
     PopupVisibilityCorrect::class,
-    PopupWork::class
+    PopupWork::class,
+    ProfileTest::class
 )
 class MainFragmentTest
