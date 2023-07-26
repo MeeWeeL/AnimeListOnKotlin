@@ -37,80 +37,80 @@ class ProfileTest {
 
     @Test
     fun dialogVisibilityMain() {
-        navBar.main().click()
-        toolBar.profileBtn().click()
+        navBar.main.click()
+        toolBar.profileBtn.click()
         fullCheck()
     }
 
     @Test
     fun countersMain() {
-        navBar.main().click()
-        toolBar.profileBtn().click()
+        navBar.main.click()
+        toolBar.profileBtn.click()
         checkCounters()
     }
 
     @Test
     fun dialogVisibilityWatched() {
-        navBar.watched().click()
-        toolBar.profileBtn().click()
+        navBar.watched.click()
+        toolBar.profileBtn.click()
         fullCheck()
     }
 
     @Test
     fun countersWatched() {
-        navBar.main().click()
-        toolBar.profileBtn().click()
+        navBar.main.click()
+        toolBar.profileBtn.click()
         checkCounters()
     }
 
     @Test
     fun dialogVisibilityNotWatched() {
-        navBar.notWatched().click()
-        toolBar.profileBtn().click()
+        navBar.notWatched.click()
+        toolBar.profileBtn.click()
         fullCheck()
     }
 
     @Test
     fun countersNotWatched() {
-        navBar.main().click()
-        toolBar.profileBtn().click()
+        navBar.main.click()
+        toolBar.profileBtn.click()
         checkCounters()
     }
 
     @Test
     fun dialogVisibilityWanted() {
-        navBar.wanted().click()
-        toolBar.profileBtn().click()
+        navBar.wanted.click()
+        toolBar.profileBtn.click()
         fullCheck()
     }
 
     @Test
     fun countersWanted() {
-        navBar.main().click()
-        toolBar.profileBtn().click()
+        navBar.main.click()
+        toolBar.profileBtn.click()
         checkCounters()
     }
 
     @Test
     fun dialogVisibilityUnwanted() {
-        navBar.unwanted().click()
-        toolBar.profileBtn().click()
+        navBar.unwanted.click()
+        toolBar.profileBtn.click()
         fullCheck()
     }
 
     @Test
     fun countersUnwanted() {
-        navBar.main().click()
-        toolBar.profileBtn().click()
+        navBar.main.click()
+        toolBar.profileBtn.click()
         checkCounters()
     }
 
     private fun checkCounters() {
-        profileDialog.inQueueCounter().checkCount("4")
-        profileDialog.watchedCounter().checkCount("2")
-        profileDialog.notWatchedCounter().checkCount("3")
-        profileDialog.unwantedCounter().checkCount("5")
-        profileDialog.unsortedCounter().checkCount("86")
+        profileDialog.inQueueCounter.checkCount("4")
+        profileDialog.watchedCounter.checkCount("2")
+        profileDialog.notWatchedCounter.checkCount("3")
+        profileDialog.unwantedCounter.checkCount("5")
+        profileDialog.unsortedCounter.checkCount("86")
     }
 
     private fun ViewInteraction.checkCount(count: String) {
@@ -120,28 +120,28 @@ class ProfileTest {
     }
 
     private fun fullCheck() {
-        profileDialog.themeCheckBox().isVisible()
-        profileDialog.themeCheckBox().isClickable()
-        profileDialog.inQueueTitle().isVisible()
-        profileDialog.inQueueCounter().isVisible()
-        profileDialog.inQueueCopyBtn().isVisible()
-        profileDialog.inQueueCopyBtn().isClickable()
-        profileDialog.watchedTitle().isVisible()
-        profileDialog.watchedCounter().isVisible()
-        profileDialog.watchedCopyBtn().isVisible()
-        profileDialog.watchedCopyBtn().isClickable()
-        profileDialog.notWatchedTitle().isVisible()
-        profileDialog.notWatchedCounter().isVisible()
-        profileDialog.notWatchedCopyBtn().isVisible()
-        profileDialog.notWatchedCopyBtn().isClickable()
-        profileDialog.unwantedTitle().isVisible()
-        profileDialog.unwantedCounter().isVisible()
-        profileDialog.unwantedCopyBtn().isVisible()
-        profileDialog.unwantedCopyBtn().isClickable()
-        profileDialog.unsortedTitle().isVisible()
-        profileDialog.unsortedCounter().isVisible()
-        profileDialog.unsortedCopyBtn().isVisible()
-        profileDialog.unsortedCopyBtn().isClickable()
+        profileDialog.themeCheckBox.isVisible()
+        profileDialog.themeCheckBox.isClickable()
+        profileDialog.inQueueTitle.isVisible()
+        profileDialog.inQueueCounter.isVisible()
+        profileDialog.inQueueCopyBtn.isVisible()
+        profileDialog.inQueueCopyBtn.isClickable()
+        profileDialog.watchedTitle.isVisible()
+        profileDialog.watchedCounter.isVisible()
+        profileDialog.watchedCopyBtn.isVisible()
+        profileDialog.watchedCopyBtn.isClickable()
+        profileDialog.notWatchedTitle.isVisible()
+        profileDialog.notWatchedCounter.isVisible()
+        profileDialog.notWatchedCopyBtn.isVisible()
+        profileDialog.notWatchedCopyBtn.isClickable()
+        profileDialog.unwantedTitle.isVisible()
+        profileDialog.unwantedCounter.isVisible()
+        profileDialog.unwantedCopyBtn.isVisible()
+        profileDialog.unwantedCopyBtn.isClickable()
+        profileDialog.unsortedTitle.isVisible()
+        profileDialog.unsortedCounter.isVisible()
+        profileDialog.unsortedCopyBtn.isVisible()
+        profileDialog.unsortedCopyBtn.isClickable()
     }
 
     @After

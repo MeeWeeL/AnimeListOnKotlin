@@ -5,67 +5,20 @@ import com.meeweel.anilist.EspressoUtils.findViewById
 import com.meeweel.anilist.R
 
 class ProfileDialog {
-    fun themeCheckBox(): ViewInteraction {
-        return findViewById(R.id.night_mode_checkbox)
-    }
-
-    fun inQueueTitle(): ViewInteraction {
-        return findViewById(R.id.in_queue_title)
-    }
-
-    fun inQueueCounter(): ViewInteraction {
-        return findViewById(R.id.wanted_counter)
-    }
-
-    fun inQueueCopyBtn(): ViewInteraction {
-        return findViewById(R.id.wanted_copy)
-    }
-
-    fun watchedTitle(): ViewInteraction {
-        return findViewById(R.id.watched_title)
-    }
-
-    fun watchedCounter(): ViewInteraction {
-        return findViewById(R.id.watched_counter)
-    }
-
-    fun watchedCopyBtn(): ViewInteraction {
-        return findViewById(R.id.watched_copy)
-    }
-
-    fun notWatchedTitle(): ViewInteraction {
-        return findViewById(R.id.not_watched_title)
-    }
-
-    fun notWatchedCounter(): ViewInteraction {
-        return findViewById(R.id.not_watched_counter)
-    }
-
-    fun notWatchedCopyBtn(): ViewInteraction {
-        return findViewById(R.id.not_watched_copy)
-    }
-
-    fun unwantedTitle(): ViewInteraction {
-        return findViewById(R.id.unwanted_title)
-    }
-
-    fun unwantedCounter(): ViewInteraction {
-        return findViewById(R.id.unwanted_counter)
-    }
-
-    fun unwantedCopyBtn(): ViewInteraction {
-        return findViewById(R.id.unwanted_copy)
-    }
-
-    fun unsortedTitle(): ViewInteraction {
-        return findViewById(R.id.unsorted_title)
-    }
-
-    fun unsortedCounter(): ViewInteraction {
-        return findViewById(R.id.main_counter)
-    }
-
-    fun unsortedCopyBtn(): ViewInteraction {
-        return findViewById(R.id.main_copy)
-    }
+    val themeCheckBox: ViewInteraction get() = findViewById(R.id.night_mode_checkbox)
+    val inQueueTitle: ViewInteraction get() = findViewById(R.id.in_queue_title)
+    val inQueueCounter: ViewInteraction get() = findViewById(R.id.wanted_counter)
+    val inQueueCopyBtn: ViewInteraction get() = findViewById(R.id.wanted_copy)
+    val watchedTitle: ViewInteraction get() = findViewById(R.id.watched_title)
+    val watchedCounter: ViewInteraction get() = findViewById(R.id.watched_counter)
+    val watchedCopyBtn: ViewInteraction get() = findViewById(R.id.watched_copy)
+    val notWatchedTitle: ViewInteraction get() = findViewById(R.id.not_watched_title)
+    val notWatchedCounter: ViewInteraction get() = findViewById(R.id.not_watched_counter)
+    val notWatchedCopyBtn: ViewInteraction get() = findViewById(R.id.not_watched_copy)
+    val unwantedTitle: ViewInteraction get() = findViewById(R.id.unwanted_title)
+    val unwantedCounter: ViewInteraction get() = findViewById(R.id.unwanted_counter)
+    val unwantedCopyBtn: ViewInteraction get() = findViewById(R.id.unwanted_copy)
+    val unsortedTitle: ViewInteraction get() = findViewById(R.id.unsorted_title)
+    val unsortedCounter: ViewInteraction get() = findViewById(R.id.main_counter)
+    val unsortedCopyBtn: ViewInteraction get() = findViewById(R.id.main_copy)
 }

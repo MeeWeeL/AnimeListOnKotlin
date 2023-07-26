@@ -10,12 +10,17 @@ import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.instanceOf
 
 class ToolBar {
-    fun profileBtn(): ViewInteraction {
-        return onView(
+    val profileBtn: ViewInteraction
+        get() = onView(
             allOf(
                 instanceOf(AppCompatImageButton::class.java),
                 withParent(withId(R.id.toolbar))
             )
         )
-    }
+    val filterBtn: ViewInteraction get() = onView(
+        allOf(
+            instanceOf(AppCompatImageButton::class.java),
+            withParent(withId(R.id.filter_app_bar))
+        )
+    )
 }
