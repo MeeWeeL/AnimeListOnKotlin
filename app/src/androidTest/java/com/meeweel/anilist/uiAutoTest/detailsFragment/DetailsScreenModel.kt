@@ -4,6 +4,7 @@ import com.meeweel.anilist.EspressoUtils.findViewById
 import com.meeweel.anilist.R
 
 class DetailsScreenModel {
+    val scrollView get() = findViewById(R.id.details_scroll_view)
     val originalTitle get() = findViewById(R.id.original_title)
     val animeImage get() = findViewById(R.id.anime_image)
     val releaseDate get() = findViewById(R.id.release_date)
