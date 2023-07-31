@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Environment
 import android.view.View
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.UiController
@@ -14,10 +15,12 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withChild
+import androidx.test.espresso.matcher.ViewMatchers.withClassName
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withParent
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.platform.app.InstrumentationRegistry
+import org.hamcrest.CoreMatchers.endsWith
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers
 import java.io.*
@@ -25,7 +28,7 @@ import java.nio.channels.FileChannel
 
 object EspressoUtils {
 
-    private const val CLICK_DELAY = 150L
+    private const val CLICK_DELAY = 350L
 
     // Constants
     const val DB_NAME = "Repository.db"
@@ -72,7 +75,10 @@ object EspressoUtils {
     /** Найти по тексту карточку в RecyclerView с прокруткой */
     fun findCardByText(text: String): ViewInteraction {
         scrollToCardByText(text)
-        return Espresso.onView(withChild(withChild(withText(text))))
+        return Espresso.onView(withChild(Matchers.allOf(
+            withChild(withText(text)),
+            withChild(withClassName(endsWith("CardView")))
+        )))
     }
 
     /**
