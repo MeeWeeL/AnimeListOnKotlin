@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import android.view.ViewTreeObserver
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
@@ -63,24 +64,20 @@ class DetailsFragment(
 
     @SuppressLint("SetTextI18n")
     private fun populateData(animeData: Anime) {
+        val isRussian = context?.resources?.getBoolean(R.bool.isRussian) ?: false
         with(binding) {
-            Glide.with(this.detailsDescriptionImage.context)
-                .load(animeData.image)
-                .error(R.drawable.anig)
-                .into(this.detailsDescriptionImage)
             Glide.with(this.animeImage.context)
                 .load(animeData.image)
                 .error(R.drawable.anig)
                 .into(this.animeImage)
             originalTitle.text = animeData.originalTitle
-            englishTitle.text = animeData.enTitle
-            englishTitle.visibility = View.GONE
-            russianTitle.text = animeData.ruTitle
-            russianTitle.visibility = View.VISIBLE // if (isRussian) View.VISIBLE else View.GONE
-            descriptionValue.text = animeData.description
-            releaseAuthor.text = "${getText(R.string.author)}: ${animeData.author}"
-            releaseGenre.text = "${getText(R.string.genre)}: ${animeData.genre}"
-            releaseData.text = "${getText(R.string.data)}: ${animeData.data}"
+            ruTitle.text = animeData.ruTitle
+            enTitle.text = animeData.enTitle
+            if (isRussian) ruTitle.visibility = View.VISIBLE
+            description.text = animeData.description
+            author.text = "${getText(R.string.author)}: ${animeData.author}"
+            genre.text = "${getText(R.string.genre)}: ${animeData.genre}"
+            releaseDate.text = "${getText(R.string.data)}: ${animeData.data}"
             var ratingText = "${getText(R.string.rating)}: ${animeData.rating}%"
 
             if (animeData.ratingCheck == 0 && animeData.list == ListState.WATCHED.int) {
@@ -92,12 +89,26 @@ class DetailsFragment(
             }
 
             if (animeData.ratingCheck != 0) ratingText += "\n(${getText(R.string.my_rate)}: ${animeData.ratingCheck})"
-            releaseRating.text = ratingText
+            rating.text = ratingText
             seriesQuantity.text =
                 "${getText(R.string.seriesQuantity)}: ${animeData.seriesQuantity}"
-            releaseAgeRate.text = "${getText(R.string.age_rating)}: ${animeData.ageRating}+"
+            ageRate.text = "${getText(R.string.age_rating)}: ${animeData.ageRating}+"
+
+            description.viewTreeObserver.addOnGlobalLayoutListener(object :
+                ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    description.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    descriptionImage.layoutParams.width = description.width
+                    descriptionImage.layoutParams.height = description.height
+                    Glide.with(descriptionImage.context)
+                        .load(animeData.image)
+                        .error(R.drawable.anig)
+                        .into(descriptionImage)
+                }
+            })
         }
     }
+
 
     private fun turnLoading(isLoading: Boolean) {
         binding.loadingLayout.visibility = if (isLoading) View.VISIBLE else View.GONE

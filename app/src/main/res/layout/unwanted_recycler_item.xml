@@ -11,7 +11,7 @@
             tools:ignore="MissingConstraints">
 
             <ImageView
-                android:id="@+id/unwanted_crad_image"
+                android:id="@+id/unwanted_card_image"
                 style="@style/imageCardViewUnwantedStyle"
                 tools:ignore="ContentDescription" />
         </androidx.cardview.widget.CardView>

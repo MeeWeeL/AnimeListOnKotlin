@@ -1,4 +1,4 @@
-package com.meeweel.anilist.model.data
+package com.meeweel.anilist.data.retrofit
 
 import com.google.gson.annotations.SerializedName
 

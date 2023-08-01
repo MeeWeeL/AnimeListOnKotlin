@@ -38,7 +38,6 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="@dimen/_10dp"
             android:layout_marginVertical="@dimen/_10dp"
-            android:entries="@array/genre_array"
             android:gravity="end" />
     </LinearLayout>
 
@@ -93,7 +92,6 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="@dimen/_10dp"
             android:layout_marginVertical="@dimen/_10dp"
-            android:entries="@array/sort_array"
             android:gravity="end" />
     </LinearLayout>
 

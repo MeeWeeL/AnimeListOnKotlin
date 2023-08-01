@@ -22,11 +22,11 @@ class UnwantedViewHolder(
             unwantedCardTitle.text =
                 if (root.context.resources.getBoolean(R.bool.isRussian)) anime.ruTitle else anime.enTitle
 
-            Glide.with(unwantedCradImage.context)
+            Glide.with(unwantedCardImage.context)
                 .load(anime.image)
                 .error(progressDrawable)
                 .placeholder(progressDrawable)
-                .into(unwantedCradImage)
+                .into(unwantedCardImage)
 
             itemData.text = anime.data
 

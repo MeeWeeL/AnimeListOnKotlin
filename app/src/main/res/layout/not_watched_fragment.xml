@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.fragments.listFragments.lists.notWatched.NotWatchedFragment">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
@@ -20,15 +19,6 @@
                 android:layout_height="?attr/actionBarSize"
                 app:menu="@menu/app_bar_menu"
                 app:navigationIcon="@drawable/ic_me" />
-
-            <!--            <com.google.android.material.textfield.TextInputLayout-->
-            <!--                android:id="@+id/input_layout"-->
-            <!--                style="@style/inputLayoutStyle">-->
-
-            <!--                <com.google.android.material.textfield.TextInputEditText-->
-            <!--                    android:id="@+id/input_edit_text"-->
-            <!--                    style="@style/inputEditTextStyle" />-->
-            <!--            </com.google.android.material.textfield.TextInputLayout>-->
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

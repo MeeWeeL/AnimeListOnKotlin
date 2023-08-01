@@ -370,8 +370,8 @@
         <item name="android:layout_marginBottom">@dimen/_10dp</item>
         <item name="layout_constraintTop_toBottomOf">@id/original_title</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
-        <item name="layout_constraintEnd_toStartOf">@id/release_Data</item>
-        <item name="layout_constraintBottom_toTopOf">@id/release_Genre</item>
+<!--        <item name="layout_constraintEnd_toStartOf">@id/release_Data</item>
+        <item name="layout_constraintBottom_toTopOf">@id/release_Genre</item>-->
         <item name="layout_constraintHorizontal_weight">2</item>
     </style>
     <!--  Toolbar  -->
@@ -383,7 +383,9 @@
     <style name="detailsBaseData" parent="parameters">
         <item name="android:layout_width">@dimen/_0dp</item>
         <item name="android:layout_height">wrap_content</item>
+<!--
         <item name="layout_constraintBottom_toTopOf">@+id/release_Author</item>
+-->
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintHorizontal_weight">2</item>
         <item name="layout_constraintStart_toEndOf">@id/anime_image</item>
@@ -457,14 +459,42 @@
     <!--  Age Rate  -->
     <!--  Genre  -->
     <!--  Description Background Image  -->
+
+    <style name="newBaseDetailsData">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/_15dp</item>
+    </style>
+
+    <!--  In Details: Date, Author, Rating, Age Rate, Genre, Episodes   -->
+    <style name="detailsData" parent="newBaseDetailsData">
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!--  In Details: Title   -->
+    <style name="detailsTitle" parent="newBaseDetailsData">
+        <item name="android:textSize">@dimen/_30sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!--  In Details: Original title   -->
+    <style name="detailsOriginalTitle" parent="detailsTitle">
+        <item name="android:textSize">@dimen/_20sp</item>
+    </style>
+
+    <!--  In Details: Description   -->
+    <style name="detailsDesc" parent="newBaseDetailsData">
+        <item name="android:textSize">@dimen/_20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <!--******************************************************-->
-
-
     <!--******************************************************-->
     <!--***********  Profile Dialog and Filter  **************-->
     <!--******************************************************-->
 
-                    <!--  Profile Btn  -->
+    <!--  Profile Btn  -->
     <style name="profileButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -473,7 +503,7 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
-                    <!--  Filter Ranger  -->
+    <!--  Filter Ranger  -->
     <style name="rangerStyle" parent="Widget.MaterialComponents.Tooltip">
         <item name="android:textColor">@color/main_color</item>
     </style>
@@ -483,23 +513,23 @@
     <!--*********************  AppBar  ***********************-->
     <!--******************************************************-->
 
-                    <!--  AppBar  -->
+    <!--  AppBar  -->
     <style name="appBarStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/main_color</item>
         <item name="android:fitsSystemWindows">true</item>
     </style>
-                    <!--  AppBar  -->
+    <!--  AppBar  -->
     <style name="collapsingToolBarStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/main_transparent_reverse_color_10</item>
         <item name="android:fitsSystemWindows">true</item>
-<!--        <item name="liftOnScroll">true</item>-->
+        <!--        <item name="liftOnScroll">true</item>-->
         <item name="layout_scrollFlags">scroll|enterAlways</item>
     </style>
-                <!--  Input Layout  -->
+    <!--  Input Layout  -->
     <style name="inputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -517,7 +547,7 @@
         <item name="boxCornerRadiusTopStart">20sp</item>
         <item name="android:visibility">visible</item>
     </style>
-                    <!--  Input Layout  -->
+    <!--  Input Layout  -->
     <style name="inputEditTextStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

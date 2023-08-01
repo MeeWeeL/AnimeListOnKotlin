@@ -59,18 +59,13 @@
     <string name="rate_this_title">Rate this title</string>
     <string name="later">Later</string>
     <string name="animestateerror">AnimeStateError</string>
-    <string-array name="genre_array">
-
-        <item>Genre</item>
-        <item>Petersburg</item>
-        <item>Rostov</item>
-        <item>Pacific Land</item>
-    </string-array>
-
-    <string-array name="sort_array">
-        <item>Date</item>
-        <item>Petersburg</item>
-        <item>Rostov</item>
-        <item>Pacific Land</item>
-    </string-array>
+    <string name="zero">0</string>
+    <!--    Content description    -->
+    <string name="animeCoverBehindContentDescription">Semi-visible anime cover behind the text</string>
+    <string name="animeCoverContentDescription">Anime cover</string>
+    <string name="oneStarContentDescription">One star</string>
+    <string name="twoStarContentDescription">Two star</string>
+    <string name="threeStarContentDescription">Three star</string>
+    <string name="fourStarContentDescription">Four star</string>
+    <string name="fiveStarContentDescription">Five star</string>
 </resources>

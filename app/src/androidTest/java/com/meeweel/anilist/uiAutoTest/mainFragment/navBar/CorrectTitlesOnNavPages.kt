@@ -9,6 +9,8 @@ import com.meeweel.anilist.EspressoUtils.insertDB
 import com.meeweel.anilist.EspressoUtils.isVisible
 import com.meeweel.anilist.R
 import com.meeweel.anilist.presentation.NewMainActivity
+import com.meeweel.anilist.uiAutoTest.enums.List
+import com.meeweel.anilist.uiAutoTest.mainFragment.models.NavBar
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -21,7 +23,7 @@ import java.io.*
  */
 @RunWith(AndroidJUnit4::class)
 class CorrectTitlesOnNavPages {
-
+    private val navBar = NavBar()
     private lateinit var scenario: ActivityScenario<NewMainActivity>
 
     @Before
@@ -32,33 +34,33 @@ class CorrectTitlesOnNavPages {
 
     @Test
     fun checkMainNavButton() {
-        findViewById(R.id.wanted_fragment_nav).click()
-        findViewById(R.id.main_fragment_nav).click()
-        findCardByText("Бек: Восточная ударная группа").isVisible()
+        navBar.wanted.click()
+        navBar.main.click()
+        findCardByText(List.MAIN.titleRU).isVisible()
     }
 
     @Test
     fun checkWatchedNavButton() {
-        findViewById(R.id.watched_fragment_nav).click()
-        findCardByText("Волчица и чёрный принц").isVisible()
+        navBar.watched.click()
+        findCardByText(List.WATCHED.titleRU).isVisible()
     }
 
     @Test
     fun checkWantedNavButton() {
-        findViewById(R.id.wanted_fragment_nav).click()
-        findCardByText("Крутой учитель Онидзука").isVisible()
+        navBar.wanted.click()
+        findCardByText(List.WANTED.titleRU).isVisible()
     }
 
     @Test
     fun checkUnwantedNavButton() {
-        findViewById(R.id.unwanted_fragment_nav).click()
-        findCardByText("Дневник будущего").isVisible()
+        navBar.unwanted.click()
+        findCardByText(List.UNWANTED.titleRU).isVisible()
     }
 
     @Test
     fun checkNotWatchedNavButton() {
-        findViewById(R.id.not_watched_fragment_nav).click()
-        findCardByText("Вайолет Эвергарден").isVisible()
+        navBar.notWatched.click()
+        findCardByText(List.NOT_WATCHED.titleRU).isVisible()
     }
 
     @After
