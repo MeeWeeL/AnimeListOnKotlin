@@ -2,21 +2,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/bottomsheet_rate_layout"
+    android:id="@+id/rate_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/shape_dialog"
     android:orientation="vertical">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/rateTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/rate_this_title"
-        android:textSize="28sp"
-        tools:layout_editor_absoluteX="6dp"
-        tools:layout_editor_absoluteY="10dp"
-        />
+        android:textSize="28sp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/rateButton"
@@ -28,17 +25,13 @@
         app:layout_constraintBottom_toBottomOf="@id/rateTitle"
         app:layout_constraintEnd_toEndOf="parent"
         android:paddingBottom="@dimen/_0dp"
-        android:text="@string/later"
-        tools:layout_editor_absoluteX="281dp"
-        tools:layout_editor_absoluteY="0dp" />
+        android:text="@string/later" />
 
-    <ImageButton
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/rateStar1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        tools:layout_editor_absoluteX="4dp"
-        tools:layout_editor_absoluteY="71dp"
         app:layout_constraintStart_toStartOf="@id/rateTitle"
         app:layout_constraintTop_toBottomOf="@id/rateTitle"
         android:background="@android:color/transparent"
@@ -46,55 +39,43 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         />
 
-    <ImageButton
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/rateStar2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_star2"
-        tools:layout_editor_absoluteX="66dp"
-        tools:layout_editor_absoluteY="71dp"
         app:layout_constraintStart_toEndOf="@id/rateStar1"
-        app:layout_constraintTop_toTopOf="@id/rateStar1"
         app:layout_constraintBottom_toBottomOf="@id/rateStar1"
         />
 
-    <ImageButton
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/rateStar3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_star3"
-        tools:layout_editor_absoluteX="124dp"
-        tools:layout_editor_absoluteY="71dp"
         app:layout_constraintStart_toEndOf="@id/rateStar2"
-        app:layout_constraintTop_toTopOf="@id/rateStar2"
         app:layout_constraintBottom_toBottomOf="@id/rateStar2"
         />
 
-    <ImageButton
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/rateStar4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_star4"
-        tools:layout_editor_absoluteX="187dp"
-        tools:layout_editor_absoluteY="71dp"
         app:layout_constraintStart_toEndOf="@id/rateStar3"
-        app:layout_constraintTop_toTopOf="@id/rateStar3"
         app:layout_constraintBottom_toBottomOf="@id/rateStar3"
         />
 
-    <ImageButton
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/rateStar5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_star5"
-        tools:layout_editor_absoluteX="250dp"
-        tools:layout_editor_absoluteY="71dp"
         app:layout_constraintStart_toEndOf="@id/rateStar4"
-        app:layout_constraintTop_toTopOf="@id/rateStar4"
         app:layout_constraintBottom_toBottomOf="@id/rateStar4"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

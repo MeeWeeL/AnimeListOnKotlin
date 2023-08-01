@@ -1,6 +1,7 @@
 package com.meeweel.anilist.presentation.mainFragment.adapter.viewHolders
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
@@ -28,12 +29,17 @@ class WatchedViewHolder(
 
             itemData.text = anime.data
 
-            binding.root.setOnClickListener {
+            root.setOnClickListener {
                 callback.onItemClick(anime.id)
             }
-            binding.root.setOnLongClickListener {
+            root.setOnLongClickListener {
                 callback.onLongItemClick(anime.id, it, ListState.WATCHED)
                 return@setOnLongClickListener true
+            }
+
+            if (anime.ratingCheck == 0) {
+                attention.visibility = View.VISIBLE
+                callback.changeListInWatched()
             }
         }
     }

@@ -19,8 +19,6 @@ class NewAnimeListAdapter(
 ) : ListAdapter<ShortAnime, BaseViewHolder>(DiffCallback) {
     private var originalList: List<ShortAnime>? = null
     private var filter: AnimeListFilter = AnimeListFilter()
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
             ListState.MAIN.int -> NewMainViewHolder(parent, callback)
@@ -87,6 +85,7 @@ class NewAnimeListAdapter(
         fun onItemClick(id: Int)
         fun onItemStateChange(id: Int, state: ListState)
         fun onLongItemClick(id: Int, view: View, listState: ListState)
+        fun changeListInWatched()
     }
 
     private companion object DiffCallback : DiffUtil.ItemCallback<ShortAnime>() {

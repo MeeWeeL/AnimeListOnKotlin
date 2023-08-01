@@ -4,12 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.meeweel.anilist.data.repository.RepositoryImpl
-import com.meeweel.anilist.data.retrofit.AnimeApi
-import com.meeweel.anilist.data.room.EntityDao
 import com.meeweel.anilist.domain.models.Anime
-import com.meeweel.anilist.domain.repository.Repository
-import com.meeweel.anilist.domain.useCases.GetAnimeListUseCase
 import com.meeweel.anilist.domain.useCases.GetAnimeUseCase
 import com.meeweel.anilist.domain.useCases.RateAnimeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
     private val getAnimeUseCase: GetAnimeUseCase,
-    private val rateAnimeUseCase: RateAnimeUseCase
+    private val rateAnimeUseCase: RateAnimeUseCase,
 ) : ViewModel() {
     private lateinit var currentAnime: Anime
     private var _listToObserve: MutableLiveData<AnimeState> = MutableLiveData()

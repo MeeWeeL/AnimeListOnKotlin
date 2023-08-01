@@ -120,9 +120,7 @@ class RepositoryImpl(
     }
 
     override suspend fun rateScoreRemote(score: Int, id: Int) {
-        if (remoteDataSource.rateScore(score, id)) {
-            localDataSource.updateRate(score, id)
-        }
+        if (remoteDataSource.rateScore(score, id)) localDataSource.updateRate(id, score)
     }
 
     private fun calculateRating(r1: Int, r2: Int, r3: Int, r4: Int, r5: Int): Int {
