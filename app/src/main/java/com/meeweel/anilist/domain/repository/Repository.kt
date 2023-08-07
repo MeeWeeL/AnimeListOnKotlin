@@ -1,5 +1,6 @@
 package com.meeweel.anilist.domain.repository
 
+import android.media.Rating
 import com.meeweel.anilist.data.room.Entity
 import com.meeweel.anilist.domain.models.Anime
 import com.meeweel.anilist.domain.models.ShortAnime
@@ -24,14 +25,12 @@ interface Repository {
     suspend fun getAnimeLocal(id: Int): Anime
     fun updateRateLocal(id: Int, score: Int)
     fun insertEntityLocal(entityList: List<Entity>)
-
     // Coroutines
     suspend fun getAnimeListLocal(listState: ListState): List<ShortAnime>
-
     fun getAnimeRemote(id: Int): Single<AnimeResponse>
     suspend fun getAnimeByIdRemote(id: Int): AnimeResponse
     suspend fun getAnimeListRemote(id: Int): List<AnimeResponse>
     suspend fun getQuantityRemote(): MaxIdResponse
     suspend fun getActualVersionRemote(): String
-    fun rateScoreRemote(score: Int, id: Int): Single<String>
+    suspend fun rateScoreRemote(id: Int, score: Int)
 }

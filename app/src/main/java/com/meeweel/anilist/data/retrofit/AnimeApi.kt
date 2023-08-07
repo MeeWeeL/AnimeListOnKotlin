@@ -28,5 +28,6 @@ interface AnimeApi {
     suspend fun getActualVersion(): String
 
     @GET("./api.php?q=score")
-    fun rateScore(@Query("score") score: Int, @Query("id") id: Int): Single<String>
+    @Headers("Content-type: application/json")
+    suspend fun rateScore(@Query("id") id: Int, @Query("score") score: Int): Boolean
 }

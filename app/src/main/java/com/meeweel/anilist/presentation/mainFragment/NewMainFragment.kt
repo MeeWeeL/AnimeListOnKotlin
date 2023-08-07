@@ -79,7 +79,7 @@ class NewMainFragment : Fragment(R.layout.new_fragment_main) {
             requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
         val clip = ClipData.newPlainText("TAG", text)
         clipboard.setPrimaryClip(clip)
-        Toast.makeText(context, getString(R.string.copied), Toast.LENGTH_SHORT).show() 
+        Toast.makeText(context, getString(R.string.copied), Toast.LENGTH_SHORT).show()
     }
 
     private fun showPopupMenu(animeId: Int, view: View, listState: ListState) {
@@ -117,6 +117,10 @@ class NewMainFragment : Fragment(R.layout.new_fragment_main) {
 
             override fun onLongItemClick(id: Int, view: View, listState: ListState) {
                 showPopupMenu(id, view, listState)
+            }
+
+            override fun changeListInWatched() {
+                viewModel.changeListTo(ListState.WATCHED)
             }
         })
     }

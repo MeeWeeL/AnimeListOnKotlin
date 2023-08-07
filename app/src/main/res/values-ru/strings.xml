@@ -17,7 +17,6 @@
     <string name="genre">Жанр</string>
     <string name="data">Дата релиза</string>
     <string name="age_rating">Возрастной рейтинг</string>
-    <string name="rate_this_title">Поставить оценку этому тайтлу</string>
     <string name="move_to">Переместить в</string>
     <string name="search">Поиск</string>
     <string name="sort">Сортировать</string>
@@ -38,7 +37,6 @@
     <!--  Dialog  -->
     <string name="newVersionAvailable">Доступно обновление</string>
     <string name="wannaUpdate">Перейти в Google play?</string>
-    <string name="later">Позже</string>
     <string name="yes">Да</string>
     <string name="copied">Скопировано</string>
 
@@ -58,8 +56,9 @@
     <string name="sort_by">Сортировать по: </string>
     <string name="cancel">Отмена</string>
     <string name="night_mode">Тёмная тема</string>
+    <string name="rate_this_title">Оценить</string>
+    <string name="later">Позже</string>
     <string name="zero">0</string>
-
     <!--    Content description    -->
     <string name="animeCoverBehindContentDescription">Полувидимая обложка аниме за текстом</string>
     <string name="oneStarContentDescription">Одна звезда</string>
@@ -68,4 +67,5 @@
     <string name="threeStarContentDescription">Три звезды</string>
     <string name="fourStarContentDescription">Четыре звезды</string>
     <string name="fiveStarContentDescription">Пять звезд</string>
+    <string name="tryLater">Попробуйте позже</string>
 </resources>

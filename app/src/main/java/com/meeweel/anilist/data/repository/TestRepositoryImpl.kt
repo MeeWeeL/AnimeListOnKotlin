@@ -128,8 +128,8 @@ class TestRepositoryImpl(
         return remoteDataSource.getActualVersion()
     }
 
-    override fun rateScoreRemote(score: Int, id: Int): Single<String> {
-        return remoteDataSource.rateScore(score, id)
+    override suspend fun rateScoreRemote(id: Int, score: Int) {
+        if (remoteDataSource.rateScore(id, score)) localDataSource.updateRate(id, score)
     }
 
     private fun calculateRating(r1: Int, r2: Int, r3: Int, r4: Int, r5: Int): Int {

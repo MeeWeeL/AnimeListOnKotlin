@@ -6,18 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.meeweel.anilist.R
 import com.meeweel.anilist.databinding.NewDetailsFragmentBinding
+import com.meeweel.anilist.domain.enums.ListState
 import com.meeweel.anilist.domain.models.Anime
 import com.meeweel.anilist.presentation.NewMainActivity
+import com.meeweel.anilist.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailsFragment : Fragment(R.layout.new_details_fragment) {
-    private var animeId: Int? = null
+    private val animeId: Int by lazy { requireArguments().getInt(NewMainActivity.ARG_ANIME_ID) }
     private var _binding: NewDetailsFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel: DetailsViewModel by viewModels()
@@ -33,19 +36,27 @@ class DetailsFragment : Fragment(R.layout.new_details_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        animeId = requireArguments().getInt(NewMainActivity.ARG_ANIME_ID)
-        animeId?.let { viewModel.getAnimeById(it) }
-        viewModel.listToObserve.observe(viewLifecycleOwner) {
-            when (it) {
+        animeId.let { viewModel.getAnimeById(it) }
+        viewModel.listToObserve.observe(viewLifecycleOwner) { animeState ->
+            when (animeState) {
                 is AnimeState.Success -> {
-                    val data = it.animeData
+                    val data = animeState.animeData
+                    ratingCheck(data)
                     populateData(data)
                     turnLoading(false)
                 }
 
-                is AnimeState.Error -> TODO()
-                AnimeState.Loading -> turnLoading(true)
+                is AnimeState.Loading -> turnLoading(true)
+                is AnimeState.Error -> toast(getString(R.string.tryLater))
             }
+        }
+    }
+
+    private fun ratingCheck(animeData: Anime) {
+        if (animeData.ratingCheck == 0 && animeData.list == ListState.WATCHED.int) {
+            ScoreBottomDialog(requireContext()) { rate: Int ->
+                viewModel.rateAnime(animeId, rate)
+            }.show()
         }
     }
 
@@ -53,9 +64,7 @@ class DetailsFragment : Fragment(R.layout.new_details_fragment) {
     private fun populateData(animeData: Anime) {
         val isRussian = context?.resources?.getBoolean(R.bool.isRussian) ?: false
         with(binding) {
-            Glide.with(this.animeImage.context)
-                .load(animeData.image)
-                .error(R.drawable.anig)
+            Glide.with(this.animeImage.context).load(animeData.image).error(R.drawable.anig)
                 .into(this.animeImage)
             originalTitle.text = animeData.originalTitle
             ruTitle.text = animeData.ruTitle
@@ -68,8 +77,7 @@ class DetailsFragment : Fragment(R.layout.new_details_fragment) {
             var ratingText = "${getText(R.string.rating)}: ${animeData.rating}%"
             if (animeData.ratingCheck != 0) ratingText += "\n(${getText(R.string.my_rate)}: ${animeData.ratingCheck})"
             rating.text = ratingText
-            seriesQuantity.text =
-                "${getText(R.string.seriesQuantity)}: ${animeData.seriesQuantity}"
+            seriesQuantity.text = "${getText(R.string.seriesQuantity)}: ${animeData.seriesQuantity}"
             ageRate.text = "${getText(R.string.age_rating)}: ${animeData.ageRating}+"
 
             description.viewTreeObserver.addOnGlobalLayoutListener(object :
@@ -78,10 +86,8 @@ class DetailsFragment : Fragment(R.layout.new_details_fragment) {
                     description.viewTreeObserver.removeOnGlobalLayoutListener(this)
                     descriptionImage.layoutParams.width = description.width
                     descriptionImage.layoutParams.height = description.height
-                    Glide.with(descriptionImage.context)
-                        .load(animeData.image)
-                        .error(R.drawable.anig)
-                        .into(descriptionImage)
+                    Glide.with(descriptionImage.context).load(animeData.image)
+                        .error(R.drawable.anig).into(descriptionImage)
                 }
             })
         }
