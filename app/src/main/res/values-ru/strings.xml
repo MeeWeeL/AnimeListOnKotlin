@@ -56,9 +56,8 @@
     <string name="sort_by">Сортировать по: </string>
     <string name="cancel">Отмена</string>
     <string name="night_mode">Тёмная тема</string>
-    <string name="rate_this_title">Оценить аниме</string>
+    <string name="rate_this_title">Оценить</string>
     <string name="later">Позже</string>
-    <string name="animestateerror">AnimeStateError</string>
     <string name="zero">0</string>
     <!--    Content description    -->
     <string name="animeCoverBehindContentDescription">Полувидимая обложка аниме за текстом</string>
@@ -68,4 +67,5 @@
     <string name="threeStarContentDescription">Три звезды</string>
     <string name="fourStarContentDescription">Четыре звезды</string>
     <string name="fiveStarContentDescription">Пять звезд</string>
+    <string name="tryLater">Попробуйте позже</string>
 </resources>

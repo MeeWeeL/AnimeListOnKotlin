@@ -1,6 +1,5 @@
 package com.meeweel.anilist.di
 
-import android.provider.Telephony.Mms.Rate
 import com.meeweel.anilist.domain.repository.Repository
 import com.meeweel.anilist.domain.useCases.ChangeAnimeStateUseCase
 import com.meeweel.anilist.domain.useCases.GetAnimeUseCase

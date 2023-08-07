@@ -1,11 +1,8 @@
 package com.meeweel.anilist.data.retrofit
 
 import io.reactivex.rxjava3.core.Single
-import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Headers
-import retrofit2.http.POST
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface AnimeApi {
@@ -32,5 +29,5 @@ interface AnimeApi {
 
     @GET("./api.php?q=score")
     @Headers("Content-type: application/json")
-    suspend fun rateScore(@Query("score") score: Int, @Query("id") id: Int): Boolean
+    suspend fun rateScore(@Query("id") id: Int, @Query("score") score: Int): Boolean
 }

@@ -29,8 +29,8 @@ interface Repository {
     suspend fun getAnimeListLocal(listState: ListState): List<ShortAnime>
     fun getAnimeRemote(id: Int): Single<AnimeResponse>
     suspend fun getAnimeByIdRemote(id: Int): AnimeResponse
-    suspend fun rateScoreRemote(score: Int, id: Int)
     suspend fun getAnimeListRemote(id: Int): List<AnimeResponse>
     suspend fun getQuantityRemote(): MaxIdResponse
     suspend fun getActualVersionRemote(): String
+    suspend fun rateScoreRemote(id: Int, score: Int)
 }

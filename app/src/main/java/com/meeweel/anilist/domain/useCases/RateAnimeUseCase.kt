@@ -5,9 +5,8 @@ import com.meeweel.anilist.domain.repository.Repository
 import javax.inject.Inject
 
 class RateAnimeUseCase @Inject constructor(private val repository: Repository) {
-    //operator - переопределение оператора
     suspend operator fun invoke(animeId: Int, animeRate: Int): Anime {
-        repository.rateScoreRemote(animeRate, animeId)
+        repository.rateScoreRemote(animeId, animeRate)
         return repository.getAnimeLocal(animeId)
     }
 }

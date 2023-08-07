@@ -15,6 +15,7 @@ import com.meeweel.anilist.databinding.NewDetailsFragmentBinding
 import com.meeweel.anilist.domain.enums.ListState
 import com.meeweel.anilist.domain.models.Anime
 import com.meeweel.anilist.presentation.NewMainActivity
+import com.meeweel.anilist.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -46,9 +47,7 @@ class DetailsFragment : Fragment(R.layout.new_details_fragment) {
                 }
 
                 is AnimeState.Loading -> turnLoading(true)
-                is AnimeState.Error -> Toast.makeText(
-                    context, getString(R.string.animestateerror), Toast.LENGTH_LONG
-                ).show()
+                is AnimeState.Error -> toast(getString(R.string.tryLater))
             }
         }
     }

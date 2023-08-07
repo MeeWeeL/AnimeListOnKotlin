@@ -56,10 +56,10 @@
     <string name="OK">OK</string>
     <string name="cancel">Cancel</string>
     <string name="night_mode">Night mode</string>
-    <string name="rate_this_title">Rate this title</string>
+    <string name="rate_this_title">Rate</string>
     <string name="later">Later</string>
-    <string name="animestateerror">AnimeStateError</string>
     <string name="zero">0</string>
+    <string name="tryLater">Try later</string>
     <!--    Content description    -->
     <string name="animeCoverBehindContentDescription">Semi-visible anime cover behind the text</string>
     <string name="animeCoverContentDescription">Anime cover</string>
